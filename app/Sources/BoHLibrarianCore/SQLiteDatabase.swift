@@ -44,6 +44,7 @@ private let SQLITE_TRANSIENT = unsafeBitCast(-1, to: sqlite3_destructor_type.sel
 
 public final class SQLiteDatabase {
     private var handle: OpaquePointer?
+    private var transactionDepth = 0
     public let path: String
 
     public init(path: String) throws {
@@ -164,14 +165,24 @@ public final class SQLiteDatabase {
         }
     }
 
-    /// Run `body` inside a transaction, rolling back if it throws.
-    /// Single-level only (SQLite cannot nest BEGIN).
+    /// Run `body` inside a transaction, rolling back if it throws. Re-entrant:
+    /// a nested `transaction` participates in the outer one (inner failures
+    /// bubble up and the outermost transaction rolls everything back).
     public func transaction(_ body: () throws -> Void) throws {
-        try executeScript("BEGIN IMMEDIATE;")
+        if transactionDepth > 0 {
+            transactionDepth += 1
+            defer { transactionDepth -= 1 }
+            try body()
+            return
+        }
+        transactionDepth = 1
         do {
+            try executeScript("BEGIN IMMEDIATE;")
             try body()
             try executeScript("COMMIT;")
+            transactionDepth = 0
         } catch {
+            transactionDepth = 0
             try? executeScript("ROLLBACK;")
             throw error
         }
