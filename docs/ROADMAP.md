@@ -31,13 +31,18 @@ Create `app/` exactly per `docs/GUI_PLAN.md`:
 **DoD met:** `swift build` + `swift test` green from a clean checkout; `swift run` opens the
 window. No functional UI yet.
 
-## Phase 2 — Books screen (next)
+## Phase 2 — Books screen ✅ (2026-10-05)
 
-- [ ] Books list (search, status filter, sort), detail, add/edit/delete
-- [ ] "Mark as read" sheet incl. quick-add of yielded memory; Journal entry written
-- [ ] `docs/MANUAL_TEST.md` started; checklist for this phase ticked
+- [x] Books list (search, status filter, sort), detail, add/edit/delete
+- [x] "Mark as read" sheet incl. quick-add of yielded memory; Journal entry written
+- [x] `docs/MANUAL_TEST.md` started; checklist for this phase ticked — unit-tested
+      items pre-ticked; interaction items await the first hands-on play session
 
-## Phase 3 — Memories screen
+Implementation notes: list filtering/sorting/search and journal composition live in
+Core as pure functions (tested); UI state in `BooksStore`; the record-read flow is one
+transaction. The section enum was renamed `AppSection` to un-shadow `SwiftUI.Section`.
+
+## Phase 3 — Memories screen (next)
 
 - [ ] Memory list/grid with aspect badges (Principles colors), persistent/kind markers
 - [ ] Aspect editor (add/remove principle+level), sources editor, book backlinks

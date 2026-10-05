@@ -33,17 +33,18 @@ Two goals, in priority order:
 
 ## Status snapshot (update every session)
 
-- **2026-10-05 — Phases 0 + 1 complete.** Schema v2 applied to `Boh.db` (13 principles,
-  15 languages seeded). `app/` now holds the full data layer: `SQLiteDatabase` wrapper,
-  `Migrator` (with legacy-data + sequence guards), domain models, six repositories,
-  **35 passing tests**; app shell runs via `swift run` (sidebar + status footer,
-  placeholder screens). **Next: Phase 2** — the Books screen (list, detail, add/edit,
-  mark-as-read) per `docs/ROADMAP.md`.
+- **2026-10-05 — Phases 0–2 complete.** Books screen is live: searchable/filterable/
+  sortable list, full detail view, add/edit sheets, and the record-read flow
+  (status + counters + yielded-memory quick-add + journal entry in one transaction).
+  48 tests green. **Next: Phase 3** — Memories screen (grid with aspect badges, aspect &
+  source editors, book backlinks) per `docs/ROADMAP.md`.
 
 ### Session log
 - 2026-10-05 (planning): docs, migrations, seeds, git init.
-- 2026-10-05 (Phase 1): five commits — scaffold+DB layer, migrator, models+repos, app shell,
-  docs. Test count 35. No data in `Boh.db` yet (user hasn't recorded findings).
+- 2026-10-05 (Phase 1): scaffold, SQLite layer, migrator, models, repositories, app shell;
+  35 tests.
+- 2026-10-05 (Phase 2): Books screen + record-read flow; filtering/journal logic in Core
+  (48 tests); `docs/MANUAL_TEST.md` started. No playthrough data recorded in `Boh.db` yet.
 
 ## Repository layout
 
@@ -58,6 +59,7 @@ docs/
   GAME_MECHANICS.md  <- distilled Book of Hours facts that drive the schema + sources
   ROADMAP.md         <- phases, definitions of done, current status
   DECISIONS.md       <- short log of key decisions (D1, D2, ...) with rationale
+  MANUAL_TEST.md     <- per-phase hands-on checklists for the running app
 scripts/
   migrate.sh         <- apply pending migrations to Boh.db (--status to inspect)
   dump-sql.sh        <- write a text .sql snapshot of the db into snapshots/
@@ -103,3 +105,4 @@ app/                 <- Swift package (created in Phase 1; see docs/GUI_PLAN.md)
 3. `docs/GUI_PLAN.md` — the app.
 4. `docs/ROADMAP.md` — where we are and what's next.
 5. `docs/DECISIONS.md` — why things are the way they are.
+6. `docs/MANUAL_TEST.md` — what to check by hand after UI work.
