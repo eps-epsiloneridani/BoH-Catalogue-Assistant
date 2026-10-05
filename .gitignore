@@ -1,0 +1,18 @@
+# macOS
+.DS_Store
+
+# Swift Package Manager build artifacts (app/, from Phase 1)
+.build/
+app/.build/
+
+# SQLite transient journal files (default rollback journal mode)
+Boh.db-journal
+Boh.db-wal
+Boh.db-shm
+
+# On-demand text snapshots (scripts/dump-sql.sh)
+snapshots/
+
+# Xcode cruft (shouldn't appear — no .xcodeproj by design)
+xcuserdata/
+*.xcodeproj
