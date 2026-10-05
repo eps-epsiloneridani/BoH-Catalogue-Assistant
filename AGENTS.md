@@ -33,10 +33,17 @@ Two goals, in priority order:
 
 ## Status snapshot (update every session)
 
-- **2026-10-05 — Phase 0 complete.** Plan written (docs below), schema v2 authored in
-  `db/migrations/` **and applied** to `Boh.db` (principles + languages seeded). No app code
-  exists yet. **Next: Phase 1** — Swift package scaffold + database layer + tests
-  (see `docs/ROADMAP.md`).
+- **2026-10-05 — Phases 0 + 1 complete.** Schema v2 applied to `Boh.db` (13 principles,
+  15 languages seeded). `app/` now holds the full data layer: `SQLiteDatabase` wrapper,
+  `Migrator` (with legacy-data + sequence guards), domain models, six repositories,
+  **35 passing tests**; app shell runs via `swift run` (sidebar + status footer,
+  placeholder screens). **Next: Phase 2** — the Books screen (list, detail, add/edit,
+  mark-as-read) per `docs/ROADMAP.md`.
+
+### Session log
+- 2026-10-05 (planning): docs, migrations, seeds, git init.
+- 2026-10-05 (Phase 1): five commits — scaffold+DB layer, migrator, models+repos, app shell,
+  docs. Test count 35. No data in `Boh.db` yet (user hasn't recorded findings).
 
 ## Repository layout
 
@@ -65,9 +72,10 @@ app/                 <- Swift package (created in Phase 1; see docs/GUI_PLAN.md)
 | Migration status | `scripts/migrate.sh --status` |
 | Inspect the database | `sqlite3 Boh.db` (`.tables`, `.schema Books`, `PRAGMA user_version;`) |
 | Text snapshot of the db | `scripts/dump-sql.sh` (output gitignored; for eyeballing diffs) |
-| Build the app (Phase 1+) | `cd app && swift build` |
-| Run the app (Phase 1+) | `cd app && swift run` |
-| Run tests (Phase 1+) | `cd app && swift test` |
+| Sync bundled migrations (after editing `db/migrations/`) | `scripts/sync-migrations.sh` |
+| Build the app | `cd app && swift build` |
+| Run the app | `cd app && swift run` |
+| Run tests | `cd app && swift test` |
 | Commit play-session data | `git add Boh.db && git commit -m "data: <what you recorded>"` |
 
 ## Conventions

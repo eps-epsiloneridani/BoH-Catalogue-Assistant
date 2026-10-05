@@ -12,24 +12,26 @@ file's status markers at the end of every session (see AGENTS.md ground rules).
       dropped and v2 **applied**; principles (13) and languages (15) seeded
 - [x] AGENTS.md written as the durable entry point
 
-## Phase 1 — App scaffold + database layer (next)
+## Phase 1 — App scaffold + database layer ✅ (2026-10-05)
 
 Create `app/` exactly per `docs/GUI_PLAN.md`:
-- [ ] `Package.swift` (library `BoHLibrarianCore` + executable `BoHLibrarian`, Swift 5 mode,
+- [x] `Package.swift` (library `BoHLibrarianCore` + executable `BoHLibrarian`, Swift 5 mode,
       macOS 14+), `scripts/sync-migrations.sh`
-- [ ] `SQLiteDatabase` wrapper (open/close, `execute`, `query`, binding, errors) +
+- [x] `SQLiteDatabase` wrapper (open/close, `execute`, `query`, binding, errors) +
       `Migrator` (env → repo dir → bundle; sets `foreign_keys=ON`)
-- [ ] Models + repositories for Principles, Languages, Books, Memories, Skills, Journal
+- [x] Models + repositories for Principles, Languages, Books, Memories, Skills, Journal
       (CRUD incl. junctions: MemoryAspects, MemorySources, BookLessons)
-- [ ] Tests on `:memory:`: migrations reach v3 and are idempotent; every repository CRUD;
+- [x] Tests on `:memory:`: migrations reach v3 and are idempotent; every repository CRUD;
       the two canonical Reading-Helper queries from `docs/DATABASE.md` return correct
-      candidates on fixture data
-- [ ] App runs (`swift run`) showing an empty shell window with sidebar sections
+      candidates on fixture data — **35 tests, all green**
+- [x] App runs (`swift run`) showing a shell window with sidebar sections (smoke-tested
+      against the real `Boh.db`; it opens the repo db from `app/` cwd via the `../Boh.db`
+      fallback and finds schema v3 with nothing pending)
 
-**DoD:** `swift build` + `swift test` green from a clean checkout; `swift run` opens the
-window; no functional UI yet.
+**DoD met:** `swift build` + `swift test` green from a clean checkout; `swift run` opens the
+window. No functional UI yet.
 
-## Phase 2 — Books screen
+## Phase 2 — Books screen (next)
 
 - [ ] Books list (search, status filter, sort), detail, add/edit/delete
 - [ ] "Mark as read" sheet incl. quick-add of yielded memory; Journal entry written

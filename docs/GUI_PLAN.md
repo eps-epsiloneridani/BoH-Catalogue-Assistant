@@ -46,9 +46,12 @@ source. Bundled copy guarantees a packaged app can migrate a fresh db (D5, D7).
 
 ### DB path resolution (D7)
 
-`BOH_DB_PATH` → `./Boh.db` (the normal `swift run` case) →
-`~/Library/Application Support/BoH Librarian/Boh.db` (packaged app; first run offers an
-open panel to locate the existing db or start fresh). The chosen path is shown in Settings.
+`BOH_DB_PATH` → `./Boh.db` → `../Boh.db` (covers `swift run` from repo root or from `app/`)
+→ `~/Library/Application Support/BoH Librarian/Boh.db` (packaged app; auto-created and
+migrated if absent). Migrations resolve as `BOH_MIGRATIONS` → `./db/migrations` →
+`../db/migrations` → bundled resources copy (`scripts/sync-migrations.sh` keeps the bundle
+in sync with `db/migrations/`; a test fails if they drift). The chosen path is shown in
+the app's status footer.
 
 ## Screens
 
