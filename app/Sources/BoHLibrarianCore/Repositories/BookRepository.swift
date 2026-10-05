@@ -80,6 +80,22 @@ public final class BookRepository {
         )
     }
 
+    /// Point the book at the memory it always yields (record-read flow).
+    public func setYieldedMemory(_ id: Int64, memoryID: Int64?) throws {
+        try db.execute(
+            "UPDATE Books SET yielded_memory_id = ?, updated_at = datetime('now') WHERE id = ?;",
+            [memoryID, id]
+        )
+    }
+
+    /// Record how many Lessons the book granted on its mastering read.
+    public func setLessonsCount(_ id: Int64, lessons: Int?) throws {
+        try db.execute(
+            "UPDATE Books SET lessons = ?, updated_at = datetime('now') WHERE id = ?;",
+            [lessons, id]
+        )
+    }
+
     // MARK: Lessons junction
 
     public func lessons(forBook bookID: Int64) throws -> [BookLessonsEntry] {

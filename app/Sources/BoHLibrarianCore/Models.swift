@@ -24,6 +24,17 @@ public enum ReadStatus: String, CaseIterable {
 public enum Contamination: String, CaseIterable {
     case clear = "none"
     case curse, theoplasmic, infestation, corruption
+
+    /// Title-case label for pickers and detail rows.
+    public var displayName: String {
+        switch self {
+        case .clear: "None"
+        case .curse: "Curse"
+        case .theoplasmic: "Theoplasm"
+        case .infestation: "Infestation"
+        case .corruption: "Corruption"
+        }
+    }
 }
 
 /// How a memory can be obtained (docs/DATABASE.md §value sets).

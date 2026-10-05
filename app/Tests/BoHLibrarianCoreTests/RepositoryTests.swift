@@ -213,6 +213,23 @@ final class RepositoryTests: XCTestCase {
         XCTAssertEqual(titles, ["A Light in the Inkwell", "Gospel of Nicodemus"])
     }
 
+    func testSetYieldedMemoryAndLessonsCount() throws {
+        let memory = try memories.insert(MemoryDraft(name: "Occult Scrap", kind: .memory, persistent: true))
+        let book = try books.insert(BookDraft(title: "Yellowing Newspaper"))
+
+        try books.setYieldedMemory(book.id, memoryID: memory.id)
+        try books.setLessonsCount(book.id, lessons: 2)
+        var reloaded = try books.get(book.id)
+        XCTAssertEqual(reloaded?.yieldedMemoryID, memory.id)
+        XCTAssertEqual(reloaded?.lessons, 2)
+
+        try books.setYieldedMemory(book.id, memoryID: nil)
+        try books.setLessonsCount(book.id, lessons: nil)
+        reloaded = try books.get(book.id)
+        XCTAssertNil(reloaded?.yieldedMemoryID)
+        XCTAssertNil(reloaded?.lessons)
+    }
+
     func testBookLessonsJunctionCascades() throws {
         let sky = try principle("Sky").id
         let heart = try principle("Heart").id
