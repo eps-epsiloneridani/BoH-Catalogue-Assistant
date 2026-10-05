@@ -21,13 +21,13 @@ struct RootView: View {
 
     private var mainContent: some View {
         // List selection on macOS is Optional-valued; map nil (deselect) to "keep current".
-        let selection = Binding<Section?>(
+        let selection = Binding<AppSection?>(
             get: { appState.section },
             set: { if let section = $0 { appState.section = section } }
         )
         return NavigationSplitView {
             List(selection: selection) {
-                ForEach(Section.allCases) { section in
+                ForEach(AppSection.allCases) { section in
                     Label(section.title, systemImage: section.systemImage)
                         .tag(section)
                 }
@@ -42,7 +42,7 @@ struct RootView: View {
 
 // MARK: - Sections
 
-enum Section: Int, CaseIterable, Identifiable {
+enum AppSection: Int, CaseIterable, Identifiable {
     case books = 1
     case memories = 2
     case skills = 3
@@ -85,7 +85,7 @@ enum Section: Int, CaseIterable, Identifiable {
 // MARK: - Detail + footer
 
 private struct DetailView: View {
-    let section: Section
+    let section: AppSection
     let appState: AppState
 
     var body: some View {
@@ -118,7 +118,7 @@ private struct DetailView: View {
 }
 
 private struct SectionPlaceholder: View {
-    let section: Section
+    let section: AppSection
 
     var body: some View {
         ContentUnavailableView {

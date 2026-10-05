@@ -14,7 +14,7 @@ struct BoHLibrarianApp: App {
         .windowToolbarStyle(.unified)
         .commands {
             CommandMenu("Go") {
-                ForEach(Section.allCases) { section in
+                ForEach(AppSection.allCases) { section in
                     Button("Go to \(section.title)") {
                         appState.section = section
                     }

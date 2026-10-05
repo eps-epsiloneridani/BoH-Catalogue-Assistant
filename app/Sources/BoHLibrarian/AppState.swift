@@ -14,7 +14,11 @@ final class AppState {
     }
 
     private(set) var phase: Phase = .loading
-    var section: Section = .books
+    var section: AppSection = .books
+
+    /// Free text for “which in-game day is it” — pre-fills journal entries and the
+    /// record-read sheet; kept for the whole session.
+    var currentGameDay = ""
 
     private(set) var db: SQLiteDatabase?
     private(set) var dbPath: String = ""
@@ -25,6 +29,7 @@ final class AppState {
     private(set) var memoryCount: Int = 0
     private(set) var skillCount: Int = 0
     private(set) var journalCount: Int = 0
+    private(set) var booksStore: BooksStore?
 
     init() {
         bootstrap()
@@ -46,6 +51,7 @@ final class AppState {
             memoryCount = try database.scalarInt("SELECT COUNT(*) FROM Memories;")
             skillCount = try database.scalarInt("SELECT COUNT(*) FROM Skills;")
             journalCount = try database.scalarInt("SELECT COUNT(*) FROM Journal;")
+            booksStore = BooksStore(db: database)
             phase = .ready
         } catch {
             phase = .failed(String(describing: error))
