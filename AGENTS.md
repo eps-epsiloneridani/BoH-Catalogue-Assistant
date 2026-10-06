@@ -34,7 +34,7 @@ Two goals, in priority order:
 ## Status snapshot (update every session)
 
 - **2026-10-06 — PARKED (Phases 0–5 + packaging) with user-requested additions shipped.**
-  Build + 94 tests pass from a clean checkout; `Boh.db` at schema v7 with an empty
+  Build + 95 tests pass from a clean checkout; `Boh.db` at schema v7 with an empty
   "First playthrough" loaded; tree clean. All roadmap screens live (Books, Memories,
   Reading Helper, Skills, Journal) plus **playthroughs**, **difficulty**, **save
   import** (Manage Playthroughs → "Import from Save…"; see `docs/SAVE_IMPORT.md`),
@@ -230,7 +230,7 @@ app/                 <- the Swift package (see docs/GUI_PLAN.md for the as-built
                                  repositories, pure query/math helpers, bundled migrations
   Sources/BoHLibrarian/        <- SwiftUI app: AppState (playthroughs, store wiring),
                                  RootView (routing), Stores/ (per-screen state), Views/
-  Tests/BoHLibrarianCoreTests/ <- 94 tests on :memory: databases
+  Tests/BoHLibrarianCoreTests/ <- 95 tests on :memory: databases
 ```
 
 ## Everyday commands

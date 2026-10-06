@@ -68,6 +68,26 @@ public final class MemoryRepository {
         try setAspects(id, draft.aspects)
         return try get(id)!
     }
+
+    /// Insert `draft`, unless a memory of the same (name, kind) already exists in
+    /// this playthrough — game entities are unique per playthrough (006), and the
+    /// save import seeds hidden (unearned) memories that a later record-read will
+    /// legitimately re-create by hand: reusing it links the existing row rather
+    /// than failing the whole read. Returns the memory with its aspects.
+    public func insertOrReuse(_ draft: MemoryDraft) throws -> Memory {
+        if let existing = try db.query(
+            """
+            SELECT id FROM Memories
+            WHERE playthrough_id = ? AND kind = ? AND LOWER(name) = LOWER(?)
+            LIMIT 1;
+            """,
+            [playthroughID, draft.kind.rawValue, draft.name],
+            map: { try $0.requireInt64("id") }
+        ).first {
+            return try get(existing)!
+        }
+        return try insert(draft)
+    }
     public func update(_ memory: Memory) throws {
         try db.transaction {
             try db.execute(

@@ -172,7 +172,10 @@ final class BooksStore {
     @discardableResult
     func createMemory(_ draft: MemoryDraft) -> Memory? {
         do {
-            return try memoryRepo.insert(draft)
+            // insertOrReuse: an imported (hidden) memory of the same name+kind is
+            // the same game entity — reusing it earns it via this read instead of
+            // failing on the per-playthrough (name, kind) uniqueness.
+            return try memoryRepo.insertOrReuse(draft)
         } catch {
             lastError = "Creating memory failed: \(error)"
             return nil

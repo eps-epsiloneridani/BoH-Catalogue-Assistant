@@ -251,6 +251,28 @@ final class RepositoryTests: XCTestCase {
         XCTAssertEqual(try memories.all().count, 3)
     }
 
+    /// Quick-add from a read reuses same-(name,kind) memories (import seeds hidden
+    /// yields that the record-read flow legitimately "re-creates") instead of
+    /// failing on the per-playthrough uniqueness; different kind inserts fine.
+    func testInsertOrReuseMatchesNameAndKindCaseInsensitively() throws {
+        let existing = try memories.insert(MemoryDraft(name: "Memory: Salt", kind: .memory, persistent: false))
+        try memories.setAspects(existing.id, [AspectDraft(principleID: try principle("Moon").id, level: 1)])
+
+        let reuse = try memories.insertOrReuse(
+            MemoryDraft(name: "memory: salt", kind: .memory, persistent: true))
+        XCTAssertEqual(reuse.id, existing.id, "reused, not re-created")
+        XCTAssertEqual(try memories.all().count, 1)
+        XCTAssertEqual(try memories.allKnown().first?.persistent, false, "the stored row wins")
+
+        let other = try memories.insertOrReuse(
+            MemoryDraft(name: "Memory: Salt", kind: .weather, persistent: true))
+        XCTAssertNotEqual(other.id, existing.id, "kind differs — new row (006 allows)")
+        XCTAssertEqual(try memories.all().count, 2)
+
+        let fresh = try memories.insertOrReuse(MemoryDraft(name: "Brand New", kind: .memory, persistent: false))
+        XCTAssertEqual(fresh.name, "Brand New", "no match — plain insert")
+    }
+
     /// Reading Helper candidates: aspect-bearing memories whose yielding books are
     /// all unmastered must not appear as usable candidates (you can't spend what
     /// you don't have); mastering a yielding book flips the memory into the list.
