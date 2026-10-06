@@ -33,18 +33,22 @@ Two goals, in priority order:
 
 ## Status snapshot (update every session)
 
-- **2026-10-05 — Phases 0–2 complete.** Books screen is live: searchable/filterable/
-  sortable list, full detail view, add/edit sheets, and the record-read flow
-  (status + counters + yielded-memory quick-add + journal entry in one transaction).
-  48 tests green. **Next: Phase 3** — Memories screen (grid with aspect badges, aspect &
-  source editors, book backlinks) per `docs/ROADMAP.md`.
+- **2026-10-05 — Phases 0–3 complete.** Books *and* Memories screens live (see the
+  routing-fix note in MANUAL_TEST): full CRUD, inline aspect editing, sources,
+  book↔memory backlinks, record-read flow. 58 tests green. **Next: Phase 4** —
+  Reading Helper (pick a book → live candidate lists from the canonical queries →
+  one-flow record read) per `docs/ROADMAP.md`.
 
 ### Session log
 - 2026-10-05 (planning): docs, migrations, seeds, git init.
 - 2026-10-05 (Phase 1): scaffold, SQLite layer, migrator, models, repositories, app shell;
   35 tests.
 - 2026-10-05 (Phase 2): Books screen + record-read flow; filtering/journal logic in Core
-  (48 tests); `docs/MANUAL_TEST.md` started. No playthrough data recorded in `Boh.db` yet.
+  (48 tests); `docs/MANUAL_TEST.md` started.
+- 2026-10-05 (Phase 3): Memories screen (58 tests); shared `AspectEditor`; **fixed**: the
+  Phase 2 routing edit had never applied, so Books screen was unreachable until now —
+  routing now grep-verified after every wiring change.
+- No playthrough data recorded in `Boh.db` yet.
 
 ## Repository layout
 
@@ -94,6 +98,9 @@ app/                 <- Swift package (created in Phase 1; see docs/GUI_PLAN.md)
   entry (SQLite CHECKs deliberately minimal so value sets can grow without table rebuilds).
 - **Commits:** small, described imperatively. Always include doc updates with the change they
   describe. Commit `Boh.db` freely — that's the versioning story for playthrough data.
+- **Verify wiring, not just builds:** after routing a screen or connecting a flow, grep the
+  call site and smoke-run — Phase 2 shipped a fully-tested but *unreachable* screen for
+  exactly one session because an edit call failed silently and the build still passed.
 - **Game knowledge:** `docs/GAME_MECHANICS.md` is the distilled reference (with sources and
   open questions). If play reveals a mechanic differently than documented, fix the doc first,
   then adjust schema/UI to match.

@@ -42,12 +42,19 @@ Implementation notes: list filtering/sorting/search and journal composition live
 Core as pure functions (tested); UI state in `BooksStore`; the record-read flow is one
 transaction. The section enum was renamed `AppSection` to un-shadow `SwiftUI.Section`.
 
-## Phase 3 — Memories screen (next)
+## Phase 3 — Memories screen ✅ (2026-10-05)
 
-- [ ] Memory list/grid with aspect badges (Principles colors), persistent/kind markers
-- [ ] Aspect editor (add/remove principle+level), sources editor, book backlinks
+- [x] Memory list/grid with aspect badges (Principles colors), persistent/kind markers
+- [x] Aspect editor (add/remove principle+level), sources editor, book backlinks
 
-## Phase 4 — Reading Helper
+Implementation notes: list implemented as list+detail split (same pattern as Books;
+the grid variant can be a later toolbar toggle if wanted). List logic is a pure,
+tested function (`MemoryFiltering`). Backlinks support manual link/unlink via
+`Books.yielded_memory_id`. **Carried fix:** the Phase 2 routing edit had silently
+never applied — Books/Memories screens were both wired up properly this phase
+(see MANUAL_TEST note).
+
+## Phase 4 — Reading Helper (next)
 
 - [ ] Book picker → requirement panel (mystery, language-known hint, contamination, kind)
 - [ ] Live candidate lists (memories ≥ level; skills with computed contribution)
