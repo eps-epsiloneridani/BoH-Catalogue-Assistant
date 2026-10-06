@@ -65,7 +65,7 @@ The db was **empty** when migration 001 dropped the legacy tables (D8).
 | `location` | free text: room / shelf / "Oriflamme's" |
 | `times_read`, `first_read_at`, `last_read_at` | read history |
 | `lessons` | total Lessons granted on first read (1–3) |
-| `yielded_memory_id` | FK → Memories: the memory this book always gives |
+| `yielded_memory_id` | FK → Memories: the memory this book always gives. Import and record-read stamp it even on unread books; **display** of "books that yield this" backlinks is mastered-only (UI spoiler policy — the player sees a book's yield once they've earned it) |
 
 - **`BookLessons`** (junction): which skills' lessons the book teaches (`book_id × skill_id`,
   `amount` for ×2/×3). Optional detail beyond `Books.lessons`.

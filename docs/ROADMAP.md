@@ -161,6 +161,13 @@ immediate. ⌘⇧J jumps to the journal and focuses quick-add.
       copy of the live Application Support db: 82 flips, scroll/manual rows intact,
       integrity + FK checks clean. Tests: fixture mapping (codex/book, record,
       scroll), 007 unit proof, live-import kind regression. 87 tests green.
+      **Verified by the user** (relaunch applied 007; MANUAL_TEST items ticked).
+- [x] **Memory backlinks mastered-only (spoiler posture).** ✅ (2026-10-06, user
+      request) "Books that yield this" on a memory displayed every book carrying a
+      `yielded_memory_id` link — including recorded-but-unread books whose yields the
+      import had already stamped. Now the display covers only books the player has
+      mastered; the data link is untouched and the backlink appears at mastery
+      (test drives both directions). "Link a book…" unchanged. 87 tests green.
 
 ## Later / optional (only on request)
 

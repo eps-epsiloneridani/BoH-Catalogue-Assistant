@@ -210,13 +210,14 @@ during your first play session with that build.
 - [x] Re-import is a no-op on kinds: the fill-empty upsert never writes `book_kind`
 
 ### Needs hands — tick on your next launch
-- [ ] Relaunch the app (the packaged one: rebuild `dist` from this commit first) —
-      the app migrates its Application Support db v6 → v7 on launch
-- [ ] Books screen: the books you imported (Journal of Thomas Dewulf, De Ratio
+- [x] Relaunch the app (the packaged one: rebuild `dist` from this commit first) —
+      the app migrates its Application Support db v6 → v7 on launch (verified in-db:
+      v7, 82 books / 2 scrolls / 0 stale 'record' rows)
+- [x] Books screen: the books you imported (Journal of Thomas Dewulf, De Ratio
       Quercuum, …) no longer show "Record" badges; the two phonograph records
       (A Tower Rises, An Investigation of A Foundered Country) still do; the scrolls
       (both Tantras) still show "Scroll"
-- [ ] Switch playthroughs — both imported playthroughs read cleanly, lists intact
+- [x] Switch playthroughs — both imported playthroughs read cleanly, lists intact
 
 ## Packaged app (2026-10-06)
 
@@ -247,3 +248,15 @@ letting it live in Application Support.
 
 Use this space for anything noticed while testing (oddities, papercuts, ideas):
 <!-- e.g. 2026-10-05: record-read sheet should probably remember the last used game day… -->
+
+## Memory backlinks mastered-only (2026-10-06, user request)
+
+### Verified automatically (unit tests — `swift test`, 87 green)
+- [x] `MemoryRepository.booksYielding` returns only `mastered` books; a
+      recorded-but-unread book silently gains backlink visibility at mastery
+      (link survives, reappears — tested both ways)
+
+### Needs hands
+- [ ] After the next dist rebuild + /Applications swap: a memory you gained from a
+      book — its Books-that-yield-this list shows that book; a memory linked to an
+      unread book (e.g. via import) does not list it

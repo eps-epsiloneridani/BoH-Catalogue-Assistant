@@ -141,12 +141,17 @@ public final class MemoryRepository {
         }
     }
 
-    /// Books that yield this memory when read.
+    /// Books that yield this memory when read — displayed backlinks only cover
+    /// books the player has mastered. A recorded-but-unread book still carries its
+    /// yield (import/record-read data, links survive), but until the player has
+    /// actually mastered it, naming its yield is a spoiler (docs/DATABASE.md,
+    /// D6's spirit: the UI shows what the player knows, from their own play).
     public func booksYielding(_ memoryID: Int64) throws -> [BookRef] {
         try db.query(
             """
             SELECT id, title FROM Books
             WHERE playthrough_id = ? AND yielded_memory_id = ?
+              AND read_status = 'mastered'
             ORDER BY title;
             """,
             [playthroughID, memoryID]

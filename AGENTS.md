@@ -41,8 +41,8 @@ Two goals, in priority order:
   and a **packaged app**: `scripts/make-app.sh` → `dist/BoH Librarian.app`, smoke-
   tested Finder-style (bundled-migrations fallback proven). The packaged app keeps
   its own db in `~/Library/Application Support/BoH Librarian/` (D7) — the user's
-  live copy is data-bearing (2 imported playthroughs + manual entries) at v6 until
-  the next launch applies 007 (kind repair; verified on a copy: see session log).
+  live copy is data-bearing (2 imported playthroughs + manual entries), migrated to
+  v7 by the user's 2026-10-06 relaunch (verified in-db; MANUAL_TEST items ticked).
   Bug triage pass 1 (2026-10-06, same day): two user-reported issues fixed — the
   journal's new-entry button was dead on an empty journal (c4cbfae), and save import
   into a second playthrough hit a 001-era table-global `Skills.name` UNIQUE
@@ -139,6 +139,16 @@ Two goals, in priority order:
   phonograph records untouched; integrity/FK clean; user's db applies it on next
   launch); dist rebuilt with the synced migration. 87 tests green (87 = 86 +
   mapping-coverage fixture + 007 data-repair proof).
+- 2026-10-06 (007 verified + memory backlinks mastered-only, user request): the
+  user's relaunched app applied 007 (live db at v7; 82 mis-stamped rows now 'book',
+  both scrolls and the two genuine phonograph records intact; MANUAL_TEST items
+  ticked). Policy refinement of the spoiler posture (D6's spirit): "Books that yield
+  this" on a memory now displays only books the player has *mastered* — import and
+  record-read still stamp `yielded_memory_id` on unread books (the data keeps the
+  link, backlinks just don't reveal a yield the player hasn't earned). The link
+  becomes visible at mastery (both ways tested). "Link a book…" still offers all
+  books; note for the user: a manual link to a not-yet-mastered book stays hidden
+  until they master it.
 - 2026-10-06 (anonymization + cold-start consolidation, user-requested): all docs,
   logs, code comments, test comments and the save-preview script scrubbed of
   personal name/home-path references ("the user" throughout; hardcoded /Users/…

@@ -209,12 +209,19 @@ final class RepositoryTests: XCTestCase {
 
     func testBooksYieldingBacklink() throws {
         let memory = try memories.insert(MemoryDraft(name: "Memory: Revelation", kind: .memory, persistent: false))
-        try books.insert(BookDraft(title: "Gospel of Nicodemus", yieldedMemoryID: memory.id))
-        try books.insert(BookDraft(title: "A Light in the Inkwell", yieldedMemoryID: memory.id))
+        let mastered = try books.insert(BookDraft(title: "Gospel of Nicodemus", yieldedMemoryID: memory.id))
+        let unread = try books.insert(BookDraft(title: "A Light in the Inkwell", yieldedMemoryID: memory.id))
         try books.insert(BookDraft(title: "Sunrise Awakenings", yieldedMemoryID: nil))
+        try books.updateReadStatus(mastered.id, .mastered)
 
-        let titles = try memories.booksYielding(memory.id).map(\.title)
-        XCTAssertEqual(titles, ["A Light in the Inkwell", "Gospel of Nicodemus"])
+        // Spoiler policy: only books the player has mastered are displayed backlinks —
+        // the recorded-but-unread book keeps its link privately.
+        XCTAssertEqual(try memories.booksYielding(memory.id).map(\.title), ["Gospel of Nicodemus"])
+
+        // Once the player masters the unread book, its yield becomes theirs to see.
+        try books.updateReadStatus(unread.id, .mastered)
+        XCTAssertEqual(try memories.booksYielding(memory.id).map(\.title),
+                       ["A Light in the Inkwell", "Gospel of Nicodemus"])
     }
 
     func testSetYieldedMemoryAndLessonsCount() throws {
