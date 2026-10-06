@@ -62,6 +62,9 @@ during your first play session with that build.
 ### Needs hands — tick during your next session with the app
 - [ ] Sidebar → Memories: list shows recorded memories with colored aspect badges;
       weather has a cloud icon, numina a star, persistent an orange ∞
+- [x] Memory detail pane displays aspects READ-ONLY (as badges, no pickers/
+      steppers/dropdowns — user report 2026-10-06: the pane embedded the editor);
+      changes persist via the Edit… sheet instead
 - [ ] Add Memory (⌘N): sheet with name/kind/persistent/aspects; Save disabled without
       a name; rows without a principle are skipped on save
 - [ ] Principle + level menus filter the list live; sort menu changes the order

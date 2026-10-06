@@ -110,10 +110,6 @@ final class MemoriesStore {
     }
 
     /// Replace all aspects (persisted immediately when editing inline).
-    func setAspects(_ memoryID: Int64, _ aspects: [AspectDraft]) {
-        perform("Saving aspects") { try repo.setAspects(memoryID, aspects) }
-    }
-
     // MARK: Sources
 
     func sources(for memoryID: Int64) -> [MemorySource] {

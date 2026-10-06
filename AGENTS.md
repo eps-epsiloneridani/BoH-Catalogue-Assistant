@@ -224,6 +224,13 @@ Two goals, in priority order:
   case-insensitive) is the same game entity: reuse, and the read earns it; a
   different kind inserts. 95 tests green.
 
+- 2026-10-06 (memory detail pane is display-only, user manual-test report): the
+  pane embedded the full inline AspectEditor (pickers/steppers/remove rows) that
+  looked editable without a save; its per-change persistence path existed but the
+  affordance was wrong for a record view. The detail pane now renders aspects as
+  PrincipleBadges (read-only, AA text + combined VO semantics for free); editing is
+  the Edit… sheet's job (MemoryFormView's AspectEditor + save-path verified);
+  the dead inline-editor state + MemoriesStore.setAspects removed. 96 tests green.
 - 2026-10-06 (record-read toggle defaults ON, user request): after the form-master
   change the gap-fill flow exposed a rough default — MarkAsReadSheet seeded the
   "Mastering read" toggle OFF for already-mastered books (it was ON only when the
