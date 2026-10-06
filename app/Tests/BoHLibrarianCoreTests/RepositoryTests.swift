@@ -224,6 +224,33 @@ final class RepositoryTests: XCTestCase {
                        ["A Light in the Inkwell", "Gospel of Nicodemus"])
     }
 
+    /// Earned-only list: a memory is visible when it has no yield links (player-made)
+    /// or a mastered yielding book; imports carry yields of unmastered books that must
+    /// stay out of the list while remaining in the table for lookups.
+    func testAllKnownHidesUnearnedYieldMemories() throws {
+        let earned = try memories.insert(MemoryDraft(name: "Memory: Revelation", kind: .memory, persistent: false))
+        let handMade = try memories.insert(MemoryDraft(name: "Weather: Drizzle", kind: .weather, persistent: false))
+        let unearned = try memories.insert(MemoryDraft(name: "Numen: a Final Understanding", kind: .numen, persistent: true))
+        _ = try books.insert(BookDraft(title: "Gospel of Nicodemus", yieldedMemoryID: earned.id))
+        let masteredBook = try books.insert(BookDraft(title: "A Light in the Inkwell", yieldedMemoryID: earned.id))
+        try books.updateReadStatus(masteredBook.id, .mastered)
+        _ = try books.insert(BookDraft(title: "The Carbonek Schism", yieldedMemoryID: unearned.id))
+
+        let known = try memories.allKnown().map(\.name)
+        XCTAssertTrue(known.contains("Memory: Revelation"),
+                      "a mastered yielding link earns visibility even with unmastered links")
+        XCTAssertTrue(known.contains("Weather: Drizzle"), "no yield links = player-created")
+        XCTAssertFalse(known.contains("Numen: a Final Understanding"),
+                       "only unmastered yielding books = not yet known")
+
+        // Earning it flips it into the list; the table keeps all rows for lookups.
+        let bookID = try db.scalarInt(
+            "SELECT id FROM Books WHERE title = 'The Carbonek Schism';")
+        try books.updateReadStatus(Int64(bookID), .mastered)
+        XCTAssertTrue(try memories.allKnown().map(\.name).contains("Numen: a Final Understanding"))
+        XCTAssertEqual(try memories.all().count, 3)
+    }
+
     func testSetYieldedMemoryAndLessonsCount() throws {
         let memory = try memories.insert(MemoryDraft(name: "Occult Scrap", kind: .memory, persistent: true))
         let book = try books.insert(BookDraft(title: "Yellowing Newspaper"))

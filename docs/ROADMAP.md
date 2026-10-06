@@ -177,6 +177,14 @@ immediate. ⌘⇧J jumps to the journal and focuses quick-add.
       crafted elements, every icon-only control labelled or hidden (28 sites). D12
       records the posture; MANUAL_TEST gains a VoiceOver/Dynamic-Type checklist.
       92 tests green.
+- [x] **Earned-only memory list (spoiler posture, part 2).** ✅ (2026-10-06, user
+      request) the import seeds a memory per imported book's yield, so the
+      Memories list revealed names/traits of unearned memories.
+      `MemoryRepository.allKnown()` filters the list (and footer count) to
+      hand-created memories and those with a mastered yielding book; the table
+      itself keeps everything (pickers/dedupe need it). 93 tests green. Open
+      follow-up flagged: ReadingHelper exposes the same info (unearned aspect
+      candidates and 'Always yields' names) — awaiting direction.
 
 ## Later / optional (only on request)
 

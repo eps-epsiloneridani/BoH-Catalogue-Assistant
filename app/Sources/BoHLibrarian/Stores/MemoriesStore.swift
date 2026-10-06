@@ -53,7 +53,9 @@ final class MemoriesStore {
 
     func reload() {
         do {
-            memories = try repo.all()
+            // Earned memories only — imports carry yields of unmastered books that
+            // the player can't know yet; all() stays all-inclusive for pickers.
+            memories = try repo.allKnown()
             booksForLinking = try bookRepo.all().map { BookRef(id: $0.id, title: $0.title) }
         } catch {
             lastError = "\(error)"

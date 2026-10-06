@@ -34,7 +34,7 @@ Two goals, in priority order:
 ## Status snapshot (update every session)
 
 - **2026-10-06 — PARKED (Phases 0–5 + packaging) with user-requested additions shipped.**
-  Build + 92 tests pass from a clean checkout; `Boh.db` at schema v7 with an empty
+  Build + 93 tests pass from a clean checkout; `Boh.db` at schema v7 with an empty
   "First playthrough" loaded; tree clean. All roadmap screens live (Books, Memories,
   Reading Helper, Skills, Journal) plus **playthroughs**, **difficulty**, **save
   import** (Manage Playthroughs → "Import from Save…"; see `docs/SAVE_IMPORT.md`),
@@ -153,6 +153,16 @@ Two goals, in priority order:
   home path (import-save-preview.py) — HEAD is clean but git history is not;
   history rewritten 2026-10-06 (filter-branch, 1:1 across all 36 commits; doc
   hash references remapped; backup bundle + refs/original purged after).**
+- 2026-10-06 (earned-only memory list, user request): the save import creates a
+  memory (with aspects) for every imported book's yield — so the Memories list
+  showed names/traits the player hadn't earned. Now `MemoryRepository.allKnown()`
+  drives the list (and the footer count through the store): visible = no yield
+  links (hand-created) OR ≥1 mastered yielding book; `all()` stays all-inclusive
+  for record-read pickers and import dedupe. Visibility flips at mastery (tested
+  all branches). **Deliberately NOT changed (flagged): ReadingHelper still lists
+  unearned memories as aspect-candidates and reveals 'Always yields' names for
+  unmastered imported books — same leak class, different screen, awaiting
+  direction.** 93 tests green.
 - 2026-10-06 (accessibility pass, user request): assessment + fixes. Assessment:
   semantic fonts/motion-free/native controls = solid; zero a11y modifiers anywhere;
   computed WCAG contrast — **all 13 principle badges fail AA in ≥1 mode** (tint-as-text;
@@ -205,7 +215,7 @@ app/                 <- the Swift package (see docs/GUI_PLAN.md for the as-built
                                  repositories, pure query/math helpers, bundled migrations
   Sources/BoHLibrarian/        <- SwiftUI app: AppState (playthroughs, store wiring),
                                  RootView (routing), Stores/ (per-screen state), Views/
-  Tests/BoHLibrarianCoreTests/ <- 92 tests on :memory: databases
+  Tests/BoHLibrarianCoreTests/ <- 93 tests on :memory: databases
 ```
 
 ## Everyday commands

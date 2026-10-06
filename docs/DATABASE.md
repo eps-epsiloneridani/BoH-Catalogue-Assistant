@@ -40,7 +40,7 @@ The db was **empty** when migration 001 dropped the legacy tables (D8).
 
 | column | notes |
 |---|---|
-| `name`, `kind` | kind ∈ `memory` \| `weather` \| `numen` (documented set; UNIQUE (name, kind, **playthrough_id**) — a Weather and a Memory may share a name, e.g. "Storm"; the same name is allowed across playthroughs) |
+| `name`, `kind` | kind ∈ `memory` \| `weather` \| `numen` (documented set; UNIQUE (name, kind, **playthrough_id**) — a Weather and a Memory may share a name, e.g. "Storm"; the same name is allowed across playthroughs) | **Display: earned-only** — the Memories list shows hand-created memories and those with a mastered yielding book; imports keep unearned yields in the table for lookups but the list hides them (spoiler posture, D6/D12)
 | `persistent` | 1 = survives dawn (still wiped by Numa) |
 | `notes` | free text |
 
