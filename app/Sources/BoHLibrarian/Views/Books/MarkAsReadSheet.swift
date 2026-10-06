@@ -19,7 +19,10 @@ struct MarkAsReadSheet: View {
         case newMemory
     }
 
-    @State private var mastering: Bool
+    /// Mastering read defaults ON (user request): the common gap-fill case — a
+    /// book mastered from the form, recording the memory it yielded — is a
+    /// mastering read in spirit; flip off deliberately for a pure re-read.
+    @State private var mastering = true
     @State private var usedMemoryID: Int64?
     @State private var gainedChoice: Gained = .none
     @State private var gainedExistingID: Int64?
@@ -41,7 +44,6 @@ struct MarkAsReadSheet: View {
     init(book: Book, store: BooksStore, preselectedMemoryID: Int64? = nil) {
         self.book = book
         self.store = store
-        _mastering = State(initialValue: book.readStatus != .mastered)
         // Reading Helper flows can open this sheet with the chosen memory in hand.
         _usedMemoryID = State(initialValue: preselectedMemoryID)
     }

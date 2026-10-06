@@ -35,8 +35,9 @@ during your first play session with that build.
 - [ ] Language "known" hint: native languages show a green check; an exotic
       language (e.g. Fucine) shows orange until you record learning it (Phase 5)
 - [ ] Status segmented control updates instantly and survives app relaunch
-- [ ] Record read…: sheet on an uncatalogued book defaults to "Mastering read",
-      on a mastered book says "recording a re-read"
+- [x] Record read…: the "Mastering read" toggle defaults ON for every book —
+      including mastered-from-form gap-fills (user request 2026-10-06); flip off
+      deliberately for a pure re-read of an already-mastered book
 - [ ] Record read with "New memory…": name + aspects create the memory, the book
       links to it, and the Journal entry reads
       `Mastered “…” … Memory gained: …`

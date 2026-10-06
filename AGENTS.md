@@ -224,6 +224,13 @@ Two goals, in priority order:
   case-insensitive) is the same game entity: reuse, and the read earns it; a
   different kind inserts. 95 tests green.
 
+- 2026-10-06 (record-read toggle defaults ON, user request): after the form-master
+  change the gap-fill flow exposed a rough default — MarkAsReadSheet seeded the
+  "Mastering read" toggle OFF for already-mastered books (it was ON only when the
+  book wasn't mastered yet). Now it defaults ON for every book: opening record-read
+  on a mastered-from-form book presents as the mastering read (lessons picker
+  visible; journal line "Mastered…"); a pure re-read is a deliberate flip-off.
+  UI-only change; no Core logic moved.
 - 2026-10-06 (form master counts as a read, user request): creating/editing a book
   with read status mastered wrote only the status text — no counter, no journal,
   yield unearned. Correct model (a player can catalogue a low-level mystery and
