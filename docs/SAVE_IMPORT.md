@@ -1,9 +1,18 @@
-# Populating from a Book of Hours save (feasibility confirmed)
+# Populating from a Book of Hours save — IMPLEMENTED (2026-10-06)
 
-**Verdict: yes — fully feasible.** Investigated 2026-10-06 against the installed game
-(Steam, v2026.1.f.3) and the user's live save; proven end-to-end by
-`scripts/import-save-preview.py`, which reads the save and prints the library as
-BoH Librarian schema rows (read-only, nothing it touches but stdout).
+**Status: shipped.** Entry point: the Manage Playthroughs sheet → "Import from Save…",
+which lists save games from the standard install path and imports into a new or the
+current playthrough. Core implementation: `app/Sources/BoHLibrarianCore/SaveImport.swift`
+(`SaveScanner`, `SaveImporter`, lenient-JSON parser); UI:
+`app/Sources/BoHLibrarian/Views/Playthroughs/ImportFromSaveSheet.swift`. Tests:
+`SaveImportTests` — including one that imports the *real* installed game's live save
+into an in-memory db (skipped cleanly when the game isn't installed).
+
+The python prototype `scripts/import-save-preview.py` remains as a handy read-only
+preview for the terminal, but the app importer supersedes it for real use.
+
+Everything below is the original investigation — kept as the reference for the
+formats and the design rules the implementation follows.
 
 ## Where the data lives
 

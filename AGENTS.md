@@ -33,25 +33,23 @@ Two goals, in priority order:
 
 ## Status snapshot (update every session)
 
-- **2026-10-06 — PARKED, all green.** Phases 0–5 complete; nothing in progress and no
-  half-finished work. Build + 78 tests pass from a clean checkout; `Boh.db` is at
-  schema v5 with an empty "First playthrough" loaded (no real findings recorded yet);
-  the tree is clean at commit 142decb. All roadmap screens are live: Books, Memories,
-  Reading Helper, Skills, Journal — plus playthrough save/load/new and the difficulty
-  field.
+- **2026-10-06 — PARKED (Phases 0–5) plus two shipped user-requested additions.**
+  Build + 84 tests pass from a clean checkout; `Boh.db` at schema v5 with an empty
+  "First playthrough" loaded; tree clean. All roadmap screens live (Books, Memories,
+  Reading Helper, Skills, Journal) plus **playthroughs**, **difficulty**, and **save
+  import** (Manage Playthroughs → "Import from Save…"; see `docs/SAVE_IMPORT.md`).
+  Both former pending items are closed; the only parked extension is the save-import
+  file picker (ROADMAP §Later).
 
 - **How to resume (in this order):**
   1. Ask the user how his hands-on pass went — `docs/MANUAL_TEST.md` has unticked
-     interaction checklists for every screen; fix any papercuts he found first.
-     One papercut is already recorded: **OK/Cancel buttons on the playthrough
-     manager sheet** (see "Pending items" in `docs/ROADMAP.md`; he may have picked
-     it up himself by then — check `PlaythroughViews.swift` for a footer Section
-     before redoing it).
+     interaction checklists for every screen and feature (including save import);
+     fix any papercuts he found first.
   2. Then Phase 6 per `docs/ROADMAP.md`: `make-app.sh` packaging (Dock/⌘Tab presence
      without `swift run`), menu-bar quick journal, window-state persistence, JSON/CSV
      export.
-  3. Later/optional ideas live at the bottom of the ROADMAP (rooms tracker, recipes,
-     visitors, opt-in wiki import, per-file playthroughs).
+  3. Later/optional ideas live at the bottom of the ROADMAP (save-import file picker,
+     rooms tracker, recipes, visitors, opt-in wiki import, per-file playthroughs).
 
 ### Session log
 - 2026-10-05 (planning): docs, migrations, seeds, git init.
@@ -81,6 +79,14 @@ Two goals, in priority order:
   ROADMAP pending item; working read-only prototype at `scripts/import-save-preview.py`.
   Toolchain note for parsers of game files: mixed UTF-16/UTF-8 by BOM, lenient JSON
   (trailing commas, control chars) — see the prototype's `load()`.
+- 2026-10-06 (save import SHIPPED, user-requested): both pending items closed.
+  Core: `SaveImport.swift` (lenient JSON, scanner, `SaveImporter` with fill-empty
+  upsert; `winkwell`/`witchworms` contamination cases; 84 tests incl. real-game
+  import into an in-memory db). UI: "Import from Save…" in Manage Playthroughs
+  (standard-path save list w/ counts+version, destination = new or current playthrough,
+  summary alert) + OK/Cancel buttons on that sheet. File-picker extension parked in
+  ROADMAP §Later. Also fixed: MANUAL_TEST phase order (Phase 3 had been stranded
+  at the file's end since its insertion).
 
 ## Repository layout
 

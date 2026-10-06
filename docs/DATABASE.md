@@ -61,7 +61,7 @@ The db was **empty** when migration 001 dropped the legacy tables (D8).
 | `language_id` | FK → Languages (NULL if none/unknown) |
 | `mystery_principle_id`, `difficulty` | the reading challenge — the wiki's "Mastery Difficulty", recordable before mastering |
 | `read_status` | `uncatalogued` → `catalogued` → `mastered` |
-| `contamination` | `none` \| `curse` \| `theoplasmic` \| `infestation` \| `corruption` |
+| `contamination` | `none` \| `curse` \| `theoplasmic` \| `infestation` \| `corruption` \| plus the game's own contamination names as save-imports carry them (`winkwell`, `witchworms` — more may follow as saves surface them; see docs/SAVE_IMPORT.md) |
 | `location` | free text: room / shelf / "Oriflamme's" |
 | `times_read`, `first_read_at`, `last_read_at` | read history |
 | `lessons` | total Lessons granted on first read (1–3) |

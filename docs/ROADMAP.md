@@ -103,29 +103,25 @@ immediate. ⌘⇧J jumps to the journal and focuses quick-add.
 - [ ] `make-app.sh` packaging, menu-bar quick journal, window state persistence
 - [ ] Export JSON/CSV; "readable today" dashboard if desired
 
-## Pending items — user-reported (do before or with Phase 6)
+## Pending items — user-reported
 
-- [ ] **OK/Cancel buttons on the playthrough manager sheet.** The Manage Playthroughs
-      sheet (`app/Sources/BoHLibrarian/Views/Playthroughs/PlaythroughViews.swift` →
-      `ManagePlaythroughsSheet`) currently has no dismiss buttons of its own — only the
-      sheet's window chrome. Add a trailing footer Section with Cancel + OK, matching
-      the pattern in `BookFormView`/`SkillFormView`/`JournalEditSheet`. Note: renames
-      commit immediately (on return-key submit) and delete/load act at once, so both
-      buttons simply dismiss — they're affordances, not save states. (Reported 2026-10-06
-      by the user while parking the project; he may pick this up himself.)
-- [ ] **Import from a Book of Hours save — FEASIBLE, awaiting green light.** the user asked
-      (2026-10-06) whether the db can be populated from his Steam save. Investigated
-      and proven: the save (`~/Library/Application Support/Weather Factory/Book of
-      Hours/AUTOSAVE.json`) is plaintext JSON holding books (read state, contamination),
-      skills (levels, Tree commitments) — and the game's own element files
-      (`…/StreamingAssets/bhcontent/core/elements/*.json`) hold titles, mystery+
-      difficulty, languages, lessons and each book's yielded memory. Full findings +
-      import design: `docs/SAVE_IMPORT.md`; working read-only prototype:
-      `scripts/import-save-preview.py` (verified against the user's live save — 42 books,
-      27 skill stacks decoded). Implementation: extend the prototype into an importer
-      per the SAVE_IMPORT design; never overwrite user data; commit Boh.db before/after.
+- [x] **OK/Cancel buttons on the playthrough manager sheet.** ✅ (2026-10-06)
+      Done in the save-import UI commit — the manager sheet gained a trailing
+      Cancel + OK section (both dismiss; changes apply immediately, as designed).
+- [x] **Import from a Book of Hours save.** ✅ (2026-10-06) Implemented end-to-end:
+      `SaveImporter` (Core) + "Import from Save…" in the Manage Playthroughs sheet,
+      which lists save games from the standard install path (`~/Library/Application
+      Support/Weather Factory/Book of Hours`) with book/skill counts and game version,
+      then imports into a new or the current playthrough. 84 tests green incl. a
+      real-game import test against the live save. Full documentation:
+      `docs/SAVE_IMPORT.md`.
 
 ## Later / optional (only on request)
+
+- **File picker for save import.** The importer reads the standard save path only;
+  choosing an arbitrary save file (e.g. from another machine or a Steam Cloud
+  restore) needs an NSOpenPanel step in `ImportFromSaveSheet` (acknowledged and
+  parked at the user's request, 2026-10-06 — the sheet's footer says so in-app).
 
 Rooms tracker, crafting/recipes tracker, visitors/incidents, full wiki import (spoilers!),
 multi-playthrough support (second db file).

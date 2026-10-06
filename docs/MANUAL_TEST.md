@@ -48,6 +48,31 @@ during your first play session with that build.
       in the Journal table (link cleared) — verify via `sqlite3 Boh.db`
 - [ ] Footer counts update after adds/deletes
 
+## Phase 3 — Memories screen (2026-10-05)
+
+### Verified automatically (unit tests — `swift test`, 58 green)
+- [x] Search matches name, kind, notes, aspect text (e.g. "knock 4" finds Curious
+      Hunch); trimmed empty search shows everything
+- [x] Principle filter; with a minimum level (Rose ≥ 5 → only the Numen); minimum
+      level alone uses the memory's highest aspect
+- [x] Sorts: name; level (filtered principle first, highest aspect otherwise);
+      kind (numina → weather → memories); recently added
+
+### Needs hands — tick during your next session with the app
+- [ ] Sidebar → Memories: list shows recorded memories with colored aspect badges;
+      weather has a cloud icon, numina a star, persistent an orange ∞
+- [ ] Add Memory (⌘N): sheet with name/kind/persistent/aspects; Save disabled without
+      a name; rows without a principle are skipped on save
+- [ ] Principle + level menus filter the list live; sort menu changes the order
+- [ ] Detail: aspect editor persists immediately — pick a principle, change a
+      level, remove a row, add a row; relaunch and the aspects are still right
+- [ ] Sources: add (kind menu + detail text) and remove persist across relaunch
+- [ ] “Books that yield this”: a book recorded via “Record read…” shows up as a
+      backlink here; Link a book… adds one manually; unlink removes it
+- [ ] Deleting a memory: confirmation; backlinked books lose the link (visible on
+      the Books screen detail as “not recorded”); journal entries keep their text
+- [ ] Footer memory count updates live as memories are added/deleted
+
 ## Phase 3½ — Playthroughs + difficulty (2026-10-06)
 
 ### Verified automatically (unit tests — `swift test`, 62 green)
@@ -126,32 +151,39 @@ during your first play session with that build.
       — notes are trivially re-typed)
 - [ ] Footer skills/journal counts update live
 
+## Save import + manager OK/Cancel (2026-10-06)
+
+### Verified automatically (unit tests — `swift test`, 84 green)
+- [x] Lenient JSON parser: trailing commas, raw control characters, UTF-16 with BOM,
+      BOM-less UTF-8
+- [x] Importer: books with difficulty/principle/language/contamination/read status,
+      lessons junction (skill + count), yielded memories with aspects and
+      persistence/numen flags; skills with level (skill:N mutation → N+1), wisdom +
+      element commitments; `skill.language` marks languages; native languages match
+      by name; uncatbooks and transient memories skipped; one Journal entry written
+- [x] Fill-empty upsert: user-recorded notes/difficulty preserved, read state only
+      upgrades, re-import doesn't duplicate
+- [x] Scanner: only files with a `RootPopulationCommand` count as saves (achievements
+      and config excluded); game version read leniently (compact or spaced JSON)
+- [x] Real-game integration: the live AUTOSAVE imports into an in-memory db with
+      non-empty human titles (skips cleanly if the game is uninstalled)
+
+### Needs hands — tick during your next session with the app
+- [ ] Manage Playthroughs sheet: shows "Import from Save…" button and an OK/Cancel
+      row at the bottom (both just close; changes apply immediately)
+- [ ] Import sheet lists AUTOSAVE.json with its modified date, game version, and
+      book/skill counts
+- [ ] Import into a new playthrough: name defaults sensibly, import completes in a
+      few seconds, summary alert shows counts, and the app switches to the imported
+      playthrough with populated Books/Memories/Skills/Journal screens
+- [ ] Spot-check against the game: a mastered book shows difficulty + principle badge
+      + yielded memory; a contaminated one shows its contamination; skills show levels;
+      the Journal entry records the import
+- [ ] Import into the *current* playthrough: no duplicates, existing notes untouched
+- [ ] With the game folder absent (if you ever test on another Mac): friendly
+      empty state mentioning the parked file picker
+
 ## Scratch pad
 
 Use this space for anything noticed while testing (oddities, papercuts, ideas):
 <!-- e.g. 2026-10-05: record-read sheet should probably remember the last used game day… -->
-
-## Phase 3 — Memories screen (2026-10-05)
-
-### Verified automatically (unit tests — `swift test`, 58 green)
-- [x] Search matches name, kind, notes, aspect text (e.g. "knock 4" finds Curious
-      Hunch); trimmed empty search shows everything
-- [x] Principle filter; with a minimum level (Rose ≥ 5 → only the Numen); minimum
-      level alone uses the memory's highest aspect
-- [x] Sorts: name; level (filtered principle first, highest aspect otherwise);
-      kind (numina → weather → memories); recently added
-
-### Needs hands — tick during your next session with the app
-- [ ] Sidebar → Memories: list shows recorded memories with colored aspect badges;
-      weather has a cloud icon, numina a star, persistent an orange ∞
-- [ ] Add Memory (⌘N): sheet with name/kind/persistent/aspects; Save disabled without
-      a name; rows without a principle are skipped on save
-- [ ] Principle + level menus filter the list live; sort menu changes the order
-- [ ] Detail: aspect editor persists immediately — pick a principle, change a
-      level, remove a row, add a row; relaunch and the aspects are still right
-- [ ] Sources: add (kind menu + detail text) and remove persist across relaunch
-- [ ] “Books that yield this”: a book recorded via “Record read…” shows up as a
-      backlink here; Link a book… adds one manually; unlink removes it
-- [ ] Deleting a memory: confirmation; backlinked books lose the link (visible on
-      the Books screen detail as “not recorded”); journal entries keep their text
-- [ ] Footer memory count updates live as memories are added/deleted
