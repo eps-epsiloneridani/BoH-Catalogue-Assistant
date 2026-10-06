@@ -121,6 +121,13 @@ immediate. ⌘⇧J jumps to the journal and focuses quick-add.
       then imports into a new or the current playthrough. 84 tests green incl. a
       real-game import test against the live save. Full documentation:
       `docs/SAVE_IMPORT.md`.
+- [x] **Journal new-entry was a dead end on an empty journal.** ✅ (2026-10-06)
+      The empty state's "Note today's finding" targeted a quick-add field that
+      only rendered once entries existed (⌘⇧J hit the same wall — its requestFocus
+      flag was consumed unhandled and stuck true, disabling later jumps). The
+      quick-capture box now renders in the empty branch too; reload + focus-request
+      handling sits on the body's onAppear so it covers both branches and entries
+      written by record-read still appear on arrival.
 
 ## Later / optional (only on request)
 

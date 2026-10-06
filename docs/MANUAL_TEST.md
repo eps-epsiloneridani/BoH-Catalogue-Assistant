@@ -143,6 +143,11 @@ during your first play session with that build.
       header captions
 - [ ] Journal: ⌘⇧J (or the Go menu) jumps to the journal with quick-add focused; a
       note typed + return lands at the top under the current in-game day
+- [ ] Empty journal (fresh run or new playthrough): the quick-capture box shows
+      above the "Nothing in the journal yet" card; "Note today's finding" focuses
+      the box; ⌘⇧J from another section lands there focused; the first note flips
+      the screen to the timeline (fixed: the new-entry button used to do nothing
+      on an empty journal)
 - [ ] Day headers: entries group when the in-game day changes; entries without a day
       group under "No in-game day noted"
 - [ ] Link chips appear on entries created via record-read (book + memory chips); the

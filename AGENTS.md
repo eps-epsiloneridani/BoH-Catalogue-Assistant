@@ -93,6 +93,17 @@ Two goals, in priority order:
   `~/Library/Application Support/BoH Librarian/` at schema v5 **from the bundled
   migrations** — that fallback's first real-world proof. `dist/` gitignored;
   the smoke test's db was removed so the user's first double-click is a pristine run.
+- 2026-10-06 (user-reported bug #1, journal): the journal's new-entry button did
+  nothing on an empty journal — the user hit it in his first minutes on the packaged
+  app (pristine db, before save import had landed an entry). Root cause: the
+  quick-capture field rendered only in the non-empty branch, so the empty state's
+  "Note today's finding" focused a field that wasn't there; ⌘⇧J died the same way
+  and its requestFocus flag stuck true, poisoning later jumps. Fixed: quick-capture
+  renders in the empty branch; reload + focus-request handling on the body's
+  onAppear (also makes first entries written by record-read show up on arrival with
+  an empty cached journal); dropped that button's default-action shortcut (Return
+  is the field's onSubmit; a same-tick double fire risks a double insert). 84 tests
+  green; dist rebuilt for hand verification.
 
 ## Repository layout
 

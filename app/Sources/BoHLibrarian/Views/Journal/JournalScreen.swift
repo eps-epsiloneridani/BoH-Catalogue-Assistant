@@ -27,6 +27,19 @@ struct JournalScreen: View {
             }
         }
         .frame(minWidth: 640)
+        // Reload on appear from both branches: an entry written by the record-read
+        // flow must appear even when this store's cached state is empty.
+        // ⌘⇧J can also arrive while the screen isn't mounted (the Go-menu command
+        // sets requestFocus, then the section switch mounts this view); a fresh
+        // view's onChange never fires for a value set before installation — so
+        // pick it up here too, or the flag sticks and stays dead forever.
+        .onAppear {
+            store.reload()
+            if store.requestFocus {
+                quickAddFocused = true
+                store.requestFocus = false
+            }
+        }
         .searchable(text: $store.searchText, placement: .toolbar,
                     prompt: "Search the journal…")
         .alert("Something went wrong", isPresented: errorBinding) {
@@ -63,7 +76,6 @@ struct JournalScreen: View {
             .frame(maxWidth: 820, alignment: .leading)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .onAppear { store.reload() }
     }
 
     // MARK: Quick capture
@@ -127,20 +139,25 @@ struct JournalScreen: View {
         }
     }
 
+    // Empty journal. The quick-capture box renders here too: it used to live only
+    // in the non-empty branch, so this action (and ⌘⇧J) focused a field that was
+    // never rendered — the new-entry button did nothing on a fresh, empty journal.
     private var emptyState: some View {
-        ContentUnavailableView {
-            Label("Nothing in the journal yet", systemImage: "note.text")
-        } description: {
-            Text("Jot anything worth remembering — the record-read flow and the book screens write here automatically, and anything you note yourself lands above.")
-        } actions: {
-            Button("Note today's finding") { quickAddFocused = true }
-                .keyboardShortcut(.defaultAction)
-        }
-        .onChange(of: store.requestFocus) { _, requested in
-            if requested {
-                store.requestFocus = false
+        VStack(alignment: .leading, spacing: 16) {
+            quickAdd
+            Divider()
+            ContentUnavailableView {
+                Label("Nothing in the journal yet", systemImage: "note.text")
+            } description: {
+                Text("Jot anything worth remembering — the record-read flow and the book screens write here automatically, and anything you note yourself lands above.")
+            } actions: {
+                Button("Note today's finding") { quickAddFocused = true }
             }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
+        .padding(20)
+        .frame(maxWidth: 820, alignment: .leading)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 }
 
