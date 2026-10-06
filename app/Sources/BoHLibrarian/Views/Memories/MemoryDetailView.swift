@@ -1,18 +1,16 @@
 import SwiftUI
 import BoHLibrarianCore
 
-// One memory's full editor: aspects (inline, saved as you change them),
-// sources, which books yield it, notes, delete. Aspects/sources edit local state
-// first and persist per mutation; reload-on-ID only (same pattern as BookDetailView).
+// One memory's full record: read-only aspect display (editing lives in the
+// Edit… sheet's AspectEditor — the detail pane is not an editor), sources,
+// which books yield it, notes, delete. Reload-on-ID only (same pattern as
+// BookDetailView).
 
 struct MemoryDetailView: View {
     let memory: Memory
     let store: MemoriesStore
     var onEdit: () -> Void
 
-    @Environment(AppState.self) private var appState
-
-    @State private var aspectRows: [AspectDraftRow] = []
     @State private var sources: [MemorySource] = []
     @State private var backlinks: [BookRef] = []
     @State private var notes: String = ""
@@ -72,23 +70,20 @@ struct MemoryDetailView: View {
     private var aspectsSection: some View {
         VStack(alignment: .leading, spacing: 10) {
             sectionTitle("Aspects")
-            AspectEditor(principles: appState.principles, rows: $aspectRows) {
-                persistAspects()
-            }
-            if aspectRows.contains(where: { $0.principleID == nil }) {
-                Text("Rows without a principle are skipped.")
+            if memory.aspects.isEmpty {
+                Text("No aspects recorded — use Edit… to add them.")
                     .font(.caption)
                     .foregroundStyle(.secondary)
+            } else {
+                VStack(alignment: .leading, spacing: 6) {
+                    ForEach(memory.aspects) { aspect in
+                        PrincipleBadge(name: store.principleName(aspect.principleID),
+                                       level: aspect.level,
+                                       colorHex: store.principleColor(aspect.principleID))
+                    }
+                }
             }
         }
-    }
-
-    private func persistAspects() {
-        let drafts = aspectRows.compactMap { row -> AspectDraft? in
-            guard let principleID = row.principleID else { return nil }
-            return AspectDraft(principleID: principleID, level: row.level)
-        }
-        store.setAspects(memory.id, drafts)
     }
 
     // MARK: Sources
@@ -252,9 +247,6 @@ struct MemoryDetailView: View {
     }
 
     private func load() {
-        aspectRows = memory.aspects.map {
-            AspectDraftRow(principleID: $0.principleID, level: $0.level)
-        }
         sources = store.sources(for: memory.id)
         backlinks = store.booksYielding(memory.id)
         notes = memory.notes ?? ""
