@@ -34,7 +34,7 @@ Two goals, in priority order:
 ## Status snapshot (update every session)
 
 - **2026-10-06 — PARKED (Phases 0–5 + packaging) with user-requested additions shipped.**
-  Build + 93 tests pass from a clean checkout; `Boh.db` at schema v7 with an empty
+  Build + 94 tests pass from a clean checkout; `Boh.db` at schema v7 with an empty
   "First playthrough" loaded; tree clean. All roadmap screens live (Books, Memories,
   Reading Helper, Skills, Journal) plus **playthroughs**, **difficulty**, **save
   import** (Manage Playthroughs → "Import from Save…"; see `docs/SAVE_IMPORT.md`),
@@ -163,6 +163,16 @@ Two goals, in priority order:
   unearned memories as aspect-candidates and reveals 'Always yields' names for
   unmastered imported books — same leak class, different screen, awaiting
   direction.** 93 tests green.
+- 2026-10-06 (earned-only reading helper, user request): same earned-visibility
+  predicate now shared (`MemoryRepository.earnedVisibility`) and applied to the
+  Helper's aspect candidates; Books detail's Yields panel gated to mastered books
+  ("revealed by mastering the book") — correction: part 2's flag overstated the
+  Helper leak (its 'Always yields' panel was already mastered-gated); the real
+  unconditional reveal was Books detail. Record-read sheet split: "Memory used"
+  earned-only, "memory gained (existing)" keeps the full table (selecting an
+  imported yield is the earning act — also avoids a UNIQUE-crash path where the
+  hidden memory couldn't be picked as existing and a re-add would collide with
+  006's per-playthrough unique names). 94 tests green.
 - 2026-10-06 (accessibility pass, user request): assessment + fixes. Assessment:
   semantic fonts/motion-free/native controls = solid; zero a11y modifiers anywhere;
   computed WCAG contrast — **all 13 principle badges fail AA in ≥1 mode** (tint-as-text;
@@ -215,7 +225,7 @@ app/                 <- the Swift package (see docs/GUI_PLAN.md for the as-built
                                  repositories, pure query/math helpers, bundled migrations
   Sources/BoHLibrarian/        <- SwiftUI app: AppState (playthroughs, store wiring),
                                  RootView (routing), Stores/ (per-screen state), Views/
-  Tests/BoHLibrarianCoreTests/ <- 93 tests on :memory: databases
+  Tests/BoHLibrarianCoreTests/ <- 94 tests on :memory: databases
 ```
 
 ## Everyday commands

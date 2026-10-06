@@ -40,7 +40,7 @@ The db was **empty** when migration 001 dropped the legacy tables (D8).
 
 | column | notes |
 |---|---|
-| `name`, `kind` | kind ∈ `memory` \| `weather` \| `numen` (documented set; UNIQUE (name, kind, **playthrough_id**) — a Weather and a Memory may share a name, e.g. "Storm"; the same name is allowed across playthroughs) | **Display: earned-only** — the Memories list shows hand-created memories and those with a mastered yielding book; imports keep unearned yields in the table for lookups but the list hides them (spoiler posture, D6/D12)
+| `name`, `kind` | kind ∈ `memory` \| `weather` \| `numen` (documented set; UNIQUE (name, kind, **playthrough_id**) — a Weather and a Memory may share a name, e.g. "Storm"; the same name is allowed across playthroughs) | **Display: earned-only** (spoiler posture, D6/D12) — the Memories list and the Reading Helper's aspect candidates show only hand-created memories and those with a mastered yielding book (`MemoryRepository.earnedVisibility`); Books detail and the Helper reveal a book's yield only once the book is mastered; imports keep unearned yields in the table for lookups, and the record-read sheet's 'memory gained' picker must see them (selecting one earns it)
 | `persistent` | 1 = survives dawn (still wiped by Numa) |
 | `notes` | free text |
 

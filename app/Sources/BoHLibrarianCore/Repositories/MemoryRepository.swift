@@ -30,16 +30,7 @@ public final class MemoryRepository {
         let memories = try db.query(
             """
             SELECT * FROM Memories m
-            WHERE m.playthrough_id = ?
-              AND ( NOT EXISTS (
-                      SELECT 1 FROM Books b
-                      WHERE b.playthrough_id = m.playthrough_id
-                        AND b.yielded_memory_id = m.id )
-                  OR EXISTS (
-                      SELECT 1 FROM Books b
-                      WHERE b.playthrough_id = m.playthrough_id
-                        AND b.yielded_memory_id = m.id
-                        AND b.read_status = 'mastered' ) )
+            WHERE m.playthrough_id = ? AND \(Self.earnedVisibility)
             ORDER BY name;
             """,
             [playthroughID],
@@ -47,6 +38,20 @@ public final class MemoryRepository {
         )
         return try attachAspects(to: memories)
     }
+
+    /// Earned-visibility SQL over alias `m` (also drives the Reading Helper's
+    /// aspect candidates — docs/DATABASE.md §Memories).
+    static let earnedVisibility = """
+        ( NOT EXISTS (
+            SELECT 1 FROM Books b
+            WHERE b.playthrough_id = m.playthrough_id
+              AND b.yielded_memory_id = m.id )
+          OR EXISTS (
+            SELECT 1 FROM Books b
+            WHERE b.playthrough_id = m.playthrough_id
+              AND b.yielded_memory_id = m.id
+              AND b.read_status = 'mastered' ) )
+        """
 
     public func get(_ id: Int64) throws -> Memory? {
         guard var memory = try db.query(
@@ -157,6 +162,7 @@ public final class MemoryRepository {
             FROM Memories m
             JOIN MemoryAspects ma ON ma.memory_id = m.id
             WHERE m.playthrough_id = ? AND ma.principle_id = ? AND ma.level >= ?
+              AND \(Self.earnedVisibility)
             ORDER BY ma.level DESC, m.name;
             """,
             [playthroughID, principleID, minLevel]
