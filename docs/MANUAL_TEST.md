@@ -283,3 +283,19 @@ Use this space for anything noticed while testing (oddities, papercuts, ideas):
 - [ ] Dynamic Type at the largest a11y size: Books screen rows + BookFormView
       sheet remain usable (wrapping, not clipping)
 - [ ] Accessibility Inspector (Xcode) on the Books screen: no unlabeled elements
+
+## Earned-only memory list (2026-10-06, user request)
+
+### Verified automatically (unit tests — `swift test`, 93 green)
+- [x] `MemoryRepository.allKnown`: hand-created memories visible; a mastered
+      yielding link earns visibility even when other yielding books are
+      unmastered; all-unmastered yields hidden; mastering flips them in; the
+      underlying table keeps every row (import/lookup paths untouched)
+- [x] Footer memory count follows the list (reads the store)
+
+### Needs hands
+- [ ] Open Memories on "Imported from AUTOSAVE": the list is far shorter than
+      60+ created memories — only earned/hand-made ones show; master one of the
+      unearned-yield books via Record read and watch its memory appear
+- [ ] A hidden memory's yield still shows via record-read on that book (the
+      book detail/"Always yields" flow) — record-read is how the player learns it

@@ -20,6 +20,34 @@ public final class MemoryRepository {
         return try attachAspects(to: memories)
     }
 
+    /// The memories the player can actually know. A memory is *earned* when it has
+    /// no yield links (hand-created) or at least one yielding book is mastered;
+    /// a memory whose yielding books are all unmastered stays in the table (import
+    /// and lookup paths depend on it) but not in the list — knowing its name/traits
+    /// before earning it would spoil the playthrough. Matches the mastered-only
+    /// backlinks display on the detail side (docs/DATABASE.md §Books).
+    public func allKnown() throws -> [Memory] {
+        let memories = try db.query(
+            """
+            SELECT * FROM Memories m
+            WHERE m.playthrough_id = ?
+              AND ( NOT EXISTS (
+                      SELECT 1 FROM Books b
+                      WHERE b.playthrough_id = m.playthrough_id
+                        AND b.yielded_memory_id = m.id )
+                  OR EXISTS (
+                      SELECT 1 FROM Books b
+                      WHERE b.playthrough_id = m.playthrough_id
+                        AND b.yielded_memory_id = m.id
+                        AND b.read_status = 'mastered' ) )
+            ORDER BY name;
+            """,
+            [playthroughID],
+            map: Self.map
+        )
+        return try attachAspects(to: memories)
+    }
+
     public func get(_ id: Int64) throws -> Memory? {
         guard var memory = try db.query(
             "SELECT * FROM Memories WHERE playthrough_id = ? AND id = ?;",
