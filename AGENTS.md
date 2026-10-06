@@ -74,6 +74,13 @@ Two goals, in priority order:
 - 2026-10-06 (final note): the user asked for OK/Cancel buttons on the playthrough manager
   sheet — recorded as a pending item in `docs/ROADMAP.md` §Pending items (he may do it
   himself); not implemented.
+- 2026-10-06 (post-park investigation): the user asked whether the db can be populated from
+  his Steam save. **Answer: yes, fully feasible** — save and game data are plaintext
+  JSON; decoded his live save end-to-end (42 books with read state/contamination,
+  skills with levels, Tree commitments). Recorded in `docs/SAVE_IMPORT.md` + a second
+  ROADMAP pending item; working read-only prototype at `scripts/import-save-preview.py`.
+  Toolchain note for parsers of game files: mixed UTF-16/UTF-8 by BOM, lenient JSON
+  (trailing commas, control chars) — see the prototype's `load()`.
 
 ## Repository layout
 
@@ -89,6 +96,7 @@ docs/
   ROADMAP.md         <- phases, definitions of done, current status
   DECISIONS.md       <- short log of key decisions (D1, D2, …) with rationale
   MANUAL_TEST.md     <- per-phase hands-on checklists for the running app
+  SAVE_IMPORT.md     <- feasibility + design for importing from a BoH save (confirmed)
 scripts/
   migrate.sh         <- apply pending migrations to Boh.db (--status to inspect)
   dump-sql.sh        <- write a text .sql snapshot of the db into snapshots/

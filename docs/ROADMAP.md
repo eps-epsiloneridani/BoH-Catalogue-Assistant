@@ -113,6 +113,17 @@ immediate. ⌘⇧J jumps to the journal and focuses quick-add.
       commit immediately (on return-key submit) and delete/load act at once, so both
       buttons simply dismiss — they're affordances, not save states. (Reported 2026-10-06
       by the user while parking the project; he may pick this up himself.)
+- [ ] **Import from a Book of Hours save — FEASIBLE, awaiting green light.** the user asked
+      (2026-10-06) whether the db can be populated from his Steam save. Investigated
+      and proven: the save (`~/Library/Application Support/Weather Factory/Book of
+      Hours/AUTOSAVE.json`) is plaintext JSON holding books (read state, contamination),
+      skills (levels, Tree commitments) — and the game's own element files
+      (`…/StreamingAssets/bhcontent/core/elements/*.json`) hold titles, mystery+
+      difficulty, languages, lessons and each book's yielded memory. Full findings +
+      import design: `docs/SAVE_IMPORT.md`; working read-only prototype:
+      `scripts/import-save-preview.py` (verified against the user's live save — 42 books,
+      27 skill stacks decoded). Implementation: extend the prototype into an importer
+      per the SAVE_IMPORT design; never overwrite user data; commit Boh.db before/after.
 
 ## Later / optional (only on request)
 
