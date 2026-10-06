@@ -33,11 +33,12 @@ Two goals, in priority order:
 
 ## Status snapshot (update every session)
 
-- **2026-10-06 — Phases 0–4 complete.** The Reading Helper is live: pick the book in
-  hand → see the requirement (difficulty, language, contamination, equipment), the
-  plain-English reach line, satisfying/near-miss memories and skill contributions → tap
-  a memory to record the read with it preselected. 71 tests green. **Next: Phase 5** —
-  Skills & Journal screens per `docs/ROADMAP.md`.
+- **2026-10-06 — Phases 0–5 complete.** All five screens live: Books, Memories,
+  Reading Helper, Skills, Journal — plus playthroughs and the difficulty field.
+  78 tests green. **Next: Phase 6** — polish (`.app` packaging, menu-bar quick
+  journal, window state persistence, JSON/CSV export) per `docs/ROADMAP.md`.
+  The most valuable next act is a hands-on pass over `docs/MANUAL_TEST.md` with
+  real playthrough data.
 
 ### Session log
 - 2026-10-05 (planning): docs, migrations, seeds, git init.
@@ -54,7 +55,8 @@ Two goals, in priority order:
   ship unreachable — the convention works.
 - 2026-10-06 (Phase 4): Reading Helper (71 tests). Toolchain note: on this SDK
   `capitalized` is a property — `capitalized()` doesn't compile (bitten once, fixed).
-- No playthrough data recorded in `Boh.db` yet.
+- 2026-10-06 (Phase 5): Skills + Journal screens (78 tests); ⌘⇧J quick-journal command.
+  No playthrough data recorded in `Boh.db` yet.
 
 ## Repository layout
 

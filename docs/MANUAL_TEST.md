@@ -97,6 +97,35 @@ during your first play session with that build.
 - [ ] Recording from the helper: book status/counters and Journal update; the Books
       screen agrees afterwards
 
+## Phase 5 — Skills & Journal screens (2026-10-06)
+
+### Verified automatically (unit tests — `swift test`, 78 green)
+- [x] Skill list: search over name/wisdom/element/notes; principle filter matches
+      primary OR secondary; language filter separates languages from skills
+- [x] Sorts: name; level descending with unlevelled skills last; recently added
+- [x] Contribution math: level 1 → 2 primary / 1 secondary; level 9 → 10 / 9
+
+### Needs hands — tick during your next session with the app
+- [ ] Skills screen opens empty-state; Add Skill records name + principles + level 1;
+      the row shows contribution badges (e.g. Sky 2 · Rose 1) and "level 1"
+- [ ] Level stepper in detail: +/− persists immediately and updates the badges;
+      runs 1–9 only
+- [ ] Language toggle in the form: languages get the globe icon and appear under the
+      "Languages" kind filter — and the Books screen's language-known hint turns green
+      for a language recorded this way
+- [ ] Principle filter + sort menus work; search matches wisdom/notes
+- [ ] Wisdom/Element fields: type + return (or Save) persists; shows in the detail
+      header captions
+- [ ] Journal: ⌘⇧J (or the Go menu) jumps to the journal with quick-add focused; a
+      note typed + return lands at the top under the current in-game day
+- [ ] Day headers: entries group when the in-game day changes; entries without a day
+      group under "No in-game day noted"
+- [ ] Link chips appear on entries created via record-read (book + memory chips); the
+      edit sheet can add/change/remove all three links and edit text/day
+- [ ] Search narrows the journal; delete removes an entry immediately (no confirmation
+      — notes are trivially re-typed)
+- [ ] Footer skills/journal counts update live
+
 ## Scratch pad
 
 Use this space for anything noticed while testing (oddities, papercuts, ideas):

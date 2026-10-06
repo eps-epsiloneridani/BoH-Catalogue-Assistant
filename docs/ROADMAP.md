@@ -85,12 +85,20 @@ Implementation notes: `ReadingHelperStore` composes the canonical queries;
 books get a yield-focused re-read panel. Souls/inks/tools are explicitly out of scope
 until an Elements/Tools table lands.
 
-## Phase 5 — Skills & Journal screens (next)
+## Phase 5 — Skills & Journal screens ✅ (2026-10-06)
 
-- [ ] Skills CRUD with level stepper (computed 2/1 display), wisdom/element fields
-- [ ] Journal timeline, quick-add, entity links/filters
+- [x] Skills CRUD with level stepper (computed 2/1 display), wisdom/element fields
+- [x] Journal timeline, quick-add, entity links/filters
 
-## Phase 6 — Polish
+Implementation notes: `SkillsStore` + `SkillFormView`/`SkillDetailView` (level stepper
+persists immediately; badges show the card's own numbers — level L → L+1 primary /
+L secondary, tested as `SkillMath`); list queries are pure/tested (`SkillFiltering`).
+`JournalStore` builds day-headed rows (groups whenever the in-game day changes),
+quick capture uses the session's current in-game day, entries show link chips
+(book/memory/skill), edit sheet supports text + day + all three links, delete is
+immediate. ⌘⇧J jumps to the journal and focuses quick-add.
+
+## Phase 6 — Polish (next)
 
 - [ ] `make-app.sh` packaging, menu-bar quick journal, window state persistence
 - [ ] Export JSON/CSV; "readable today" dashboard if desired
