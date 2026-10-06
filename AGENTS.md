@@ -44,9 +44,9 @@ Two goals, in priority order:
   live copy is data-bearing (2 imported playthroughs + manual entries), migrated to
   v7 by the user's 2026-10-06 relaunch (verified in-db; MANUAL_TEST items ticked).
   Bug triage pass 1 (2026-10-06, same day): two user-reported issues fixed — the
-  journal's new-entry button was dead on an empty journal (c4cbfae), and save import
+  journal's new-entry button was dead on an empty journal (ab29a31), and save import
   into a second playthrough hit a 001-era table-global `Skills.name` UNIQUE
-  (769a1cd: migration 006 rebuilds Skills + Memories to per-playthrough unique
+  (7423cfe: migration 006 rebuilds Skills + Memories to per-playthrough unique
   names; repo db migrated to v6). Manual verification of both fixes is pending —
   see the unticked items in `docs/MANUAL_TEST.md`.
 
@@ -151,7 +151,8 @@ Two goals, in priority order:
   triggers. **History issue surfaced: the pre-anonymize commits carry the user’s given
   name (AGENTS/ROADMAP/SAVE_IMPORT.md, test comments) and a hardcoded /Users/…
   home path (import-save-preview.py) — HEAD is clean but git history is not;
-  history rewrite scheduled in the same session.**
+  history rewritten 2026-10-06 (filter-branch, 1:1 across all 36 commits; doc
+  hash references remapped; backup bundle + refs/original purged after).**
 - 2026-10-06 (007 verified + memory backlinks mastered-only, user request): the
   user's relaunched app applied 007 (live db at v7; 82 mis-stamped rows now 'book',
   both scrolls and the two genuine phonograph records intact; MANUAL_TEST items
