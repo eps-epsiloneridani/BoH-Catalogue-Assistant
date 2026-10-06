@@ -41,11 +41,17 @@ Two goals, in priority order:
   and a **packaged app**: `scripts/make-app.sh` → `dist/BoH Librarian.app`, smoke-
   tested Finder-style (bundled-migrations fallback proven). The packaged app keeps
   its own db in `~/Library/Application Support/BoH Librarian/` (D7).
+  Bug triage pass 1 (2026-10-06, same day): two user-reported issues fixed — the
+  journal's new-entry button was dead on an empty journal (c4cbfae), and save import
+  into a second playthrough hit a 001-era table-global `Skills.name` UNIQUE
+  (769a1cd: migration 006 rebuilds Skills + Memories to per-playthrough unique
+  names; repo db migrated to v6). Manual verification of both fixes is pending —
+  see the unticked items in `docs/MANUAL_TEST.md`.
 
 - **How to resume (in this order):**
-  1. Ask the user how his hands-on pass went — `docs/MANUAL_TEST.md` has unticked
-     interaction checklists for every screen and feature (including save import and
-     the packaged app); fix any papercuts he found first.
+  1. The user's hands-on pass surfaced the two bugs fixed above. Walk the
+     currently-unticked items in `docs/MANUAL_TEST.md` together (the two fixes have
+     dedicated verification items) and fix any papercuts found.
   2. Then the rest of Phase 6 per `docs/ROADMAP.md`: menu-bar quick journal,
      window-state persistence, JSON/CSV export.
   3. Later/optional ideas live at the bottom of the ROADMAP (save-import file picker,
@@ -69,16 +75,17 @@ Two goals, in priority order:
 - 2026-10-06 (Phase 5): Skills + Journal screens (78 tests); ⌘⇧J quick-journal command.
 - 2026-10-06 (parked): hand-off docs refreshed — as-built repo layout in AGENTS.md and
   GUI_PLAN.md, parked status with resume order recorded above.
-- 2026-10-06 (final note): the user asked for OK/Cancel buttons on the playthrough manager
-  sheet — recorded as a pending item in `docs/ROADMAP.md` §Pending items (he may do it
-  himself); not implemented.
-- 2026-10-06 (post-park investigation): the user asked whether the db can be populated from
-  his Steam save. **Answer: yes, fully feasible** — save and game data are plaintext
-  JSON; decoded his live save end-to-end (42 books with read state/contamination,
-  skills with levels, Tree commitments). Recorded in `docs/SAVE_IMPORT.md` + a second
-  ROADMAP pending item; working read-only prototype at `scripts/import-save-preview.py`.
-  Toolchain note for parsers of game files: mixed UTF-16/UTF-8 by BOM, lenient JSON
-  (trailing commas, control chars) — see the prototype's `load()`.
+- 2026-10-06 (final note): the user asked for OK/Cancel buttons on the playthrough
+  manager sheet — recorded as a pending item in `docs/ROADMAP.md` §Pending items
+  (they may do it themselves); not implemented.
+- 2026-10-06 (post-park investigation): the user asked whether the db can be
+  populated from their Steam save. **Answer: yes, fully feasible** — save and game
+  data are plaintext JSON; decoded their live save end-to-end (42 books with read
+  state/contamination, skills with levels, Tree commitments). Recorded in
+  `docs/SAVE_IMPORT.md` + a second ROADMAP pending item; working read-only prototype
+  at `scripts/import-save-preview.py`. Toolchain note for parsers of game files:
+  mixed UTF-16/UTF-8 by BOM, lenient JSON (trailing commas, control chars) — see
+  the prototype's `load()`.
 - 2026-10-06 (save import SHIPPED, user-requested): both pending items closed.
   Core: `SaveImport.swift` (lenient JSON, scanner, `SaveImporter` with fill-empty
   upsert; `winkwell`/`witchworms` contamination cases; 84 tests incl. real-game
@@ -92,9 +99,9 @@ Two goals, in priority order:
   Smoke-tested via `open`: first launch creates the app's own db in
   `~/Library/Application Support/BoH Librarian/` at schema v5 **from the bundled
   migrations** — that fallback's first real-world proof. `dist/` gitignored;
-  the smoke test's db was removed so the user's first double-click is a pristine run.
+  the smoke test's db was removed so the first double-click is a pristine run.
 - 2026-10-06 (user-reported bug #1, journal): the journal's new-entry button did
-  nothing on an empty journal — the user hit it in his first minutes on the packaged
+  nothing on an empty journal — hit in the user's first minutes on the packaged
   app (pristine db, before save import had landed an entry). Root cause: the
   quick-capture field rendered only in the non-empty branch, so the empty state's
   "Note today's finding" focused a field that wasn't there; ⌘⇧J died the same way
@@ -112,6 +119,11 @@ Two goals, in priority order:
   db (rows/ids/timestamps/FK integrity verified; the previously-failing insert now
   succeeds; same-playthrough duplicates still rejected). Repo `Boh.db` migrated to
   v6; 86 tests green (86 = 84 + import-into-second-playthrough + v5→v6 rebuild).
+- 2026-10-06 (anonymization + cold-start consolidation, user-requested): all docs,
+  logs, code comments, test comments and the save-preview script scrubbed of
+  personal name/home-path references ("the user" throughout; hardcoded /Users/…
+  path replaced with expanduser). New ground rule records the convention; commit
+  identities already pseudonymous (username + noreply email).
 
 ## Repository layout
 
@@ -175,6 +187,9 @@ app/                 <- the Swift package (see docs/GUI_PLAN.md for the as-built
 - **Game knowledge:** `docs/GAME_MECHANICS.md` is the distilled reference (with sources and
   open questions). If play reveals a mechanic differently than documented, fix the doc first,
   then adjust schema/UI to match.
+- **Anonymity (repo is published):** docs, logs and code comments refer to "the user"
+  — no personal names, no home-directory paths with usernames, no personal emails.
+  Commits keep the pseudonymous noreply identity (see `git config user.name/email`).
 
 ## Document index
 

@@ -13,9 +13,10 @@ import os
 import re
 import sys
 
-GAME_ELEMENTS = ("/Users/boh/Library/Application Support/Steam/steamapps/common/"
-                 "Book of Hours/OSX.app/Contents/Resources/Data/StreamingAssets/"
-                 "bhcontent/core/elements")
+GAME_ELEMENTS = os.path.expanduser(
+    "~/Library/Application Support/Steam/steamapps/common/"
+    "Book of Hours/OSX.app/Contents/Resources/Data/StreamingAssets/"
+    "bhcontent/core/elements")
 DEFAULT_SAVE = (os.path.expanduser("~/Library/Application Support/Weather Factory/"
                                    "Book of Hours/AUTOSAVE.json"))
 

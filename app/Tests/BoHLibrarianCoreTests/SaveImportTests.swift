@@ -244,7 +244,7 @@ final class SaveImportTests: XCTestCase {
         XCTAssertEqual(reloaded.readStatus, .mastered, "but read state upgrades")
     }
 
-    // the user's live failure (2026-10-06): first playthrough already held the autosave's
+    // Live failure reported by the user (2026-10-06): first playthrough already held the autosave's
     // names; importing into a new playthrough died on the table-global
     // `Skills.name UNIQUE` (001-era, not rebuilt when 005 scoped the tables).
     // Migration 006 rebuilds Skills/Memories so names are unique per playthrough.

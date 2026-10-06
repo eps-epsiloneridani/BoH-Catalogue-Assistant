@@ -107,7 +107,7 @@ final class MigratorTests: XCTestCase {
 
     /// 006 rebuilds Skills and Memories: their 001-era table-global UNIQUEs forbid
     /// the same entity name in a second playthrough — the save-import-into-
-    /// playthrough-2 failure the user hit. Proof on a data-bearing v5 database: every
+    /// playthrough-2 failure the user reported. Proof on a data-bearing v5 database: every
     /// row survives with its id, and uniqueness moves to (name, playthrough).
     func test006RebuildPreservesRowsAndScopesUniqueness() throws {
         let db = try freshDB()

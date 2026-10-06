@@ -172,7 +172,7 @@ during your first play session with that build.
       and config excluded); game version read leniently (compact or spaced JSON)
 - [x] Real-game integration: the live AUTOSAVE imports into an in-memory db with
       non-empty human titles (skips cleanly if the game is uninstalled)
-- [x] Second-playthrough import with identical entity names — the user's reported
+- [x] Second-playthrough import with identical entity names — the reported
       `UNIQUE constraint failed: Skills.name` (001-era table-global uniques; fixed by
       migration 006 rebuilding Skills/Memories to per-playthrough uniqueness); plus a
       data-bearing-v5 → v6 rebuild test (rows/ids preserved, duplicates still blocked
