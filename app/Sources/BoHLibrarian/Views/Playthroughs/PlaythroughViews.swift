@@ -107,9 +107,25 @@ struct ManagePlaythroughsSheet: View {
     @Environment(\.dismiss) private var dismiss
 
     @State private var confirmingDelete: Playthrough?
+    @State private var showingImport = false
 
     var body: some View {
         Form {
+            Section {
+                HStack {
+                    Button {
+                        showingImport = true
+                    } label: {
+                        Label("Import from Save…", systemImage: "square.and.arrow.down")
+                    }
+                    .help("Populate a playthrough from a Book of Hours save game")
+                    Spacer()
+                }
+            } footer: {
+                Text("Reads save games from ~/Library/Application Support/Weather Factory/Book of Hours. "
+                     + "Importing from an arbitrary path needs a file picker — parked for a later build.")
+            }
+
             Section {
                 ForEach(appState.playthroughs) { playthrough in
                     PlaythroughRow(
@@ -125,9 +141,23 @@ struct ManagePlaythroughsSheet: View {
                 Text("Deleting a playthrough removes every book, memory, skill and journal "
                      + "entry recorded in it — permanently. The active playthrough can’t be deleted.")
             }
+
+            Section {
+                HStack {
+                    Spacer()
+                    Button("Cancel", role: .cancel) { dismiss() }
+                    Button("OK") { dismiss() }
+                        .buttonStyle(.borderedProminent)
+                }
+            } footer: {
+                Text("Changes (rename, load, delete, import) apply immediately — the buttons just close.")
+            }
         }
         .formStyle(.grouped)
-        .frame(minWidth: 520, minHeight: 320)
+        .frame(minWidth: 520, minHeight: 360)
+        .sheet(isPresented: $showingImport) {
+            ImportFromSaveSheet()
+        }
         .confirmationDialog(
             "Delete “\(confirmingDelete?.name ?? "")”?",
             isPresented: Binding(get: { confirmingDelete != nil },

@@ -102,7 +102,8 @@ struct BookFormView: View {
                 Picker("Contamination", selection: $contamination) {
                     Text("Unknown / not checked").tag(Contamination?.none)
                     Text("None").tag(Contamination?.some(.clear))
-                    ForEach([Contamination.curse, .theoplasmic, .infestation, .corruption], id: \.self) {
+                    ForEach([Contamination.curse, .theoplasmic, .infestation, .corruption,
+                             .winkwell, .witchworms], id: \.self) {
                         Text($0.displayName).tag(Contamination?.some($0))
                     }
                 }

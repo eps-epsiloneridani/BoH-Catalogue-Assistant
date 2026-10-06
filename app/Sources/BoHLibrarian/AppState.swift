@@ -181,4 +181,48 @@ final class AppState {
             playthroughError = "Deleting playthrough failed: \(error)"
         }
     }
+
+    // MARK: Save import
+
+    /// Import a save game into a playthrough (docs/SAVE_IMPORT.md). Creates the
+    /// destination playthrough when `asNewPlaythrough`; on success with a new
+    /// playthrough it becomes the active one. The parse/write runs on the main
+    /// thread (the db is main-thread confined) — the UI shows progress state.
+    @discardableResult
+    func importSave(_ summary: SaveGameSummary, asNewPlaythrough: Bool,
+                    playthroughName: String) -> ImportReport? {
+        guard let db, let repo = playthroughRepo else { return nil }
+        do {
+            guard let elementsDirectory = BoHPaths.gameElementsDirectory(),
+                  FileManager.default.fileExists(atPath: elementsDirectory.path) else {
+                throw SaveImportError.gameDataNotFound
+            }
+            var targetID = activePlaythrough?.id
+            var report: ImportReport?
+            try db.transaction {
+                if asNewPlaythrough {
+                    let trimmed = playthroughName.trimmingCharacters(in: .whitespacesAndNewlines)
+                    let name = trimmed.isEmpty ? "Imported from \(summary.stem)" : trimmed
+                    let versionNote = summary.gameVersion.map { " (game \($0))" } ?? ""
+                    let created = try repo.insert(name: name,
+                                                  notes: "Imported from \(summary.fileName)\(versionNote)")
+                    targetID = created.id
+                }
+                guard let id = targetID else { throw SaveImportError.noActivePlaythrough }
+                report = try SaveImporter.run(saveURL: summary.url, db: db,
+                                              playthroughID: id,
+                                              elementsDirectory: elementsDirectory)
+            }
+            if asNewPlaythrough, let id = targetID {
+                try repo.setActiveID(id)
+                activePlaythrough = try repo.get(id)
+                rebuildStores()
+            }
+            playthroughs = try repo.all()
+            return report
+        } catch {
+            playthroughError = "Import failed: \(error)"
+            return nil
+        }
+    }
 }
