@@ -147,21 +147,28 @@ public struct SaveGameSummary: Identifiable, Hashable {
 
 public enum SaveScanner {
 
+    /// Real saves are single-digit MB (AUTOSAVE ~ 7.5 MB); this cap keeps a stray
+    /// huge file in the save folder from freezing the manager sheet — files over
+    /// it are skipped rather than slurped.
+    public static let maxSaveFileBytes = 64 * 1024 * 1024
+
     /// Save-game candidates in the standard directory, newest first. Only files
     /// that actually contain a `RootPopulationCommand` count (the folder also
     /// holds achievements/config, which don't). Quick string scan, no full parse.
-    public static func availableSaves() -> [SaveGameSummary] {
+    public static func availableSaves(maxFileBytes: Int = maxSaveFileBytes) -> [SaveGameSummary] {
         guard let directory = BoHPaths.saveDirectory(),
               let files = try? FileManager.default.contentsOfDirectory(
-                  at: directory, includingPropertiesForKeys: [.contentModificationDateKey])
+                  at: directory, includingPropertiesForKeys: [.contentModificationDateKey, .fileSizeKey])
         else { return [] }
 
         var summaries: [SaveGameSummary] = []
         for file in files where file.pathExtension.lowercased() == "json" {
+            let attributes = try? file.resourceValues(
+                forKeys: [.contentModificationDateKey, .fileSizeKey])
+            if let size = attributes?.fileSize, size > maxFileBytes { continue }
             guard let data = try? Data(contentsOf: file),
                   let text = decodedText(from: data),
                   text.contains("\"RootPopulationCommand\"") else { continue }
-            let attributes = try? file.resourceValues(forKeys: [.contentModificationDateKey])
             summaries.append(SaveGameSummary(
                 url: file,
                 fileName: file.lastPathComponent,

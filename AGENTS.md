@@ -139,6 +139,19 @@ Two goals, in priority order:
   phonograph records untouched; integrity/FK clean; user's db applies it on next
   launch); dist rebuilt with the synced migration. 87 tests green (87 = 86 +
   mapping-coverage fixture + 007 data-repair proof).
+- 2026-10-06 (security review, user request): full pass over the published repo's
+  attack surfaces. Verified clean: uniform parameterized SQL (only two interpolations,
+  both constant/Int), SQLITE_TRANSIENT binding, no network/process-exec code, no
+  dependencies, script hygiene (pipefail, quoting, -init /dev/null), lenient-JSON
+  state machine, pseudonymous authors/emails in all history, no player data in the
+  *repo* db. Fixups shipped: save-scanner size cap (64 MB — a stray huge .json in the
+  save dir can no longer freeze the manager sheet; tested both ways), 700/600 perms
+  on the app's Application Support dir + db, and D11 records the deliberate posture
+  (no sandbox/hardened runtime, ad-hoc signing, env-var dev knobs) with revisit
+  triggers. **History issue surfaced: the pre-anonymize commits carry the user’s given
+  name (AGENTS/ROADMAP/SAVE_IMPORT.md, test comments) and a hardcoded /Users/…
+  home path (import-save-preview.py) — HEAD is clean but git history is not;
+  history rewrite scheduled in the same session.**
 - 2026-10-06 (007 verified + memory backlinks mastered-only, user request): the
   user's relaunched app applied 007 (live db at v7; 82 mis-stamped rows now 'book',
   both scrolls and the two genuine phonograph records intact; MANUAL_TEST items

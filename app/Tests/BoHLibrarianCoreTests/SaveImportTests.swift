@@ -296,14 +296,25 @@ final class SaveImportTests: XCTestCase {
         """.utf8).write(to: saveDir.appendingPathComponent("AUTOSAVE.json"))
         try Data("{ \"not\": \"a save\" }".utf8)
             .write(to: saveDir.appendingPathComponent("achievements.json"))
+        // A valid-save-shaped stray file, grown to over the scanner's cap via
+        // truncation (sparse — cheap to create, logical size is what counts).
+        let huge = try FileHandle(forWritingTo: {
+            let url = saveDir.appendingPathComponent("junk-64GB.json")
+            try Data("{ \"RootPopulationCommand\": { \"Spheres\": [] } }".utf8).write(to: url)
+            return url
+        }())
+        try huge.truncate(atOffset: 64 * 1024 * 1024 + 1)
+        try huge.close()
 
         let oldEnv = ProcessInfo.processInfo.environment["BOH_SAVE_DIR"]
         setenv("BOH_SAVE_DIR", saveDir.path, 1)
         defer { restoreEnv("BOH_SAVE_DIR", oldEnv) }
 
-        let saves = SaveScanner.availableSaves()
-        XCTAssertEqual(saves.map(\.fileName), ["AUTOSAVE.json"], "achievements excluded")
-        XCTAssertEqual(saves.first?.gameVersion, "2026.1.f.3")
+        XCTAssertEqual(SaveScanner.availableSaves().map(\.fileName), ["AUTOSAVE.json"],
+                       "achievements and oversized files excluded")
+        XCTAssertEqual(SaveScanner.availableSaves().first?.gameVersion, "2026.1.f.3")
+        XCTAssertTrue(SaveScanner.availableSaves(maxFileBytes: 10).isEmpty,
+                      "size cap skips slurping huge files")
     }
 
     // MARK: - Real game (skips when not installed)
