@@ -134,7 +134,7 @@ GROUP BY p.id ORDER BY p.sort_order;
 - Seeds: `002` principles (13, with UI colors), `003` languages (15). **Nothing else is
   ever seeded** (D6).
 
-### What migrations 004–006 changed
+### What migrations 004–007 changed
 
 - **004 — difficulty:** `Books.mystery_level` renamed to `Books.difficulty` — the term the
   game community and wiki use ("Mastery Difficulty"). Deliberately **recordable
@@ -160,6 +160,15 @@ GROUP BY p.id ORDER BY p.sort_order;
   (copies); Principles/Languages keep global uniques (unscoped lookups).
   - Deleting a playthrough cascades its findings; the UI confirms and refuses to delete
     the active or only playthrough.
+- **007 — imported book kinds repaired (data repair, one-off):** the save importer
+  mapped the tomes.json aspect `codex` to `book_kind = 'record'` — but `codex` is the
+  plain bound-book format in the game's data; phonograph records carry aspect
+  `record.phonograph`. Both imports of 2026-10-06 stamped 41 of 42 books per
+  playthrough as 'record'. The migration flips those rows back to 'book', keyed on
+  the import fingerprints (`created_at` in ('2026-10-06 12:58:45', '2026-10-06
+  13:19:42')) so manual entries — including genuinely-phonograph records — are left
+  untouched; only `book_kind` (+ `updated_at`) change. The importer itself is fixed
+  in the same commit, so no future import recreates the damage.
 
 ### Future schema notes
 

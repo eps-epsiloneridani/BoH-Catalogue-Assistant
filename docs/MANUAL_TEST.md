@@ -197,6 +197,27 @@ during your first play session with that build.
       autosave into “Playthrough 2” — it completes with its own copy of the
       books/skills/memories, and “First playthrough” keeps its records untouched.
 
+## Imported book kinds repaired (2026-10-06)
+
+### Verified automatically (unit tests — `swift test`, 87 green)
+- [x] Mapping: fixture tome with `codex` imports as `.book`; `record.phonograph`
+      as `.record`; `scroll` as `.scroll` (the old mapping turned every codex —
+      i.e. nearly all books — into 'record')
+- [x] Migration 007 on a copy of the live db: 82 of 84 mis-stamped rows flip
+      `record → book`; both Tantras (scrolls) intact; manual entries — including
+      two genuine phonograph records — untouched; `integrity_check` ok, FK check ok
+- [x] Migration 007 unit proof on a data-bearing v6 db (fingerprints + controls)
+- [x] Re-import is a no-op on kinds: the fill-empty upsert never writes `book_kind`
+
+### Needs hands — tick on your next launch
+- [ ] Relaunch the app (the packaged one: rebuild `dist` from this commit first) —
+      the app migrates its Application Support db v6 → v7 on launch
+- [ ] Books screen: the books you imported (Journal of Thomas Dewulf, De Ratio
+      Quercuum, …) no longer show "Record" badges; the two phonograph records
+      (A Tower Rises, An Investigation of A Foundered Country) still do; the scrolls
+      (both Tantras) still show "Scroll"
+- [ ] Switch playthroughs — both imported playthroughs read cleanly, lists intact
+
 ## Packaged app (2026-10-06)
 
 ### Verified automatically (the packaging smoke test)

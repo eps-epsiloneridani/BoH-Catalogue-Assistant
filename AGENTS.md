@@ -34,13 +34,15 @@ Two goals, in priority order:
 ## Status snapshot (update every session)
 
 - **2026-10-06 — PARKED (Phases 0–5 + packaging) with user-requested additions shipped.**
-  Build + 86 tests pass from a clean checkout; `Boh.db` at schema v6 with an empty
+  Build + 87 tests pass from a clean checkout; `Boh.db` at schema v7 with an empty
   "First playthrough" loaded; tree clean. All roadmap screens live (Books, Memories,
   Reading Helper, Skills, Journal) plus **playthroughs**, **difficulty**, **save
   import** (Manage Playthroughs → "Import from Save…"; see `docs/SAVE_IMPORT.md`),
   and a **packaged app**: `scripts/make-app.sh` → `dist/BoH Librarian.app`, smoke-
   tested Finder-style (bundled-migrations fallback proven). The packaged app keeps
-  its own db in `~/Library/Application Support/BoH Librarian/` (D7).
+  its own db in `~/Library/Application Support/BoH Librarian/` (D7) — the user's
+  live copy is data-bearing (2 imported playthroughs + manual entries) at v6 until
+  the next launch applies 007 (kind repair; verified on a copy: see session log).
   Bug triage pass 1 (2026-10-06, same day): two user-reported issues fixed — the
   journal's new-entry button was dead on an empty journal (c4cbfae), and save import
   into a second playthrough hit a 001-era table-global `Skills.name` UNIQUE
@@ -119,6 +121,24 @@ Two goals, in priority order:
   db (rows/ids/timestamps/FK integrity verified; the previously-failing insert now
   succeeds; same-playthrough duplicates still rejected). Repo `Boh.db` migrated to
   v6; 86 tests green (86 = 84 + import-into-second-playthrough + v5→v6 rebuild).
+- 2026-10-06 (user-reported bug #3, imported kinds): every imported book showed an
+  "Record" badge — 41 of 42 books per imported playthrough carried `book_kind =
+  'record'`, and it looked to the user like a cascade update fired by manual entry
+  (their last four entries happened to be Books). Db forensics settled it: all
+  affected rows kept `updated_at = created_at` (the import stamps 12:58:45 and
+  13:19:42), no triggers/views exist, and an hour-earlier playthrough imported the
+  same mis-stamps — the rows were **born** as 'record' during the save import:
+  `SaveImporter.bookKind(in:)` mapped the tomes.json aspect `codex` to `.record`.
+  In the game data `codex` is the plain bound-book format (256/281 tomes); vinyl
+  records carry `record.phonograph`. The SAVE_IMPORT.md investigation note that
+  said "records appear as codex-aspected Books" was the origin of the misread —
+  corrected in the doc. Fix: mapping keys off `record.phonograph` (films `film`,
+  scrolls `scroll`, codex/tablet → book); migration 007 flips only 'record' rows
+  with the two real import fingerprints (verified first on a copy of the live
+  Application Support db: 82 flips; scrolls Tantras intact; the user's two genuine
+  phonograph records untouched; integrity/FK clean; user's db applies it on next
+  launch); dist rebuilt with the synced migration. 87 tests green (87 = 86 +
+  mapping-coverage fixture + 007 data-repair proof).
 - 2026-10-06 (anonymization + cold-start consolidation, user-requested): all docs,
   logs, code comments, test comments and the save-preview script scrubbed of
   personal name/home-path references ("the user" throughout; hardcoded /Users/…
@@ -130,8 +150,8 @@ Two goals, in priority order:
 ```
 AGENTS.md            <- you are here (entry point)
 README.md            <- short human-facing overview
-Boh.db               <- THE DATA (SQLite, schema v6). Committed to git on purpose (D1).
-db/migrations/       <- numbered SQL migrations (canonical schema source; 001–005 applied)
+Boh.db               <- THE DATA (SQLite, schema v7). Committed to git on purpose (D1).
+db/migrations/       <- numbered SQL migrations (canonical schema source; 001–007 applied)
 docs/
   DATABASE.md        <- schema design (through v6), value sets, canonical queries, future tables
   GUI_PLAN.md        <- app architecture, as-built layout, screens, stack decisions, build/run/test
@@ -149,7 +169,7 @@ app/                 <- the Swift package (see docs/GUI_PLAN.md for the as-built
                                  repositories, pure query/math helpers, bundled migrations
   Sources/BoHLibrarian/        <- SwiftUI app: AppState (playthroughs, store wiring),
                                  RootView (routing), Stores/ (per-screen state), Views/
-  Tests/BoHLibrarianCoreTests/ <- 78 tests on :memory: databases
+  Tests/BoHLibrarianCoreTests/ <- 87 tests on :memory: databases
 ```
 
 ## Everyday commands

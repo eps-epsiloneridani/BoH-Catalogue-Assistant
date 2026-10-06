@@ -70,8 +70,14 @@ Book definition (`tomes.json`, 281 tomes incl. records/films/tablets):
 - `aspects.r.<skill>` + `xtriggers.mastering.<principle>` (effect `level` = lesson count)
 - `xtriggers.reading.<principle>` → `id` — **the memory every read yields**
 - `aspects.period.<tier>` — deck it comes from; `manifestationtype` Book/Tablet/…
-  (note: tablets exist in-game — our `BookKind` may need a `tablet` case; records
-  appear as `codex`-aspected "Book"s in tomes.json)
+  (note: tablets exist in-game — our `BookKind` may need a `tablet` case).
+  Kind markers in the 281 installed tomes (verified 2026-10-06): aspected
+  `codex` = plain bound-book format (256/281); `scroll` = 8; actual records
+  carry `record.phonograph` (8, all `manifestationtype: Book`). CORRECTION of the
+  original investigation: an earlier note claimed "records appear as
+  `codex`-aspected Books" — that misreading put `codex → .record` into the
+  importer and stamped 41 of 42 imported books per playthrough as 'record'
+  (repaired by migration 007; mapping fixed in the same commit).
 
 Skill definition (`skills.json`, 73 = 63 skills + 10 exotic languages): `Label`,
 base `aspects` (level 1 = primary 2 / secondary 1 — matches `SkillMath`),

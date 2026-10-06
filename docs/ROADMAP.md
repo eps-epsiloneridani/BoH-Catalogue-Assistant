@@ -139,6 +139,20 @@ immediate. ⌘⇧J jumps to the journal and focuses quick-add.
       playthrough are still blocked. Regression tests: import into a second
       playthrough with identical names + a data-bearing v5→v6 rebuild.
       86 tests green.
+- [x] **Imported books were stamped 'record':** ✅ (2026-10-06) the save importer's
+      kind map read the tomes.json aspect `codex` as "phonograph record"; `codex`
+      is in fact the plain bound-book format (256/281 tomes), so 41 of 42 books per
+      imported playthrough entered as 'record' — it *looked* like a cascade changing
+      the kind of other entries after manual entry, but the journal/updated_at trail
+      shows every affected row kept `updated_at = created_at` (the import stamp):
+      the rows were born mis-stamped, nothing rewrote them. Fix: the mapping now keys
+      off `record.phonograph` (films `film`, scrolls `scroll`, codex/tablet → book),
+      and migration 007 repairs the data — flips only 'record' rows carrying the two
+      real import fingerprints (`created_at` 12:58:45 / 13:19:42), leaving manual
+      entries (both genuine phonograph records) and scrolls untouched. Verified on a
+      copy of the live Application Support db: 82 flips, scroll/manual rows intact,
+      integrity + FK checks clean. Tests: fixture mapping (codex/book, record,
+      scroll), 007 unit proof, live-import kind regression. 87 tests green.
 
 ## Later / optional (only on request)
 

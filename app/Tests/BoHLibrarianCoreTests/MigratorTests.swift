@@ -19,13 +19,13 @@ final class MigratorTests: XCTestCase {
 
     // MARK: Fresh application
 
-    func testFreshApplyReachesVersion6AndSeeds() throws {
+    func testFreshApplyReachesVersion7AndSeeds() throws {
         let db = try freshDB()
         let migrator = try Migrator(migrations: Migrator.bundled())
-        XCTAssertEqual(migrator.pending(on: db).count, 6)
+        XCTAssertEqual(migrator.pending(on: db).count, 7)
         try migrator.apply(to: db)
 
-        XCTAssertEqual(db.userVersion, 6)
+        XCTAssertEqual(db.userVersion, 7)
         for table in ["Principles", "Languages", "Memories", "MemoryAspects", "MemorySources",
                       "Books", "BookLessons", "Skills", "Journal", "Playthroughs", "Meta"] {
             XCTAssertTrue(try db.tableExists(table), "\(table) missing after migration")
@@ -45,7 +45,7 @@ final class MigratorTests: XCTestCase {
         try migrator.apply(to: db)
         try migrator.apply(to: db)   // second run: nothing pending
         XCTAssertTrue(migrator.pending(on: db).isEmpty)
-        XCTAssertEqual(db.userVersion, 6)
+        XCTAssertEqual(db.userVersion, 7)
         XCTAssertEqual(try db.scalarInt("SELECT COUNT(*) FROM Principles;"), 13, "seeds must not duplicate")
         XCTAssertEqual(try db.scalarInt("SELECT COUNT(*) FROM Playthroughs;"), 1, "default playthrough must not duplicate")
     }
@@ -99,7 +99,7 @@ final class MigratorTests: XCTestCase {
         try db.executeScript("CREATE TABLE Books (Title TEXT); CREATE TABLE Memories (Name TEXT);")
         let migrator = try Migrator(migrations: Migrator.bundled())
         try migrator.apply(to: db)
-        XCTAssertEqual(db.userVersion, 6)
+        XCTAssertEqual(db.userVersion, 7)
         XCTAssertEqual(try db.scalarInt("SELECT COUNT(*) FROM Books;"), 0, "new Books table, empty")
     }
 
@@ -125,7 +125,7 @@ final class MigratorTests: XCTestCase {
         // The app's real path: full list, pending() picks up just 006 on the
         // now data-bearing v5 db.
         try Migrator(migrations: migrations).apply(to: db)
-        XCTAssertEqual(db.userVersion, 6)
+        XCTAssertEqual(db.userVersion, 7, "latest is 007; 007 is a no-op on this db (no Books rows)")
 
         // Ids preserved — FK references into these tables survive the rebuild.
         XCTAssertEqual(try db.scalarInt(
@@ -150,6 +150,54 @@ final class MigratorTests: XCTestCase {
         XCTAssertEqual(try db.scalarInt("PRAGMA foreign_key_check;"), 0)
     }
 
+    // MARK: 007 — imported book kinds repaired
+
+    /// 007 repairs the importer bug that stamped every codex-aspected tome 'record'.
+    /// Proof on a data-bearing v6 database with the real import fingerprints:
+    /// only import-created 'record' rows flip to 'book'; genuinely-phonograph
+    /// rows (manual entries carry other timestamps) and scrolls keep their kind.
+    func test007RepairsImportedKindStampsOnly() throws {
+        let db = try freshDB()
+        let migrations = try Migrator.bundled()
+        try Migrator(migrations: Array(migrations.prefix(6))).apply(to: db)
+        let playthrough = try XCTUnwrap(PlaythroughRepository(db: db).active())
+
+        // Four rows reproducing the pre-007 state: two mis-stamped (import fingerprint),
+        // two correctly-kinded controls (one manual 'record', one import scroll).
+        let seed = { (title: String, kind: String, stamp: String) in
+            try db.execute(
+                "INSERT INTO Books (title, book_kind, read_status, created_at, updated_at, playthrough_id) VALUES (?, ?, 'catalogued', ?, ?, ?);",
+                [title, kind, stamp, stamp, playthrough.id])
+        }
+        try seed("Imported Mis-stamped", "record", "2026-10-06 12:58:45")
+        try seed("Imported Scroll", "scroll", "2026-10-06 12:58:45")
+        try seed("Manual Record", "record", "2026-10-06 14:24:39")
+        try seed("Manual Book", "book", "2026-10-06 14:29:11")
+        XCTAssertTrue(try db.scalarInt(
+            "SELECT COUNT(*) FROM Books WHERE book_kind = 'record';") == 2,
+            "setup reproduced the pre-007 state")
+
+        try Migrator(migrations: migrations).apply(to: db)
+        XCTAssertEqual(db.userVersion, 7)
+
+        func kindOf(_ title: String) throws -> String? {
+            try db.query("SELECT book_kind FROM Books WHERE title = ?;", [title]) {
+                try $0.requireString("book_kind")
+            }.first
+        }
+        XCTAssertTrue(try kindOf("Imported Mis-stamped") == "book", "repair flips it")
+        XCTAssertTrue(try kindOf("Imported Scroll") == "scroll", "scrolls untouched")
+        XCTAssertTrue(try kindOf("Manual Record") == "record", "true phonograph records keep their kind")
+        XCTAssertTrue(try kindOf("Manual Book") == "book")
+        // created_at (the repair's key) unchanged; updated_at is stamped by the repair.
+        let stamps = try db.query(
+            "SELECT created_at, updated_at FROM Books WHERE title = 'Imported Mis-stamped';",
+            map: { ($0.string("created_at"), $0.string("updated_at")) }).first
+        XCTAssertEqual(stamps?.0, "2026-10-06 12:58:45", "created_at keeps the import fingerprint")
+        XCTAssertNotEqual(stamps?.1, "2026-10-06 12:58:45", "updated_at stamped by the repair")
+        XCTAssertEqual(try db.scalarInt("PRAGMA foreign_key_check;"), 0)
+    }
+
     // MARK: Bundled copy stays in sync with the repo
 
     func testBundledMigrationsMatchRepoDirectory() throws {
@@ -168,7 +216,7 @@ final class MigratorTests: XCTestCase {
         defer { restoreEnv("BOH_MIGRATIONS", old) }
 
         let migrator = try Migrator.resolve()
-        XCTAssertEqual(migrator.migrations.count, 6)
+        XCTAssertEqual(migrator.migrations.count, 7)
     }
 
     private func restoreEnv(_ key: String, _ value: String?) {

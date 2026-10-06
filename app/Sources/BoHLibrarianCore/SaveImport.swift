@@ -588,10 +588,14 @@ public final class SaveImporter {
                            notes: nil, aspects: drafts)
     }
 
+    /// Kind markers in tomes.json (verified against 281 installed tomes):
+    /// `codex` is the plain bound-book format (256 of 281) — NOT a phonograph
+    /// record; records carry `record.phonograph`. An earlier mapping turned
+    /// every imported book into a `record` (migration 007 repairs that data).
     private static func bookKind(in aspects: [String: Any]) -> BookKind {
         if aspects["tablet"] != nil { return .book }  // tablets stay "book" for now (kind set is book/scroll/film/record)
         if aspects["film"] != nil { return .film }
-        if aspects["codex"] != nil { return .record }
+        if aspects["record.phonograph"] != nil { return .record }
         if aspects["scroll"] != nil { return .scroll }
         return .book
     }

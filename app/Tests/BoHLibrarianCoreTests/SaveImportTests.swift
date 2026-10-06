@@ -70,6 +70,10 @@ final class SaveImportTests: XCTestCase {
                 "aspects": { "mystery.moon": 6, "w.greek": 1, "codex": 1 },
                 "xtriggers": {
                   "reading.moon": [ { "id": "numen.asce", "morpheffect": "spawn", "level": 1 } ] } },
+              { "ID": "t.testrecord", "Label": "Test Record",
+                "aspects": { "mystery.edge": 3, "record.phonograph": 1 } },
+              { "ID": "t.testscroll", "Label": "Test Scroll",
+                "aspects": { "mystery.winter": 5, "scroll": 1 } },
             ], }
             """)
         _ = try writeFixture("skills.json", into: dir, contents: """
@@ -118,6 +122,10 @@ final class SaveImportTests: XCTestCase {
             "$type": "ElementStackCreationCommand", "EntityId": "t.testbook", "Quantity": 1, "Mutations": { "mastery.sky": 4 } } },
             { "$type": "TokenCreationCommand", "Payload": {
             "$type": "ElementStackCreationCommand", "EntityId": "t.cursedbook", "Quantity": 1, "Mutations": { "contamination.winkwell": 1 } } },
+            { "$type": "TokenCreationCommand", "Payload": {
+            "$type": "ElementStackCreationCommand", "EntityId": "t.testrecord", "Quantity": 1, "Mutations": { } } },
+            { "$type": "TokenCreationCommand", "Payload": {
+            "$type": "ElementStackCreationCommand", "EntityId": "t.testscroll", "Quantity": 1, "Mutations": { } } },
             { "$type": "TokenCreationCommand", "Payload": {
             "$type": "ElementStackCreationCommand", "EntityId": "s.skystories", "Quantity": 1, "Mutations": { "skill": 1, "wisdom.committed": 1, "w.horomachistry": -1, "a.xtri": 1 } } },
             { "$type": "TokenCreationCommand", "Payload": {
@@ -172,14 +180,15 @@ final class SaveImportTests: XCTestCase {
                                           playthroughID: playthrough.id,
                                           elementsDirectory: elementsDirectory)
 
-        XCTAssertEqual(report.booksCreated, 2)
+        XCTAssertEqual(report.booksCreated, 4)
         XCTAssertEqual(report.booksUpdated, 0)
         XCTAssertEqual(report.skillsCreated, 2)
         XCTAssertEqual(report.memoriesCreated, 2)
         XCTAssertEqual(report.uncataloguedSkipped, 1, "uncatbooks are skipped")
 
         let books = try BookRepository(db: db, playthroughID: playthrough.id).all()
-        XCTAssertEqual(Set(books.map(\.title)), ["Test Book", "Cursed Book"])
+        XCTAssertEqual(Set(books.map(\.title)),
+                       ["Test Book", "Cursed Book", "Test Record", "Test Scroll"])
 
         let testBook = try XCTUnwrap(books.first { $0.title == "Test Book" })
         XCTAssertEqual(testBook.difficulty, 4)
@@ -197,7 +206,13 @@ final class SaveImportTests: XCTestCase {
         let cursed = try XCTUnwrap(books.first { $0.title == "Cursed Book" })
         XCTAssertEqual(cursed.readStatus, .catalogued, "no mastery mutation")
         XCTAssertEqual(cursed.contamination, .winkwell)
-        XCTAssertEqual(cursed.bookKind, .record, "codex aspect")
+        XCTAssertEqual(cursed.bookKind, .book,
+                       "codex is the plain bound-book format — not a phonograph record")
+        let testRecord = try XCTUnwrap(books.first { $0.title == "Test Record" })
+        XCTAssertEqual(testRecord.bookKind, .record, "record.phonograph aspect")
+        XCTAssertEqual(testRecord.readStatus, .catalogued)
+        let testScroll = try XCTUnwrap(books.first { $0.title == "Test Scroll" })
+        XCTAssertEqual(testScroll.bookKind, .scroll, "scroll aspect")
         let greek = try LanguageRepository(db: db).all().first { $0.name == "Greek" }
         XCTAssertEqual(cursed.languageID, greek?.id, "native language matched by name")
 
@@ -236,7 +251,7 @@ final class SaveImportTests: XCTestCase {
             saveURL: try makeSave(), db: db, playthroughID: playthrough.id,
             elementsDirectory: try makeElementsDirectory())
 
-        XCTAssertEqual(report.booksCreated, 1, "only the cursed book is new")
+        XCTAssertEqual(report.booksCreated, 3, "three new tomes (the fourth title is pre-recorded)")
         XCTAssertEqual(report.booksUpdated, 1)
         let reloaded = try XCTUnwrap(try books.get(manual.id))
         XCTAssertEqual(reloaded.notes, "my precious notes", "user notes preserved")
@@ -263,7 +278,7 @@ final class SaveImportTests: XCTestCase {
                                           playthroughID: second.id,
                                           elementsDirectory: elements)
 
-        XCTAssertEqual(report.booksCreated, 2)
+        XCTAssertEqual(report.booksCreated, 4)
         XCTAssertEqual(report.skillsCreated, 2)
         XCTAssertEqual(report.memoriesCreated, 2)
         XCTAssertEqual(try SkillRepository(db: db, playthroughID: first.id).all().count, 2)
@@ -312,6 +327,8 @@ final class SaveImportTests: XCTestCase {
         XCTAssertTrue(offenders.isEmpty,
                       "titles should be human labels, not element ids — offenders: \(offenders.map(\.title))")
         XCTAssertGreaterThan(report.memoriesCreated, 0, "mastered books yield memories")
+        XCTAssertTrue(books.contains { $0.bookKind == .book },
+                      "codex tomes import as books, not records — kind mapping regression")
     }
 
     private func restoreEnv(_ key: String, _ value: String?) {
