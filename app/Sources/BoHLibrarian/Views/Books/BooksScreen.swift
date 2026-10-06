@@ -13,6 +13,10 @@ struct BooksScreen: View {
     @State private var editingBook: Book?
     @State private var markingRead: Book?
 
+    init(store: BooksStore) {
+        self.store = store
+    }
+
     var body: some View {
         @Bindable var store = store
         return Group {

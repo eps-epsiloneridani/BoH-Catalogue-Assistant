@@ -30,6 +30,7 @@ final class AppState {
     private(set) var skillCount: Int = 0
     private(set) var journalCount: Int = 0
     private(set) var booksStore: BooksStore?
+    private(set) var memoriesStore: MemoriesStore?
 
     init() {
         bootstrap()
@@ -52,6 +53,7 @@ final class AppState {
             skillCount = try database.scalarInt("SELECT COUNT(*) FROM Skills;")
             journalCount = try database.scalarInt("SELECT COUNT(*) FROM Journal;")
             booksStore = BooksStore(db: database)
+            memoriesStore = MemoriesStore(db: database)
             phase = .ready
         } catch {
             phase = .failed(String(describing: error))

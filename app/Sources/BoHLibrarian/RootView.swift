@@ -90,10 +90,28 @@ private struct DetailView: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            SectionPlaceholder(section: section)
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
+            detail
             Divider()
             statusFooter
+        }
+    }
+
+    @ViewBuilder private var detail: some View {
+        switch section {
+        case .books:
+            if let store = appState.booksStore {
+                BooksScreen(store: store)
+            } else {
+                FailureView(message: "The books store is unavailable — the database may not have opened.")
+            }
+        case .memories:
+            if let store = appState.memoriesStore {
+                MemoriesScreen(store: store)
+            } else {
+                FailureView(message: "The memories store is unavailable — the database may not have opened.")
+            }
+        default:
+            SectionPlaceholder(section: section)
         }
     }
 
@@ -107,8 +125,8 @@ private struct DetailView: View {
             Text("schema v\(appState.schemaVersion)")
             Text("\(appState.principles.count) principles")
             Text("\(appState.languages.count) languages")
-            Text("\(appState.bookCount) books")
-            Text("\(appState.memoryCount) memories")
+            Text("\(appState.booksStore?.books.count ?? appState.bookCount) books")
+            Text("\(appState.memoriesStore?.memories.count ?? appState.memoryCount) memories")
         }
         .font(.caption)
         .foregroundStyle(.secondary)

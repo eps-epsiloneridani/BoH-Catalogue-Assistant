@@ -19,12 +19,6 @@ struct MarkAsReadSheet: View {
         case newMemory
     }
 
-    private struct AspectRow: Identifiable {
-        var id = UUID()
-        var principleID: Int64?
-        var level = 2
-    }
-
     @State private var mastering: Bool
     @State private var usedMemoryID: Int64?
     @State private var gainedChoice: Gained = .none
@@ -35,7 +29,7 @@ struct MarkAsReadSheet: View {
     @State private var newName = ""
     @State private var newKind: MemoryKind = .memory
     @State private var newPersistent = false
-    @State private var newAspects: [AspectRow] = [AspectRow()]
+    @State private var newAspects: [AspectDraftRow] = [AspectDraftRow()]
 
     @State private var lessons: Int?
     @State private var note = ""
@@ -144,29 +138,7 @@ struct MarkAsReadSheet: View {
             }
             .pickerStyle(.segmented)
             Toggle("Persistent (survives dawn)", isOn: $newPersistent)
-            ForEach($newAspects) { $aspect in
-                HStack {
-                    Picker("Aspect", selection: $aspect.principleID) {
-                        Text("—").tag(Int64?.none)
-                        ForEach(appState.principles) { principle in
-                            Text(principle.name).tag(Int64?.some(principle.id))
-                        }
-                    }
-                    Stepper("Level \(aspect.level)", value: $aspect.level, in: 1...8)
-                    Button {
-                        newAspects.removeAll { $0.id == aspect.id }
-                    } label: {
-                        Image(systemName: "minus.circle")
-                    }
-                    .buttonStyle(.borderless)
-                    .help("Remove aspect")
-                }
-            }
-            Button {
-                newAspects.append(AspectRow())
-            } label: {
-                Label("Add aspect", systemImage: "plus.circle")
-            }
+            AspectEditor(principles: appState.principles, rows: $newAspects)
         }
     }
 
