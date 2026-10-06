@@ -71,13 +71,21 @@ app needs playthrough save/load/new (BoH is run-based — findings don't carry o
       active run
 - [x] 62 tests green; `Boh.db` migrated to v5 (default playthrough seeded + active)
 
-## Phase 4 — Reading Helper (next)
+## Phase 4 — Reading Helper ✅ (2026-10-06)
 
-- [ ] Book picker → requirement panel (mystery, language-known hint, contamination, kind)
-- [ ] Live candidate lists (memories ≥ level; skills with computed contribution)
-- [ ] One-flow "log the read" (shared with Phase 2's sheet)
+- [x] Book picker → requirement panel (mystery, language-known hint, contamination, kind)
+- [x] Live candidate lists (memories ≥ level; skills with computed contribution)
+- [x] One-flow "log the read" (shared with Phase 2's sheet — tapping a candidate memory
+      prefills it)
 
-## Phase 5 — Skills & Journal screens
+Implementation notes: `ReadingHelperStore` composes the canonical queries;
+`ReadingMath` (Core, tested) writes the plain-English requirement/reach sentences —
+"You need Rose 6. Best recorded: memory 4 + skill 3 = 7 — enough, before souls, inks and
+ tools." Near-misses (top 3 below difficulty) show when nothing satisfies. Mastered
+books get a yield-focused re-read panel. Souls/inks/tools are explicitly out of scope
+until an Elements/Tools table lands.
+
+## Phase 5 — Skills & Journal screens (next)
 
 - [ ] Skills CRUD with level stepper (computed 2/1 display), wisdom/element fields
 - [ ] Journal timeline, quick-add, entity links/filters

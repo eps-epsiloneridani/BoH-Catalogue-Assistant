@@ -33,10 +33,11 @@ Two goals, in priority order:
 
 ## Status snapshot (update every session)
 
-- **2026-10-06 — Phases 0–3½ complete.** Books + Memories screens live; **playthroughs**
-  (save/load/new via the sidebar switcher) scope every finding; books record **difficulty**
-  independently of the mystery principle. 62 tests green; `Boh.db` at schema v5 with the
-  default playthrough active. **Next: Phase 4** — Reading Helper per `docs/ROADMAP.md`.
+- **2026-10-06 — Phases 0–4 complete.** The Reading Helper is live: pick the book in
+  hand → see the requirement (difficulty, language, contamination, equipment), the
+  plain-English reach line, satisfying/near-miss memories and skill contributions → tap
+  a memory to record the read with it preselected. 71 tests green. **Next: Phase 5** —
+  Skills & Journal screens per `docs/ROADMAP.md`.
 
 ### Session log
 - 2026-10-05 (planning): docs, migrations, seeds, git init.
@@ -50,7 +51,10 @@ Two goals, in priority order:
 - 2026-10-06 (Phase 3½, user-requested): migrations 004 (difficulty) + 005 (playthroughs);
   scoped repositories; playthrough switcher/New/Manage UI (62 tests). The verify-wiring
   grep caught a second silently-dropped paired edit (sidebar switcher) before it could
-  ship unreachable — the convention works. No playthrough data recorded in `Boh.db` yet.
+  ship unreachable — the convention works.
+- 2026-10-06 (Phase 4): Reading Helper (71 tests). Toolchain note: on this SDK
+  `capitalized` is a property — `capitalized()` doesn't compile (bitten once, fixed).
+- No playthrough data recorded in `Boh.db` yet.
 
 ## Repository layout
 
