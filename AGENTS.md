@@ -33,21 +33,21 @@ Two goals, in priority order:
 
 ## Status snapshot (update every session)
 
-- **2026-10-06 — PARKED (Phases 0–5) plus two shipped user-requested additions.**
+- **2026-10-06 — PARKED (Phases 0–5 + packaging) with user-requested additions shipped.**
   Build + 84 tests pass from a clean checkout; `Boh.db` at schema v5 with an empty
   "First playthrough" loaded; tree clean. All roadmap screens live (Books, Memories,
-  Reading Helper, Skills, Journal) plus **playthroughs**, **difficulty**, and **save
-  import** (Manage Playthroughs → "Import from Save…"; see `docs/SAVE_IMPORT.md`).
-  Both former pending items are closed; the only parked extension is the save-import
-  file picker (ROADMAP §Later).
+  Reading Helper, Skills, Journal) plus **playthroughs**, **difficulty**, **save
+  import** (Manage Playthroughs → "Import from Save…"; see `docs/SAVE_IMPORT.md`),
+  and a **packaged app**: `scripts/make-app.sh` → `dist/BoH Librarian.app`, smoke-
+  tested Finder-style (bundled-migrations fallback proven). The packaged app keeps
+  its own db in `~/Library/Application Support/BoH Librarian/` (D7).
 
 - **How to resume (in this order):**
   1. Ask the user how his hands-on pass went — `docs/MANUAL_TEST.md` has unticked
-     interaction checklists for every screen and feature (including save import);
-     fix any papercuts he found first.
-  2. Then Phase 6 per `docs/ROADMAP.md`: `make-app.sh` packaging (Dock/⌘Tab presence
-     without `swift run`), menu-bar quick journal, window-state persistence, JSON/CSV
-     export.
+     interaction checklists for every screen and feature (including save import and
+     the packaged app); fix any papercuts he found first.
+  2. Then the rest of Phase 6 per `docs/ROADMAP.md`: menu-bar quick journal,
+     window-state persistence, JSON/CSV export.
   3. Later/optional ideas live at the bottom of the ROADMAP (save-import file picker,
      rooms tracker, recipes, visitors, opt-in wiki import, per-file playthroughs).
 
@@ -87,6 +87,12 @@ Two goals, in priority order:
   summary alert) + OK/Cancel buttons on that sheet. File-picker extension parked in
   ROADMAP §Later. Also fixed: MANUAL_TEST phase order (Phase 3 had been stranded
   at the file's end since its insertion).
+- 2026-10-06 (packaging, user-requested): `scripts/make-app.sh` → release build →
+  `dist/BoH Librarian.app` (bundle id, git-stamped version, ad-hoc codesign).
+  Smoke-tested via `open`: first launch creates the app's own db in
+  `~/Library/Application Support/BoH Librarian/` at schema v5 **from the bundled
+  migrations** — that fallback's first real-world proof. `dist/` gitignored;
+  the smoke test's db was removed so the user's first double-click is a pristine run.
 
 ## Repository layout
 
@@ -125,7 +131,8 @@ app/                 <- the Swift package (see docs/GUI_PLAN.md for the as-built
 | Text snapshot of the db | `scripts/dump-sql.sh` (output gitignored; for eyeballing diffs) |
 | Sync bundled migrations (after editing `db/migrations/`) | `scripts/sync-migrations.sh` |
 | Build the app | `cd app && swift build` |
-| Run the app | `cd app && swift run` |
+| Run the app (dev) | `cd app && swift run` |
+| Package a double-clickable .app | `scripts/make-app.sh` → `dist/BoH Librarian.app` |
 | Run tests | `cd app && swift test` |
 | Commit play-session data | `git add Boh.db && git commit -m "data: <what you recorded>"` |
 

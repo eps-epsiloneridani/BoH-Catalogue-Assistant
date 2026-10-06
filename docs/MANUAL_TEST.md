@@ -183,6 +183,31 @@ during your first play session with that build.
 - [ ] With the game folder absent (if you ever test on another Mac): friendly
       empty state mentioning the parked file picker
 
+## Packaged app (2026-10-06)
+
+### Verified automatically (the packaging smoke test)
+- [x] `scripts/make-app.sh` builds release + wraps `dist/BoH Librarian.app`
+      (bundle id, version 0.1.0 + git hash, ad-hoc signature)
+- [x] Launched via `open` (Finder semantics): stays alive, gets Dock/⌘Tab presence
+- [x] First launch creates `~/Library/Application Support/BoH Librarian/Boh.db` and
+      migrates it to schema v5 **from the bundled migrations** with seeds
+      (13 principles, "First playthrough" active)
+
+### Needs hands — your first double-click run
+- [ ] Double-click `dist/BoH Librarian.app` from Finder — window opens, no terminal
+- [ ] Footer shows the Application Support db path (not the repo's `../Boh.db`)
+- [ ] Library starts empty; Manage Playthroughs → Import from Save… pulls in your
+      AUTOSAVE — the full end-to-end flow with real data
+- [ ] Quit via ⌘Q; relaunch — everything you imported/recorded persists
+- [ ] Keep in Dock (right-click → Options) if you like; drag to /Applications if you
+      want it permanent (it's self-contained — the db lives in Application Support)
+
+Note: the packaged app uses its **own** database, separate from the repo's `Boh.db`
+(that's D7 — the repo db stays git-versioned for `swift run` development). If you
+want the packaged app on the repo db instead, launch it once from the repo root:
+`BOH_DB_PATH=Boh.db open "dist/BoH Librarian.app"` — but the cleaner test path is
+letting it live in Application Support.
+
 ## Scratch pad
 
 Use this space for anything noticed while testing (oddities, papercuts, ideas):

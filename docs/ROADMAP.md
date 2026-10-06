@@ -98,9 +98,15 @@ quick capture uses the session's current in-game day, entries show link chips
 (book/memory/skill), edit sheet supports text + day + all three links, delete is
 immediate. ⌘⇧J jumps to the journal and focuses quick-add.
 
-## Phase 6 — Polish (next)
+## Phase 6 — Polish (in progress)
 
-- [ ] `make-app.sh` packaging, menu-bar quick journal, window state persistence
+- [x] **`make-app.sh` packaging** — ✅ 2026-10-06. Release build →
+      `dist/BoH Librarian.app` (Info.plist with bundle id + git-stamped version,
+      ad-hoc codesigned). Launched Finder-style in the smoke test: the packaged app
+      creates its own db at `~/Library/Application Support/BoH Librarian/Boh.db`
+      per D7 and migrates it from the **bundled** migrations — that fallback's first
+      real-world proof. Keep in Dock via right-click → Options if wanted.
+- [ ] menu-bar quick journal, window state persistence
 - [ ] Export JSON/CSV; "readable today" dashboard if desired
 
 ## Pending items — user-reported

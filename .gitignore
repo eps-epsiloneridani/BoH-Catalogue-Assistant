@@ -16,3 +16,5 @@ snapshots/
 # Xcode cruft (shouldn't appear — no .xcodeproj by design)
 xcuserdata/
 *.xcodeproj
+# Packaged app output (scripts/make-app.sh)
+dist/
