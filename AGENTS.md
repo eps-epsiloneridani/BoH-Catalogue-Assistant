@@ -231,6 +231,11 @@ Two goals, in priority order:
   PrincipleBadges (read-only, AA text + combined VO semantics for free); editing is
   the Edit… sheet's job (MemoryFormView's AspectEditor + save-path verified);
   the dead inline-editor state + MemoriesStore.setAspects removed. 96 tests green.
+- 2026-10-06 (verified): source/link editors outside the Form work — the user
+  confirms entering details + kinds + saving + reopening on build e82e184;
+  MANUAL_TEST item ticked. Project lesson recorded for future UI: on this macOS
+  build, TextFields must stay out of ForEach-in-grouped-Form contexts — plain
+  VStack editor blocks + index bindings are the working pattern.
 - 2026-10-06 (still dead after owning its row — ForEach+TextField ruled out
   wholesale): the user's db settles the mechanism questions: memory 33 carries
   Forge 2/Grail 2 created via the quick-add's AspectEditor — ForEach($array)

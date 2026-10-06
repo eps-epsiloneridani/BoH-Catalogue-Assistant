@@ -62,9 +62,10 @@ during your first play session with that build.
 ### Needs hands — tick during your next session with the app
 - [ ] Sidebar → Memories: list shows recorded memories with colored aspect badges;
       weather has a cloud icon, numina a star, persistent an orange ∞
-- [ ] Edit… sheet "How to obtain": Add source → type a detail, change the kind
+- [x] Edit… sheet "How to obtain": Add source → type a detail, change the kind
       dropdown, press Save, reopen — rows persist with the chosen kind and detail
-      (fixes a revert-on-keystroke bug from a hand-rolled Binding in grouped Forms)
+      (verified by the user on build e82e184 — the fix that moved the editors out
+      of the grouped Form)
 - [x] Memory detail pane displays READ-ONLY "How to obtain" and "Books that
       yield this" too (user request 2026-10-06, same pass as the aspects fix):
       no add-source dropdown, no "Link a book…" menu, no per-row remove buttons —
