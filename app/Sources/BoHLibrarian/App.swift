@@ -20,6 +20,13 @@ struct BoHLibrarianApp: App {
                     }
                     .keyboardShortcut(KeyEquivalent(Character(String(section.rawValue))))
                 }
+                Divider()
+                Button("New Journal Note") {
+                    appState.section = .journal
+                    appState.journalStore?.requestFocus = true
+                }
+                .keyboardShortcut("j", modifiers: [.command, .shift])
+                .help("Jump to the journal and start a quick note (⌘⇧J)")
             }
         }
     }

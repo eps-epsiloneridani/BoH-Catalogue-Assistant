@@ -40,6 +40,8 @@ final class AppState {
     private(set) var booksStore: BooksStore?
     private(set) var memoriesStore: MemoriesStore?
     private(set) var helperStore: ReadingHelperStore?
+    private(set) var skillsStore: SkillsStore?
+    private(set) var journalStore: JournalStore?
     private(set) var bookCount = 0
     private(set) var memoryCount = 0
     private(set) var skillCount = 0
@@ -87,17 +89,23 @@ final class AppState {
         booksStore = BooksStore(db: db, playthroughID: playthrough.id)
         memoriesStore = MemoriesStore(db: db, playthroughID: playthrough.id)
         helperStore = ReadingHelperStore(db: db, playthroughID: playthrough.id)
+        skillsStore = SkillsStore(db: db, playthroughID: playthrough.id)
+        journalStore = JournalStore(db: db, playthroughID: playthrough.id)
         refreshCounts()
     }
 
     private func refreshCounts() {
-        guard let db, let playthrough = activePlaythrough else { return }
         bookCount = booksStore?.books.count ?? 0
         memoryCount = memoriesStore?.memories.count ?? 0
-        skillCount = (try? db.scalarInt(
-            "SELECT COUNT(*) FROM Skills WHERE playthrough_id = ?;", [playthrough.id])) ?? 0
-        journalCount = (try? db.scalarInt(
-            "SELECT COUNT(*) FROM Journal WHERE playthrough_id = ?;", [playthrough.id])) ?? 0
+        skillCount = skillsStore?.skills.count ?? 0
+        // Journal rows are capped at 500 in the store; fall back to the exact count
+        // for runs that outgrow it.
+        if let journal = journalStore, journal.entries.count < 500 {
+            journalCount = journal.entries.count
+        } else if let db, let playthrough = activePlaythrough {
+            journalCount = (try? db.scalarInt(
+                "SELECT COUNT(*) FROM Journal WHERE playthrough_id = ?;", [playthrough.id])) ?? 0
+        }
     }
 
     // MARK: Playthrough lifecycle

@@ -121,6 +121,18 @@ private struct DetailView: View {
             } else {
                 FailureView(message: "The reading helper store is unavailable — the database may not have opened.")
             }
+        case .skills:
+            if let store = appState.skillsStore {
+                SkillsScreen(store: store)
+            } else {
+                FailureView(message: "The skills store is unavailable — the database may not have opened.")
+            }
+        case .journal:
+            if let store = appState.journalStore {
+                JournalScreen(store: store)
+            } else {
+                FailureView(message: "The journal store is unavailable — the database may not have opened.")
+            }
         default:
             SectionPlaceholder(section: section)
         }
@@ -143,8 +155,8 @@ private struct DetailView: View {
             Text("\(appState.languages.count) languages")
             Text("\(appState.booksStore?.books.count ?? appState.bookCount) books")
             Text("\(appState.memoriesStore?.memories.count ?? appState.memoryCount) memories")
-            Text("\(appState.skillCount) skills")
-            Text("\(appState.journalCount) journal entries")
+            Text("\(appState.skillsStore?.skills.count ?? appState.skillCount) skills")
+            Text("\(appState.journalStore?.entries.count ?? appState.journalCount) journal entries")
         }
         .font(.caption)
         .foregroundStyle(.secondary)
