@@ -27,9 +27,14 @@ struct RootView: View {
         )
         return NavigationSplitView {
             List(selection: selection) {
-                ForEach(AppSection.allCases) { section in
-                    Label(section.title, systemImage: section.systemImage)
-                        .tag(section)
+                Section {
+                    PlaythroughMenu()
+                }
+                Section {
+                    ForEach(AppSection.allCases) { section in
+                        Label(section.title, systemImage: section.systemImage)
+                            .tag(section)
+                    }
                 }
             }
             .listStyle(.sidebar)
