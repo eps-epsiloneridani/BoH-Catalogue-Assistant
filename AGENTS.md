@@ -34,7 +34,7 @@ Two goals, in priority order:
 ## Status snapshot (update every session)
 
 - **2026-10-06 — PARKED (Phases 0–5 + packaging) with user-requested additions shipped.**
-  Build + 84 tests pass from a clean checkout; `Boh.db` at schema v5 with an empty
+  Build + 86 tests pass from a clean checkout; `Boh.db` at schema v6 with an empty
   "First playthrough" loaded; tree clean. All roadmap screens live (Books, Memories,
   Reading Helper, Skills, Journal) plus **playthroughs**, **difficulty**, **save
   import** (Manage Playthroughs → "Import from Save…"; see `docs/SAVE_IMPORT.md`),
@@ -104,16 +104,24 @@ Two goals, in priority order:
   an empty cached journal); dropped that button's default-action shortcut (Return
   is the field's onSubmit; a same-tick double fire risks a double insert). 84 tests
   green; dist rebuilt for hand verification.
+- 2026-10-06 (user-reported bug #2, import): importing the autosave into a second
+  playthrough failed — `UNIQUE constraint failed: Skills.name`. Root cause: 001-era
+  table-global uniques (`Skills.name`, `Memories (name, kind)`) survived 005's
+  playthrough scoping. Migration 006 rebuilds both tables to per-playthrough
+  uniqueness — data-preserving, proven on a copy of the user's live Application Support
+  db (rows/ids/timestamps/FK integrity verified; the previously-failing insert now
+  succeeds; same-playthrough duplicates still rejected). Repo `Boh.db` migrated to
+  v6; 86 tests green (86 = 84 + import-into-second-playthrough + v5→v6 rebuild).
 
 ## Repository layout
 
 ```
 AGENTS.md            <- you are here (entry point)
 README.md            <- short human-facing overview
-Boh.db               <- THE DATA (SQLite, schema v5). Committed to git on purpose (D1).
+Boh.db               <- THE DATA (SQLite, schema v6). Committed to git on purpose (D1).
 db/migrations/       <- numbered SQL migrations (canonical schema source; 001–005 applied)
 docs/
-  DATABASE.md        <- schema design (through v5), value sets, canonical queries, future tables
+  DATABASE.md        <- schema design (through v6), value sets, canonical queries, future tables
   GUI_PLAN.md        <- app architecture, as-built layout, screens, stack decisions, build/run/test
   GAME_MECHANICS.md  <- distilled Book of Hours facts that drive the schema + sources
   ROADMAP.md         <- phases, definitions of done, current status

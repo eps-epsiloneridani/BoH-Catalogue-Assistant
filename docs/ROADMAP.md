@@ -128,6 +128,17 @@ immediate. ⌘⇧J jumps to the journal and focuses quick-add.
       quick-capture box now renders in the empty branch too; reload + focus-request
       handling sits on the body's onAppear so it covers both branches and entries
       written by record-read still appear on arrival.
+- [x] **Save import into a second playthrough failed:** `UNIQUE constraint failed:
+      Skills.name`. ✅ (2026-10-06) 001-era table-global `UNIQUE` on `Skills.name`
+      (and on `Memories (name, kind)`) survived 005's playthrough scoping, so a
+      second playthrough couldn't hold the same entity names — importing the
+      autosave into "Playthrough 2" died on the first skill. `006_per_playthrough_unique_names`
+      rebuilds both tables (data-preserving; verified against the live db: rows, ids,
+      timestamps and FK integrity intact) and moves uniqueness to
+      (name, playthrough_id) / (name, kind, playthrough_id); duplicates within one
+      playthrough are still blocked. Regression tests: import into a second
+      playthrough with identical names + a data-bearing v5→v6 rebuild.
+      86 tests green.
 
 ## Later / optional (only on request)
 

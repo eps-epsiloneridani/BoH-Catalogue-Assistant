@@ -40,7 +40,7 @@ The db was **empty** when migration 001 dropped the legacy tables (D8).
 
 | column | notes |
 |---|---|
-| `name`, `kind` | kind ∈ `memory` \| `weather` \| `numen` (documented set; UNIQ(name, kind) — a Weather and a Memory can share a name, e.g. "Storm") |
+| `name`, `kind` | kind ∈ `memory` \| `weather` \| `numen` (documented set; UNIQUE (name, kind, **playthrough_id**) — a Weather and a Memory may share a name, e.g. "Storm"; the same name is allowed across playthroughs) |
 | `persistent` | 1 = survives dawn (still wiped by Numa) |
 | `notes` | free text |
 
@@ -74,7 +74,7 @@ The db was **empty** when migration 001 dropped the legacy tables (D8).
 
 | column | notes |
 |---|---|
-| `name` | UNIQUE; exact in-game name |
+| `name` | UNIQUE per playthrough; exact in-game name |
 | `is_language` | 1 for the 10 exotic languages (native languages don't need rows) |
 | `primary_principle_id`, `secondary_principle_id` | level-1 skill = 2 primary / 1 secondary |
 | `level` | current in-game level (1–9); NULL while unknown |
@@ -134,7 +134,7 @@ GROUP BY p.id ORDER BY p.sort_order;
 - Seeds: `002` principles (13, with UI colors), `003` languages (15). **Nothing else is
   ever seeded** (D6).
 
-### What migrations 004–005 changed
+### What migrations 004–006 changed
 
 - **004 — difficulty:** `Books.mystery_level` renamed to `Books.difficulty` — the term the
   game community and wiki use ("Mastery Difficulty"). Deliberately **recordable
@@ -150,6 +150,14 @@ GROUP BY p.id ORDER BY p.sort_order;
     constructed with a playthrough id; all list queries filter on it; all inserts stamp it.
     Update/delete by id are unscoped (ids always originate from scoped queries).
   - Principles/Languages are game structure — unscoped.
+- **006 — per-playthrough unique names:** 005 scoped the entity *tables* but left
+  001's table-global `UNIQUE` constraints — `Skills.name` and `Memories (name, kind)`
+  — forbidding the same entity in two saved games (importing a save into a second
+  playthrough failed with `UNIQUE constraint failed: Skills.name`). Rebuilds both
+  tables (canonical ALTER-rebuild, ids preserved — FK references survive) and moves
+  uniqueness to `UNIQUE (name, playthrough_id)` / `UNIQUE (name, kind, playthrough_id)`.
+  Names remain unique **within** one playthrough. `Books.title` stays non-unique
+  (copies); Principles/Languages keep global uniques (unscoped lookups).
   - Deleting a playthrough cascades its findings; the UI confirms and refuses to delete
     the active or only playthrough.
 

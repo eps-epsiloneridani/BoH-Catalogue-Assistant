@@ -244,6 +244,32 @@ final class SaveImportTests: XCTestCase {
         XCTAssertEqual(reloaded.readStatus, .mastered, "but read state upgrades")
     }
 
+    // the user's live failure (2026-10-06): first playthrough already held the autosave's
+    // names; importing into a new playthrough died on the table-global
+    // `Skills.name UNIQUE` (001-era, not rebuilt when 005 scoped the tables).
+    // Migration 006 rebuilds Skills/Memories so names are unique per playthrough.
+    func testImportIntoSecondPlaythroughWithSameEntityNames() throws {
+        let db = try SQLiteDatabase(path: ":memory:")
+        try Migrator(migrations: Migrator.bundled()).apply(to: db)
+        let first = try XCTUnwrap(PlaythroughRepository(db: db).active())
+        let saveURL = try makeSave()
+        let elements = try makeElementsDirectory()
+
+        try SaveImporter.run(saveURL: saveURL, db: db, playthroughID: first.id,
+                             elementsDirectory: elements)
+
+        let second = try PlaythroughRepository(db: db).insert(name: "Playthrough 2")
+        let report = try SaveImporter.run(saveURL: saveURL, db: db,
+                                          playthroughID: second.id,
+                                          elementsDirectory: elements)
+
+        XCTAssertEqual(report.booksCreated, 2)
+        XCTAssertEqual(report.skillsCreated, 2)
+        XCTAssertEqual(report.memoriesCreated, 2)
+        XCTAssertEqual(try SkillRepository(db: db, playthroughID: first.id).all().count, 2)
+        XCTAssertEqual(try SkillRepository(db: db, playthroughID: second.id).all().count, 2)
+    }
+
     // MARK: - Scanner
 
     func testSaveScannerFindsOnlyValidSaves() throws {

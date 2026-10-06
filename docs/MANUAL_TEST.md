@@ -158,7 +158,7 @@ during your first play session with that build.
 
 ## Save import + manager OK/Cancel (2026-10-06)
 
-### Verified automatically (unit tests — `swift test`, 84 green)
+### Verified automatically (unit tests — `swift test`, 86 green)
 - [x] Lenient JSON parser: trailing commas, raw control characters, UTF-16 with BOM,
       BOM-less UTF-8
 - [x] Importer: books with difficulty/principle/language/contamination/read status,
@@ -172,6 +172,11 @@ during your first play session with that build.
       and config excluded); game version read leniently (compact or spaced JSON)
 - [x] Real-game integration: the live AUTOSAVE imports into an in-memory db with
       non-empty human titles (skips cleanly if the game is uninstalled)
+- [x] Second-playthrough import with identical entity names — the user's reported
+      `UNIQUE constraint failed: Skills.name` (001-era table-global uniques; fixed by
+      migration 006 rebuilding Skills/Memories to per-playthrough uniqueness); plus a
+      data-bearing-v5 → v6 rebuild test (rows/ids preserved, duplicates still blocked
+      within one playthrough)
 
 ### Needs hands — tick during your next session with the app
 - [ ] Manage Playthroughs sheet: shows "Import from Save…" button and an OK/Cancel
@@ -187,6 +192,10 @@ during your first play session with that build.
 - [ ] Import into the *current* playthrough: no duplicates, existing notes untouched
 - [ ] With the game folder absent (if you ever test on another Mac): friendly
       empty state mentioning the parked file picker
+- [ ] **Import into Playthrough 2 (the reported failure):** relaunch the app once
+      so the existing db migrates v5 → v6 (footer shows schema v6), then import the
+      autosave into “Playthrough 2” — it completes with its own copy of the
+      books/skills/memories, and “First playthrough” keeps its records untouched.
 
 ## Packaged app (2026-10-06)
 
