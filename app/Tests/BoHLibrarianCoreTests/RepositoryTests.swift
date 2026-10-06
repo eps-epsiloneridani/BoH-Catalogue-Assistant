@@ -273,6 +273,42 @@ final class RepositoryTests: XCTestCase {
         XCTAssertEqual(fresh.name, "Brand New", "no match — plain insert")
     }
 
+    /// The edit form's source/link editors: setSources replaces wholesale,
+    /// allYielding covers links of any status (unlike the mastered-only display
+    /// variant), setYieldingBooks syncs links both ways.
+    func testSourceEditingAndYieldLinkSync() throws {
+        let memory = try memories.insert(MemoryDraft(name: "Memory: Salt Taste", kind: .memory, persistent: false))
+        let bookA = try books.insert(BookDraft(title: "A Light in the Inkwell", yieldedMemoryID: memory.id))
+        let bookB = try books.insert(BookDraft(title: "The Carbonek Schism", yieldedMemoryID: memory.id))
+        try books.updateReadStatus(bookA.id, .mastered)
+
+        var sources = [MemorySource(kind: "first read", detail: "Autumn 1936"),
+                       MemorySource(kind: "first read", detail: "Autumn 1936")]
+        try memories.setSources(memory.id, sources)
+        XCTAssertEqual(try memories.sources(for: memory.id).count, 1, "PK dedupes")
+
+        sources.append(MemorySource(kind: "craft"))
+        try memories.setSources(memory.id, sources)
+        XCTAssertEqual(Set(try memories.sources(for: memory.id).map(\.kind)), ["first read", "craft"])
+
+        // allYielding sees every link; booksYielding (display) only mastered ones.
+        XCTAssertEqual(try memories.allYielding(memory.id).map(\.title).sorted(),
+                       ["A Light in the Inkwell", "The Carbonek Schism"])
+        XCTAssertEqual(try memories.booksYielding(memory.id).map(\.title),
+                       ["A Light in the Inkwell"])
+
+        // Sync links to just B: A unlinked, B kept — and cross-links move.
+        let other = try memories.insert(MemoryDraft(name: "Memory: Hindsight", kind: .memory, persistent: false))
+        try memories.setYieldingBooks(memory.id, [bookB.id])
+        try memories.setYieldingBooks(other.id, [bookA.id])
+        XCTAssertEqual(try books.get(bookB.id)?.yieldedMemoryID, memory.id)
+        XCTAssertEqual(try books.get(bookA.id)?.yieldedMemoryID, other.id, "re-links move the book")
+
+        try memories.setYieldingBooks(memory.id, [])
+        XCTAssertNil(try books.get(bookB.id)?.yieldedMemoryID, "empty list clears every link")
+        XCTAssertEqual(try memories.all().count, 2)
+    }
+
     /// Reading Helper candidates: aspect-bearing memories whose yielding books are
     /// all unmastered must not appear as usable candidates (you can't spend what
     /// you don't have); mastering a yielding book flips the memory into the list.

@@ -116,16 +116,17 @@ final class MemoriesStore {
         (try? repo.sources(for: memoryID)) ?? []
     }
 
-    func addSource(memoryID: Int64, kind: String, detail: String?) {
-        perform("Adding source") {
-            try repo.addSource(memoryID, kind: kind, detail: detail)
-        }
+    /// Every yielding link, any status — the edit form edits the full set.
+    func allYielding(_ memoryID: Int64) -> [BookRef] {
+        (try? repo.allYielding(memoryID)) ?? []
     }
 
-    func removeSource(memoryID: Int64, source: MemorySource) {
-        perform("Removing source") {
-            try repo.removeSource(memoryID, kind: source.kind, detail: source.detail)
-        }
+    func setSources(_ memoryID: Int64, _ sources: [MemorySource]) {
+        perform("Saving sources") { try repo.setSources(memoryID, sources) }
+    }
+
+    func setYieldingBooks(_ memoryID: Int64, _ bookIDs: [Int64]) {
+        perform("Saving yielding books") { try repo.setYieldingBooks(memoryID, bookIDs) }
     }
 
     // MARK: Book backlinks
@@ -134,15 +135,4 @@ final class MemoriesStore {
         (try? repo.booksYielding(memoryID)) ?? []
     }
 
-    func linkBook(_ bookID: Int64, yields memoryID: Int64) {
-        perform("Linking book") {
-            try bookRepo.setYieldedMemory(bookID, memoryID: memoryID)
-        }
-    }
-
-    func unlinkBook(_ bookID: Int64) {
-        perform("Unlinking book") {
-            try bookRepo.setYieldedMemory(bookID, memoryID: nil)
-        }
-    }
 }

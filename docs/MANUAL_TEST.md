@@ -62,6 +62,11 @@ during your first play session with that build.
 ### Needs hands — tick during your next session with the app
 - [ ] Sidebar → Memories: list shows recorded memories with colored aspect badges;
       weather has a cloud icon, numina a star, persistent an orange ∞
+- [x] Memory detail pane displays READ-ONLY "How to obtain" and "Books that
+      yield this" too (user request 2026-10-06, same pass as the aspects fix):
+      no add-source dropdown, no "Link a book…" menu, no per-row remove buttons —
+      editing lives in the Edit… sheet, which gained both editors
+      (sources rows + yielding-book link sync on save)
 - [x] Memory detail pane displays aspects READ-ONLY (as badges, no pickers/
       steppers/dropdowns — user report 2026-10-06: the pane embedded the editor);
       changes persist via the Edit… sheet instead

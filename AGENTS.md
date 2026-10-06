@@ -231,6 +231,17 @@ Two goals, in priority order:
   PrincipleBadges (read-only, AA text + combined VO semantics for free); editing is
   the Edit… sheet's job (MemoryFormView's AspectEditor + save-path verified);
   the dead inline-editor state + MemoriesStore.setAspects removed. 96 tests green.
+- 2026-10-06 (sources + yielding-links editing move into the edit sheet, user
+  request): same pane pass — "How to obtain" and "Books that yield this" were still
+  editing surfaces (add-source kind dropdown + detail field; "Link a book…" menu;
+  per-row remove/unlink buttons). The detail pane now displays both read-only;
+  editing moved to the Edit… form (MemoryFormView edit-mode sections): source rows
+  (kind picker + detail + remove, stable local row ids) and yielding-book links,
+  persisted on Save through new Core mechanics — MemoryRepository.setSources
+  (replace-all, PK-dedupe), allYielding (any-status links vs the mastered-only
+  display variant) and setYieldingBooks (two-way link sync; ids bound not
+  interpolated; empty list clears). Store wrappers addSource/removeSource/linkBook/
+  unlinkBook became dead and were removed. 97 tests green.
 - 2026-10-06 (record-read toggle defaults ON, user request): after the form-master
   change the gap-fill flow exposed a rough default — MarkAsReadSheet seeded the
   "Mastering read" toggle OFF for already-mastered books (it was ON only when the

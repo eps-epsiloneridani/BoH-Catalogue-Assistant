@@ -165,6 +165,64 @@ public final class MemoryRepository {
         )
     }
 
+    /// Replace the memory's "how to obtain" rows wholesale (form save).
+    public func setSources(_ memoryID: Int64, _ sources: [MemorySource]) throws {
+        try db.transaction {
+            try db.execute("DELETE FROM MemorySources WHERE memory_id = ?;", [memoryID])
+            for source in sources {
+                try db.execute(
+                    "INSERT OR IGNORE INTO MemorySources (memory_id, kind, detail) VALUES (?, ?, ?);",
+                    [memoryID, source.kind, source.detail]
+                )
+            }
+        }
+    }
+
+    /// Every book currently linked as yielding this memory, any read status —
+    /// for editing; the mastered-only `booksYielding` variant is for display.
+    public func allYielding(_ memoryID: Int64) throws -> [BookRef] {
+        try db.query(
+            """
+            SELECT id, title FROM Books
+            WHERE playthrough_id = ? AND yielded_memory_id = ?
+            ORDER BY title;
+            """,
+            [playthroughID, memoryID]
+        ) {
+            BookRef(id: try $0.requireInt64("id"), title: try $0.requireString("title"))
+        }
+    }
+
+    /// Sync the yielding links to `bookIDs` (form save): books linked but not
+    /// listed get unlinked, listed books get the link (a book yields one memory).
+    /// Same-playthrough only; ids are bound, never interpolated.
+    public func setYieldingBooks(_ memoryID: Int64, _ bookIDs: [Int64]) throws {
+        try db.transaction {
+            if bookIDs.isEmpty {
+                try db.execute(
+                    """
+                    UPDATE Books SET yielded_memory_id = NULL, updated_at = datetime('now')
+                    WHERE playthrough_id = ? AND yielded_memory_id = ?;
+                    """, [playthroughID, memoryID])
+            } else {
+                let placeholders = Array(repeating: "?", count: bookIDs.count).joined(separator: ", ")
+                try db.execute(
+                    """
+                    UPDATE Books SET yielded_memory_id = NULL, updated_at = datetime('now')
+                    WHERE playthrough_id = ? AND yielded_memory_id = ?
+                      AND id NOT IN (\(placeholders));
+                    """, [playthroughID, memoryID] + bookIDs)
+            }
+            for id in bookIDs {
+                try db.execute(
+                    """
+                    UPDATE Books SET yielded_memory_id = ?, updated_at = datetime('now')
+                    WHERE playthrough_id = ? AND id = ?;
+                    """, [memoryID, playthroughID, id])
+            }
+        }
+    }
+
     public func removeSource(_ memoryID: Int64, kind: String, detail: String? = nil) throws {
         try db.execute(
             "DELETE FROM MemorySources WHERE memory_id = ? AND kind = ? AND detail IS ?;",
