@@ -15,8 +15,6 @@ struct MemoryDetailView: View {
     @State private var backlinks: [BookRef] = []
     @State private var notes: String = ""
     @State private var notesDirty = false
-    @State private var newSourceKind: MemorySourceKind = .consider
-    @State private var newSourceDetail = ""
     @State private var confirmingDelete = false
 
     init(memory: Memory, store: MemoriesStore, onEdit: @escaping () -> Void) {
@@ -91,57 +89,25 @@ struct MemoryDetailView: View {
     private var sourcesSection: some View {
         VStack(alignment: .leading, spacing: 10) {
             sectionTitle("How to obtain")
-            ForEach(sources) { source in
-                HStack {
-                    Text(source.kind)
-                        .font(.callout.weight(.medium))
-                    if let detail = source.detail {
-                        Text(detail)
-                            .foregroundStyle(.secondary)
-                    }
-                    Spacer()
-                    Button {
-                        store.removeSource(memoryID: memory.id, source: source)
-                        sources = store.sources(for: memory.id)
-                    } label: {
-                        Image(systemName: "minus.circle")
-                            .accessibilityLabel("Remove source")
-                    }
-                    .buttonStyle(.borderless)
-                    .help("Remove source")
-                }
-            }
-            HStack {
-                Picker("Kind", selection: $newSourceKind) {
-                    ForEach(MemorySourceKind.allCases, id: \.self) { kind in
-                        Text(kind.rawValue).tag(kind)
-                    }
-                }
-                .labelsHidden()
-                TextField("Detail (e.g. Talk with the Rector (17%))", text: $newSourceDetail)
-                    .onSubmit(addSource)
-                Button(action: addSource) {
-                    Image(systemName: "plus.circle")
-                        .accessibilityLabel("Add source")
-                }
-                .buttonStyle(.borderless)
-                .help("Add source")
-            }
             if sources.isEmpty {
-                Text("No sources recorded — note where this one came from.")
+                Text("No sources recorded — add them with Edit….")
                     .font(.caption)
                     .foregroundStyle(.secondary)
+            } else {
+                VStack(alignment: .leading, spacing: 6) {
+                    ForEach(sources) { source in
+                        HStack(spacing: 6) {
+                            Text(source.kind)
+                                .font(.callout.weight(.medium))
+                            if let detail = source.detail {
+                                Text(detail)
+                                    .foregroundStyle(.secondary)
+                            }
+                        }
+                    }
+                }
             }
         }
-    }
-
-    private func addSource() {
-        let detail = newSourceDetail.trimmingCharacters(in: .whitespacesAndNewlines)
-        guard !detail.isEmpty else { return }
-        store.addSource(memoryID: memory.id, kind: newSourceKind.rawValue,
-                        detail: detail.isEmpty ? nil : detail)
-        newSourceDetail = ""
-        sources = store.sources(for: memory.id)
     }
 
     // MARK: Books that yield this
@@ -149,47 +115,23 @@ struct MemoryDetailView: View {
     private var yieldsSection: some View {
         VStack(alignment: .leading, spacing: 10) {
             sectionTitle("Books that yield this")
-            ForEach(backlinks) { book in
-                HStack {
-                    Image(systemName: "book")
-                        .foregroundStyle(.secondary)
-                        .accessibilityHidden(true)
-                    Text(book.title)
-                        .font(.callout)
-                    Spacer()
-                    Button {
-                        store.unlinkBook(book.id)
-                        backlinks = store.booksYielding(memory.id)
-                    } label: {
-                        Image(systemName: "minus.circle")
-                            .accessibilityLabel("Unlink this book")
-                    }
-                    .buttonStyle(.borderless)
-                    .help("Unlink — this book doesn't yield this memory")
-                }
-            }
-            Menu {
-                ForEach(linkableBooks) { book in
-                    Button(book.title) {
-                        store.linkBook(book.id, yields: memory.id)
-                        backlinks = store.booksYielding(memory.id)
-                    }
-                }
-            } label: {
-                Label("Link a book…", systemImage: "link")
-            }
-            .disabled(linkableBooks.isEmpty)
             if backlinks.isEmpty {
-                Text("Every read of the linked books gives this memory — use “Record read…” on a book to create the link automatically.")
+                Text("No linked book yields this yet — link one with Edit…, or use “Record read…” on a book.")
                     .font(.caption)
                     .foregroundStyle(.secondary)
+            } else {
+                VStack(alignment: .leading, spacing: 6) {
+                    ForEach(backlinks) { book in
+                        HStack(spacing: 6) {
+                            Image(systemName: "book")
+                                .foregroundStyle(.secondary)
+                                .accessibilityHidden(true)
+                            Text(book.title)
+                                .font(.callout)
+                        }
+                    }
+                }
             }
-        }
-    }
-
-    private var linkableBooks: [BookRef] {
-        store.booksForLinking.filter { book in
-            !backlinks.contains { $0.id == book.id }
         }
     }
 

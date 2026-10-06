@@ -49,13 +49,18 @@ struct MemoriesScreen: View {
             Text(store.lastError ?? "")
         }
         .sheet(isPresented: $addingMemory) {
-            MemoryFormView(mode: .add, principles: appState.principles) { draft in
+            MemoryFormView(mode: .add, principles: appState.principles) { draft, _, _ in
                 store.add(draft)
             }
         }
         .sheet(item: $editingMemory) { memory in
-            MemoryFormView(mode: .edit(memory), principles: appState.principles) { draft in
+            MemoryFormView(mode: .edit(memory), principles: appState.principles,
+                           books: store.booksForLinking,
+                           sources: store.sources(for: memory.id),
+                           linked: store.allYielding(memory.id)) { draft, sources, links in
                 store.update(memory, with: draft)
+                store.setSources(memory.id, sources)
+                store.setYieldingBooks(memory.id, links)
             }
         }
     }

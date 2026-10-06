@@ -210,6 +210,12 @@ immediate. ⌘⇧J jumps to the journal and focuses quick-add.
       never double-count. The yield memory needs no extra step: an imported link
       is earned by the mastered book automatically. Skills/lessons capture stays
       with the record-read sheet (parked for the form by request). 96 tests green.
+- [x] **Sources + yielding-links editing live in the edit sheet.** ✅ (2026-10-06,
+      user request; completes the detail-pane display-only pass) the pane keeps
+      only read-only views; the Edit… form gains "How to obtain" rows and
+      yielding-book sync on save (Core: `setSources` replace-all with PK dedupe,
+      `allYielding` any-status links for editing, `setYieldingBooks` two-way sync —
+      tested). 97 tests green.
 
 ## Later / optional (only on request)
 
