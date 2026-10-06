@@ -114,6 +114,24 @@ public enum BookFiltering {
     }
 }
 
+// MARK: - Form mastery
+
+/// The book form (and the detail's status picker) can set a book straight to
+/// `.mastered` — quite possible in the game: catalogue a low-level mystery and
+/// beat it immediately. A form master is an actual read: it logs the read
+/// counters/stamps and a journal entry exactly like the record-read flow's
+/// minimal path (memory/lessons capture stays with the record-read sheet).
+public enum BookReadTransitions {
+
+    /// True when saving `draft` moves the book into `.mastered` from another
+    /// status (or creates it as mastered); an already-mastered book saved as
+    /// mastered counts nothing further.
+    public static func countsAsRead(original: Book?, draft: BookDraft) -> Bool {
+        draft.readStatus == .mastered
+            && (original?.readStatus ?? .uncatalogued) != .mastered
+    }
+}
+
 // MARK: - Journal composition
 
 /// Composes the Journal entry written by the record-a-read flow. Pure and tested:

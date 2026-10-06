@@ -294,6 +294,10 @@ Use this space for anything noticed while testing (oddities, papercuts, ideas):
 - [x] Footer memory count follows the list (reads the store)
 
 ### Needs hands
+- [ ] Add a book with Read status = Mastered directly (from the form, and via the
+      detail's status picker): the row shows the green mastered tick, the journal
+      gains a "Mastered …" entry, and Times read is 1 — not a bare status stamp;
+      editing that still-mastered book and saving again does NOT increment it
 - [ ] Reading Helper on an unmastered imported book: candidate list only shows
       memories you've earned; its "Always yields" panel never runs for unmastered
       books (already gated); Books detail for that book shows "revealed by

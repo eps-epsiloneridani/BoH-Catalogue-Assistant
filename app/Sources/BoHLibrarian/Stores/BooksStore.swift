@@ -112,10 +112,31 @@ final class BooksStore {
         }
     }
 
-    func add(_ draft: BookDraft) {
+    /// A form master is an actual read: log counters/stamps and drop the
+    /// mastered journal entry. The yield memory stays whatever is linked (an
+    /// imported link is earned by this very read); memory/lessons capture
+    /// remains the record-read sheet's job (skills/lessons in-form parked).
+    private func logFormMasteredRead(_ book: Book, gameDay: String?) throws {
+        try repo.recordRead(book.id)
+        _ = try journalRepo.insert(JournalDraft(
+            gameDay: gameDay,
+            entry: ReadingLog.journalText(book: book, mastering: true,
+                                          usedMemoryName: nil, gainedMemoryName: nil,
+                                          lessons: nil, userNote: nil),
+            bookID: book.id))
+    }
+
+    func add(_ draft: BookDraft, gameDay: String? = nil) {
         perform("Adding book") {
-            let book = try repo.insert(draft)
-            selectedBookID = book.id
+            var newID: Int64?
+            try db.transaction {
+                let book = try repo.insert(draft)
+                newID = book.id
+                if BookReadTransitions.countsAsRead(original: nil, draft: draft) {
+                    try logFormMasteredRead(book, gameDay: gameDay)
+                }
+            }
+            selectedBookID = newID
         }
     }
 
@@ -124,22 +145,30 @@ final class BooksStore {
     }
 
     /// Apply the edit form's draft onto an existing book, keeping read counters.
-    func update(_ original: Book, with draft: BookDraft) {
-        var book = original
-        book.title = draft.title
-        book.setName = draft.setName
-        book.volume = draft.volume
-        book.bookKind = draft.bookKind
-        book.languageID = draft.languageID
-        book.mysteryPrincipleID = draft.mysteryPrincipleID
-        book.difficulty = draft.difficulty
-        book.readStatus = draft.readStatus
-        book.contamination = draft.contamination
-        book.location = draft.location
-        book.lessons = draft.lessons
-        book.yieldedMemoryID = draft.yieldedMemoryID
-        book.notes = draft.notes
-        update(book)
+    /// Moving the status to mastered through the form counts as a read.
+    func update(_ original: Book, with draft: BookDraft, gameDay: String? = nil) {
+        perform("Saving book") {
+            try db.transaction {
+                var book = original
+                book.title = draft.title
+                book.setName = draft.setName
+                book.volume = draft.volume
+                book.bookKind = draft.bookKind
+                book.languageID = draft.languageID
+                book.mysteryPrincipleID = draft.mysteryPrincipleID
+                book.difficulty = draft.difficulty
+                book.readStatus = draft.readStatus
+                book.contamination = draft.contamination
+                book.location = draft.location
+                book.lessons = draft.lessons
+                book.yieldedMemoryID = draft.yieldedMemoryID
+                book.notes = draft.notes
+                try repo.update(book)
+                if BookReadTransitions.countsAsRead(original: original, draft: draft) {
+                    try logFormMasteredRead(book, gameDay: gameDay)
+                }
+            }
+        }
     }
 
     func updateNotes(_ book: Book, notes: String) {
@@ -148,8 +177,15 @@ final class BooksStore {
         update(edited)
     }
 
-    func setReadStatus(_ book: Book, _ status: ReadStatus) {
-        perform("Changing read status") { try repo.updateReadStatus(book.id, status) }
+    func setReadStatus(_ book: Book, _ status: ReadStatus, gameDay: String? = nil) {
+        perform("Changing read status") {
+            try db.transaction {
+                try repo.updateReadStatus(book.id, status)
+                if status == .mastered && book.readStatus != .mastered {
+                    try logFormMasteredRead(book, gameDay: gameDay)
+                }
+            }
+        }
     }
 
     func delete(_ book: Book) {
