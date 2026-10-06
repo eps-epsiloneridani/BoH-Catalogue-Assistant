@@ -8,6 +8,7 @@ import BoHLibrarianCore
 final class BooksStore {
 
     private let db: SQLiteDatabase
+    private let playthroughID: Int64
     private let repo: BookRepository
     private let journalRepo: JournalRepository
     private let memoryRepo: MemoryRepository
@@ -26,11 +27,12 @@ final class BooksStore {
     var options = BookQueryOptions()
     var selectedBookID: Int64?
 
-    init(db: SQLiteDatabase) {
+    init(db: SQLiteDatabase, playthroughID: Int64) {
         self.db = db
-        self.repo = BookRepository(db: db)
-        self.journalRepo = JournalRepository(db: db)
-        self.memoryRepo = MemoryRepository(db: db)
+        self.playthroughID = playthroughID
+        self.repo = BookRepository(db: db, playthroughID: playthroughID)
+        self.journalRepo = JournalRepository(db: db, playthroughID: playthroughID)
+        self.memoryRepo = MemoryRepository(db: db, playthroughID: playthroughID)
         let principles = (try? PrincipleRepository(db: db).all()) ?? []
         let languages = (try? LanguageRepository(db: db).all()) ?? []
         principlesByID = Dictionary(uniqueKeysWithValues: principles.map { ($0.id, $0) })
@@ -87,7 +89,7 @@ final class BooksStore {
         do {
             books = try repo.all()
             memoriesByID = Dictionary(uniqueKeysWithValues: try memoryRepo.all().map { ($0.id, $0) })
-            let skills = try SkillRepository(db: db).all()
+            let skills = try SkillRepository(db: db, playthroughID: playthroughID).all()
             skillNamesByID = Dictionary(uniqueKeysWithValues: skills.map { ($0.id, $0.name) })
             knownLanguageSkills = Set(skills.filter(\.isLanguage).map(\.name))
         } catch {
@@ -125,7 +127,7 @@ final class BooksStore {
         book.bookKind = draft.bookKind
         book.languageID = draft.languageID
         book.mysteryPrincipleID = draft.mysteryPrincipleID
-        book.mysteryLevel = draft.mysteryLevel
+        book.difficulty = draft.difficulty
         book.readStatus = draft.readStatus
         book.contamination = draft.contamination
         book.location = draft.location

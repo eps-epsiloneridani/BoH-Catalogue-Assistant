@@ -116,9 +116,14 @@ private struct DetailView: View {
     }
 
     private var statusFooter: some View {
+        // Counts are per active playthrough (stores are scoped; bootstrap counts
+        // stand in for sections without stores yet).
         HStack(spacing: 8) {
-            Image(systemName: "externaldrive")
+            Image(systemName: "person.crop.circle")
                 .foregroundStyle(.secondary)
+            Text(appState.activePlaythrough?.name ?? "—")
+                .help("Active playthrough")
+            Text("·")
             Text(appState.dbPath)
                 .help(appState.dbPath)
             Spacer()
@@ -127,6 +132,8 @@ private struct DetailView: View {
             Text("\(appState.languages.count) languages")
             Text("\(appState.booksStore?.books.count ?? appState.bookCount) books")
             Text("\(appState.memoriesStore?.memories.count ?? appState.memoryCount) memories")
+            Text("\(appState.skillCount) skills")
+            Text("\(appState.journalCount) journal entries")
         }
         .font(.caption)
         .foregroundStyle(.secondary)

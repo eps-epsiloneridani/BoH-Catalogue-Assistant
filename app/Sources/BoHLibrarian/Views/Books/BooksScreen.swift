@@ -177,10 +177,15 @@ private struct BookRow: View {
             }
             Spacer(minLength: 8)
             VStack(alignment: .trailing, spacing: 3) {
-                if let principleID = book.mysteryPrincipleID, let level = book.mysteryLevel {
+                if let principleID = book.mysteryPrincipleID, let difficulty = book.difficulty {
                     PrincipleBadge(name: store.principleName(principleID),
-                                   level: level,
+                                   level: difficulty,
                                    colorHex: store.principleColor(principleID))
+                } else if let difficulty = book.difficulty {
+                    Text("difficulty \(difficulty)")
+                        .font(.caption2.weight(.semibold))
+                        .foregroundStyle(.secondary)
+                        .help("Difficulty recorded; principle not known yet")
                 }
                 HStack(spacing: 4) {
                     if let language = store.languageName(book.languageID) {

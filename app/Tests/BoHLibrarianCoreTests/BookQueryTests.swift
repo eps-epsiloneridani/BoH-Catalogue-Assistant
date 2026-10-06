@@ -8,23 +8,23 @@ final class BookQueryTests: XCTestCase {
     private let principleNames: [Int64: String] = [10: "Rose", 11: "Scale", 12: "Sky"]
     private let languageNames: [Int64: String] = [3: "Latin", 7: "Fucine"]
 
-    private func book(_ title: String, id: Int64, mystery: (Int64, Int)? = nil,
+    private func book(_ title: String, id: Int64, difficulty: (Int64, Int)? = nil,
                       language: Int64? = nil, status: ReadStatus = .uncatalogued,
                       contamination: Contamination? = nil, set: String? = nil,
                       notes: String? = nil) -> Book {
         Book(id: id, title: title, setName: set, bookKind: .book, languageID: language,
-             mysteryPrincipleID: mystery?.0, mysteryLevel: mystery?.1, readStatus: status,
+             mysteryPrincipleID: difficulty?.0, difficulty: difficulty?.1, readStatus: status,
              contamination: contamination, notes: notes)
     }
 
     private var library: [Book] {
         [
-            book("The Turquoise Hand", id: 1, mystery: (10, 10), language: 7, status: .catalogued,
+            book("The Turquoise Hand", id: 1, difficulty: (10, 10), language: 7, status: .catalogued,
                  set: "Numen books", notes: "persistent Rose memory inside"),
-            book("Annals of St Brandans", id: 2, mystery: (11, 4), language: 3, status: .mastered,
+            book("Annals of St Brandans", id: 2, difficulty: (11, 4), language: 3, status: .mastered,
                  contamination: .clear),
             book("An Introduction to Histories", id: 3, language: 3),
-            book("De Bellis Murorum", id: 4, mystery: (12, 6), contamination: .curse),
+            book("De Bellis Murorum", id: 4, difficulty: (12, 6), contamination: .curse),
         ]
     }
 
@@ -83,8 +83,8 @@ final class BookQueryTests: XCTestCase {
         XCTAssertEqual(apply(options(sort: .title)).first, "An Introduction to Histories")
     }
 
-    func testSortByMysteryIsDescendingWithUnknownsLast() {
-        XCTAssertEqual(apply(options(sort: .mystery)),
+    func testSortByDifficultyIsDescendingWithUnknownsLast() {
+        XCTAssertEqual(apply(options(sort: .difficulty)),
                       ["The Turquoise Hand", "De Bellis Murorum", "Annals of St Brandans", "An Introduction to Histories"])
     }
 

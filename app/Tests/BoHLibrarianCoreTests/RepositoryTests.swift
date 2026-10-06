@@ -17,10 +17,14 @@ final class RepositoryTests: XCTestCase {
     override func setUpWithError() throws {
         db = try SQLiteDatabase(path: ":memory:")
         try Migrator(migrations: Migrator.bundled()).apply(to: db)
-        memories = MemoryRepository(db: db)
-        books = BookRepository(db: db)
-        skills = SkillRepository(db: db)
-        journal = JournalRepository(db: db)
+        // Migration 005 seeds a default playthrough and marks it active; the
+        // repositories under test are scoped to it.
+        let playthrough = try XCTUnwrap(PlaythroughRepository(db: db).active(),
+                                        "migration 005 must seed a default playthrough")
+        memories = MemoryRepository(db: db, playthroughID: playthrough.id)
+        books = BookRepository(db: db, playthroughID: playthrough.id)
+        skills = SkillRepository(db: db, playthroughID: playthrough.id)
+        journal = JournalRepository(db: db, playthroughID: playthrough.id)
         principles = PrincipleRepository(db: db)
         languages = LanguageRepository(db: db)
     }
@@ -158,14 +162,14 @@ final class RepositoryTests: XCTestCase {
             bookKind: .book,
             languageID: fucine,
             mysteryPrincipleID: rose,
-            mysteryLevel: 10,
+            difficulty: 10,
             readStatus: .catalogued,
             contamination: .clear,
             location: "Silver Vault",
             lessons: 2
         ))
         XCTAssertEqual(book.title, "The Turquoise Hand")
-        XCTAssertEqual(book.mysteryLevel, 10)
+        XCTAssertEqual(book.difficulty, 10)
         XCTAssertEqual(book.readStatus, .catalogued)
         XCTAssertEqual(book.contamination, .clear)
         XCTAssertEqual(book.timesRead, 0)

@@ -196,7 +196,10 @@ public struct Book: Identifiable, Hashable {
     public var bookKind: BookKind
     public var languageID: Int64?
     public var mysteryPrincipleID: Int64?
-    public var mysteryLevel: Int?
+    /// Level of the reading requirement — the game community's "Difficulty"
+    /// (wiki book tables: "Mastery Difficulty"). Recordable as soon as a book is
+    /// catalogued, even when it can't be mastered straightaway.
+    public var difficulty: Int?
     public var readStatus: ReadStatus
     public var contamination: Contamination?
     public var location: String?
@@ -209,7 +212,7 @@ public struct Book: Identifiable, Hashable {
 
     public init(id: Int64, title: String, setName: String? = nil, volume: String? = nil,
                 bookKind: BookKind = .book, languageID: Int64? = nil,
-                mysteryPrincipleID: Int64? = nil, mysteryLevel: Int? = nil,
+                mysteryPrincipleID: Int64? = nil, difficulty: Int? = nil,
                 readStatus: ReadStatus = .uncatalogued, contamination: Contamination? = nil,
                 location: String? = nil, timesRead: Int = 0, firstReadAt: String? = nil,
                 lastReadAt: String? = nil, lessons: Int? = nil, yieldedMemoryID: Int64? = nil,
@@ -221,7 +224,7 @@ public struct Book: Identifiable, Hashable {
         self.bookKind = bookKind
         self.languageID = languageID
         self.mysteryPrincipleID = mysteryPrincipleID
-        self.mysteryLevel = mysteryLevel
+        self.difficulty = difficulty
         self.readStatus = readStatus
         self.contamination = contamination
         self.location = location
@@ -241,7 +244,7 @@ public struct BookDraft {
     public var bookKind: BookKind
     public var languageID: Int64?
     public var mysteryPrincipleID: Int64?
-    public var mysteryLevel: Int?
+    public var difficulty: Int?
     public var readStatus: ReadStatus
     public var contamination: Contamination?
     public var location: String?
@@ -251,7 +254,7 @@ public struct BookDraft {
 
     public init(title: String, setName: String? = nil, volume: String? = nil,
                 bookKind: BookKind = .book, languageID: Int64? = nil,
-                mysteryPrincipleID: Int64? = nil, mysteryLevel: Int? = nil,
+                mysteryPrincipleID: Int64? = nil, difficulty: Int? = nil,
                 readStatus: ReadStatus = .uncatalogued, contamination: Contamination? = nil,
                 location: String? = nil, lessons: Int? = nil, yieldedMemoryID: Int64? = nil,
                 notes: String? = nil) {
@@ -261,7 +264,7 @@ public struct BookDraft {
         self.bookKind = bookKind
         self.languageID = languageID
         self.mysteryPrincipleID = mysteryPrincipleID
-        self.mysteryLevel = mysteryLevel
+        self.difficulty = difficulty
         self.readStatus = readStatus
         self.contamination = contamination
         self.location = location
@@ -351,6 +354,22 @@ public struct SkillContribution: Identifiable, Hashable {
 }
 
 // MARK: - Journal
+
+/// One saved game. BoH is run-based: findings don't carry over between
+/// Librarians, so every book/memory/skill/journal row is scoped to one of these.
+public struct Playthrough: Identifiable, Hashable {
+    public var id: Int64
+    public var name: String
+    public var createdAt: String
+    public var notes: String?
+
+    public init(id: Int64, name: String, createdAt: String, notes: String? = nil) {
+        self.id = id
+        self.name = name
+        self.createdAt = createdAt
+        self.notes = notes
+    }
+}
 
 public struct JournalEntry: Identifiable, Hashable {
     public var id: Int64

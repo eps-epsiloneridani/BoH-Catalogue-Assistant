@@ -2,20 +2,29 @@ import Foundation
 
 public final class MemoryRepository {
     private let db: SQLiteDatabase
+    private let playthroughID: Int64
 
-    public init(db: SQLiteDatabase) { self.db = db }
+    public init(db: SQLiteDatabase, playthroughID: Int64) {
+        self.db = db
+        self.playthroughID = playthroughID
+    }
 
     // MARK: CRUD
 
     public func all() throws -> [Memory] {
-        let memories = try db.query("SELECT * FROM Memories ORDER BY name;", map: Self.map)
+        let memories = try db.query(
+            "SELECT * FROM Memories WHERE playthrough_id = ? ORDER BY name;",
+            [playthroughID],
+            map: Self.map
+        )
         return try attachAspects(to: memories)
     }
 
     public func get(_ id: Int64) throws -> Memory? {
-        guard var memory = try db.query("SELECT * FROM Memories WHERE id = ?;", [id], map: Self.map).first else {
-            return nil
-        }
+        guard var memory = try db.query(
+            "SELECT * FROM Memories WHERE playthrough_id = ? AND id = ?;",
+            [playthroughID, id], map: Self.map
+        ).first else { return nil }
         memory.aspects = try aspects(for: id)
         return memory
     }
@@ -26,7 +35,6 @@ public final class MemoryRepository {
         try setAspects(id, draft.aspects)
         return try get(id)!
     }
-
     public func update(_ memory: Memory) throws {
         try db.transaction {
             try db.execute(
@@ -42,13 +50,17 @@ public final class MemoryRepository {
     }
 
     public func delete(_ id: Int64) throws {
-        try db.execute("DELETE FROM Memories WHERE id = ?;", [id])
+        try db.execute("DELETE FROM Memories WHERE playthrough_id = ? AND id = ?;",
+                       [playthroughID, id])
     }
 
     private func insertRow(_ draft: MemoryDraft) throws -> Int64 {
         try db.execute(
-            "INSERT INTO Memories (name, kind, persistent, notes) VALUES (?, ?, ?, ?);",
-            [draft.name, draft.kind.rawValue, draft.persistent, draft.notes]
+            """
+            INSERT INTO Memories (name, kind, persistent, notes, playthrough_id)
+            VALUES (?, ?, ?, ?, ?);
+            """,
+            [draft.name, draft.kind.rawValue, draft.persistent, draft.notes, playthroughID]
         )
         return db.lastInsertRowID
     }
@@ -116,10 +128,10 @@ public final class MemoryRepository {
             SELECT m.id, m.name, m.kind, m.persistent, ma.level
             FROM Memories m
             JOIN MemoryAspects ma ON ma.memory_id = m.id
-            WHERE ma.principle_id = ? AND ma.level >= ?
+            WHERE m.playthrough_id = ? AND ma.principle_id = ? AND ma.level >= ?
             ORDER BY ma.level DESC, m.name;
             """,
-            [principleID, minLevel]
+            [playthroughID, principleID, minLevel]
         ) {
             MemoryCandidate(id: try $0.requireInt64("id"),
                             name: try $0.requireString("name"),
@@ -132,8 +144,12 @@ public final class MemoryRepository {
     /// Books that yield this memory when read.
     public func booksYielding(_ memoryID: Int64) throws -> [BookRef] {
         try db.query(
-            "SELECT id, title FROM Books WHERE yielded_memory_id = ? ORDER BY title;",
-            [memoryID]
+            """
+            SELECT id, title FROM Books
+            WHERE playthrough_id = ? AND yielded_memory_id = ?
+            ORDER BY title;
+            """,
+            [playthroughID, memoryID]
         ) {
             BookRef(id: try $0.requireInt64("id"), title: try $0.requireString("title"))
         }

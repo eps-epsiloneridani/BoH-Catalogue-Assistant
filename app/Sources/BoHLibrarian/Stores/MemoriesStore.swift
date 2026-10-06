@@ -19,10 +19,10 @@ final class MemoriesStore {
     var options = MemoryQueryOptions()
     var selectedMemoryID: Int64?
 
-    init(db: SQLiteDatabase) {
+    init(db: SQLiteDatabase, playthroughID: Int64) {
         self.db = db
-        self.repo = MemoryRepository(db: db)
-        self.bookRepo = BookRepository(db: db)
+        self.repo = MemoryRepository(db: db, playthroughID: playthroughID)
+        self.bookRepo = BookRepository(db: db, playthroughID: playthroughID)
         let principles = (try? PrincipleRepository(db: db).all()) ?? []
         principlesByID = Dictionary(uniqueKeysWithValues: principles.map { ($0.id, $0) })
         reload()

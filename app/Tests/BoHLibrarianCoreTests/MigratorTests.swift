@@ -19,19 +19,24 @@ final class MigratorTests: XCTestCase {
 
     // MARK: Fresh application
 
-    func testFreshApplyReachesVersion3AndSeeds() throws {
+    func testFreshApplyReachesVersion5AndSeeds() throws {
         let db = try freshDB()
         let migrator = try Migrator(migrations: Migrator.bundled())
-        XCTAssertTrue(migrator.pending(on: db).count == 3)
+        XCTAssertEqual(migrator.pending(on: db).count, 5)
         try migrator.apply(to: db)
 
-        XCTAssertEqual(db.userVersion, 3)
+        XCTAssertEqual(db.userVersion, 5)
         for table in ["Principles", "Languages", "Memories", "MemoryAspects", "MemorySources",
-                      "Books", "BookLessons", "Skills", "Journal"] {
+                      "Books", "BookLessons", "Skills", "Journal", "Playthroughs", "Meta"] {
             XCTAssertTrue(try db.tableExists(table), "\(table) missing after migration")
         }
         XCTAssertEqual(try db.scalarInt("SELECT COUNT(*) FROM Principles;"), 13)
         XCTAssertEqual(try db.scalarInt("SELECT COUNT(*) FROM Languages;"), 15)
+        XCTAssertEqual(try db.scalarInt("SELECT COUNT(*) FROM Playthroughs;"), 1,
+                       "one default playthrough")
+        XCTAssertEqual(try db.scalarInt("SELECT COUNT(*) FROM Meta;"), 1)
+        XCTAssertEqual(try db.scalarInt("SELECT difficulty FROM Books LIMIT 1;"), 0,
+                       "difficulty column exists (renamed from mystery_level in 004)")
     }
 
     func testApplyIsIdempotent() throws {
@@ -40,8 +45,9 @@ final class MigratorTests: XCTestCase {
         try migrator.apply(to: db)
         try migrator.apply(to: db)   // second run: nothing pending
         XCTAssertTrue(migrator.pending(on: db).isEmpty)
-        XCTAssertEqual(db.userVersion, 3)
+        XCTAssertEqual(db.userVersion, 5)
         XCTAssertEqual(try db.scalarInt("SELECT COUNT(*) FROM Principles;"), 13, "seeds must not duplicate")
+        XCTAssertEqual(try db.scalarInt("SELECT COUNT(*) FROM Playthroughs;"), 1, "default playthrough must not duplicate")
     }
 
     // MARK: Validation
@@ -93,7 +99,7 @@ final class MigratorTests: XCTestCase {
         try db.executeScript("CREATE TABLE Books (Title TEXT); CREATE TABLE Memories (Name TEXT);")
         let migrator = try Migrator(migrations: Migrator.bundled())
         try migrator.apply(to: db)
-        XCTAssertEqual(db.userVersion, 3)
+        XCTAssertEqual(db.userVersion, 5)
         XCTAssertEqual(try db.scalarInt("SELECT COUNT(*) FROM Books;"), 0, "new Books table, empty")
     }
 
@@ -115,7 +121,7 @@ final class MigratorTests: XCTestCase {
         defer { restoreEnv("BOH_MIGRATIONS", old) }
 
         let migrator = try Migrator.resolve()
-        XCTAssertEqual(migrator.migrations.count, 3)
+        XCTAssertEqual(migrator.migrations.count, 5)
     }
 
     private func restoreEnv(_ key: String, _ value: String?) {

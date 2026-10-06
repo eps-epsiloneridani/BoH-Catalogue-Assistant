@@ -1,18 +1,32 @@
 import Foundation
 
+/// Scoped to one playthrough: constructed with the active playthrough's id, every
+/// list query filters by it and every insert stamps it (docs/DATABASE.md §Playthroughs).
 public final class BookRepository {
     private let db: SQLiteDatabase
+    private let playthroughID: Int64
 
-    public init(db: SQLiteDatabase) { self.db = db }
+    public init(db: SQLiteDatabase, playthroughID: Int64) {
+        self.db = db
+        self.playthroughID = playthroughID
+    }
 
     // MARK: CRUD
 
     public func all() throws -> [Book] {
-        try db.query("SELECT * FROM Books ORDER BY title;", map: Self.map)
+        try db.query(
+            "SELECT * FROM Books WHERE playthrough_id = ? ORDER BY title;",
+            [playthroughID],
+            map: Self.map
+        )
     }
 
     public func get(_ id: Int64) throws -> Book? {
-        try db.query("SELECT * FROM Books WHERE id = ?;", [id], map: Self.map).first
+        try db.query(
+            "SELECT * FROM Books WHERE playthrough_id = ? AND id = ?;",
+            [playthroughID, id],
+            map: Self.map
+        ).first
     }
 
     @discardableResult
@@ -20,39 +34,41 @@ public final class BookRepository {
         try db.execute(
             """
             INSERT INTO Books (title, set_name, volume, book_kind, language_id,
-                               mystery_principle_id, mystery_level, read_status,
-                               contamination, location, lessons, yielded_memory_id, notes)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+                               mystery_principle_id, difficulty, read_status,
+                               contamination, location, lessons, yielded_memory_id,
+                               notes, playthrough_id)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
             """,
             [draft.title, draft.setName, draft.volume, draft.bookKind.rawValue, draft.languageID,
-             draft.mysteryPrincipleID, draft.mysteryLevel, draft.readStatus.rawValue,
+             draft.mysteryPrincipleID, draft.difficulty, draft.readStatus.rawValue,
              draft.contamination?.rawValue, draft.location, draft.lessons,
-             draft.yieldedMemoryID, draft.notes]
+             draft.yieldedMemoryID, draft.notes, playthroughID]
         )
         return try get(db.lastInsertRowID)!
     }
 
     public func update(_ book: Book) throws {
-        // Read counters (times_read, first/last_read_at) are managed by
-        // recordRead()/updateReadStatus(), never by generic edits.
+        // Read counters (times_read, first/last_read_at) and playthrough_id are
+        // managed by recordRead()/updateReadStatus(), never by generic edits.
         try db.execute(
             """
             UPDATE Books
             SET title = ?, set_name = ?, volume = ?, book_kind = ?, language_id = ?,
-                mystery_principle_id = ?, mystery_level = ?, read_status = ?,
+                mystery_principle_id = ?, difficulty = ?, read_status = ?,
                 contamination = ?, location = ?, lessons = ?, yielded_memory_id = ?,
                 notes = ?, updated_at = datetime('now')
             WHERE id = ?;
             """,
             [book.title, book.setName, book.volume, book.bookKind.rawValue, book.languageID,
-             book.mysteryPrincipleID, book.mysteryLevel, book.readStatus.rawValue,
+             book.mysteryPrincipleID, book.difficulty, book.readStatus.rawValue,
              book.contamination?.rawValue, book.location, book.lessons,
              book.yieldedMemoryID, book.notes, book.id]
         )
     }
 
     public func delete(_ id: Int64) throws {
-        try db.execute("DELETE FROM Books WHERE id = ?;", [id])
+        try db.execute("DELETE FROM Books WHERE playthrough_id = ? AND id = ?;",
+                       [playthroughID, id])
     }
 
     // MARK: Reading state
@@ -130,7 +146,7 @@ public final class BookRepository {
              bookKind: BookKind(rawValue: try row.requireString("book_kind")) ?? .book,
              languageID: row.int64("language_id"),
              mysteryPrincipleID: row.int64("mystery_principle_id"),
-             mysteryLevel: row.int("mystery_level"),
+             difficulty: row.int("difficulty"),
              readStatus: ReadStatus(rawValue: try row.requireString("read_status")) ?? .uncatalogued,
              contamination: row.string("contamination").flatMap(Contamination.init),
              location: row.string("location"),

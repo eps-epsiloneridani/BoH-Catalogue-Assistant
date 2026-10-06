@@ -104,10 +104,14 @@ struct BookDetailView: View {
     private var factsSection: some View {
         VStack(alignment: .leading, spacing: 10) {
             sectionTitle("The book")
-            LabeledContent("Mystery") {
-                if let principleID = book.mysteryPrincipleID, let level = book.mysteryLevel {
-                    PrincipleBadge(name: store.principleName(principleID), level: level,
+            LabeledContent("Difficulty") {
+                if let principleID = book.mysteryPrincipleID, let difficulty = book.difficulty {
+                    PrincipleBadge(name: store.principleName(principleID), level: difficulty,
                                    colorHex: store.principleColor(principleID))
+                } else if let difficulty = book.difficulty {
+                    Text("\(difficulty)")
+                        .fontWeight(.medium)
+                        .help("Principle not recorded yet")
                 } else {
                     Text("not recorded").foregroundStyle(.tertiary)
                 }

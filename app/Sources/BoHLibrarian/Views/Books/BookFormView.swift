@@ -23,7 +23,8 @@ struct BookFormView: View {
     @State private var kind: BookKind = .book
     @State private var languageID: Int64?
     @State private var mysteryPrincipleID: Int64?
-    @State private var mysteryLevel = 4
+    @State private var difficultyKnown = true
+    @State private var difficulty = 4
     @State private var readStatus: ReadStatus = .uncatalogued
     @State private var contamination: Contamination?
     @State private var location = ""
@@ -44,7 +45,8 @@ struct BookFormView: View {
             _kind = State(initialValue: book.bookKind)
             _languageID = State(initialValue: book.languageID)
             _mysteryPrincipleID = State(initialValue: book.mysteryPrincipleID)
-            _mysteryLevel = State(initialValue: book.mysteryLevel ?? 4)
+            _difficultyKnown = State(initialValue: book.difficulty != nil)
+            _difficulty = State(initialValue: book.difficulty ?? 4)
             _readStatus = State(initialValue: book.readStatus)
             _contamination = State(initialValue: book.contamination)
             _location = State(initialValue: book.location ?? "")
@@ -78,8 +80,11 @@ struct BookFormView: View {
                         Text(principle.name).tag(Int64?.some(principle.id))
                     }
                 }
-                if mysteryPrincipleID != nil {
-                    Stepper("Mystery level: \(mysteryLevel)", value: $mysteryLevel, in: 1...25)
+                // Difficulty is recordable even when the principle isn't — it's the
+                // number to beat, noted at catalogue time (docs/DATABASE.md).
+                Toggle("Difficulty known", isOn: $difficultyKnown)
+                if difficultyKnown {
+                    Stepper("Difficulty: \(difficulty)", value: $difficulty, in: 1...25)
                 }
                 Picker("Language", selection: $languageID) {
                     Text("—").tag(Int64?.none)
@@ -139,7 +144,7 @@ struct BookFormView: View {
             bookKind: kind,
             languageID: languageID,
             mysteryPrincipleID: mysteryPrincipleID,
-            mysteryLevel: mysteryPrincipleID == nil ? nil : mysteryLevel,
+            difficulty: difficultyKnown ? difficulty : nil,
             readStatus: readStatus,
             contamination: contamination,
             location: optionalText(location),

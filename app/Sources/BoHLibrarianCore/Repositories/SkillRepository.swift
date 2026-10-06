@@ -2,17 +2,23 @@ import Foundation
 
 public final class SkillRepository {
     private let db: SQLiteDatabase
+    private let playthroughID: Int64
 
-    public init(db: SQLiteDatabase) { self.db = db }
+    public init(db: SQLiteDatabase, playthroughID: Int64) {
+        self.db = db
+        self.playthroughID = playthroughID
+    }
 
     // MARK: CRUD
 
     public func all() throws -> [Skill] {
-        try db.query("SELECT * FROM Skills ORDER BY name;", map: Self.map)
+        try db.query("SELECT * FROM Skills WHERE playthrough_id = ? ORDER BY name;",
+                     [playthroughID], map: Self.map)
     }
 
     public func get(_ id: Int64) throws -> Skill? {
-        try db.query("SELECT * FROM Skills WHERE id = ?;", [id], map: Self.map).first
+        try db.query("SELECT * FROM Skills WHERE playthrough_id = ? AND id = ?;",
+                     [playthroughID, id], map: Self.map).first
     }
 
     @discardableResult
@@ -20,11 +26,12 @@ public final class SkillRepository {
         try db.execute(
             """
             INSERT INTO Skills (name, is_language, primary_principle_id,
-                                secondary_principle_id, level, wisdom, element, notes)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?);
+                                secondary_principle_id, level, wisdom, element, notes,
+                                playthrough_id)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);
             """,
             [draft.name, draft.isLanguage, draft.primaryPrincipleID, draft.secondaryPrincipleID,
-             draft.level, draft.wisdom, draft.element, draft.notes]
+             draft.level, draft.wisdom, draft.element, draft.notes, playthroughID]
         )
         return try get(db.lastInsertRowID)!
     }
@@ -43,7 +50,8 @@ public final class SkillRepository {
     }
 
     public func delete(_ id: Int64) throws {
-        try db.execute("DELETE FROM Skills WHERE id = ?;", [id])
+        try db.execute("DELETE FROM Skills WHERE playthrough_id = ? AND id = ?;",
+                       [playthroughID, id])
     }
 
     // MARK: Reading Helper (canonical query 2 — docs/DATABASE.md)
@@ -56,11 +64,11 @@ public final class SkillRepository {
             SELECT *,
                    CASE WHEN primary_principle_id = ? THEN level + 1 ELSE level END AS contributes
             FROM Skills
-            WHERE is_language = 0 AND level IS NOT NULL
+            WHERE playthrough_id = ? AND is_language = 0 AND level IS NOT NULL
               AND (primary_principle_id = ? OR secondary_principle_id = ?)
             ORDER BY contributes DESC, name;
             """,
-            [principleID, principleID, principleID]
+            [principleID, playthroughID, principleID, principleID]
         ) { row in
             var skill = try Self.map(row)
             // SELECT * plus the computed column: keep the real level.

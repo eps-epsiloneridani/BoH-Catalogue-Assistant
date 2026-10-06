@@ -19,7 +19,7 @@ public enum BookStatusFilter: String, CaseIterable, Identifiable {
 
 public enum BookSort: String, CaseIterable, Identifiable {
     case title = "Title"
-    case mystery = "Mystery"
+    case difficulty = "Difficulty"
     case status = "Status"
     case recent = "Recently added"
 
@@ -55,6 +55,7 @@ public enum BookFiltering {
                     book.title, book.setName, book.volume, book.location, book.notes,
                     book.mysteryPrincipleID.flatMap { principleNames[$0] },
                     book.languageID.flatMap { languageNames[$0] },
+                    book.difficulty.map(String.init),
                 ]
                 .compactMap { $0 }
                 .joined(separator: " ")
@@ -81,10 +82,10 @@ public enum BookFiltering {
         switch options.sort {
         case .title:
             result.sort { $0.title.localizedStandardCompare($1.title) == .orderedAscending }
-        case .mystery:
+        case .difficulty:
             result.sort {
-                let lhs = $0.mysteryLevel ?? Int.min
-                let rhs = $1.mysteryLevel ?? Int.min
+                let lhs = $0.difficulty ?? Int.min
+                let rhs = $1.difficulty ?? Int.min
                 return lhs == rhs
                     ? $0.title.localizedStandardCompare($1.title) == .orderedAscending
                     : lhs > rhs

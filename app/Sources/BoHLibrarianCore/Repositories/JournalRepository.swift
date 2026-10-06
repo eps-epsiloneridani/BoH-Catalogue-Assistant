@@ -1,34 +1,43 @@
 import Foundation
 
+/// Scoped to one playthrough (docs/DATABASE.md §Playthroughs).
 public final class JournalRepository {
     private let db: SQLiteDatabase
+    private let playthroughID: Int64
 
-    public init(db: SQLiteDatabase) { self.db = db }
+    public init(db: SQLiteDatabase, playthroughID: Int64) {
+        self.db = db
+        self.playthroughID = playthroughID
+    }
 
     /// Newest first.
     public func recent(limit: Int = 100) throws -> [JournalEntry] {
         try db.query(
-            "SELECT * FROM Journal ORDER BY logged_at DESC, id DESC LIMIT ?;",
-            [limit],
+            "SELECT * FROM Journal WHERE playthrough_id = ? ORDER BY logged_at DESC, id DESC LIMIT ?;",
+            [playthroughID, limit],
             map: Self.map
         )
     }
 
     public func get(_ id: Int64) throws -> JournalEntry? {
-        try db.query("SELECT * FROM Journal WHERE id = ?;", [id], map: Self.map).first
+        try db.query(
+            "SELECT * FROM Journal WHERE playthrough_id = ? AND id = ?;",
+            [playthroughID, id],
+            map: Self.map
+        ).first
     }
 
     /// Entries linked to a given entity, newest first.
     public func entries(bookID: Int64? = nil, memoryID: Int64? = nil,
                         skillID: Int64? = nil, limit: Int = 100) throws -> [JournalEntry] {
-        var clauses: [String] = []
-        var binds: [SQLiteBindable] = []
+        var clauses = ["playthrough_id = ?"]
+        var binds: [SQLiteBindable] = [playthroughID]
         if let bookID { clauses.append("book_id = ?"); binds.append(bookID) }
         if let memoryID { clauses.append("memory_id = ?"); binds.append(memoryID) }
         if let skillID { clauses.append("skill_id = ?"); binds.append(skillID) }
-        let whereClause = clauses.isEmpty ? "" : "WHERE " + clauses.joined(separator: " AND ")
         return try db.query(
-            "SELECT * FROM Journal \(whereClause) ORDER BY logged_at DESC, id DESC LIMIT ?;",
+            "SELECT * FROM Journal WHERE " + clauses.joined(separator: " AND ")
+                + " ORDER BY logged_at DESC, id DESC LIMIT ?;",
             binds + [limit],
             map: Self.map
         )
@@ -38,10 +47,10 @@ public final class JournalRepository {
     public func insert(_ draft: JournalDraft) throws -> JournalEntry {
         try db.execute(
             """
-            INSERT INTO Journal (game_day, entry, book_id, memory_id, skill_id)
-            VALUES (?, ?, ?, ?, ?);
+            INSERT INTO Journal (game_day, entry, book_id, memory_id, skill_id, playthrough_id)
+            VALUES (?, ?, ?, ?, ?, ?);
             """,
-            [draft.gameDay, draft.entry, draft.bookID, draft.memoryID, draft.skillID]
+            [draft.gameDay, draft.entry, draft.bookID, draft.memoryID, draft.skillID, playthroughID]
         )
         return try get(db.lastInsertRowID)!
     }
@@ -58,7 +67,8 @@ public final class JournalRepository {
     }
 
     public func delete(_ id: Int64) throws {
-        try db.execute("DELETE FROM Journal WHERE id = ?;", [id])
+        try db.execute("DELETE FROM Journal WHERE playthrough_id = ? AND id = ?;",
+                       [playthroughID, id])
     }
 
     static func map(_ row: Row) throws -> JournalEntry {
