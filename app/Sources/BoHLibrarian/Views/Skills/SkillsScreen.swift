@@ -168,6 +168,7 @@ private struct SkillRow: View {
                         Image(systemName: "globe")
                             .font(.caption)
                             .foregroundStyle(.blue)
+                            .accessibilityLabel("language skill")
                             .help("Language skill")
                     }
                     Text(skill.name)

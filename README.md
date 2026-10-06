@@ -13,7 +13,7 @@ book.
 
 ```sh
 cd app && swift run        # run it (needs Xcode/swift 6 toolchain, macOS 14+)
-cd app && swift test       # 87 unit tests on in-memory databases
+cd app && swift test       # 92 unit tests on in-memory databases
 ```
 
 - What the app does & how it's built → [`docs/GUI_PLAN.md`](docs/GUI_PLAN.md)

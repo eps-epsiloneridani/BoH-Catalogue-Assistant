@@ -110,6 +110,7 @@ struct MemoryDetailView: View {
                         sources = store.sources(for: memory.id)
                     } label: {
                         Image(systemName: "minus.circle")
+                            .accessibilityLabel("Remove source")
                     }
                     .buttonStyle(.borderless)
                     .help("Remove source")
@@ -126,6 +127,7 @@ struct MemoryDetailView: View {
                     .onSubmit(addSource)
                 Button(action: addSource) {
                     Image(systemName: "plus.circle")
+                        .accessibilityLabel("Add source")
                 }
                 .buttonStyle(.borderless)
                 .help("Add source")
@@ -156,6 +158,7 @@ struct MemoryDetailView: View {
                 HStack {
                     Image(systemName: "book")
                         .foregroundStyle(.secondary)
+                        .accessibilityHidden(true)
                     Text(book.title)
                         .font(.callout)
                     Spacer()
@@ -164,6 +167,7 @@ struct MemoryDetailView: View {
                         backlinks = store.booksYielding(memory.id)
                     } label: {
                         Image(systemName: "minus.circle")
+                            .accessibilityLabel("Unlink this book")
                     }
                     .buttonStyle(.borderless)
                     .help("Unlink — this book doesn't yield this memory")

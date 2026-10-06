@@ -144,6 +144,7 @@ private struct SaveRow: View {
             HStack {
                 Image(systemName: isSelected ? "checkmark.circle.fill" : "doc.text")
                     .foregroundStyle(isSelected ? .green : .secondary)
+                    .accessibilityLabel(isSelected ? "selected save" : "save file")
                 VStack(alignment: .leading, spacing: 2) {
                     Text(summary.fileName)
                         .fontWeight(isSelected ? .medium : .regular)

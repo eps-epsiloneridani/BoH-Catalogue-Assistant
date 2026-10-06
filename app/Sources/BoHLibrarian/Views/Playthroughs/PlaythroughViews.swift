@@ -30,14 +30,18 @@ struct PlaythroughMenu: View {
         } label: {
             HStack(spacing: 6) {
                 Image(systemName: "person.crop.circle")
+                    .accessibilityHidden(true)
                 Text(appState.activePlaythrough?.name ?? "No playthrough")
                     .lineLimit(1)
                 Spacer()
                 Image(systemName: "chevron.up.chevron.down")
                     .font(.caption2)
                     .foregroundStyle(.secondary)
+                    .accessibilityHidden(true)
             }
             .contentShape(.rect)
+            .accessibilityLabel("Playthrough: \(appState.activePlaythrough?.name ?? "none")")
+            .accessibilityHint("Save, load and create playthroughs")
         }
         .menuStyle(.button)
         .fixedSize()
@@ -203,6 +207,7 @@ private struct PlaythroughRow: View {
         HStack {
             Image(systemName: isActive ? "checkmark.circle.fill" : "circle")
                 .foregroundStyle(isActive ? .green : .secondary)
+                .accessibilityLabel(isActive ? "loaded" : "not loaded")
                 .help(isActive ? "Loaded" : "Not loaded")
             TextField("Name", text: $name)
                 .onSubmit { onRename(name) }
@@ -223,6 +228,7 @@ private struct PlaythroughRow: View {
                 Image(systemName: "trash")
             }
             .buttonStyle(.borderless)
+            .accessibilityLabel("Delete this playthrough")
             .disabled(isActive || !canDelete)
             .help(isActive ? "Switch away before deleting"
                           : canDelete ? "Delete this playthrough and its findings"

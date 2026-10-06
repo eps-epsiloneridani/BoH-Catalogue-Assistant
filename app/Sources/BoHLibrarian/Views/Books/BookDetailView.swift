@@ -123,6 +123,7 @@ struct BookDetailView: View {
                         if let known = knownLanguage {
                             Image(systemName: known ? "checkmark.circle.fill" : "exclamationmark.circle")
                                 .foregroundStyle(known ? .green : .orange)
+                                .accessibilityLabel(known ? "known" : "not learned yet")
                                 .help(known ? "You know this language" : "Not learned yet — a visitor can teach it")
                         }
                     } else {

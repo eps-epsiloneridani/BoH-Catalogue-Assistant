@@ -1,4 +1,5 @@
 import SwiftUI
+import BoHLibrarianCore
 
 // Small shared UI pieces used across screens.
 
@@ -11,8 +12,15 @@ struct PrincipleBadge: View {
     let level: Int
     let colorHex: String?
 
+    @Environment(\.colorScheme) private var colorScheme
+
     var body: some View {
         let tint = Color(hex: colorHex)
+        // Fill/border keep the seeded tint as visual identity; the text derives a
+        // per-mode readable variant — the raw tints fail WCAG AA in one mode or the
+        // other for all 13 hues (docs/DECISIONS.md D12; ColorMathTests enforces it).
+        let textHex = colorHex
+            .flatMap { ColorMath.readableTextHex(tint: $0, darkMode: colorScheme == .dark) }
         HStack(spacing: 3) {
             Text(name ?? "?")
                 .font(.caption2.weight(.semibold))
@@ -23,7 +31,9 @@ struct PrincipleBadge: View {
         .padding(.vertical, 2)
         .background(Capsule().fill(tint.opacity(0.18)))
         .overlay(Capsule().strokeBorder(tint.opacity(0.35)))
-        .foregroundStyle(tint)
+        .foregroundStyle(textHex.map { Color(hex: $0, fallback: .primary) } ?? Color.primary)
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel("\(name ?? "unknown principle"), level \(level)")
         .help(name.map { "\($0) \(level)" } ?? "unknown principle")
     }
 }

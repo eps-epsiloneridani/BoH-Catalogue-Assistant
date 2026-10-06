@@ -260,3 +260,26 @@ Use this space for anything noticed while testing (oddities, papercuts, ideas):
 - [ ] After the next dist rebuild + /Applications swap: a memory you gained from a
       book — its Books-that-yield-this list shows that book; a memory linked to an
       unread book (e.g. via import) does not list it
+
+## Accessibility (2026-10-06)
+
+### Verified automatically (unit tests — `swift test`, 92 green)
+- [x] Contrast: `ColorMathTests` asserts **all 13 seeded principle tints read
+      ≥ 4.5:1 over their badge backdrop in BOTH appearance modes** (raw tints
+      fail 13/13 in some mode); already-readable tints are left untouched
+      (Edge/Scale/…, computed against macOS window-background approximations)
+- [x] Icon-only controls carry accessibility labels (28 `Image(systemName:)`
+      sites catalogued: buttons labeled, decorations hidden, state icons labeled)
+- [x] Book rows and principle badges announce as one element with a crafted
+      label (`title, Record, set, volume, location, Sky 4, Vak, mastered`)
+
+### Needs hands — tick during your next session with the app
+- [ ] VoiceOver (⌘F5) walk: Books screen — rows announce as a single stop;
+      tab/VO-walk the record-read sheet end to end; Playthroughs manager sheet
+- [ ] Memories screen: a memory's backlinks and source rows reachable and
+      every button announces ("Remove source", "Unlink this book")
+- [ ] Appearance: switch system to Dark Mode — principle badges stay readable
+      in both modes; Increase Contrast setting on — still readable
+- [ ] Dynamic Type at the largest a11y size: Books screen rows + BookFormView
+      sheet remain usable (wrapping, not clipping)
+- [ ] Accessibility Inspector (Xcode) on the Books screen: no unlabeled elements
