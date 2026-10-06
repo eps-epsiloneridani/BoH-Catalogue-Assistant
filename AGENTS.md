@@ -163,6 +163,11 @@ Two goals, in priority order:
   unearned memories as aspect-candidates and reveals 'Always yields' names for
   unmastered imported books — same leak class, different screen, awaiting
   direction.** 93 tests green.
+- 2026-10-06 (rewrite published): the scrubbed history went to origin via GitHub
+  Desktop's force push (fetch first → Repository → Force push; Desktop pushes with
+  force-with-lease internally; verified locally main == origin/main). The user
+  accepts GitHub-side retention of unreachable old commits — no further action on
+  the name/home-path exposure; ordinary pushes from here on.
 - 2026-10-06 (earned-only reading helper, user request): same earned-visibility
   predicate now shared (`MemoryRepository.earnedVisibility`) and applied to the
   Helper's aspect candidates; Books detail's Yields panel gated to mastered books
