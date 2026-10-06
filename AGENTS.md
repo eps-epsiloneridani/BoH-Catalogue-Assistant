@@ -33,12 +33,21 @@ Two goals, in priority order:
 
 ## Status snapshot (update every session)
 
-- **2026-10-06 — Phases 0–5 complete.** All five screens live: Books, Memories,
-  Reading Helper, Skills, Journal — plus playthroughs and the difficulty field.
-  78 tests green. **Next: Phase 6** — polish (`.app` packaging, menu-bar quick
-  journal, window state persistence, JSON/CSV export) per `docs/ROADMAP.md`.
-  The most valuable next act is a hands-on pass over `docs/MANUAL_TEST.md` with
-  real playthrough data.
+- **2026-10-06 — PARKED, all green.** Phases 0–5 complete; nothing in progress and no
+  half-finished work. Build + 78 tests pass from a clean checkout; `Boh.db` is at
+  schema v5 with an empty "First playthrough" loaded (no real findings recorded yet);
+  the tree is clean at commit 142decb. All roadmap screens are live: Books, Memories,
+  Reading Helper, Skills, Journal — plus playthrough save/load/new and the difficulty
+  field.
+
+- **How to resume (in this order):**
+  1. Ask the user how his hands-on pass went — `docs/MANUAL_TEST.md` has unticked
+     interaction checklists for every screen; fix any papercuts he found first.
+  2. Then Phase 6 per `docs/ROADMAP.md`: `make-app.sh` packaging (Dock/⌘Tab presence
+     without `swift run`), menu-bar quick journal, window-state persistence, JSON/CSV
+     export.
+  3. Later/optional ideas live at the bottom of the ROADMAP (rooms tracker, recipes,
+     visitors, opt-in wiki import, per-file playthroughs).
 
 ### Session log
 - 2026-10-05 (planning): docs, migrations, seeds, git init.
@@ -56,26 +65,33 @@ Two goals, in priority order:
 - 2026-10-06 (Phase 4): Reading Helper (71 tests). Toolchain note: on this SDK
   `capitalized` is a property — `capitalized()` doesn't compile (bitten once, fixed).
 - 2026-10-06 (Phase 5): Skills + Journal screens (78 tests); ⌘⇧J quick-journal command.
-  No playthrough data recorded in `Boh.db` yet.
+- 2026-10-06 (parked): hand-off docs refreshed — as-built repo layout in AGENTS.md and
+  GUI_PLAN.md, parked status with resume order recorded above.
 
 ## Repository layout
 
 ```
 AGENTS.md            <- you are here (entry point)
 README.md            <- short human-facing overview
-Boh.db               <- THE DATA (SQLite). Committed to git on purpose (D1).
-db/migrations/       <- numbered SQL migrations (canonical schema source)
+Boh.db               <- THE DATA (SQLite, schema v5). Committed to git on purpose (D1).
+db/migrations/       <- numbered SQL migrations (canonical schema source; 001–005 applied)
 docs/
-  DATABASE.md        <- schema v2 design, value sets, canonical queries, future tables
-  GUI_PLAN.md        <- app architecture, screens, stack decisions, build/run/test
+  DATABASE.md        <- schema design (through v5), value sets, canonical queries, future tables
+  GUI_PLAN.md        <- app architecture, as-built layout, screens, stack decisions, build/run/test
   GAME_MECHANICS.md  <- distilled Book of Hours facts that drive the schema + sources
   ROADMAP.md         <- phases, definitions of done, current status
-  DECISIONS.md       <- short log of key decisions (D1, D2, ...) with rationale
+  DECISIONS.md       <- short log of key decisions (D1, D2, …) with rationale
   MANUAL_TEST.md     <- per-phase hands-on checklists for the running app
 scripts/
   migrate.sh         <- apply pending migrations to Boh.db (--status to inspect)
   dump-sql.sh        <- write a text .sql snapshot of the db into snapshots/
-app/                 <- Swift package (created in Phase 1; see docs/GUI_PLAN.md)
+  sync-migrations.sh <- copy db/migrations into the app bundle resources (after editing them)
+app/                 <- the Swift package (see docs/GUI_PLAN.md for the as-built map)
+  Sources/BoHLibrarianCore/    <- testable core: SQLite wrapper, Migrator, models,
+                                 repositories, pure query/math helpers, bundled migrations
+  Sources/BoHLibrarian/        <- SwiftUI app: AppState (playthroughs, store wiring),
+                                 RootView (routing), Stores/ (per-screen state), Views/
+  Tests/BoHLibrarianCoreTests/ <- 78 tests on :memory: databases
 ```
 
 ## Everyday commands

@@ -16,33 +16,37 @@ makes that data queryable. Single user, offline, no accounts, no sync.
 - **System SQLite** via the `SQLite3` C module behind a small wrapper. **No external
   dependencies** (D2).
 
-### `app/` layout (to be created in Phase 1)
+### `app/` layout (as built — Phases 1–5)
 
 ```
 app/
   Package.swift
-  Sources/BoHLibrarian/
-    App.swift                  // @main, WindowGroup, activates NSApp properly
-    AppState.swift             // DB handle, sidebar selection, day counter
-    Views/
-      RootView.swift           // NavigationSplitView: sidebar + detail
-      Books/...                // list, detail, form, mark-read sheet
-      Memories/...             // list/grid, detail, aspect editor, source editor
-      ReadingHelper/...        // helper picker, candidate lists, log-read sheet
-      Skills/..., Journal/..., Shared/... (PrincipleBadge, aspect pickers)
-  Sources/BoHLibrarianCore/
-    DB/SQLiteDatabase.swift    // open, execute, query, bind, migrate
-    DB/Migrator.swift          // resolves migration dir (env → repo → bundle)
-    Repositories/*.swift      // BookRepository, MemoryRepository, SkillRepository,
-                              // JournalRepository, PrincipleRepository, LanguageRepository
-    Models/*.swift             // Book, Memory, Skill, Principle, Language, JournalEntry…
-  Sources/BoHLibrarianCore/Resources/Migrations/   // synced copy of db/migrations (see below)
-  Tests/BoHLibrarianCoreTests/                    // in-memory DB repository + migration tests
+  Sources/BoHLibrarianCore/                  // the testable library
+    SQLiteDatabase.swift / SQLiteValue.swift  // thin SQLite C-API wrapper
+    Migrator.swift                            // migrations: env → repo dirs → bundle
+    DatabaseLocation.swift                     // Boh.db path resolution (D7)
+    Models.swift                              // all value types + value-set enums
+    BookQuery.swift / MemoryQuery.swift / SkillQuery.swift   // pure filter/sort/search
+    ReadingMath.swift                         // Reading Helper sentence composition
+    Repositories/                             // Book, Memory, Skill, Journal, Playthrough,
+                                               // LookupRepositories (Principles, Languages)
+    Resources/Migrations/                     // synced copy of db/migrations/
+  Sources/BoHLibrarian/                       // the SwiftUI app
+    App.swift                                 // @main, window, Go menu + ⌘⇧J, activation fix
+    AppState.swift                            // db bootstrap, playthrough lifecycle, store wiring
+    RootView.swift                            // sidebar (switcher + sections) + detail routing
+    Stores/                                   // Books, Memories, ReadingHelper, Skills, Journal
+    Views/                                    // Books/, Memories/, ReadingHelper/, Skills/,
+                                               // Journal/, Playthroughs/, Shared/ (badges, aspect editor)
+  Tests/BoHLibrarianCoreTests/                // 78 tests on :memory: databases
 ```
 
-Migration source of truth stays `db/migrations/`; `scripts/sync-migrations.sh` (tiny rsync)
-copies it into the package resources, and `Migrator` prefers the repo dir when running from
-source. Bundled copy guarantees a packaged app can migrate a fresh db (D5, D7).
+Migration source of truth stays `db/migrations/`; `scripts/sync-migrations.sh` copies
+it into the package resources, and `Migrator` prefers the repo directory when running
+from source. The bundled copy guarantees a packaged app can migrate a fresh db (D5, D7).
+Note: stores live in the executable target, so their glue logic is covered by the
+`docs/MANUAL_TEST.md` checklists; the *behavior* they rely on (queries, filters, math,
+journal wording) is pure code in Core and unit-tested.
 
 ### DB path resolution (D7)
 
