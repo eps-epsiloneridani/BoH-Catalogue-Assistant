@@ -231,6 +231,13 @@ Two goals, in priority order:
   PrincipleBadges (read-only, AA text + combined VO semantics for free); editing is
   the Edit… sheet's job (MemoryFormView's AspectEditor + save-path verified);
   the dead inline-editor state + MemoriesStore.setAspects removed. 96 tests green.
+- 2026-10-06 (detail field still dead after the binding fix, follow-up): with the
+  hand-rolled binding gone the kind picker persisted (direct bindings write
+  through) but the detail TextField still took no input — the remaining suspect
+  is the grouped-Form row itself: TextFields sharing one row with a menu-style
+  Picker stop accepting input on macOS. Restructured each source as two plain
+  Form rows (kind + remove; detail field owning its own row — the one shape the
+  app's other Form TextFields use successfully). MANUAL_TEST re-verify stays open.
 - 2026-10-06 (source rows wouldn't take input, user report follow-up): on the edit
   sheet, the "How to obtain" detail TextField reverted every keystroke and the kind
   picker's changes didn't persist — the row's detail bound through a hand-rolled

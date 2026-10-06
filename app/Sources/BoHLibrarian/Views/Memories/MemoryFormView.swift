@@ -88,6 +88,10 @@ struct MemoryFormView: View {
 
             if case .edit = mode {
                 Section("How to obtain") {
+                    // Each source = two plain rows: kind (+ remove), then the
+                    // detail field OWNING its row — TextFields sharing a grouped
+                    // Form row with a menu Picker stop taking input (user-reported
+                    // twice); own-row TextFields are the app's proven shape.
                     ForEach($sourceRows) { $source in
                         HStack {
                             Picker("Source kind", selection: $source.kind) {
@@ -95,8 +99,7 @@ struct MemoryFormView: View {
                                     Text(kind.rawValue).tag(kind.rawValue)
                                 }
                             }
-                            TextField("Detail (optional)",
-                                      text: $source.detailText)
+                            Spacer()
                             Button {
                                 sourceRows.removeAll { $0.id == source.id }
                             } label: {
@@ -106,6 +109,8 @@ struct MemoryFormView: View {
                             .accessibilityLabel("Remove source")
                             .help("Remove source")
                         }
+                        TextField("Detail — e.g. Talk with the Rector (17%)",
+                                  text: $source.detailText)
                     }
                     Button("Add source") {
                         sourceRows.append(SourceRow(kind: MemorySourceKind.consider.rawValue, detailText: ""))
