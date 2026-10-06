@@ -45,6 +45,23 @@ final class BookQueryTests: XCTestCase {
 
     // MARK: Search
 
+    /// The form's read-status picker can master a book outright — that counts as
+    /// an actual read (counters + journal), never double-counting.
+    func testFormMasteryCountsAsRead() {
+        let mastered = BookDraft(title: "Low Mystery", readStatus: .mastered)
+        let catalogued = BookDraft(title: "Low Mystery", readStatus: .catalogued)
+
+        XCTAssertTrue(BookReadTransitions.countsAsRead(original: nil, draft: mastered),
+                      "created as mastered = one read")
+        XCTAssertFalse(BookReadTransitions.countsAsRead(original: nil, draft: catalogued))
+
+        let book = Book(id: 1, title: "Low Mystery", readStatus: .catalogued)
+        let alreadyMastered = Book(id: 2, title: "Low Mystery", readStatus: .mastered)
+        XCTAssertTrue(BookReadTransitions.countsAsRead(original: book, draft: mastered))
+        XCTAssertFalse(BookReadTransitions.countsAsRead(original: alreadyMastered, draft: mastered))
+        XCTAssertFalse(BookReadTransitions.countsAsRead(original: book, draft: catalogued))
+    }
+
     func testSearchMatchesTitleCaseInsensitively() {
         XCTAssertEqual(apply(options(search: "turquoise")), ["The Turquoise Hand"])
         XCTAssertEqual(apply(options(search: "ANNALS")), ["Annals of St Brandans"])

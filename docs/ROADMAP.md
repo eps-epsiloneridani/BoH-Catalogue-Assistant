@@ -201,6 +201,15 @@ immediate. ⌘⇧J jumps to the journal and focuses quick-add.
       MemoryRepository.insertOrReuse treats the same (name, kind, case-sensitive-
       insensitive) as the same game entity: reuse earns it via the read. Tests
       cover reuse + kind-differentiated inserts. 95 tests green.
+- [x] **Form master counts as a read.** ✅ (2026-10-06, user request) setting a
+      book straight to mastered via the add/edit form (or the detail's status
+      picker) used to merely stamp the status — no counter, no journal, no earned
+      yield. Now `BookReadTransitions.countsAsRead` (Core, tested) drives a real
+      read on every mastered transition: times_read + read stamps + a "Mastered…"
+      journal entry, in the same transaction as the save; already-mastered saves
+      never double-count. The yield memory needs no extra step: an imported link
+      is earned by the mastered book automatically. Skills/lessons capture stays
+      with the record-read sheet (parked for the form by request). 96 tests green.
 
 ## Later / optional (only on request)
 

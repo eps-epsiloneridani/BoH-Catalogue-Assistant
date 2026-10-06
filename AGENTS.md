@@ -34,7 +34,7 @@ Two goals, in priority order:
 ## Status snapshot (update every session)
 
 - **2026-10-06 — PARKED (Phases 0–5 + packaging) with user-requested additions shipped.**
-  Build + 95 tests pass from a clean checkout; `Boh.db` at schema v7 with an empty
+  Build + 96 tests pass from a clean checkout; `Boh.db` at schema v7 with an empty
   "First playthrough" loaded; tree clean. All roadmap screens live (Books, Memories,
   Reading Helper, Skills, Journal) plus **playthroughs**, **difficulty**, **save
   import** (Manage Playthroughs → "Import from Save…"; see `docs/SAVE_IMPORT.md`),
@@ -139,6 +139,24 @@ Two goals, in priority order:
   phonograph records untouched; integrity/FK clean; user's db applies it on next
   launch); dist rebuilt with the synced migration. 87 tests green (87 = 86 +
   mapping-coverage fixture + 007 data-repair proof).
+
+- 2026-10-06 (007 verified + memory backlinks mastered-only, user request): the
+  user's relaunched app applied 007 (live db at v7; 82 mis-stamped rows now 'book',
+  both scrolls and the two genuine phonograph records intact; MANUAL_TEST items
+  ticked). Policy refinement of the spoiler posture (D6's spirit): "Books that yield
+  this" on a memory now displays only books the player has *mastered* — import and
+  record-read still stamp `yielded_memory_id` on unread books (the data keeps the
+  link, backlinks just don't reveal a yield the player hasn't earned). The link
+  becomes visible at mastery (both ways tested). "Link a book…" still offers all
+  books; note for the user: a manual link to a not-yet-mastered book stays hidden
+  until they master it.
+
+- 2026-10-06 (anonymization + cold-start consolidation, user-requested): all docs,
+  logs, code comments, test comments and the save-preview script scrubbed of
+  personal name/home-path references ("the user" throughout; hardcoded /Users/…
+  path replaced with expanduser). New ground rule records the convention; commit
+  identities already pseudonymous (username + noreply email).
+
 - 2026-10-06 (security review, user request): full pass over the published repo's
   attack surfaces. Verified clean: uniform parameterized SQL (only two interpolations,
   both constant/Int), SQLITE_TRANSIENT binding, no network/process-exec code, no
@@ -153,31 +171,7 @@ Two goals, in priority order:
   home path (import-save-preview.py) — HEAD is clean but git history is not;
   history rewritten 2026-10-06 (filter-branch, 1:1 across all 36 commits; doc
   hash references remapped; backup bundle + refs/original purged after).**
-- 2026-10-06 (earned-only memory list, user request): the save import creates a
-  memory (with aspects) for every imported book's yield — so the Memories list
-  showed names/traits the player hadn't earned. Now `MemoryRepository.allKnown()`
-  drives the list (and the footer count through the store): visible = no yield
-  links (hand-created) OR ≥1 mastered yielding book; `all()` stays all-inclusive
-  for record-read pickers and import dedupe. Visibility flips at mastery (tested
-  all branches). **Deliberately NOT changed (flagged): ReadingHelper still lists
-  unearned memories as aspect-candidates and reveals 'Always yields' names for
-  unmastered imported books — same leak class, different screen, awaiting
-  direction.** 93 tests green.
-- 2026-10-06 (rewrite published): the scrubbed history went to origin via GitHub
-  Desktop's force push (fetch first → Repository → Force push; Desktop pushes with
-  force-with-lease internally; verified locally main == origin/main). The user
-  accepts GitHub-side retention of unreachable old commits — no further action on
-  the name/home-path exposure; ordinary pushes from here on.
-- 2026-10-06 (earned-only reading helper, user request): same earned-visibility
-  predicate now shared (`MemoryRepository.earnedVisibility`) and applied to the
-  Helper's aspect candidates; Books detail's Yields panel gated to mastered books
-  ("revealed by mastering the book") — correction: part 2's flag overstated the
-  Helper leak (its 'Always yields' panel was already mastered-gated); the real
-  unconditional reveal was Books detail. Record-read sheet split: "Memory used"
-  earned-only, "memory gained (existing)" keeps the full table (selecting an
-  imported yield is the earning act — also avoids a UNIQUE-crash path where the
-  hidden memory couldn't be picked as existing and a re-add would collide with
-  006's per-playthrough unique names). 94 tests green.
+
 - 2026-10-06 (accessibility pass, user request): assessment + fixes. Assessment:
   semantic fonts/motion-free/native controls = solid; zero a11y modifiers anywhere;
   computed WCAG contrast — **all 13 principle badges fail AA in ≥1 mode** (tint-as-text;
@@ -190,21 +184,57 @@ Two goals, in priority order:
   menu, save-selection, globe, status icons, language-known). D12 records the posture
   (AA target; labels required on icon controls; revisit triggers). VoiceOver/Dynamic
   Type hands-on checklist added to MANUAL_TEST; docs updated. 92 tests green.
-- 2026-10-06 (007 verified + memory backlinks mastered-only, user request): the
-  user's relaunched app applied 007 (live db at v7; 82 mis-stamped rows now 'book',
-  both scrolls and the two genuine phonograph records intact; MANUAL_TEST items
-  ticked). Policy refinement of the spoiler posture (D6's spirit): "Books that yield
-  this" on a memory now displays only books the player has *mastered* — import and
-  record-read still stamp `yielded_memory_id` on unread books (the data keeps the
-  link, backlinks just don't reveal a yield the player hasn't earned). The link
-  becomes visible at mastery (both ways tested). "Link a book…" still offers all
-  books; note for the user: a manual link to a not-yet-mastered book stays hidden
-  until they master it.
-- 2026-10-06 (anonymization + cold-start consolidation, user-requested): all docs,
-  logs, code comments, test comments and the save-preview script scrubbed of
-  personal name/home-path references ("the user" throughout; hardcoded /Users/…
-  path replaced with expanduser). New ground rule records the convention; commit
-  identities already pseudonymous (username + noreply email).
+
+- 2026-10-06 (earned-only memory list, user request): the save import creates a
+  memory (with aspects) for every imported book's yield — so the Memories list
+  showed names/traits the player hadn't earned. Now `MemoryRepository.allKnown()`
+  drives the list (and the footer count through the store): visible = no yield
+  links (hand-created) OR ≥1 mastered yielding book; `all()` stays all-inclusive
+  for record-read pickers and import dedupe. Visibility flips at mastery (tested
+  all branches). **Deliberately NOT changed (flagged): ReadingHelper still lists
+  unearned memories as aspect-candidates and reveals 'Always yields' names for
+  unmastered imported books — same leak class, different screen, awaiting
+  direction.** 93 tests green.
+
+- 2026-10-06 (rewrite published): the scrubbed history went to origin via GitHub
+  Desktop's force push (fetch first → Repository → Force push; Desktop pushes with
+  force-with-lease internally; verified locally main == origin/main). The user
+  accepts GitHub-side retention of unreachable old commits — no further action on
+  the name/home-path exposure; ordinary pushes from here on.
+
+- 2026-10-06 (earned-only reading helper, user request): same earned-visibility
+  predicate now shared (`MemoryRepository.earnedVisibility`) and applied to the
+  Helper's aspect candidates; Books detail's Yields panel gated to mastered books
+  ("revealed by mastering the book") — correction: part 2's flag overstated the
+  Helper leak (its 'Always yields' panel was already mastered-gated); the real
+  unconditional reveal was Books detail. Record-read sheet split: "Memory used"
+  earned-only, "memory gained (existing)" keeps the full table (selecting an
+  imported yield is the earning act — also avoids a UNIQUE-crash path where the
+  hidden memory couldn't be picked as existing and a re-add would collide with
+  006's per-playthrough unique names). 94 tests green.
+
+- 2026-10-06 (quick-add memory collision, user checklist report): "creating a new
+  memory from a read doesn't populate the memory table" on Imported from AUTOSAVE.
+  Db forensics: the earning mechanism worked (the successful case was on 'manual
+  debug': memory 'Persistent' linked to mastered book 97, visible). On AUTOSAVE the
+  quick-add's typed name collided with the import's hidden (unearned) memories —
+  the insert hit 006's UNIQUE (name, kind, playthrough_id), createMemory returned
+  nil, and the sheet's early return aborted the ENTIRE read (trail: no post-14:05
+  journal entries there). Fix: MemoryRepository.insertOrReuse — same (name, kind,
+  case-insensitive) is the same game entity: reuse, and the read earns it; a
+  different kind inserts. 95 tests green.
+
+- 2026-10-06 (form master counts as a read, user request): creating/editing a book
+  with read status mastered wrote only the status text — no counter, no journal,
+  yield unearned. Correct model (a player can catalogue a low-level mystery and
+  beat it on the spot): the form master IS a read. Core BookReadTransitions
+  .countsAsRead (tested: add-as-mastered, edit transition, mastered→mastered never
+  double-counts); BooksStore add / update(original:with:) / setReadStatus wrap save
+  + recordRead + a "Mastered…" journal entry in one transaction; both UI paths pass
+  the current game day like the record-read sheet does. An imported yield link is
+  earned automatically by the mastered book. Skills/lessons capture in the form
+  deliberately parked (the record-read sheet remains their home). 96 tests green.
+
 
 ## Repository layout
 
@@ -230,7 +260,7 @@ app/                 <- the Swift package (see docs/GUI_PLAN.md for the as-built
                                  repositories, pure query/math helpers, bundled migrations
   Sources/BoHLibrarian/        <- SwiftUI app: AppState (playthroughs, store wiring),
                                  RootView (routing), Stores/ (per-screen state), Views/
-  Tests/BoHLibrarianCoreTests/ <- 95 tests on :memory: databases
+  Tests/BoHLibrarianCoreTests/ <- 96 tests on :memory: databases
 ```
 
 ## Everyday commands

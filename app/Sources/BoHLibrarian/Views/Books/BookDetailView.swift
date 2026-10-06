@@ -173,7 +173,7 @@ struct BookDetailView: View {
 
     private var statusBinding: Binding<ReadStatus> {
         Binding(get: { book.readStatus },
-                set: { store.setReadStatus(book, $0) })
+                set: { store.setReadStatus(book, $0, gameDay: gameDayForNote) })
     }
 
     // MARK: Yield

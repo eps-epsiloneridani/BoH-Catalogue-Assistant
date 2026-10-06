@@ -60,7 +60,7 @@ The db was **empty** when migration 001 dropped the legacy tables (D8).
 | `book_kind` | `book` \| `scroll` \| `film` \| `record` |
 | `language_id` | FK → Languages (NULL if none/unknown) |
 | `mystery_principle_id`, `difficulty` | the reading challenge — the wiki's "Mastery Difficulty", recordable before mastering |
-| `read_status` | `uncatalogued` → `catalogued` → `mastered` |
+| `read_status` | `uncatalogued` → `catalogued` → `mastered`. A form/detail-picker change INTO mastered counts as an actual read in the app (counter, stamps, journal entry — `BookReadTransitions`; already-mastered saves never double-count) |
 | `contamination` | `none` \| `curse` \| `theoplasmic` \| `infestation` \| `corruption` \| plus the game's own contamination names as save-imports carry them (`winkwell`, `witchworms` — more may follow as saves surface them; see docs/SAVE_IMPORT.md) |
 | `location` | free text: room / shelf / "Oriflamme's" |
 | `times_read`, `first_read_at`, `last_read_at` | read history |

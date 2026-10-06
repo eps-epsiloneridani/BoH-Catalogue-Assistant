@@ -51,13 +51,16 @@ struct BooksScreen: View {
         .sheet(isPresented: $addingBook) {
             BookFormView(mode: .add, principles: appState.principles,
                          languages: appState.languages) { draft in
-                store.add(draft)
+                store.add(draft, gameDay: appState.currentGameDay.isEmpty
+                          ? nil : appState.currentGameDay)
             }
         }
         .sheet(item: $editingBook) { book in
             BookFormView(mode: .edit(book), principles: appState.principles,
                          languages: appState.languages) { draft in
-                store.update(book, with: draft)
+                store.update(book, with: draft,
+                             gameDay: appState.currentGameDay.isEmpty
+                                 ? nil : appState.currentGameDay)
             }
         }
         .sheet(item: $markingRead) { book in
