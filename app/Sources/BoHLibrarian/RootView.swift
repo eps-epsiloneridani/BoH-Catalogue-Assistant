@@ -115,6 +115,12 @@ private struct DetailView: View {
             } else {
                 FailureView(message: "The memories store is unavailable — the database may not have opened.")
             }
+        case .readingHelper:
+            if let store = appState.helperStore {
+                ReadingHelperScreen(store: store)
+            } else {
+                FailureView(message: "The reading helper store is unavailable — the database may not have opened.")
+            }
         default:
             SectionPlaceholder(section: section)
         }

@@ -39,6 +39,7 @@ final class AppState {
 
     private(set) var booksStore: BooksStore?
     private(set) var memoriesStore: MemoriesStore?
+    private(set) var helperStore: ReadingHelperStore?
     private(set) var bookCount = 0
     private(set) var memoryCount = 0
     private(set) var skillCount = 0
@@ -85,6 +86,7 @@ final class AppState {
         guard let db, let playthrough = activePlaythrough else { return }
         booksStore = BooksStore(db: db, playthroughID: playthrough.id)
         memoriesStore = MemoriesStore(db: db, playthroughID: playthrough.id)
+        helperStore = ReadingHelperStore(db: db, playthroughID: playthrough.id)
         refreshCounts()
     }
 

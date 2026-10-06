@@ -34,10 +34,12 @@ struct MarkAsReadSheet: View {
     @State private var lessons: Int?
     @State private var note = ""
 
-    init(book: Book, store: BooksStore) {
+    init(book: Book, store: BooksStore, preselectedMemoryID: Int64? = nil) {
         self.book = book
         self.store = store
         _mastering = State(initialValue: book.readStatus != .mastered)
+        // Reading Helper flows can open this sheet with the chosen memory in hand.
+        _usedMemoryID = State(initialValue: preselectedMemoryID)
     }
 
     private var canRecord: Bool {
