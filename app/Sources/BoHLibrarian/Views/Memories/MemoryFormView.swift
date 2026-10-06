@@ -12,11 +12,13 @@ struct MemoryFormView: View {
     }
 
     /// One editable "how to obtain" row; local row identity keeps the ForEach
-    /// stable while (kind, detail) pairs change.
+    /// stable while (kind, detail) pairs change. detailText stays a plain String
+    /// bound directly (nil converted at the edges) — hand-rolled get/set Bindings
+    /// revert under macOS grouped Forms.
     struct SourceRow: Identifiable {
         let id = UUID()
         var kind: String
-        var detail: String?
+        var detailText: String
     }
 
     let mode: Mode
@@ -54,7 +56,7 @@ struct MemoryFormView: View {
                 AspectDraftRow(principleID: $0.principleID, level: $0.level)
             })
             _sourceRows = State(initialValue: sources.map {
-                SourceRow(kind: $0.kind, detail: $0.detail)
+                SourceRow(kind: $0.kind, detailText: $0.detail ?? "")
             })
             _linkedBookIDs = State(initialValue: linked.map(\.id))
         }
@@ -94,8 +96,7 @@ struct MemoryFormView: View {
                                 }
                             }
                             TextField("Detail (optional)",
-                                      text: Binding(get: { source.detail ?? "" },
-                                                    set: { source.detail = $0.isEmpty ? nil : $0 }))
+                                      text: $source.detailText)
                             Button {
                                 sourceRows.removeAll { $0.id == source.id }
                             } label: {
@@ -107,7 +108,7 @@ struct MemoryFormView: View {
                         }
                     }
                     Button("Add source") {
-                        sourceRows.append(SourceRow(kind: MemorySourceKind.consider.rawValue))
+                        sourceRows.append(SourceRow(kind: MemorySourceKind.consider.rawValue, detailText: ""))
                     }
                 }
 
@@ -181,7 +182,8 @@ struct MemoryFormView: View {
         onSave(MemoryDraft(name: trimmedName, kind: kind, persistent: persistent,
                            notes: trimmedNotes.isEmpty ? nil : trimmedNotes,
                            aspects: aspects),
-               sourceRows.map { MemorySource(kind: $0.kind, detail: $0.detail) },
+               sourceRows.map { MemorySource(kind: $0.kind,
+                                             detail: $0.detailText.isEmpty ? nil : $0.detailText ) },
                linkedBookIDs)
         dismiss()
     }
