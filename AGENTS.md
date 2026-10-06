@@ -231,6 +231,14 @@ Two goals, in priority order:
   PrincipleBadges (read-only, AA text + combined VO semantics for free); editing is
   the Edit… sheet's job (MemoryFormView's AspectEditor + save-path verified);
   the dead inline-editor state + MemoriesStore.setAspects removed. 96 tests green.
+- 2026-10-06 (source rows wouldn't take input, user report follow-up): on the edit
+  sheet, the "How to obtain" detail TextField reverted every keystroke and the kind
+  picker's changes didn't persist — the row's detail bound through a hand-rolled
+  Binding(get:set:) built from the ForEach projected binding, which reverts under
+  macOS grouped Forms. Fix: SourceRow carries a plain detailText (nil converted at
+  load/save edges) and every row control binds directly through the collection
+  binding — the same pattern as the (proven) AspectEditor steppers in the same
+  Form. 97 tests green.
 - 2026-10-06 (sources + yielding-links editing move into the edit sheet, user
   request): same pane pass — "How to obtain" and "Books that yield this" were still
   editing surfaces (add-source kind dropdown + detail field; "Link a book…" menu;
