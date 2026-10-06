@@ -20,10 +20,14 @@ public enum ReadStatus: String, CaseIterable {
 }
 
 /// Contamination types ("none" is stored for a book whose contamination has been
-/// confirmed as absent; nil means "unknown / not checked").
+/// confirmed as absent; nil means "unknown / not checked"). The four base cases
+/// are the wiki's categories; the lowercase cases are the game's own contamination
+/// element names, which save-imports carry verbatim (docs/SAVE_IMPORT.md — more
+/// can be added as saves surface them).
 public enum Contamination: String, CaseIterable {
     case clear = "none"
     case curse, theoplasmic, infestation, corruption
+    case winkwell, witchworms
 
     /// Title-case label for pickers and detail rows.
     public var displayName: String {
@@ -33,6 +37,8 @@ public enum Contamination: String, CaseIterable {
         case .theoplasmic: "Theoplasm"
         case .infestation: "Infestation"
         case .corruption: "Corruption"
+        case .winkwell: "Winkwell"
+        case .witchworms: "Witchworms"
         }
     }
 }
