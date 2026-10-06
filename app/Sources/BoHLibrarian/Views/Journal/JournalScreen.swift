@@ -86,6 +86,7 @@ struct JournalScreen: View {
             HStack(spacing: 8) {
                 Image(systemName: "plus.circle")
                     .foregroundStyle(.secondary)
+                    .accessibilityHidden(true)
                 TextField("Note today's finding…", text: $quickAddText)
                     .focused($quickAddFocused)
                     .onSubmit(submitQuickAdd)
@@ -195,11 +196,13 @@ private struct JournalRowView: View {
                 Image(systemName: "pencil")
             }
             .buttonStyle(.borderless)
+            .accessibilityLabel("Edit entry")
             .help("Edit entry")
             Button(role: .destructive, action: onDelete) {
                 Image(systemName: "trash")
             }
             .buttonStyle(.borderless)
+            .accessibilityLabel("Delete entry")
             .help("Delete entry")
         }
         .padding(.vertical, 4)

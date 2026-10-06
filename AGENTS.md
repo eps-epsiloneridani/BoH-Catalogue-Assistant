@@ -34,7 +34,7 @@ Two goals, in priority order:
 ## Status snapshot (update every session)
 
 - **2026-10-06 — PARKED (Phases 0–5 + packaging) with user-requested additions shipped.**
-  Build + 87 tests pass from a clean checkout; `Boh.db` at schema v7 with an empty
+  Build + 92 tests pass from a clean checkout; `Boh.db` at schema v7 with an empty
   "First playthrough" loaded; tree clean. All roadmap screens live (Books, Memories,
   Reading Helper, Skills, Journal) plus **playthroughs**, **difficulty**, **save
   import** (Manage Playthroughs → "Import from Save…"; see `docs/SAVE_IMPORT.md`),
@@ -153,6 +153,18 @@ Two goals, in priority order:
   home path (import-save-preview.py) — HEAD is clean but git history is not;
   history rewritten 2026-10-06 (filter-branch, 1:1 across all 36 commits; doc
   hash references remapped; backup bundle + refs/original purged after).**
+- 2026-10-06 (accessibility pass, user request): assessment + fixes. Assessment:
+  semantic fonts/motion-free/native controls = solid; zero a11y modifiers anywhere;
+  computed WCAG contrast — **all 13 principle badges fail AA in ≥1 mode** (tint-as-text;
+  measured, e.g. Lantern 1.21:1 light, Edge 1.43:1 dark). Fix: Core `ColorMath`
+  (luminance/contrast/blend + `readableTextHex` deriving per-mode badge text; 5 tests
+  incl. all-tints-both-modes ≥4.5 enforcement); badges derive text (fill/border keep
+  the tint identity), whole book rows + badges announce as one crafted element; every
+  icon-only control labelled / decorations hidden (28 sites catalogued: journal
+  edit/delete, aspect remove, unlink, source remove/add, playthrough delete/active/
+  menu, save-selection, globe, status icons, language-known). D12 records the posture
+  (AA target; labels required on icon controls; revisit triggers). VoiceOver/Dynamic
+  Type hands-on checklist added to MANUAL_TEST; docs updated. 92 tests green.
 - 2026-10-06 (007 verified + memory backlinks mastered-only, user request): the
   user's relaunched app applied 007 (live db at v7; 82 mis-stamped rows now 'book',
   both scrolls and the two genuine phonograph records intact; MANUAL_TEST items
@@ -193,7 +205,7 @@ app/                 <- the Swift package (see docs/GUI_PLAN.md for the as-built
                                  repositories, pure query/math helpers, bundled migrations
   Sources/BoHLibrarian/        <- SwiftUI app: AppState (playthroughs, store wiring),
                                  RootView (routing), Stores/ (per-screen state), Views/
-  Tests/BoHLibrarianCoreTests/ <- 87 tests on :memory: databases
+  Tests/BoHLibrarianCoreTests/ <- 92 tests on :memory: databases
 ```
 
 ## Everyday commands

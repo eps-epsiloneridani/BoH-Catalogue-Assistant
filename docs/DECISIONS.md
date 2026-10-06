@@ -1,7 +1,7 @@
 # Decisions
 
 Short log of the decisions that shape this project. Each entry: decision, rationale,
-revisit trigger. Reference these as D1…D11 in other docs.
+revisit trigger. Reference these as D1…D12 in other docs.
 
 | # | Decision | Rationale | Revisit if |
 |---|---|---|---|
@@ -16,6 +16,7 @@ revisit trigger. Reference these as D1…D11 in other docs.
 | D9 | **Playthroughs are rows in one database**, not one `.db` file per run: `Playthroughs` + `Meta['active_playthrough']` + `playthrough_id` scoping on the four finding tables | Instant switching/creating without file juggling; git still versions all runs in `Boh.db`; deleting a run cascades its findings with UI confirmation | Multiple machines in sync, or a single db grows past ~50 MB — then consider per-file runs |
 | D10 | The book requirement number is named **difficulty** (`Books.difficulty`, was `mystery_level`) and is recordable without the mystery principle | That's the game community's term (wiki book tables: "Mastery Difficulty"; players shelve "unread by difficulty"), and the player knows the number at catalogue time even when the principle isn't noted | — |
 | D11 | **Security posture (recorded 2026-10-06):** offline, single-user, personal tool. **No App Sandbox / hardened runtime** — save import must read arbitrary local game folders, which sandboxing would complicate with entitlement prompts; **ad-hoc codesign only** — the app is not distributed to others; **no network code and no external packages** keep the supply chain empty by construction; env-var overrides (`BOH_DB_PATH`, `BOH_MIGRATIONS`, `BOH_SAVE_DIR`, `BOH_GAME_ELEMENTS`) are dev knobs within the same-user trust boundary; the app's data dir/files are `700/600`. SQL is uniformly parameterized (audited); the scanner slurps only size-capped files | The app ever ships to other users (then: sandbox + hardened runtime + notarized signing), or gains any network feature (then: revisit D2 with dependency vetting) | Distribution beyond one Mac, or feature growth toward sharing/exporting data between machines |
+| D12 | **Accessibility: WCAG AA (4.5:1) is the text-contrast target; icon-only controls must carry `accessibilityLabel`s; composite rows/badges announce as one element** — enforced in code (`ColorMath.readableTextHex` derives badge text per appearance mode; `ColorMathTests` asserts all 13 seeded tints pass BOTH modes) and checked hands-on per `docs/MANUAL_TEST.md` §Accessibility | The app is personal, but "can't discount use by others"; native SwiftUI controls carry most of the load — the custom layers (badges, rows, icon buttons) were where the failures were | macOS a11y requirements shift materially, or someone reports the derived badge-text colors harm the palette's recognizability (then: re-tune the derivation, don't revert it) |
 
 Note on D8: the legacy schema was a reasonable first sketch and correctly anticipated the
 core entity pair (books ↔ yielded memory). What it couldn't survive was the discovery

@@ -198,6 +198,24 @@ private struct BookRow: View {
             }
         }
         .padding(.vertical, 2)
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel(accessibilitySummary)
+    }
+
+    private var accessibilitySummary: String {
+        var parts = [book.title]
+        if book.bookKind != .book { parts.append(book.bookKind.rawValue.capitalized) }
+        if let set = book.setName { parts.append(set) }
+        if let volume = book.volume { parts.append(volume) }
+        if let location = book.location { parts.append(location) }
+        if let principleID = book.mysteryPrincipleID, let difficulty = book.difficulty {
+            parts.append("\(store.principleName(principleID) ?? "?") \(difficulty)")
+        } else if let difficulty = book.difficulty {
+            parts.append("difficulty \(difficulty), principle not known")
+        }
+        if let language = store.languageName(book.languageID) { parts.append(language) }
+        parts.append(book.readStatus.rawValue)
+        return parts.joined(separator: ", ")
     }
 
     private var statusIcon: some View {

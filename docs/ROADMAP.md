@@ -168,6 +168,15 @@ immediate. ⌘⇧J jumps to the journal and focuses quick-add.
       import had already stamped. Now the display covers only books the player has
       mastered; the data link is untouched and the backlink appears at mastery
       (test drives both directions). "Link a book…" unchanged. 87 tests green.
+- [x] **Accessibility pass.** ✅ (2026-10-06) Assessment found native controls solid
+      (semantic fonts, no motion, nothing color-only) but zero a11y modifiers anywhere
+      and — measured — **all 13 principle badges failing WCAG AA in at least one mode**
+      (tint-as-text). Fixed: `ColorMath` in Core (WCAG luminance/contrast/blend +
+      `readableTextHex`; derived per-mode badge text, fill/border keep the seeded tint;
+      5 tests incl. all-tints-both-modes ≥ 4.5:1), badges/rows announce as single
+      crafted elements, every icon-only control labelled or hidden (28 sites). D12
+      records the posture; MANUAL_TEST gains a VoiceOver/Dynamic-Type checklist.
+      92 tests green.
 
 ## Later / optional (only on request)
 

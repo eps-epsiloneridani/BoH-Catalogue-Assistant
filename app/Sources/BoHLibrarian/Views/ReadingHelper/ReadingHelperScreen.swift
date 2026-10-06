@@ -126,6 +126,7 @@ private struct HelperBookRow: View {
                 Image(systemName: book.readStatus == .mastered
                       ? "checkmark.circle.fill" : "questionmark.circle")
                     .foregroundStyle(book.readStatus == .mastered ? .green : .secondary)
+                    .accessibilityLabel(book.readStatus.rawValue)
             }
         }
         .padding(.vertical, 2)
@@ -242,6 +243,7 @@ private struct DeskPanel: View {
                         if let known = store.isLanguageKnown(languageID) {
                             Image(systemName: known ? "checkmark.circle.fill" : "exclamationmark.circle")
                                 .foregroundStyle(known ? .green : .orange)
+                                .accessibilityLabel(known ? "known" : "not learned yet")
                                 .help(known ? "You know this language"
                                             : "Not learned yet — a visitor can teach it, for an Iron Spintria")
                         }
@@ -374,11 +376,13 @@ private struct CandidateRow: View {
             case .weather:
                 Image(systemName: "cloud.fill")
                     .font(.caption2)
+                    .accessibilityLabel("Weather memory")
                     .help("Weather")
             case .numen:
                 Image(systemName: "star.circle.fill")
                     .font(.caption2)
                     .foregroundStyle(.purple)
+                    .accessibilityLabel("Numen memory")
                     .help("Numen")
             case .memory:
                 EmptyView()
@@ -387,6 +391,7 @@ private struct CandidateRow: View {
                 Image(systemName: "infinity")
                     .font(.caption2)
                     .foregroundStyle(.orange)
+                    .accessibilityLabel("Persistent — survives dawn")
                     .help("Persistent — survives dawn (not Numa)")
             }
         }

@@ -144,6 +144,7 @@ private struct DetailView: View {
         HStack(spacing: 8) {
             Image(systemName: "person.crop.circle")
                 .foregroundStyle(.secondary)
+                .accessibilityHidden(true)
             Text(appState.activePlaythrough?.name ?? "—")
                 .help("Active playthrough")
             Text("·")

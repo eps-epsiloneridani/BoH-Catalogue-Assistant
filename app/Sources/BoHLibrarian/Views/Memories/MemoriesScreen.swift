@@ -190,6 +190,7 @@ private struct MemoryRow: View {
                     Image(systemName: "infinity")
                         .font(.caption2)
                         .foregroundStyle(.orange)
+                        .accessibilityLabel("Persistent — survives dawn")
                         .help("Persistent — survives dawn (not Numa)")
                 }
             }
@@ -202,9 +203,11 @@ private struct MemoryRow: View {
             switch memory.kind {
             case .numen:
                 Image(systemName: "star.circle.fill").foregroundStyle(.purple)
+                    .accessibilityLabel("Numen memory")
                     .help("Numen")
             case .weather:
                 Image(systemName: "cloud.fill")
+                    .accessibilityLabel("Weather memory")
                     .help("Weather")
             case .memory:
                 EmptyView()

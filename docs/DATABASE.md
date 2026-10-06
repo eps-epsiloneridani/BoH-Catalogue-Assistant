@@ -26,7 +26,7 @@ The db was **empty** when migration 001 dropped the legacy tables (D8).
 |---|---|
 | `name` | exact in-game name, UNIQUE |
 | `sort_order` | stable display order |
-| `color` | hex badge color in the UI (editable seed defaults) |
+| `color` | hex badge color in the UI (editable seed defaults). Rendered as badge fill/border; badge **text color is derived per appearance mode** to hold WCAG AA 4.5:1 (the raw tints fail both modes for several hues) — `ColorMath.readableTextHex`, D12 |
 | `notes` | one-line gloss |
 
 ### Languages — lookup, seeded (15)
