@@ -301,8 +301,12 @@ Use this space for anything noticed while testing (oddities, papercuts, ideas):
 - [ ] Record read on an unmastered imported book: "Memory used" offers only earned
       memories, but "Memory gained → existing" can still find the book's imported
       yield — selecting it masters the link and the memory appears in the list
-- [ ] Open Memories on "Imported from AUTOSAVE": the list is far shorter than
+- [x] Open Memories on "Imported from AUTOSAVE": the list is far shorter than
       60+ created memories — only earned/hand-made ones show; master one of the
       unearned-yield books via Record read and watch its memory appear
+- [x] Record-read quick-add on "Imported from AUTOSAVE": typing a memory name that
+      already exists as an imported (hidden) yield REUSES it (user report
+      2026-10-06: the old quick-add crashed on 006's per-playthrough uniqueness and
+      aborted the whole read; covered by insertOrReuse + tests)
 - [ ] A hidden memory's yield still shows via record-read on that book (the
       book detail/"Always yields" flow) — record-read is how the player learns it

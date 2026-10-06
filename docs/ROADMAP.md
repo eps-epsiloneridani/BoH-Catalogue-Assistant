@@ -193,6 +193,14 @@ immediate. ⌘⇧J jumps to the journal and focuses quick-add.
       picker is earned-only, but "memory gained (existing)" keeps the full table —
       selecting a not-yet-earned imported yield is exactly the act that earns it.
       94 tests green.
+- [x] **Quick-add memory collided with hidden imported yields.** ✅ (2026-10-06,
+      user checklist report) the record-read sheet's "New memory…" insert hit 006's
+      per-playthrough UNIQUE (name, kind) whenever the name already existed as an
+      imported (unearned, hidden) yield — createMemory returned nil and the sheet
+      aborted the *entire* read (no journal entry proves it on the trail).
+      MemoryRepository.insertOrReuse treats the same (name, kind, case-sensitive-
+      insensitive) as the same game entity: reuse earns it via the read. Tests
+      cover reuse + kind-differentiated inserts. 95 tests green.
 
 ## Later / optional (only on request)
 
