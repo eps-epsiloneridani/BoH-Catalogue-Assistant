@@ -231,6 +231,16 @@ Two goals, in priority order:
   PrincipleBadges (read-only, AA text + combined VO semantics for free); editing is
   the Edit… sheet's job (MemoryFormView's AspectEditor + save-path verified);
   the dead inline-editor state + MemoriesStore.setAspects removed. 96 tests green.
+- 2026-10-06 (still dead after owning its row — ForEach+TextField ruled out
+  wholesale): the user's db settles the mechanism questions: memory 33 carries
+  Forge 2/Grail 2 created via the quick-add's AspectEditor — ForEach($array)
+  pickers/steppers write through in grouped Forms; the old detail pane's add-row
+  wrote sources incl. details — plain VStack + TextField works; three source-rows
+  with details exist from early play. The only never-working combination is
+  TextField inside ForEach (any arrangement — own-row, direct binding). Fix: the
+  source/link editors moved OUT of the Form into a plain VStack below it
+  (the old pane's working context), driven by index-based data ForEach with
+  subscript bindings; Cancel/Save bar follows. 97 tests green.
 - 2026-10-06 (detail field still dead after the binding fix, follow-up): with the
   hand-rolled binding gone the kind picker persisted (direct bindings write
   through) but the detail TextField still took no input — the remaining suspect

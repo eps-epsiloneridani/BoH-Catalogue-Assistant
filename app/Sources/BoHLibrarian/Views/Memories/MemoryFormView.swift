@@ -4,6 +4,14 @@ import BoHLibrarianCore
 // Add/Edit memory sheet — same shape as the record-read quick-add, shared
 // AspectEditor. In edit mode it is ALSO the home of the source ("how to obtain")
 // and yielding-book editors; the detail pane is display-only (user request).
+//
+// Layout note (user-reported twice): TextFields inside ForEach bindings inside a
+// grouped Form refuse input on this macOS build — pickers/steppers write through
+// (AspectEditor + the user's own data prove it) but text input does not, in any
+// row arrangement. The memory fields keep the Form (proven shapes); the source
+// and link editors live in a plain VStack below it — the context the old detail
+// pane's add-row used successfully — driven by index bindings, no projected
+// binding collections anywhere near text input.
 
 struct MemoryFormView: View {
     enum Mode {
@@ -11,12 +19,9 @@ struct MemoryFormView: View {
         case edit(Memory)
     }
 
-    /// One editable "how to obtain" row; local row identity keeps the ForEach
-    /// stable while (kind, detail) pairs change. detailText stays a plain String
-    /// bound directly (nil converted at the edges) — hand-rolled get/set Bindings
-    /// revert under macOS grouped Forms.
-    struct SourceRow: Identifiable {
-        let id = UUID()
+    /// One editable "how to obtain" row; keyed by index, plain detail text with
+    /// the nil conversion at the save edge.
+    struct SourceRow: Equatable {
         var kind: String
         var detailText: String
     }
@@ -67,41 +72,63 @@ struct MemoryFormView: View {
     }
 
     var body: some View {
-        Form {
-            Section("The memory") {
-                TextField("Name", text: $name)
-                Picker("Kind", selection: $kind) {
-                    ForEach(MemoryKind.allCases, id: \.self) { kind in
-                        Text(kind.rawValue.capitalized).tag(kind)
+        VStack(alignment: .leading, spacing: 0) {
+            Form {
+                Section("The memory") {
+                    TextField("Name", text: $name)
+                    Picker("Kind", selection: $kind) {
+                        ForEach(MemoryKind.allCases, id: \.self) { kind in
+                            Text(kind.rawValue.capitalized).tag(kind)
+                        }
                     }
+                    .pickerStyle(.segmented)
+                    Toggle("Persistent (survives dawn)", isOn: $persistent)
                 }
-                .pickerStyle(.segmented)
-                Toggle("Persistent (survives dawn)", isOn: $persistent)
-            }
 
-            Section("Aspects") {
-                AspectEditor(principles: principles, rows: $aspectRows)
-                Text("Rows without a principle are skipped on save.")
-                    .font(.caption)
-                    .foregroundStyle(.secondary)
+                Section("Aspects") {
+                    AspectEditor(principles: principles, rows: $aspectRows)
+                    Text("Rows without a principle are skipped on save.")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                }
+
+                Section("Notes") {
+                    TextEditor(text: $notes)
+                        .frame(minHeight: 64)
+                }
             }
+            .formStyle(.grouped)
 
             if case .edit = mode {
-                Section("How to obtain") {
-                    // Each source = two plain rows: kind (+ remove), then the
-                    // detail field OWNING its row — TextFields sharing a grouped
-                    // Form row with a menu Picker stop taking input (user-reported
-                    // twice); own-row TextFields are the app's proven shape.
-                    ForEach($sourceRows) { $source in
+                Divider()
+                editingBlock
+            }
+
+            Divider()
+            actionButtons
+        }
+        .frame(minWidth: 440, minHeight: 480)
+    }
+
+    // MARK: Source + link editors (edit mode, OUTSIDE the Form — see header)
+
+    private var editingBlock: some View {
+        VStack(alignment: .leading, spacing: 14) {
+            plainTitle("How to obtain")
+            VStack(alignment: .leading, spacing: 8) {
+                ForEach(sourceRows.indices, id: \.self) { index in
+                    VStack(alignment: .leading, spacing: 4) {
                         HStack {
-                            Picker("Source kind", selection: $source.kind) {
+                            Picker("Source kind", selection: $sourceRows[index].kind) {
                                 ForEach(MemorySourceKind.allCases, id: \.self) { kind in
                                     Text(kind.rawValue).tag(kind.rawValue)
                                 }
                             }
+                            .labelsHidden()
+                            .accessibilityLabel("Source kind")
                             Spacer()
                             Button {
-                                sourceRows.removeAll { $0.id == source.id }
+                                sourceRows.remove(at: index)
                             } label: {
                                 Image(systemName: "minus.circle")
                             }
@@ -110,60 +137,62 @@ struct MemoryFormView: View {
                             .help("Remove source")
                         }
                         TextField("Detail — e.g. Talk with the Rector (17%)",
-                                  text: $source.detailText)
-                    }
-                    Button("Add source") {
-                        sourceRows.append(SourceRow(kind: MemorySourceKind.consider.rawValue, detailText: ""))
+                                  text: $sourceRows[index].detailText)
+                            .textFieldStyle(.roundedBorder)
                     }
                 }
-
-                Section("Books that yield this") {
-                    ForEach(linkedBookIDs.sorted { title(for: $0) < title(for: $1) }, id: \.self) { id in
-                        HStack {
-                            Image(systemName: "book")
-                                .foregroundStyle(.secondary)
-                                .accessibilityHidden(true)
-                            Text(title(for: id))
-                            Spacer()
-                            Button {
-                                linkedBookIDs.removeAll { $0 == id }
-                            } label: {
-                                Image(systemName: "minus.circle")
-                            }
-                            .buttonStyle(.borderless)
-                            .accessibilityLabel("Unlink \(title(for: id))")
-                            .help("Unlink this book")
-                        }
-                    }
-                    Menu {
-                        ForEach(linkableBooks) { book in
-                            Button(book.title) { linkedBookIDs.append(book.id) }
-                        }
-                    } label: {
-                        Label("Link a book…", systemImage: "link")
-                    }
-                    .disabled(linkableBooks.isEmpty)
+                Button("Add source") {
+                    sourceRows.append(SourceRow(kind: MemorySourceKind.consider.rawValue,
+                                                detailText: ""))
                 }
             }
 
-            Section("Notes") {
-                TextEditor(text: $notes)
-                    .frame(minHeight: 64)
-            }
-
-            Section {
-                HStack {
-                    Spacer()
-                    Button("Cancel", role: .cancel) { dismiss() }
-                    Button(saveTitle) { save() }
-                        .buttonStyle(.borderedProminent)
-                        .disabled(!canSave)
+            plainTitle("Books that yield this")
+            VStack(alignment: .leading, spacing: 8) {
+                ForEach(linkedBookIDs.sorted { title(for: $0) < title(for: $1) }, id: \.self) { id in
+                    HStack {
+                        Image(systemName: "book")
+                            .foregroundStyle(.secondary)
+                            .accessibilityHidden(true)
+                        Text(title(for: id))
+                        Spacer()
+                        Button {
+                            linkedBookIDs.removeAll { $0 == id }
+                        } label: {
+                            Image(systemName: "minus.circle")
+                        }
+                        .buttonStyle(.borderless)
+                        .accessibilityLabel("Unlink \(title(for: id))")
+                        .help("Unlink this book")
+                    }
                 }
+                Menu {
+                    ForEach(linkableBooks) { book in
+                        Button(book.title) { linkedBookIDs.append(book.id) }
+                    }
+                } label: {
+                    Label("Link a book…", systemImage: "link")
+                }
+                .disabled(linkableBooks.isEmpty)
             }
         }
-        .formStyle(.grouped)
-        .frame(minWidth: 440, minHeight: 460)
+        .padding(.horizontal, 20)
+        .padding(.vertical, 14)
     }
+
+    private var actionButtons: some View {
+        HStack {
+            Spacer()
+            Button("Cancel", role: .cancel) { dismiss() }
+            Button(saveTitle) { save() }
+                .buttonStyle(.borderedProminent)
+                .disabled(!canSave)
+        }
+        .padding(.horizontal, 20)
+        .padding(.vertical, 12)
+    }
+
+    // MARK: Helpers
 
     private var saveTitle: String {
         if case .add = mode { "Add Memory" } else { "Save" }
@@ -177,6 +206,12 @@ struct MemoryFormView: View {
         books.first { $0.id == id }?.title ?? "book \(id)"
     }
 
+    private func plainTitle(_ title: String) -> some View {
+        Text(title.uppercased())
+            .font(.caption.weight(.semibold))
+            .foregroundStyle(.secondary)
+    }
+
     private func save() {
         let trimmedName = name.trimmingCharacters(in: .whitespacesAndNewlines)
         let aspects = aspectRows.compactMap { row -> AspectDraft? in
@@ -187,8 +222,10 @@ struct MemoryFormView: View {
         onSave(MemoryDraft(name: trimmedName, kind: kind, persistent: persistent,
                            notes: trimmedNotes.isEmpty ? nil : trimmedNotes,
                            aspects: aspects),
-               sourceRows.map { MemorySource(kind: $0.kind,
-                                             detail: $0.detailText.isEmpty ? nil : $0.detailText ) },
+               sourceRows.map {
+                   MemorySource(kind: $0.kind,
+                                detail: $0.detailText.isEmpty ? nil : $0.detailText)
+               },
                linkedBookIDs)
         dismiss()
     }
