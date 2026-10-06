@@ -43,6 +43,10 @@ Two goals, in priority order:
 - **How to resume (in this order):**
   1. Ask the user how his hands-on pass went — `docs/MANUAL_TEST.md` has unticked
      interaction checklists for every screen; fix any papercuts he found first.
+     One papercut is already recorded: **OK/Cancel buttons on the playthrough
+     manager sheet** (see "Pending items" in `docs/ROADMAP.md`; he may have picked
+     it up himself by then — check `PlaythroughViews.swift` for a footer Section
+     before redoing it).
   2. Then Phase 6 per `docs/ROADMAP.md`: `make-app.sh` packaging (Dock/⌘Tab presence
      without `swift run`), menu-bar quick journal, window-state persistence, JSON/CSV
      export.
@@ -67,6 +71,9 @@ Two goals, in priority order:
 - 2026-10-06 (Phase 5): Skills + Journal screens (78 tests); ⌘⇧J quick-journal command.
 - 2026-10-06 (parked): hand-off docs refreshed — as-built repo layout in AGENTS.md and
   GUI_PLAN.md, parked status with resume order recorded above.
+- 2026-10-06 (final note): the user asked for OK/Cancel buttons on the playthrough manager
+  sheet — recorded as a pending item in `docs/ROADMAP.md` §Pending items (he may do it
+  himself); not implemented.
 
 ## Repository layout
 

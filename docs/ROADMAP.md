@@ -103,6 +103,17 @@ immediate. ⌘⇧J jumps to the journal and focuses quick-add.
 - [ ] `make-app.sh` packaging, menu-bar quick journal, window state persistence
 - [ ] Export JSON/CSV; "readable today" dashboard if desired
 
+## Pending items — user-reported (do before or with Phase 6)
+
+- [ ] **OK/Cancel buttons on the playthrough manager sheet.** The Manage Playthroughs
+      sheet (`app/Sources/BoHLibrarian/Views/Playthroughs/PlaythroughViews.swift` →
+      `ManagePlaythroughsSheet`) currently has no dismiss buttons of its own — only the
+      sheet's window chrome. Add a trailing footer Section with Cancel + OK, matching
+      the pattern in `BookFormView`/`SkillFormView`/`JournalEditSheet`. Note: renames
+      commit immediately (on return-key submit) and delete/load act at once, so both
+      buttons simply dismiss — they're affordances, not save states. (Reported 2026-10-06
+      by the user while parking the project; he may pick this up himself.)
+
 ## Later / optional (only on request)
 
 Rooms tracker, crafting/recipes tracker, visitors/incidents, full wiki import (spoilers!),
