@@ -48,6 +48,28 @@ during your first play session with that build.
       in the Journal table (link cleared) — verify via `sqlite3 Boh.db`
 - [ ] Footer counts update after adds/deletes
 
+## Phase 3½ — Playthroughs + difficulty (2026-10-06)
+
+### Verified automatically (unit tests — `swift test`, 62 green)
+- [x] Migration 004/005: difficulty column renamed; Playthroughs + Meta tables; one
+      default playthrough seeded and marked active; idempotent re-runs
+- [x] Scoping: books/memories/skills/journal inserted via one playthrough's repos are
+      invisible to another's; cross-playthrough gets fail closed
+- [x] Cascade: deleting a playthrough removes its books, memories, skills, journal and
+      junction rows; other runs untouched
+- [x] Meta round-trip: setActiveID/activeID survive a fresh connection
+
+### Needs hands — tick during your next session with the app
+- [ ] Sidebar shows the playthrough switcher (person icon + "First playthrough")
+- [ ] New Playthrough…: create a second run; Books/Memories screens are empty; footer
+      name + counts changed; "First playthrough" rows are NOT visible
+- [ ] Switch back via the menu: everything recorded in run 1 is intact
+- [ ] Manage…: rename a run (return key); Load switches; delete refuses the active/only
+      run; deleting a spare run works after confirmation
+- [ ] Book form: "Difficulty known" toggle + stepper recordable without a mystery
+      principle; list shows "difficulty N" when the principle isn't recorded; sort by
+      Difficulty works
+
 ## Scratch pad
 
 Use this space for anything noticed while testing (oddities, papercuts, ideas):

@@ -59,7 +59,7 @@ The db was **empty** when migration 001 dropped the legacy tables (D8).
 | `set_name`, `volume` | series ("The Locksmith's Dream") / edition ("vol. 2") |
 | `book_kind` | `book` \| `scroll` \| `film` \| `record` |
 | `language_id` | FK → Languages (NULL if none/unknown) |
-| `mystery_principle_id`, `mystery_level` | the reading challenge |
+| `mystery_principle_id`, `difficulty` | the reading challenge — the wiki's "Mastery Difficulty", recordable before mastering |
 | `read_status` | `uncatalogued` → `catalogued` → `mastered` |
 | `contamination` | `none` \| `curse` \| `theoplasmic` \| `infestation` \| `corruption` |
 | `location` | free text: room / shelf / "Oriflamme's" |
@@ -89,7 +89,7 @@ optional links `book_id` / `memory_id` / `skill_id` (ON DELETE SET NULL — the 
 ### Indexes
 
 `MemoryAspects(principle_id, level)` — the Reading Helper hot path;
-`Books(read_status)`, `Books(mystery_principle_id, mystery_level)`,
+`Books(read_status)`, `Books(mystery_principle_id, difficulty)`,
 `Journal(logged_at)`, `MemorySources(memory_id)`, `BookLessons(skill_id)`.
 
 ## Canonical queries (kept here so the app and CLI agree)
@@ -130,9 +130,33 @@ GROUP BY p.id ORDER BY p.sort_order;
 - `scripts/migrate.sh` applies pending files (refuses migration 001 if the legacy tables
   still contain rows — belt and braces). `--status` lists applied/pending.
 - The app applies the same files on launch: `BOH_MIGRATIONS` → `./db/migrations` →
-  bundled resources copy (kept in sync in the package; see GUI_PLAN).
+  `../db/migrations` → bundled resources copy (kept in sync via `scripts/sync-migrations.sh`).
 - Seeds: `002` principles (13, with UI colors), `003` languages (15). **Nothing else is
   ever seeded** (D6).
+
+### What migrations 004–005 changed
+
+- **004 — difficulty:** `Books.mystery_level` renamed to `Books.difficulty` — the term the
+  game community and wiki use ("Mastery Difficulty"). Deliberately **recordable
+  independently of the mystery principle**: the player knows the number to beat from
+  catalogue time even when the principle isn't noted.
+- **005 — playthroughs:** BoH is run-based; findings don't carry over between Librarians.
+  Adds:
+  - `Playthroughs (id, name, created_at, notes)` — one row per saved game.
+  - `Meta (key, value)` — `active_playthrough` holds the loaded playthrough's id.
+  - Nullable `playthrough_id` FK columns (ON DELETE CASCADE) on `Books`, `Memories`,
+    `Skills`, `Journal`, backfilled to a default playthrough. Nullability is a SQLite
+    ADD COLUMN limitation: **the application enforces scoping** — every repository is
+    constructed with a playthrough id; all list queries filter on it; all inserts stamp it.
+    Update/delete by id are unscoped (ids always originate from scoped queries).
+  - Principles/Languages are game structure — unscoped.
+  - Deleting a playthrough cascades its findings; the UI confirms and refuses to delete
+    the active or only playthrough.
+
+### Future schema notes
+
+If `Meta` grows more keys (e.g. app settings), keep it typed-by-convention (values are
+TEXT) and document each key here. See docs/DECISIONS.md D9/D10 for rationale.
 
 ## Future tables (add via new migrations when a need crystallises)
 

@@ -54,6 +54,23 @@ tested function (`MemoryFiltering`). Backlinks support manual link/unlink via
 never applied — Books/Memories screens were both wired up properly this phase
 (see MANUAL_TEST note).
 
+## Phase 3½ — Playthroughs + difficulty (user-requested detour) ✅ (2026-10-06)
+
+Requested before Phase 4: books need to record difficulty at catalogue time, and the
+app needs playthrough save/load/new (BoH is run-based — findings don't carry over).
+- [x] Migration 004: `Books.mystery_level` → `difficulty` (the game community's term;
+      wiki book tables: "Mastery Difficulty")
+- [x] Difficulty recordable **independently of the mystery principle** (form toggle +
+      stepper always available; list/detail show it without a principle)
+- [x] Migration 005: `Playthroughs` + `Meta['active_playthrough']` + `playthrough_id`
+      scoping on Books/Memories/Skills/Journal, cascade delete
+- [x] All repositories scoped to the active playthrough; `PlaythroughRepository` + tests
+      (CRUD, Meta round-trip, cross-playthrough isolation, cascade)
+- [x] UI: sidebar playthrough switcher (load), New Playthrough sheet (new game — old run
+      saved as-is), Manage sheet (rename/load/delete with confirmation); footer shows the
+      active run
+- [x] 62 tests green; `Boh.db` migrated to v5 (default playthrough seeded + active)
+
 ## Phase 4 — Reading Helper (next)
 
 - [ ] Book picker → requirement panel (mystery, language-known hint, contamination, kind)

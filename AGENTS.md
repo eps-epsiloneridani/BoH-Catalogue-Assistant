@@ -33,11 +33,10 @@ Two goals, in priority order:
 
 ## Status snapshot (update every session)
 
-- **2026-10-05 — Phases 0–3 complete.** Books *and* Memories screens live (see the
-  routing-fix note in MANUAL_TEST): full CRUD, inline aspect editing, sources,
-  book↔memory backlinks, record-read flow. 58 tests green. **Next: Phase 4** —
-  Reading Helper (pick a book → live candidate lists from the canonical queries →
-  one-flow record read) per `docs/ROADMAP.md`.
+- **2026-10-06 — Phases 0–3½ complete.** Books + Memories screens live; **playthroughs**
+  (save/load/new via the sidebar switcher) scope every finding; books record **difficulty**
+  independently of the mystery principle. 62 tests green; `Boh.db` at schema v5 with the
+  default playthrough active. **Next: Phase 4** — Reading Helper per `docs/ROADMAP.md`.
 
 ### Session log
 - 2026-10-05 (planning): docs, migrations, seeds, git init.
@@ -48,7 +47,10 @@ Two goals, in priority order:
 - 2026-10-05 (Phase 3): Memories screen (58 tests); shared `AspectEditor`; **fixed**: the
   Phase 2 routing edit had never applied, so Books screen was unreachable until now —
   routing now grep-verified after every wiring change.
-- No playthrough data recorded in `Boh.db` yet.
+- 2026-10-06 (Phase 3½, user-requested): migrations 004 (difficulty) + 005 (playthroughs);
+  scoped repositories; playthrough switcher/New/Manage UI (62 tests). The verify-wiring
+  grep caught a second silently-dropped paired edit (sidebar switcher) before it could
+  ship unreachable — the convention works. No playthrough data recorded in `Boh.db` yet.
 
 ## Repository layout
 

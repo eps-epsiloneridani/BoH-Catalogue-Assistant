@@ -48,6 +48,11 @@ Aspects that everything in the game carries. The original db schema had 11 colum
   8–14 → 2, 16+ → 3) **and a specific Memory**. Every subsequent **re-read** (60s, any soul,
   no mystery check, needs language if applicable) yields **that same memory**.
   → This book↔memory pairing is the core fact the whole app hangs off.
+- **Terminology:** the requirement's numeric level is what the community calls
+  **difficulty** — wiki book tables label it "Mastery Difficulty" — and players
+  conventionally shelve unread books *by difficulty*. The app therefore records it as
+  `Books.difficulty`, usable even before the book is mastered. "Mystery" refers to the
+  principle side of the requirement (the pair is what the game's card shows).
 - ~280+ books exist in total; ~170+ obtainable in Hush House (incl. hidden Numen books), the
   rest via Oriflamme's auctions.
 
@@ -85,6 +90,14 @@ Aspects that everything in the game carries. The original db schema had 11 colum
   Products include memories, inks (Encaustum Terminale = 7/7/7), tools, food/drink.
 - Rooms need an assistant boosted to the required principle level; one unlock per day.
 
+## Runs are playthroughs
+
+BoH is run-based: each playthrough is a fresh Librarian and library; findings do not
+carry over (and new runs draw books from randomised decks). The app scopes every
+book/memory/skill/journal row to a `Playthroughs` row; `Meta['active_playthrough']`
+holds the loaded run. Switching = loading; creating = new game; the old run's data
+stays in `Boh.db` (and git) untouched.
+
 ## Seasons & Numa (context)
 
 - Seasons last 6 days; a day is 360s of game time. Weather drawn each day per seasonal deck.
@@ -99,7 +112,7 @@ Aspects that everything in the game carries. The original db schema had 11 colum
 | Principle | `Principles` (13 rows, seeded) |
 | Language | `Languages` (15 rows, seeded) |
 | A book | `Books` (one row per physical copy; `read_status` uncatalogued → catalogued → mastered) |
-| Book's reading challenge | `Books.mystery_principle_id` + `mystery_level` |
+| Book's reading challenge | `Books.mystery_principle_id` + `difficulty` ("Mastery Difficulty") |
 | Book's language | `Books.language_id` → `Languages` |
 | Book's type | `Books.book_kind` (book/scroll/film/record) |
 | Book's contamination | `Books.contamination` |
@@ -110,6 +123,7 @@ Aspects that everything in the game carries. The original db schema had 11 colum
 | How a memory is obtained | `MemorySources` (kind + free-text detail) |
 | A skill or language | `Skills` (`is_language`, primary/secondary principle, level, wisdom, element) |
 | Anything the player wants to jot | `Journal` (optionally linked to book/memory/skill) |
+| A saved game (playthrough) | `Playthroughs`; findings carry `playthrough_id`; `Meta` remembers the loaded one |
 
 ## To verify while playing
 
