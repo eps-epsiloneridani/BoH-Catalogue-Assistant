@@ -182,14 +182,21 @@ struct BookDetailView: View {
         VStack(alignment: .leading, spacing: 10) {
             sectionTitle("Yields")
             LabeledContent("Memory") {
-                if let name = yieldedMemoryName {
+                if book.readStatus != .mastered {
+                    Text("revealed by mastering the book")
+                        .foregroundStyle(.tertiary)
+                } else if let name = yieldedMemoryName {
                     Text(name).fontWeight(.medium)
                 } else {
                     Text("not recorded")
                         .foregroundStyle(.tertiary)
                 }
             }
-            if yieldedMemoryName == nil {
+            if book.readStatus != .mastered {
+                Text("Mastering this book is what teaches you its yield.")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+            } else if yieldedMemoryName == nil {
                 Text("Every read of this book gives the same memory — use “Record read…” to note it.")
                     .font(.caption)
                     .foregroundStyle(.secondary)

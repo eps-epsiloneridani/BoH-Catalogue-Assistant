@@ -38,7 +38,7 @@ app/
     Stores/                                   // Books, Memories, ReadingHelper, Skills, Journal
     Views/                                    // Books/, Memories/, ReadingHelper/, Skills/,
                                                // Journal/, Playthroughs/, Shared/ (badges, aspect editor)
-  Tests/BoHLibrarianCoreTests/                // 93 tests on :memory: databases
+  Tests/BoHLibrarianCoreTests/                // 94 tests on :memory: databases
 ```
 
 Migration source of truth stays `db/migrations/`; `scripts/sync-migrations.sh` copies

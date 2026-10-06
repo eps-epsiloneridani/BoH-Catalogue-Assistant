@@ -251,6 +251,30 @@ final class RepositoryTests: XCTestCase {
         XCTAssertEqual(try memories.all().count, 3)
     }
 
+    /// Reading Helper candidates: aspect-bearing memories whose yielding books are
+    /// all unmastered must not appear as usable candidates (you can't spend what
+    /// you don't have); mastering a yielding book flips the memory into the list.
+    func testCandidatesExcludeUnearnedMemories() throws {
+        let sky = try principle("Sky").id
+        let earned = try memories.insert(MemoryDraft(name: "Memory: Impulse", kind: .memory, persistent: false))
+        try memories.setAspects(earned.id, [AspectDraft(principleID: sky, level: 4)])
+        let unearned = try memories.insert(MemoryDraft(name: "Memory: Pattern", kind: .memory, persistent: false))
+        try memories.setAspects(unearned.id, [AspectDraft(principleID: sky, level: 6)])
+        let unreadBook = try books.insert(BookDraft(title: "Travelling at Night",
+                                                    yieldedMemoryID: unearned.id))
+
+        XCTAssertEqual(try memories.candidates(principleID: sky, minLevel: 1).map(\.name),
+                       ["Memory: Impulse"],
+                       "Pattern's aspect fits but the memory isn't earned yet")
+        XCTAssertTrue(try memories.candidates(principleID: sky, minLevel: 5).isEmpty)
+
+        try books.updateReadStatus(unreadBook.id, .mastered)
+        XCTAssertEqual(try memories.candidates(principleID: sky, minLevel: 1).map(\.name),
+                       ["Memory: Pattern", "Memory: Impulse"], "level desc; earning flips it in")
+        XCTAssertEqual(try memories.candidates(principleID: sky, minLevel: 5).map(\.name),
+                       ["Memory: Pattern"])
+    }
+
     func testSetYieldedMemoryAndLessonsCount() throws {
         let memory = try memories.insert(MemoryDraft(name: "Occult Scrap", kind: .memory, persistent: true))
         let book = try books.insert(BookDraft(title: "Yellowing Newspaper"))

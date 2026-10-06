@@ -23,7 +23,11 @@ struct MarkAsReadSheet: View {
     @State private var usedMemoryID: Int64?
     @State private var gainedChoice: Gained = .none
     @State private var gainedExistingID: Int64?
+    /// Everything recorded — the "gained (existing)" pickers must see imported
+    /// yields too, since selecting one is exactly what earns it.
     @State private var memories: [Memory] = []
+    /// Earned only — what the read can be satisfied *with*.
+    @State private var earnedMemories: [Memory] = []
 
     // Quick-add memory fields
     @State private var newName = ""
@@ -70,7 +74,7 @@ struct MarkAsReadSheet: View {
             Section("Reading") {
                 Picker("Memory used", selection: $usedMemoryID) {
                     Text("—").tag(Int64?.none)
-                    ForEach(memories) { memory in
+                    ForEach(earnedMemories) { memory in
                         Text(memoryLabel(memory)).tag(Int64?.some(memory.id))
                     }
                 }
@@ -125,7 +129,10 @@ struct MarkAsReadSheet: View {
         }
         .formStyle(.grouped)
         .frame(minWidth: 480, minHeight: 520)
-        .onAppear { memories = store.allMemories }
+        .onAppear {
+            memories = store.allMemories
+            earnedMemories = store.earnedMemories
+        }
     }
 
     // MARK: Quick-add memory

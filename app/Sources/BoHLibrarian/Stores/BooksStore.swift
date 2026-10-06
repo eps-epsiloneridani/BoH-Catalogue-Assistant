@@ -83,6 +83,11 @@ final class BooksStore {
         (try? memoryRepo.all()) ?? []
     }
 
+    /// Earned memories only — "Memory used" can't offer what isn't possessed.
+    var earnedMemories: [Memory] {
+        (try? memoryRepo.allKnown()) ?? []
+    }
+
     // MARK: Mutations
 
     func reload() {

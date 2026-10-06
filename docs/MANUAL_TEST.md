@@ -294,6 +294,13 @@ Use this space for anything noticed while testing (oddities, papercuts, ideas):
 - [x] Footer memory count follows the list (reads the store)
 
 ### Needs hands
+- [ ] Reading Helper on an unmastered imported book: candidate list only shows
+      memories you've earned; its "Always yields" panel never runs for unmastered
+      books (already gated); Books detail for that book shows "revealed by
+      mastering the book" instead of the yield name
+- [ ] Record read on an unmastered imported book: "Memory used" offers only earned
+      memories, but "Memory gained → existing" can still find the book's imported
+      yield — selecting it masters the link and the memory appears in the list
 - [ ] Open Memories on "Imported from AUTOSAVE": the list is far shorter than
       60+ created memories — only earned/hand-made ones show; master one of the
       unearned-yield books via Record read and watch its memory appear

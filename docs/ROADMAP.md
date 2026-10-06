@@ -182,9 +182,17 @@ immediate. ⌘⇧J jumps to the journal and focuses quick-add.
       Memories list revealed names/traits of unearned memories.
       `MemoryRepository.allKnown()` filters the list (and footer count) to
       hand-created memories and those with a mastered yielding book; the table
-      itself keeps everything (pickers/dedupe need it). 93 tests green. Open
-      follow-up flagged: ReadingHelper exposes the same info (unearned aspect
-      candidates and 'Always yields' names) — awaiting direction.
+      itself keeps everything (pickers/dedupe need it). 93 tests green.
+- [x] **Earned-only reading helper (spoiler posture, part 3).** ✅ (2026-10-06)
+      Same earned-visibility predicate (shared `MemoryRepository.earnedVisibility`)
+      now drives the Helper's aspect candidates — unearned memories no longer show
+      as usable "could satisfy" candidates. The Helper's 'Always yields' panel was
+      already mastered-gated (correction: part 2's flag overstated it — the real
+      unconditional reveal was the Books detail's Yields panel, now gated: unmastered
+      books show "revealed by mastering the book"). Record-read sheet: "Memory used"
+      picker is earned-only, but "memory gained (existing)" keeps the full table —
+      selecting a not-yet-earned imported yield is exactly the act that earns it.
+      94 tests green.
 
 ## Later / optional (only on request)
 
