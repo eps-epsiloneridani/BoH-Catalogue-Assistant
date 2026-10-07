@@ -231,6 +231,15 @@ Two goals, in priority order:
   PrincipleBadges (read-only, AA text + combined VO semantics for free); editing is
   the Edit… sheet's job (MemoryFormView's AspectEditor + save-path verified);
   the dead inline-editor state + MemoriesStore.setAspects removed. 96 tests green.
+- 2026-10-06 (manage sheet: names left + renames stick, user bug): two issues on
+  ManagePlaythroughsSheet — rows were centered by the grouped Form's column, and
+  renames only committed via onSubmit (Return): typing then clicking OK/elsewhere
+  never called renamePlaythrough (which itself persists + refreshes fine — the app
+  layer was innocent). Same grouped-Form lesson again: the sheet rebuilt as a plain
+  left-justified layout (ScrollView; import button + footers as text rows; the Form
+  gone entirely); PlaythroughRow commits on blur via @FocusState.onChange AND on
+  Return; blank edits restore the stored name (double-commit guarded by the
+  unchanged check). 99 tests green.
 - 2026-10-06 (manual-test Phases 2 & 3 cleared, user request): the Books and
   Memories "needs hands" checklists ticked in one pass per the user's hands-on
   session; three items' wording updated to as-built truth at the same time

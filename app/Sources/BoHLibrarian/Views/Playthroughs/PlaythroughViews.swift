@@ -106,6 +106,11 @@ struct NewPlaythroughSheet: View {
 
 // MARK: - Manage sheet
 
+// Plain layout, not a grouped Form: rows left-justify naturally (user request),
+// and the rename TextField commits on blur as well as Return — a grouped Form +
+// onSubmit-only rename lost every change that wasn't followed by Return (the
+// repeated grouped-Form lesson from the memory editors, now applied here too).
+
 struct ManagePlaythroughsSheet: View {
     @Environment(AppState.self) private var appState
     @Environment(\.dismiss) private var dismiss
@@ -114,50 +119,57 @@ struct ManagePlaythroughsSheet: View {
     @State private var showingImport = false
 
     var body: some View {
-        Form {
-            Section {
-                HStack {
-                    Button {
-                        showingImport = true
-                    } label: {
-                        Label("Import from Save…", systemImage: "square.and.arrow.down")
+        VStack(alignment: .leading, spacing: 0) {
+            ScrollView {
+                VStack(alignment: .leading, spacing: 14) {
+                    HStack {
+                        Button {
+                            showingImport = true
+                        } label: {
+                            Label("Import from Save…", systemImage: "square.and.arrow.down")
+                        }
+                        .help("Populate a playthrough from a Book of Hours save game")
+                        Spacer()
                     }
-                    .help("Populate a playthrough from a Book of Hours save game")
-                    Spacer()
+
+                    Text("Reads save games from ~/Library/Application Support/Weather Factory/Book of Hours. "
+                         + "Importing from an arbitrary path needs a file picker — parked for a later build.")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+
+                    Divider()
+
+                    ForEach(appState.playthroughs) { playthrough in
+                        PlaythroughRow(
+                            playthrough: playthrough,
+                            isActive: playthrough.id == appState.activePlaythrough?.id,
+                            canDelete: appState.playthroughs.count > 1,
+                            onRename: { appState.renamePlaythrough(playthrough, to: $0) },
+                            onActivate: { appState.switchPlaythrough(to: playthrough.id) },
+                            onDelete: { confirmingDelete = playthrough }
+                        )
+                        Divider()
+                    }
+
+                    Text("Deleting a playthrough removes every book, memory, skill and journal "
+                         + "entry recorded in it — permanently. The active playthrough can’t be deleted. "
+                         + "Changes (rename, load, delete, import) apply immediately — the buttons just close.")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
                 }
-            } footer: {
-                Text("Reads save games from ~/Library/Application Support/Weather Factory/Book of Hours. "
-                     + "Importing from an arbitrary path needs a file picker — parked for a later build.")
+                .padding(20)
             }
 
-            Section {
-                ForEach(appState.playthroughs) { playthrough in
-                    PlaythroughRow(
-                        playthrough: playthrough,
-                        isActive: playthrough.id == appState.activePlaythrough?.id,
-                        canDelete: appState.playthroughs.count > 1,
-                        onRename: { appState.renamePlaythrough(playthrough, to: $0) },
-                        onActivate: { appState.switchPlaythrough(to: playthrough.id) },
-                        onDelete: { confirmingDelete = playthrough }
-                    )
-                }
-            } footer: {
-                Text("Deleting a playthrough removes every book, memory, skill and journal "
-                     + "entry recorded in it — permanently. The active playthrough can’t be deleted.")
+            Divider()
+            HStack {
+                Spacer()
+                Button("Cancel", role: .cancel) { dismiss() }
+                Button("OK") { dismiss() }
+                    .buttonStyle(.borderedProminent)
             }
-
-            Section {
-                HStack {
-                    Spacer()
-                    Button("Cancel", role: .cancel) { dismiss() }
-                    Button("OK") { dismiss() }
-                        .buttonStyle(.borderedProminent)
-                }
-            } footer: {
-                Text("Changes (rename, load, delete, import) apply immediately — the buttons just close.")
-            }
+            .padding(.horizontal, 20)
+            .padding(.vertical, 12)
         }
-        .formStyle(.grouped)
         .frame(minWidth: 520, minHeight: 360)
         .sheet(isPresented: $showingImport) {
             ImportFromSaveSheet()
@@ -189,6 +201,7 @@ private struct PlaythroughRow: View {
     var onActivate: () -> Void
     var onDelete: () -> Void
 
+    @FocusState private var nameFocused: Bool
     @State private var name: String
 
     init(playthrough: Playthrough, isActive: Bool, canDelete: Bool,
@@ -203,36 +216,53 @@ private struct PlaythroughRow: View {
         _name = State(initialValue: playthrough.name)
     }
 
+    /// Commit on blur AND Return — an edit that never returned still lands when
+    /// focus moves (to OK, to a Load button, to another row).
+    private func commitRename() {
+        let trimmed = name.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !trimmed.isEmpty, trimmed != playthrough.name else {
+            name = playthrough.name   // blanked or unchanged: restore the real name
+            return
+        }
+        onRename(trimmed)
+    }
+
     var body: some View {
-        HStack {
-            Image(systemName: isActive ? "checkmark.circle.fill" : "circle")
-                .foregroundStyle(isActive ? .green : .secondary)
-                .accessibilityLabel(isActive ? "loaded" : "not loaded")
-                .help(isActive ? "Loaded" : "Not loaded")
-            TextField("Name", text: $name)
-                .onSubmit { onRename(name) }
-            if let notes = playthrough.notes {
+        VStack(alignment: .leading, spacing: 4) {
+            HStack(spacing: 8) {
+                Image(systemName: isActive ? "checkmark.circle.fill" : "circle")
+                    .foregroundStyle(isActive ? .green : .secondary)
+                    .accessibilityLabel(isActive ? "loaded" : "not loaded")
+                    .help(isActive ? "Loaded" : "Not loaded")
+                TextField("Name", text: $name)
+                    .focused($nameFocused)
+                    .onSubmit { commitRename() }
+                Spacer()
+                Text(playthrough.createdAt)
+                    .font(.caption)
+                    .foregroundStyle(.tertiary)
+                if !isActive {
+                    Button("Load") { onActivate() }
+                }
+                Button(role: .destructive) { onDelete() } label: {
+                    Image(systemName: "trash")
+                }
+                .buttonStyle(.borderless)
+                .accessibilityLabel("Delete this playthrough")
+                .disabled(isActive || !canDelete)
+                .help(isActive ? "Switch away before deleting"
+                              : canDelete ? "Delete this playthrough and its findings"
+                                          : "Can't delete the only playthrough")
+            }
+            if let notes = playthrough.notes, !notes.isEmpty {
                 Text(notes)
                     .font(.caption)
                     .foregroundStyle(.secondary)
                     .lineLimit(1)
             }
-            Spacer()
-            Text(playthrough.createdAt)
-                .font(.caption)
-                .foregroundStyle(.tertiary)
-            if !isActive {
-                Button("Load") { onActivate() }
-            }
-            Button(role: .destructive) { onDelete() } label: {
-                Image(systemName: "trash")
-            }
-            .buttonStyle(.borderless)
-            .accessibilityLabel("Delete this playthrough")
-            .disabled(isActive || !canDelete)
-            .help(isActive ? "Switch away before deleting"
-                          : canDelete ? "Delete this playthrough and its findings"
-                                      : "Can't delete the only playthrough")
+        }
+        .onChange(of: nameFocused) { _, focused in
+            if !focused { commitRename() }
         }
     }
 }
