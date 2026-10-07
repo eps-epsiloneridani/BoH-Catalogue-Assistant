@@ -27,6 +27,27 @@ public final class JournalRepository {
         ).first
     }
 
+    /// All book-linked entries grouped per book in one query (newest first per
+    /// book, this playthrough) — the book pane reads live caches built from this
+    /// (stale-until-reselect fix, 2026-10-06); rows without a book are ungrouped.
+    public func entriesByBook() throws -> [Int64: [JournalEntry]] {
+        let rows = try db.query(
+            """
+            SELECT * FROM Journal
+            WHERE playthrough_id = ? AND book_id IS NOT NULL
+            ORDER BY logged_at DESC, id DESC;
+            """,
+            [playthroughID],
+            map: Self.map
+        )
+        var grouped: [Int64: [JournalEntry]] = [:]
+        for entry in rows {
+            guard let bookID = entry.bookID else { continue }
+            grouped[bookID, default: []].append(entry)
+        }
+        return grouped
+    }
+
     /// Entries linked to a given entity, newest first.
     public func entries(bookID: Int64? = nil, memoryID: Int64? = nil,
                         skillID: Int64? = nil, limit: Int = 100) throws -> [JournalEntry] {

@@ -21,25 +21,12 @@ struct BookDetailView: View {
         self.onMarkRead = onMarkRead
     }
 
-    @State private var yieldedMemoryName: String?
-    @State private var journalEntries: [JournalEntry] = []
-    @State private var lessonSkillNames: [String] = []
-    @State private var knownLanguage: Bool?
     @State private var notes: String = ""
     @State private var notesDirty = false
     @State private var quickNote = ""
     @State private var confirmingDelete = false
 
-    /// Reload auxiliary data whenever the parts of the book that feed it change.
-    private struct AuxKey: Hashable {
-        let id: Int64
-        let yieldedMemoryID: Int64?
-        let lessons: Int?
-    }
-
-    private var auxKey: AuxKey {
-        AuxKey(id: book.id, yieldedMemoryID: book.yieldedMemoryID, lessons: book.lessons)
-    }
+    
 
     var body: some View {
         ScrollView {
@@ -59,7 +46,7 @@ struct BookDetailView: View {
             .frame(maxWidth: 760, alignment: .leading)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .task(id: auxKey) { loadAuxiliary() }
+        .task(id: book.id) { seedNotes() }
     }
 
     // MARK: Header
@@ -120,7 +107,7 @@ struct BookDetailView: View {
                 HStack(spacing: 6) {
                     if let name = store.languageName(book.languageID) {
                         Text(name)
-                        if let known = knownLanguage {
+                        if let known = store.isLanguageKnown(book.languageID) {
                             Image(systemName: known ? "checkmark.circle.fill" : "exclamationmark.circle")
                                 .foregroundStyle(known ? .green : .orange)
                                 .accessibilityLabel(known ? "known" : "not learned yet")
@@ -131,9 +118,9 @@ struct BookDetailView: View {
                     }
                 }
             }
-            if !lessonSkillNames.isEmpty {
+            if !store.lessonSkillNames(for: book).isEmpty {
                 LabeledContent("Lessons teach") {
-                    Text(lessonSkillNames.joined(separator: ", "))
+                    Text(store.lessonSkillNames(for: book).joined(separator: ", "))
                 }
             }
         }
@@ -185,7 +172,7 @@ struct BookDetailView: View {
                 if book.readStatus != .mastered {
                     Text("revealed by mastering the book")
                         .foregroundStyle(.tertiary)
-                } else if let name = yieldedMemoryName {
+                } else if let name = book.yieldedMemoryID.flatMap({ store.memoryName($0) }) {
                     Text(name).fontWeight(.medium)
                 } else {
                     Text("not recorded")
@@ -196,7 +183,7 @@ struct BookDetailView: View {
                 Text("Mastering this book is what teaches you its yield.")
                     .font(.caption)
                     .foregroundStyle(.secondary)
-            } else if yieldedMemoryName == nil {
+            } else if book.yieldedMemoryID == nil || store.memoryName(book.yieldedMemoryID) == nil {
                 Text("Every read of this book gives the same memory — use “Record read…” to note it.")
                     .font(.caption)
                     .foregroundStyle(.secondary)
@@ -216,9 +203,8 @@ struct BookDetailView: View {
                     store.addJournalNote(book: book, text: text,
                                           gameDay: gameDayForNote)
                     quickNote = ""
-                    loadAuxiliary()
                 }
-            ForEach(journalEntries) { entry in
+            ForEach(store.journalEntries(for: book)) { entry in
                 VStack(alignment: .leading, spacing: 2) {
                     Text(entry.entry).font(.callout)
                     Text(entryCaption(entry)).font(.caption).foregroundStyle(.secondary)
@@ -290,11 +276,9 @@ struct BookDetailView: View {
             .foregroundStyle(.secondary)
     }
 
-    private func loadAuxiliary() {
-        yieldedMemoryName = book.yieldedMemoryID.flatMap { store.memoryName($0) }
-        journalEntries = store.journalEntries(for: book)
-        lessonSkillNames = store.lessonSkillNames(for: book)
-        knownLanguage = store.isLanguageKnown(book.languageID)
+    /// Notes stay the pane's own editable state; seed them per book. Everything
+    /// else reads live from the store's caches so saves/reads show immediately.
+    private func seedNotes() {
         notes = book.notes ?? ""
         notesDirty = false
     }

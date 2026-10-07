@@ -231,6 +231,14 @@ Two goals, in priority order:
   PrincipleBadges (read-only, AA text + combined VO semantics for free); editing is
   the Edit… sheet's job (MemoryFormView's AspectEditor + save-path verified);
   the dead inline-editor state + MemoriesStore.setAspects removed. 96 tests green.
+- 2026-10-06 (book pane applied the same live-cache fix, on request): the
+  latent quick-note staleness fixed — BookDetailView's four auxiliary snapshots
+  (yield name, journal entries, lesson names, language-known) now read live from
+  BooksStore dicts refilled on every reload; new Core queries:
+  JournalRepository.entriesByBook (newest-first per book) and
+  BookRepository.lessonSkillAmountsByBook (names resolved via the Skills join,
+  scoped by the Books join). Only notes stay pane-local (seeded per book id).
+  99 tests green.
 - 2026-10-06 (stale display after save, user bug): edits made in the memory
   edit sheet didn't show in the detail pane until reselecting the record — the
   pane cached sources/backlinks in @State, refreshed only by .task(id:

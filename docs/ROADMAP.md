@@ -222,8 +222,12 @@ immediate. ⌘⇧J jumps to the journal and focuses quick-add.
       already-selected record. The pane now reads store-backed live caches built
       from two grouped queries (`allSourcesByMemory`, `yieldingByMemory` — tested
       for grouping + strict playthrough scoping); only notes (its own explicit
-      save flow) remains a local cache. Book-detail's quick-note path has the same
-      latent shape (flagged, not reproduced). 98 tests green.
+      save flow) remains a local cache. 98 tests green.
+- [x] **Book pane applied the same live-cache fix.** ✅ (2026-10-06, on request)
+      the latent quick-note staleness fixed outright: the book pane's four aux
+      snapshots now read BooksStore live caches (Core: `JournalRepository
+      .entriesByBook`, `BookRepository.lessonSkillAmountsByBook` — tested);
+      auxKey/task machinery retired; notes stay pane-local. 99 tests green.
 
 ## Later / optional (only on request)
 

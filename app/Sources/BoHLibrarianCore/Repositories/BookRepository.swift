@@ -114,6 +114,28 @@ public final class BookRepository {
 
     // MARK: Lessons junction
 
+    /// Lesson junction rows grouped per book, skill names resolved in one query
+    /// (scoped via the Books join) — feeds the book pane's live lesson cache.
+    public func lessonSkillAmountsByBook() throws -> [Int64: [(skillName: String, amount: Int)]] {
+        let rows = try db.query(
+            """
+            SELECT bl.book_id, s.name AS skill_name, bl.amount
+            FROM BookLessons bl
+            JOIN Books b ON b.id = bl.book_id
+            JOIN Skills s ON s.id = bl.skill_id
+            WHERE b.playthrough_id = ?;
+            """,
+            [playthroughID],
+            map: { (try $0.requireInt64("book_id"),
+                    try $0.requireString("skill_name"),
+                    try $0.requireInt("amount")) })
+        var grouped: [Int64: [(skillName: String, amount: Int)]] = [:]
+        for (id, name, amount) in rows {
+            grouped[id, default: []].append((skillName: name, amount: amount))
+        }
+        return grouped
+    }
+
     public func lessons(forBook bookID: Int64) throws -> [BookLessonsEntry] {
         try db.query(
             "SELECT skill_id, amount FROM BookLessons WHERE book_id = ?;",

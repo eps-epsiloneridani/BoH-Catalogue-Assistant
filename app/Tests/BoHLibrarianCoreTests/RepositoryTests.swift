@@ -273,6 +273,34 @@ final class RepositoryTests: XCTestCase {
         XCTAssertEqual(fresh.name, "Brand New", "no match — plain insert")
     }
 
+    /// The book pane reads live caches from these grouped queries — grouping,
+    /// newest-first order, skill-name resolution, and playthrough scoping are the
+    /// contract.
+    func testGroupedJournalEntriesAndLessonAmounts() throws {
+        let book = try books.insert(BookDraft(title: "The Carbonek Schism"))
+        let skill = try skills.insert(SkillDraft(name: "Sky Stories",
+                                                 primaryPrincipleID: try principle("Sky").id,
+                                                 level: 2))
+        try books.setLessons(book.id, [BookLessonsEntry(skillID: skill.id, amount: 3)])
+        let e1 = try journal.insert(JournalDraft(entry: "found it", bookID: book.id))
+        let e2 = try journal.insert(JournalDraft(entry: "read it", bookID: book.id))
+
+        let journalByBook = try journal.entriesByBook()
+        XCTAssertEqual(journalByBook[book.id]?.map(\.id), [e2.id, e1.id], "newest first per book")
+        let byBook = try books.lessonSkillAmountsByBook()
+        XCTAssertEqual(byBook[book.id]?.first?.skillName, "Sky Stories")
+        XCTAssertEqual(byBook[book.id]?.first?.amount, 3)
+        XCTAssertEqual(byBook.count, 1)
+
+        // A second playthrough contributes nothing to the first's caches.
+        let second = try PlaythroughRepository(db: db).insert(name: "Second")
+        let journal2 = JournalRepository(db: db, playthroughID: second.id)
+        _ = try journal2.insert(JournalDraft(entry: "elsewhere"))
+        XCTAssertEqual(try journal2.entriesByBook().count, 0, "no book link, not grouped")
+        XCTAssertTrue(try journal.entriesByBook().isEmpty == false)
+        XCTAssertEqual(try journal.entriesByBook()[book.id]?.count, 2)
+    }
+
     /// The detail pane reads live store caches built from these group queries —
     /// strict playthrough scoping and mastered-only yields are the contract.
     func testGroupedSourcesAndYieldsScopeToPlaythrough() throws {

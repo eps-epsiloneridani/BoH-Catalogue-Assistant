@@ -18,6 +18,11 @@ final class BooksStore {
     private var languagesByID: [Int64: Language] = [:]
     private var memoriesByID: [Int64: Memory] = [:]
     private var skillNamesByID: [Int64: String] = [:]
+
+    /// Live per-record auxiliary caches, refilled on every reload — the detail
+    /// pane reads these live (snapshot caches went stale after quick-note adds).
+    private(set) var journalByBook: [Int64: [JournalEntry]] = [:]
+    private(set) var lessonNamesByBook: [Int64: [String]] = [:]
     private var nativeLanguageNames: Set<String> = []
     private(set) var knownLanguageSkills: Set<String> = []
 
@@ -66,17 +71,14 @@ final class BooksStore {
         return nativeLanguageNames.contains(name) || knownLanguageSkills.contains(name)
     }
 
+    /// Live (cache refilled on reload): skill names + "×N", sorted.
     func lessonSkillNames(for book: Book) -> [String] {
-        let entries = (try? repo.lessons(forBook: book.id)) ?? []
-        return entries.compactMap { entry -> String? in
-            guard let name = skillNamesByID[entry.skillID] else { return nil }
-            return entry.amount > 1 ? "\(name) ×\(entry.amount)" : name
-        }
-        .sorted()
+        lessonNamesByBook[book.id] ?? []
     }
 
+    /// Live (cache refilled on reload): entries linked to the book, newest first.
     func journalEntries(for book: Book) -> [JournalEntry] {
-        (try? journalRepo.entries(bookID: book.id)) ?? []
+        journalByBook[book.id] ?? []
     }
 
     var allMemories: [Memory] {
@@ -97,6 +99,13 @@ final class BooksStore {
             let skills = try SkillRepository(db: db, playthroughID: playthroughID).all()
             skillNamesByID = Dictionary(uniqueKeysWithValues: skills.map { ($0.id, $0.name) })
             knownLanguageSkills = Set(skills.filter(\.isLanguage).map(\.name))
+            journalByBook = try journalRepo.entriesByBook()
+            let lessonAmounts = try repo.lessonSkillAmountsByBook()
+            lessonNamesByBook = lessonAmounts.mapValues { rows in
+                rows.compactMap { entry -> String? in
+                    entry.amount > 1 ? "\(entry.skillName) ×\(entry.amount)" : entry.skillName
+                }.sorted()
+            }
         } catch {
             lastError = "\(error)"
         }

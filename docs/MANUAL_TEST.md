@@ -66,6 +66,9 @@ during your first play session with that build.
       dropdown, press Save, reopen — rows persist with the chosen kind and detail
       (verified by the user on build e82e184 — the fix that moved the editors out
       of the grouped Form)
+- [x] Book detail's quick journal note now appears INSTANTLY in the book's
+      journal section (same stale-snapshot class fixed for the memory pane);
+      record-read changes to the yield/lessons read live as well
 - [x] After a Successful edit-sheet save, the display pane reflects the change
       immediately (no reselect needed) — the pane reads store-backed live caches
       (user report 2026-10-06: snapshots went stale until reselect; fixed)
