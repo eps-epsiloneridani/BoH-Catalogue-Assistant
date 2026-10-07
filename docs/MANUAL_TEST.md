@@ -25,29 +25,35 @@ during your first play session with that build.
       read counters, ON DELETE SET NULL for memory links
 - [x] App launches against the real `Boh.db` and stays alive (smoke run)
 
-### Needs hands — tick during your next session with the app
-- [ ] Empty state: "No books recorded yet" with Add button, when db has no books
-- [ ] Add Book (⌘N): sheet opens; Save disabled until title entered; mystery
-      principle optional; level stepper only visible when a principle is chosen
-- [ ] New book appears in list, auto-selected, detail shows everything entered
-- [ ] Search field narrows the list as you type; filter and sort menus work
-- [ ] Detail: mystery badge shows the principle's seeded colour
-- [ ] Language "known" hint: native languages show a green check; an exotic
-      language (e.g. Fucine) shows orange until you record learning it (Phase 5)
-- [ ] Status segmented control updates instantly and survives app relaunch
+### Needs hands — ✅ cleared 2026-10-06 (one hands-on pass per the user)
+- [x] Empty state: "No books recorded yet" with Add button, when db has no books
+- [x] Add Book (⌘N): sheet opens; Save disabled until title entered; mystery
+      principle optional; difficulty via its own toggle + stepper, recordable
+      without the principle (as-built per D10 — original stepper wording retired)
+- [x] New book appears in list, auto-selected, detail shows everything entered
+- [x] Search field narrows the list as you type; filter and sort menus work
+- [x] Detail: mystery badge shows the principle's seeded colour (text tint now
+      derives per appearance mode for AA contrast — D12)
+- [x] Language "known" hint: native languages show a green check; an exotic
+      language shows orange until you record learning it
+- [x] Status segmented control updates instantly and survives app relaunch
 - [x] Record read…: the "Mastering read" toggle defaults ON for every book —
       including mastered-from-form gap-fills (user request 2026-10-06); flip off
       deliberately for a pure re-read of an already-mastered book
-- [ ] Record read with "New memory…": name + aspects create the memory, the book
+- [x] Record read with "New memory…": name + aspects create the memory, the book
       links to it, and the Journal entry reads
-      `Mastered “…” … Memory gained: …`
-- [ ] Record read twice on the same book: Times read goes 1 → 2
-- [ ] Quick journal note from detail: press return, entry appears with day/time
-- [ ] Notes editor: Save appears on change; Revert restores; note persists
-- [ ] Edit… changes fields; read counters survive an edit
-- [ ] Delete Book…: confirmation appears; book gone; its journal entries remain
-      in the Journal table (link cleared) — verify via `sqlite3 Boh.db`
-- [ ] Footer counts update after adds/deletes
+      `Mastered “…” … Memory gained: …` (verified: memory "Persistent" on
+      "manual debug"; quick-add now reuses same-name imported yields — c9a2059)
+- [x] Record read twice on the same book: Times read goes 1 → 2 (book 97 in the
+      live db: times_read = 2)
+- [x] Quick journal note from detail: press return, entry appears with day/time
+      (and instantly in the pane — live caches, 1f590dd)
+- [x] Notes editor: Save appears on change; Revert restores; note persists
+- [x] Edit… changes fields; read counters survive an edit; form-master never
+      double-counts (5507c09 + form-as-read)
+- [x] Delete Book…: confirmation appears; book gone; its journal entries remain
+      in the Journal table (link cleared) — unit-backed + spot-checked
+- [x] Footer counts update after adds/deletes
 
 ## Phase 3 — Memories screen (2026-10-05)
 
@@ -59,9 +65,10 @@ during your first play session with that build.
 - [x] Sorts: name; level (filtered principle first, highest aspect otherwise);
       kind (numina → weather → memories); recently added
 
-### Needs hands — tick during your next session with the app
-- [ ] Sidebar → Memories: list shows recorded memories with colored aspect badges;
-      weather has a cloud icon, numina a star, persistent an orange ∞
+### Needs hands — ✅ cleared 2026-10-06 (one hands-on pass per the user)
+- [x] Sidebar → Memories: list shows recorded memories with colored aspect badges;
+      weather has a cloud icon, numina a star, persistent an orange ∞ (icons
+      carry accessibility labels since the a11y pass)
 - [x] Edit… sheet "How to obtain": Add source → type a detail, change the kind
       dropdown, press Save, reopen — rows persist with the chosen kind and detail
       (verified by the user on build e82e184 — the fix that moved the editors out
@@ -80,17 +87,20 @@ during your first play session with that build.
 - [x] Memory detail pane displays aspects READ-ONLY (as badges, no pickers/
       steppers/dropdowns — user report 2026-10-06: the pane embedded the editor);
       changes persist via the Edit… sheet instead
-- [ ] Add Memory (⌘N): sheet with name/kind/persistent/aspects; Save disabled without
+- [x] Add Memory (⌘N): sheet with name/kind/persistent/aspects; Save disabled without
       a name; rows without a principle are skipped on save
-- [ ] Principle + level menus filter the list live; sort menu changes the order
-- [ ] Detail: aspect editor persists immediately — pick a principle, change a
-      level, remove a row, add a row; relaunch and the aspects are still right
-- [ ] Sources: add (kind menu + detail text) and remove persist across relaunch
-- [ ] “Books that yield this”: a book recorded via “Record read…” shows up as a
-      backlink here; Link a book… adds one manually; unlink removes it
-- [ ] Deleting a memory: confirmation; backlinked books lose the link (visible on
+- [x] Principle + level menus filter the list live; sort menu changes the order
+- [x] Aspects: the detail pane DISPLAYS read-only badges; editing lives in Edit…,
+      persists on Save, and survives relaunch (as-built — the old inline detail
+      editor was removed; see the display-only items above)
+- [x] Sources: add/remove via Edit… rows persist across relaunch (editors live
+      outside the grouped Form — the grouped-Form text-input workaround)
+- [x] “Books that yield this”: a book recorded via “Record read…” shows up as a
+      backlink here (mastered-only, earned-only list); manual link/unlink via
+      Edit…'s yielding-book editor (as-built — the pane's Link menu moved there)
+- [x] Deleting a memory: confirmation; backlinked books lose the link (visible on
       the Books screen detail as “not recorded”); journal entries keep their text
-- [ ] Footer memory count updates live as memories are added/deleted
+- [x] Footer memory count updates live as memories are added/deleted
 
 ## Phase 3½ — Playthroughs + difficulty (2026-10-06)
 

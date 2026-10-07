@@ -231,6 +231,13 @@ Two goals, in priority order:
   PrincipleBadges (read-only, AA text + combined VO semantics for free); editing is
   the Edit… sheet's job (MemoryFormView's AspectEditor + save-path verified);
   the dead inline-editor state + MemoriesStore.setAspects removed. 96 tests green.
+- 2026-10-06 (manual-test Phases 2 & 3 cleared, user request): the Books and
+  Memories "needs hands" checklists ticked in one pass per the user's hands-on
+  session; three items' wording updated to as-built truth at the same time
+  (difficulty recorded via toggle+stepper without a principle per D10; the detail
+  pane's aspects/sources/links are read-only with editing in Edit…). Counters
+  cited from the live db (book 97 times_read = 2; memory "Persistent" via
+  quick-add reuse).
 - 2026-10-06 (book pane applied the same live-cache fix, on request): the
   latent quick-note staleness fixed — BookDetailView's four auxiliary snapshots
   (yield name, journal entries, lesson names, language-known) now read live from
