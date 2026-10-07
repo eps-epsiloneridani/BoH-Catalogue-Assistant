@@ -119,9 +119,11 @@ during your first play session with that build.
       name + counts changed; "First playthrough" rows are NOT visible
 - [ ] Switch back via the menu: everything recorded in run 1 is intact
 - [ ] Manage…: rows left-justified (plain layout, not the grouped Form);
-      rename sticks via Return OR by just clicking elsewhere/in OK (commit on
-      blur — fixes the user report 2026-10-06); Load switches; delete refuses the
-      active/only run; deleting a spare run works after confirmation
+      rename sticks via Return, blur (click elsewhere), OR clicking OK/close
+      (three commit paths — the OK path after the user asked "can't rename the
+      active playthrough?": renaming the ACTIVE run was never gated, only deleting
+      is, by design); rename the ACTIVE run and watch the sidebar switcher label
+      follow; delete refuses the active/only run; deleting a spare run works
 - [ ] Book form: "Difficulty known" toggle + stepper recordable without a mystery
       principle; list shows "difficulty N" when the principle isn't recorded; sort by
       Difficulty works

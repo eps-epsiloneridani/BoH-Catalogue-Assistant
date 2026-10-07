@@ -231,6 +231,12 @@ Two goals, in priority order:
   PrincipleBadges (read-only, AA text + combined VO semantics for free); editing is
   the Edit… sheet's job (MemoryFormView's AspectEditor + save-path verified);
   the dead inline-editor state + MemoriesStore.setAspects removed. 96 tests green.
+- 2026-10-06 ("can't rename the active playthrough"?, user question): answer —
+  deleting the active/only run is the only deliberate gate (mounted stores);
+  renaming the active run was never gated and persists identically. The observed
+  non-stick was the click-OK path: focus stays on the TextField, so blur-commit
+  never fired before dismissal. Fixed with a third commit path — rows commit on
+  disappear (sheet close/unmount), unchanged names no-op. 99 tests green.
 - 2026-10-06 (manage sheet: names left + renames stick, user bug): two issues on
   ManagePlaythroughsSheet — rows were centered by the grouped Form's column, and
   renames only committed via onSubmit (Return): typing then clicking OK/elsewhere

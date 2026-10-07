@@ -264,5 +264,9 @@ private struct PlaythroughRow: View {
         .onChange(of: nameFocused) { _, focused in
             if !focused { commitRename() }
         }
+        // Clicking OK (or Closing the sheet) can leave focus ON the field on
+        // this macOS build - blur never fires - so also commit when the row
+        // leaves the screen; unchanged names are no-ops.
+        .onDisappear { commitRename() }
     }
 }
