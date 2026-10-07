@@ -30,6 +30,13 @@ formats and the design rules the implementation follows.
 spheres contain tokens). Element stacks (`ElementStackCreationCommand`) carry:
 
 - `EntityId` — the element ID: `t.<book>`, `s.<skill>`, `uncatbook.<tier>`, `hours.*`…
+- **Location**: the sphere chain — each sphere's `GoverningSphereSpec.Id` names the room
+  (`Library`, `purchases.europe`, `portage1…`) and the nested shelf/slot sphere
+  (`ShelfSpaceSphereD.3` = shelf D slot 3, `ScrollSlot.2`, `ShelfSpaceDeskMid`).
+  Films/records ride the same structure. Import stamps `Books.location` as a
+  humanized "Room — slot" label, fill-empty only.
+- **`Defunct` tokens**: stale copies of moved items — skipped entirely (mutations
+  and location never merge from a defunct copy).
 - `Mutations` (String→Int) — the player state we need
 - `Illuminations` (String→String) — dynamic text (TLG notes etc.)
 

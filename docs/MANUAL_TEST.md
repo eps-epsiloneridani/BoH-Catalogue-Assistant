@@ -100,6 +100,11 @@ flows, imported-kind repair, earned-only lists).
 - [ ] Import into the *current* playthrough: no duplicates, existing notes untouched
 - [ ] With the game folder absent (another Mac): friendly empty state mentioning the
       parked file picker
+- [ ] Location stamping (2026-10-06): re-import the autosave into a playthrough with
+      unrecorded locations — Books rows show "Library — shelf D.3"-style subtitles from
+      the save's sphere chain (room > shelf/slot; desks/scroll-slots humanized); your own
+      recorded locations are never overwritten; in-transit items read "portage1 — …"/
+      "purchases.europe — …"
 - [ ] **Import into "Playthrough 2" (the reported regression):** import the autosave
       into a second run — it completes with its own copy of books/skills/memories
       (per-playthrough name uniqueness is in force since migration 006; the db is at

@@ -105,6 +105,7 @@ final class SaveImportTests: XCTestCase {
                 "Spheres": [
                   {
                     "$type": "SphereCreationCommand",
+                    "GoverningSphereSpec": { "$type": "SphereSpec", "Id": "Library", "Label": "" },
                     "Tokens": [
                       {
                         "$type": "TokenCreationCommand",
@@ -117,9 +118,13 @@ final class SaveImportTests: XCTestCase {
                               "Spheres": [
                                 {
                                   "$type": "SphereCreationCommand",
+                                  "GoverningSphereSpec": { "$type": "SphereSpec", "Id": "ShelfSpaceSphereD.3", "Label": "" },
                                   "Tokens": [
             { "$type": "TokenCreationCommand", "Payload": {
             "$type": "ElementStackCreationCommand", "EntityId": "t.testbook", "Quantity": 1, "Mutations": { "mastery.sky": 4 } } },
+            { "$type": "TokenCreationCommand", "Payload": {
+            "$type": "ElementStackCreationCommand", "EntityId": "t.testbook", "Quantity": 1,
+            "Mutations": { "contamination.curse": 1 }, "Defunct": true } },
             { "$type": "TokenCreationCommand", "Payload": {
             "$type": "ElementStackCreationCommand", "EntityId": "t.cursedbook", "Quantity": 1, "Mutations": { "contamination.winkwell": 1 } } },
             { "$type": "TokenCreationCommand", "Payload": {
@@ -196,6 +201,9 @@ final class SaveImportTests: XCTestCase {
         let fucine = try LanguageRepository(db: db).all().first { $0.name == "Fucine" }
         XCTAssertEqual(testBook.languageID, fucine?.id, "w.fucine aspect")
         XCTAssertNotNil(testBook.yieldedMemoryID)
+        XCTAssertEqual(testBook.location, "Library — shelf D.3",
+                       "location = humanized room > slot chain")
+        XCTAssertNil(testBook.contamination, "defunct copies don't leak mutations")
 
         let lessons = try BookRepository(db: db, playthroughID: playthrough.id)
             .lessons(forBook: testBook.id)
@@ -257,6 +265,8 @@ final class SaveImportTests: XCTestCase {
         XCTAssertEqual(reloaded.notes, "my precious notes", "user notes preserved")
         XCTAssertEqual(reloaded.difficulty, 8, "user-recorded difficulty not stomped")
         XCTAssertEqual(reloaded.readStatus, .mastered, "but read state upgrades")
+        XCTAssertEqual(reloaded.location, "Library — shelf D.3",
+                       "fill-empty: save location stamps an unrecorded one")
     }
 
     // Live failure reported by the user (2026-10-06): first playthrough already held the autosave's
