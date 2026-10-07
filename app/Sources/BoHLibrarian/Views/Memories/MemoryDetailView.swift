@@ -11,8 +11,6 @@ struct MemoryDetailView: View {
     let store: MemoriesStore
     var onEdit: () -> Void
 
-    @State private var sources: [MemorySource] = []
-    @State private var backlinks: [BookRef] = []
     @State private var notes: String = ""
     @State private var notesDirty = false
     @State private var confirmingDelete = false
@@ -89,13 +87,13 @@ struct MemoryDetailView: View {
     private var sourcesSection: some View {
         VStack(alignment: .leading, spacing: 10) {
             sectionTitle("How to obtain")
-            if sources.isEmpty {
+            if store.sources(for: memory.id).isEmpty {
                 Text("No sources recorded — add them with Edit….")
                     .font(.caption)
                     .foregroundStyle(.secondary)
             } else {
                 VStack(alignment: .leading, spacing: 6) {
-                    ForEach(sources) { source in
+                    ForEach(store.sources(for: memory.id)) { source in
                         HStack(spacing: 6) {
                             Text(source.kind)
                                 .font(.callout.weight(.medium))
@@ -115,13 +113,13 @@ struct MemoryDetailView: View {
     private var yieldsSection: some View {
         VStack(alignment: .leading, spacing: 10) {
             sectionTitle("Books that yield this")
-            if backlinks.isEmpty {
+            if store.yielding(for: memory.id).isEmpty {
                 Text("No linked book yields this yet — link one with Edit…, or use “Record read…” on a book.")
                     .font(.caption)
                     .foregroundStyle(.secondary)
             } else {
                 VStack(alignment: .leading, spacing: 6) {
-                    ForEach(backlinks) { book in
+                    ForEach(store.yielding(for: memory.id)) { book in
                         HStack(spacing: 6) {
                             Image(systemName: "book")
                                 .foregroundStyle(.secondary)
@@ -189,8 +187,8 @@ struct MemoryDetailView: View {
     }
 
     private func load() {
-        sources = store.sources(for: memory.id)
-        backlinks = store.booksYielding(memory.id)
+        // Notes are the pane's only editable state; sources/backlinks read live
+        // from the store so edits made in the sheet show the moment it closes.
         notes = memory.notes ?? ""
         notesDirty = false
     }

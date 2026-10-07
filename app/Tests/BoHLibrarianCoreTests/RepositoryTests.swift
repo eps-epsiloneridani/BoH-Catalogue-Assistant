@@ -273,6 +273,30 @@ final class RepositoryTests: XCTestCase {
         XCTAssertEqual(fresh.name, "Brand New", "no match — plain insert")
     }
 
+    /// The detail pane reads live store caches built from these group queries —
+    /// strict playthrough scoping and mastered-only yields are the contract.
+    func testGroupedSourcesAndYieldsScopeToPlaythrough() throws {
+        let memory = try memories.insert(MemoryDraft(name: "Memory: Salt Taste", kind: .memory, persistent: false))
+        try memories.setSources(memory.id, [MemorySource(kind: "first read", detail: "Autumn 1936"),
+                                           MemorySource(kind: "talk", detail: nil)])
+        let book = try books.insert(BookDraft(title: "The Carbonek Schism", yieldedMemoryID: memory.id))
+        try books.updateReadStatus(book.id, .mastered)
+
+        // A second playthrough must contribute nothing to the first's caches.
+        let second = try PlaythroughRepository(db: db).insert(name: "Second")
+        let memories2 = MemoryRepository(db: db, playthroughID: second.id)
+        let memory2 = try memories2.insert(MemoryDraft(name: "Memory: Salt Taste", kind: .memory, persistent: false))
+        try memories2.setSources(memory2.id, [MemorySource(kind: "weather")])
+        let books2 = BookRepository(db: db, playthroughID: second.id)
+        _ = try books2.insert(BookDraft(title: "A Light in the Inkwell", yieldedMemoryID: memory2.id))
+
+        let sources = try memories.allSourcesByMemory()
+        XCTAssertEqual(sources.count, 1)
+        XCTAssertEqual(sources[memory.id]?.map(\.kind), ["first read", "talk"], "detail nil sorts after")
+        let yielding = try memories.yieldingByMemory()
+        XCTAssertEqual(yielding, [memory.id: [BookRef(id: book.id, title: "The Carbonek Schism")]])
+    }
+
     /// The edit form's source/link editors: setSources replaces wholesale,
     /// allYielding covers links of any status (unlike the mastered-only display
     /// variant), setYieldingBooks syncs links both ways.

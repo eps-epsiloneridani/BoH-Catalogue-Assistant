@@ -66,6 +66,9 @@ during your first play session with that build.
       dropdown, press Save, reopen — rows persist with the chosen kind and detail
       (verified by the user on build e82e184 — the fix that moved the editors out
       of the grouped Form)
+- [x] After a Successful edit-sheet save, the display pane reflects the change
+      immediately (no reselect needed) — the pane reads store-backed live caches
+      (user report 2026-10-06: snapshots went stale until reselect; fixed)
 - [x] Memory detail pane displays READ-ONLY "How to obtain" and "Books that
       yield this" too (user request 2026-10-06, same pass as the aspects fix):
       no add-source dropdown, no "Link a book…" menu, no per-row remove buttons —

@@ -178,6 +178,50 @@ public final class MemoryRepository {
         }
     }
 
+    /// All "how to obtain" rows grouped per memory in one query (scoped to this
+    /// playthrough) — the UI caches live from this after every reload rather than
+    /// snapshots that go stale until reselect (user-reported bug, 2026-10-06).
+    public func allSourcesByMemory() throws -> [Int64: [MemorySource]] {
+        let rows = try db.query(
+            """
+            SELECT ms.memory_id, ms.kind, ms.detail
+            FROM MemorySources ms
+            JOIN Memories m ON m.id = ms.memory_id
+            WHERE m.playthrough_id = ?
+            ORDER BY ms.kind, ms.detail;
+            """,
+            [playthroughID],
+            map: { (try $0.requireInt64("memory_id"),
+                    try $0.requireString("kind"),
+                    $0.string("detail")) })
+        var grouped: [Int64: [MemorySource]] = [:]
+        for (memoryID, kind, detail) in rows {
+            grouped[memoryID, default: []].append(MemorySource(kind: kind, detail: detail))
+        }
+        return grouped
+    }
+
+    /// Mastered-only yielding links grouped per memory (display semantics —
+    /// matching `booksYielding`) in one query.
+    public func yieldingByMemory() throws -> [Int64: [BookRef]] {
+        let rows = try db.query(
+            """
+            SELECT id, title, yielded_memory_id FROM Books
+            WHERE playthrough_id = ? AND yielded_memory_id IS NOT NULL
+              AND read_status = 'mastered'
+            ORDER BY title;
+            """,
+            [playthroughID],
+            map: { (try $0.requireInt64("id"),
+                    try $0.requireString("title"),
+                    try $0.requireInt64("yielded_memory_id")) })
+        var grouped: [Int64: [BookRef]] = [:]
+        for (id, title, memoryID) in rows {
+            grouped[memoryID, default: []].append(BookRef(id: id, title: title))
+        }
+        return grouped
+    }
+
     /// Every book currently linked as yielding this memory, any read status —
     /// for editing; the mastered-only `booksYielding` variant is for display.
     public func allYielding(_ memoryID: Int64) throws -> [BookRef] {
