@@ -46,7 +46,7 @@ struct JournalEditSheet: View {
                 }
                 Picker("Memory", selection: $memoryID) {
                     Text("—").tag(Int64?.none)
-                    ForEach(store.memoryPickerList) { memory in
+                    ForEach(store.memoryPickerList(linkedID: entry.memoryID)) { memory in
                         Text(memory.name).tag(Int64?.some(memory.id))
                     }
                 }
