@@ -231,6 +231,20 @@ Two goals, in priority order:
   PrincipleBadges (read-only, AA text + combined VO semantics for free); editing is
   the Edit… sheet's job (MemoryFormView's AspectEditor + save-path verified);
   the dead inline-editor state + MemoriesStore.setAspects removed. 96 tests green.
+- 2026-10-06 (gained-memory placeholder redesign, user request): Phase 4 cleared
+  (user ticked); the user then re-directed the gained-memory flow — "Memory gained"
+  lists ONLY earned memories, with the book’s unearned imported yield as a
+  PLACEHOLDER ("Unrevealed memory — this read earns it") replacing the name.
+  Selecting + recording still earns it (resolution list unchanged; the journal
+  writes the real name post-earning). The same principle closed three adjacent
+  leaks in the same data path: journal CHIPS for unearned links show the
+  placeholder (JournalStore masks memoryName via an earned-id set); the journal
+  edit sheet’s memory picker lists earned + a placeholder for the entry’s
+  current link; and a non-mastering gain’s journal text masks to "unrevealed
+  memory" (willBeMastered = mastering || already mastered). UI-layer only —
+  no new Core tests; the earned-visibility contract was already tested.
+  101 green.
+
 - 2026-10-06 (manual checklist rewritten, user request): MANUAL_TEST.md rebuilt
   from 362 chronological lines into an organized, deduped document — outstanding
   hands-on items grouped by screen (Playthroughs / Books / Reading Helper /

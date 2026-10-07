@@ -12,6 +12,15 @@ struct MarkAsReadSheet: View {
     @Environment(AppState.self) private var appState
     @Environment(\.dismiss) private var dismiss
 
+    /// One selectable row in the "Memory gained" pickers. Earned memories carry
+    /// their real label; this book's unearned (imported) yield appears as a
+    /// PLACEHOLDER — the name reveals only after the read earns it (user design).
+    private struct GainableRow: Identifiable, Hashable {
+        let id: Int64
+        let label: String
+        let isPlaceholder: Bool
+    }
+
     /// Which memory the book yielded this read.
     private enum Gained: Hashable {
         case none
@@ -26,9 +35,12 @@ struct MarkAsReadSheet: View {
     @State private var usedMemoryID: Int64?
     @State private var gainedChoice: Gained = .none
     @State private var gainedExistingID: Int64?
-    /// Everything recorded — the "gained (existing)" pickers must see imported
-    /// yields too, since selecting one is exactly what earns it.
+    /// Full table — still the resolution list for whichever gained row the user
+    /// picked (including the hidden yield: recording IS what reveals it).
     @State private var memories: [Memory] = []
+    /// This book's unearned yield, if any — shown in the gained pickers only as a
+    /// placeholder row, never by name.
+    @State private var hiddenYield: Int64?
     /// Earned only — what the read can be satisfied *with*.
     @State private var earnedMemories: [Memory] = []
 
@@ -85,16 +97,16 @@ struct MarkAsReadSheet: View {
             Section("What did you gain?") {
                 Picker("Memory gained", selection: $gainedChoice) {
                     Text("None / not noted").tag(Gained.none)
-                    ForEach(memories) { memory in
-                        Text(memoryLabel(memory)).tag(Gained.existing(memory.id))
+                    ForEach(gainableRows) { row in
+                        Text(row.label).tag(Gained.existing(row.id))
                     }
                     Text("New memory…").tag(Gained.newMemory)
                 }
                 if case .existing = gainedChoice {
                     Picker("Choose memory", selection: $gainedExistingID) {
                         Text("—").tag(Int64?.none)
-                        ForEach(memories) { memory in
-                            Text(memoryLabel(memory)).tag(Int64?.some(memory.id))
+                        ForEach(gainableRows) { row in
+                            Text(row.label).tag(Int64?.some(row.id))
                         }
                     }
                 } else if gainedChoice == .newMemory {
@@ -134,6 +146,10 @@ struct MarkAsReadSheet: View {
         .onAppear {
             memories = store.allMemories
             earnedMemories = store.earnedMemories
+            let earnedIDs = Set(earnedMemories.map(\.id))
+            if let id = book.yieldedMemoryID, !earnedIDs.contains(id) {
+                hiddenYield = id
+            }
         }
     }
 
@@ -184,6 +200,20 @@ struct MarkAsReadSheet: View {
                          gameDay: day.isEmpty ? nil : day,
                          note: note)
         dismiss()
+    }
+
+    /// Earned memories first (named), then this book's unrevealed yield as a
+    /// placeholder. Other hidden memories don't appear at all.
+    private var gainableRows: [GainableRow] {
+        var rows = earnedMemories.map {
+            GainableRow(id: $0.id, label: memoryLabel($0), isPlaceholder: false)
+        }
+        if let hiddenYield {
+            rows.append(GainableRow(id: hiddenYield,
+                                    label: "Unrevealed memory — this read earns it",
+                                    isPlaceholder: true))
+        }
+        return rows
     }
 
     private func memoryLabel(_ memory: Memory) -> String {

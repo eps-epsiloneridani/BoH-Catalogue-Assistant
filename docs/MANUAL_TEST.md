@@ -15,42 +15,46 @@ flows, imported-kind repair, earned-only lists).
 
 ### Playthroughs & the manage sheet (Phase 3½)
 
-- [ ] Sidebar shows the playthrough switcher (person icon + the active run's name)
-- [ ] New Playthrough…: create a second run; Books/Memories screens are empty; footer
+- [X] Sidebar shows the playthrough switcher (person icon + the active run's name)
+- [x] New Playthrough…: create a second run; Books/Memories screens are empty; footer
       name + counts changed; the previous run's rows are NOT visible
-- [ ] Switch back via the menu: everything recorded in the first run is intact
-- [ ] Manage…: rows left-justified (plain layout, not a grouped Form); rename sticks
+- [X] Switch back via the menu: everything recorded in the first run is intact
+- [x] Manage…: rows left-justified (plain layout, not a grouped Form); rename sticks
       three ways — Return, blur (click elsewhere/another row), and type-then-click-OK —
       including renaming the **active** run, with the sidebar switcher label following;
       renaming to blank restores the stored name
-- [ ] Manage…: Load switches runs; delete refuses the active/only run; deleting a spare
+- [x] Manage…: Load switches runs; delete refuses the active/only run; deleting a spare
       run works after confirmation
-- [ ] Book form: "Difficulty known" toggle + stepper record **without** a mystery
+- [x] Book form: "Difficulty known" toggle + stepper record **without** a mystery
       principle; list shows "difficulty N" when the principle isn't recorded; sort by
       Difficulty works
 
 ### Books (the form-master addition)
 
-- [ ] Add a book with Read status = Mastered directly — from the form AND via the
+- [x] Add a book with Read status = Mastered directly — from the form AND via the
       detail's status picker: the row shows the green mastered tick, the journal
       gains a "Mastered …" entry, Times read is 1; saving that still-mastered book
       again does NOT double-count
 
 ### Reading Helper (Phase 4 + the filter/sort feature)
 
-- [ ] Helper toolbar gains Filter / Mystery / Sort menus: Filter = All, Unread,
+- [x] Helper toolbar gains Filter / Mystery / Sort menus: Filter = All, Unread,
       Uncatalogued, Catalogued, Mastered, Contaminated; Mystery = "Any mystery" + the 13
       principles (books with no recorded mystery drop out while a filter is active);
       Sort = Status (unread-first, the default), Title, Difficulty (hardest first),
       **Easiest first** (ascending, unknown last), Recently added
-- [ ] Spoiler posture spot-check on an unmastered imported book: candidates only list
+- [x] Spoiler posture spot-check on an unmastered imported book: candidates only list
       memories you've earned; the "Always yields" panel appears only for mastered
       books; the Books screen's detail for that book shows "revealed by mastering the
       book" instead of the yield name
-- [ ] Record read on an unmastered imported book: "Memory used" offers only earned
-      memories, but "Memory gained → existing" can still find the book's imported
-      yield — selecting it earns the memory and it appears in the Memories list;
-      the pane reflects the save the moment the sheet closes
+- [ ] Record read on an unmastered imported book — the gained redesign (user
+      request 2026-10-06): "Memory gained" lists ONLY earned memories by name; the
+      book’s imported-but-unearned yield appears as a placeholder — "Unrevealed
+      memory — this read earns it" — selectable without revealing the name;
+      selecting + recording earns the memory (Memories list, real journal name,
+      pane updates instantly). The journal CHIPS and the journal edit sheet’s
+      memory picker show the same placeholder for unearned links; a non-mastering
+      gain masks the journal text as "unrevealed memory" — no leak anywhere.
 
 ### Skills & Journal (Phase 5)
 

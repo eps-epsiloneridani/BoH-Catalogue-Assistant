@@ -233,6 +233,9 @@ final class BooksStore {
                     gainedMemory: Memory?, lessons: Int?, gameDay: String?, note: String?) {
         perform("Recording read") {
             let usedName = usedMemoryID.flatMap { memoriesByID[$0]?.name }
+            // A read that doesn't earn the memory (non-mastering on an unmastered
+            // book) can't reveal its name in the journal either — mask it.
+            let willBeMastered = mastering || book.readStatus == .mastered
             try db.transaction {
                 if mastering {
                     if book.readStatus != .mastered {
@@ -250,7 +253,9 @@ final class BooksStore {
                     gameDay: gameDay,
                     entry: ReadingLog.journalText(book: book, mastering: mastering,
                                                    usedMemoryName: usedName,
-                                                   gainedMemoryName: gainedMemory?.name,
+                                                   gainedMemoryName: gainedMemory.map {
+                                                       willBeMastered ? $0.name : "unrevealed memory"
+                                                   },
                                                    lessons: lessons, userNote: note),
                     bookID: book.id, memoryID: gainedMemory?.id
                 ))

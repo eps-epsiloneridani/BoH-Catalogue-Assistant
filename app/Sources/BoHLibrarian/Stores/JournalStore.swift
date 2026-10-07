@@ -125,6 +125,8 @@ final class JournalStore {
     private var bookTitles: [Int64: String] = [:]
     private var memoryNames: [Int64: String] = [:]
     private var skillNames: [Int64: String] = [:]
+    /// Earned memories (spoiler posture): unearned links display as placeholders.
+    private var earnedMemoryIDs: Set<Int64> = []
 
     /// Lists for the edit sheet's link pickers (loaded on demand).
     func refreshLinkData() {
@@ -134,18 +136,33 @@ final class JournalStore {
             ((try? memoryRepo.all()) ?? []).map { ($0.id, $0.name) })
         skillNames = Dictionary(uniqueKeysWithValues:
             ((try? skillRepo.all()) ?? []).map { ($0.id, $0.name) })
+        earnedMemoryIDs = Set(((try? memoryRepo.allKnown()) ?? []).map(\.id))
     }
 
     func bookTitle(_ id: Int64?) -> String? { id.flatMap { bookTitles[$0] } }
-    func memoryName(_ id: Int64?) -> String? { id.flatMap { memoryNames[$0] } }
     func skillName(_ id: Int64?) -> String? { id.flatMap { skillNames[$0] } }
+
+    /// Chip/filter display: an entry linked to a memory the player hasn't earned
+    /// shows a placeholder, never the unrevealed name.
+    func memoryName(_ id: Int64?) -> String? {
+        guard let id, let name = memoryNames[id] else { return nil }
+        return earnedMemoryIDs.contains(id) ? name : "unrevealed memory"
+    }
 
     var bookPickerList: [BookRef] {
         ((try? bookRepo.all()) ?? []).map { BookRef(id: $0.id, title: $0.title) }
     }
 
-    var memoryPickerList: [Memory] {
-        (try? memoryRepo.all()) ?? []
+    /// Earned memories + a placeholder row if the entry links an unearned one —
+    /// the link stays selectable without revealing the memory's name.
+    func memoryPickerList(linkedID: Int64?) -> [Memory] {
+        let earned = ((try? memoryRepo.allKnown()) ?? [])
+        guard let linkedID, !earned.contains(where: { $0.id == linkedID }),
+              let linked = (try? memoryRepo.get(linkedID)) else { return earned }
+        var rows = earned
+        rows.append(Memory(id: linkedID, name: "unrevealed memory",
+                           kind: linked.kind, persistent: false))
+        return rows
     }
 
     var skillPickerList: [Skill] {
