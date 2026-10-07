@@ -231,6 +231,17 @@ Two goals, in priority order:
   PrincipleBadges (read-only, AA text + combined VO semantics for free); editing is
   the Edit… sheet's job (MemoryFormView's AspectEditor + save-path verified);
   the dead inline-editor state + MemoriesStore.setAspects removed. 96 tests green.
+- 2026-10-06 (location stamping from the save, user question → feature): decoding
+  the save's sphere hierarchy proved the save DOES know where everything is: each
+  item's chain = room (`GoverningSphereSpec.Id`: Library, purchases.europe, portage…)
+  + slot (`ShelfSpaceSphereD.3` = shelf D slot 3, `ScrollSlot.2`, desks). The
+  importer's walk now carries that chain and stamps `Books.location` — humanized
+  ("Library — shelf D.3" / "scroll slot 2" / "desk Mid"), fill-empty only (recorded
+  locations never overwritten). Plus a Defunct guard: stale tokens of moved items are
+  skipped entirely (mutations + location never leak from a defunct copy — this save
+  has none, the fixture regression-tests the guard). 101 tests green (location +
+  fill-empty asserts added to the import tests).
+
 - 2026-10-06 (gained-memory placeholder redesign, user request): Phase 4 cleared
   (user ticked); the user then re-directed the gained-memory flow — "Memory gained"
   lists ONLY earned memories, with the book’s unearned imported yield as a

@@ -273,11 +273,14 @@ public final class SaveImporter {
         let index = try elementIndex(in: elementsDirectory)
 
         // Player state: element stacks, deduped by EntityId (the save keeps copies
-        // of committed/uncommitted skill cards and moved-around books).
+        // of committed/uncommitted skill cards and moved-around books), plus where
+        // each one sits — the sphere chain "Room > slot" (Library > ShelfSpaceD.3).
         var stacks: [String: [String: Any]] = [:]
+        var locations: [String: String] = [:]
         var uncatalogued = 0
         for sphere in LenientJSON.dictionaries(root["Spheres"]) {
-            collectStacks(fromSphere: sphere, into: &stacks, uncatalogued: &uncatalogued)
+            collectStacks(fromSphere: sphere, into: &stacks, locations: &locations,
+                          uncatalogued: &uncatalogued, chain: [])
         }
 
         // Our lookups.
@@ -447,6 +450,7 @@ public final class SaveImporter {
                 difficulty: difficulty,
                 readStatus: mastered ? .mastered : .catalogued,
                 contamination: contamination,
+                location: locations[entityID],
                 lessons: lessonCount > 0 ? lessonCount : nil,
                 yieldedMemoryID: yieldedMemoryID,
                 notes: nil
@@ -458,6 +462,7 @@ public final class SaveImporter {
                 if existing.difficulty == nil { existing.difficulty = draft.difficulty }
                 if existing.languageID == nil { existing.languageID = draft.languageID }
                 if existing.contamination == nil { existing.contamination = draft.contamination }
+                if existing.location == nil { existing.location = draft.location }
                 if existing.lessons == nil { existing.lessons = draft.lessons }
                 if existing.yieldedMemoryID == nil { existing.yieldedMemoryID = draft.yieldedMemoryID }
                 if mastered && existing.readStatus != .mastered { existing.readStatus = .mastered }
@@ -485,12 +490,19 @@ public final class SaveImporter {
 
     private static func collectStacks(fromSphere sphere: [String: Any],
                                       into stacks: inout [String: [String: Any]],
-                                      uncatalogued: inout Int) {
+                                      locations: inout [String: String],
+                                      uncatalogued: inout Int,
+                                      chain: [String]) {
+        // GoverningSphereSpec.Id names the room and (nested) shelf/slot spheres.
+        let specID = ((sphere["GoverningSphereSpec"] as? [String: Any])?["Id"] as? String) ?? ""
+        let thisChain = chain + [specID]
         for token in LenientJSON.dictionaries(sphere["Tokens"]) {
             let payload = LenientJSON.dictionary(token["Payload"]) ?? [:]
             let payloadType = LenientJSON.string(payload["$type"]) ?? ""
             if payloadType.hasPrefix("ElementStackCreationCommand"),
                let entityID = LenientJSON.string(payload["EntityId"]) {
+                // Defunct tokens are stale copies left behind by moved items — skip.
+                if (payload["Defunct"] as? Bool) == true { continue }
                 let mutations = LenientJSON.dictionary(payload["Mutations"]) ?? [:]
                 if entityID.hasPrefix("uncatbook.") {
                     uncatalogued += 1
@@ -505,13 +517,36 @@ public final class SaveImporter {
                     cleaned.removeValue(forKey: "$type")
                     stacks[entityID] = cleaned
                 }
+                if locations[entityID] == nil {
+                    locations[entityID] = locationLabel(thisChain)
+                }
             }
             for dominion in LenientJSON.dictionaries(payload["Dominions"]) {
                 for nested in LenientJSON.dictionaries(dominion["Spheres"]) {
-                    collectStacks(fromSphere: nested, into: &stacks, uncatalogued: &uncatalogued)
+                    collectStacks(fromSphere: nested, into: &stacks, locations: &locations,
+                                  uncatalogued: &uncatalogued, chain: thisChain)
                 }
             }
         }
+    }
+
+    /// "Library — shelf D.3" / "Library — scroll slot 2" / "purchases.europe — desk Mid":
+    /// first non-empty spec id = the room, last = the slot; game slot ids humanized.
+    private static func locationLabel(_ chain: [String]) -> String? {
+        let parts = chain.filter { !$0.isEmpty }
+        guard let room = parts.first else { return nil }
+        guard parts.count > 1 else { return room }
+        let slot = parts.last!
+        if slot.hasPrefix("ShelfSpaceSphere") {
+            return "\(room) — shelf \(slot.dropFirst("ShelfSpaceSphere".count))"
+        }
+        if slot.hasPrefix("ScrollSlot") {
+            return "\(room) — scroll slot \(slot.dropFirst("ScrollSlot".count))"
+        }
+        if slot.hasPrefix("ShelfSpaceDesk") {
+            return "\(room) — desk \(slot.dropFirst("ShelfSpaceDesk".count))"
+        }
+        return "\(room) — \(slot)"
     }
 
     private static func elementIndex(in directory: URL) throws -> [String: [String: Any]] {
