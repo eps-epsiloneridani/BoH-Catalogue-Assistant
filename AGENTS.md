@@ -231,6 +231,15 @@ Two goals, in priority order:
   PrincipleBadges (read-only, AA text + combined VO semantics for free); editing is
   the Edit… sheet's job (MemoryFormView's AspectEditor + save-path verified);
   the dead inline-editor state + MemoriesStore.setAspects removed. 96 tests green.
+- 2026-10-06 (manual checklist rewritten, user request): MANUAL_TEST.md rebuilt
+  from 362 chronological lines into an organized, deduped document — outstanding
+  hands-on items grouped by screen (Playthroughs / Books / Reading Helper /
+  Skills & Journal / Save import / Packaged app / Accessibility), a consolidated
+  "verified automatically" map of the 101-test suite, and a one-line-per-pass
+  "Cleared by hand" record replacing the per-session ticked checklists; stale
+  duplicates (display-only pane items, earned-only items, backlink checks repeated
+  across sections) folded; the Playthrough-2 regression item reworded for the v7
+  era and every outstanding item carries current as-built wording.
 - 2026-10-06 (helper filter/sort, user feature): the Reading Helper picker adopts
   the Books screen's tested vocabulary wholesale — BookQueryOptions gains a mystery-
   principle filter (books without a recorded principle excluded while filtered) and
