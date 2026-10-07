@@ -118,8 +118,10 @@ during your first play session with that build.
 - [ ] New Playthrough…: create a second run; Books/Memories screens are empty; footer
       name + counts changed; "First playthrough" rows are NOT visible
 - [ ] Switch back via the menu: everything recorded in run 1 is intact
-- [ ] Manage…: rename a run (return key); Load switches; delete refuses the active/only
-      run; deleting a spare run works after confirmation
+- [ ] Manage…: rows left-justified (plain layout, not the grouped Form);
+      rename sticks via Return OR by just clicking elsewhere/in OK (commit on
+      blur — fixes the user report 2026-10-06); Load switches; delete refuses the
+      active/only run; deleting a spare run works after confirmation
 - [ ] Book form: "Difficulty known" toggle + stepper recordable without a mystery
       principle; list shows "difficulty N" when the principle isn't recorded; sort by
       Difficulty works
