@@ -231,6 +231,10 @@ Two goals, in priority order:
   PrincipleBadges (read-only, AA text + combined VO semantics for free); editing is
   the Edit… sheet's job (MemoryFormView's AspectEditor + save-path verified);
   the dead inline-editor state + MemoriesStore.setAspects removed. 96 tests green.
+- 2026-10-06 (manual-test Phase 4 cleared, user request): all Reading Helper
+  hands-on items ticked in the user's pass; wording synced with this session's
+  as-built truth (earned-only candidates, earned-only "Memory used" picker,
+  AA badge text, labelled hint icons).
 - 2026-10-06 ("can't rename the active playthrough"?, user question): answer —
   deleting the active/only run is the only deliberate gate (mounted stores);
   renaming the active run was never gated and persists identically. The observed

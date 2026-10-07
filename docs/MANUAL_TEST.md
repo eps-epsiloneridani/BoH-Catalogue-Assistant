@@ -138,21 +138,25 @@ during your first play session with that build.
       and tools"; "…N short…" when under; "Nothing recorded yet reaches for it."; nil
       without a difficulty
 
-### Needs hands — tick during your next session with the app
-- [ ] Helper opens with the first unread book selected; picker lists unread first, then
+### Needs hands — ✅ cleared 2026-10-06 (per the user's hands-on pass)
+- [x] Helper opens with the first unread book selected; picker lists unread first, then
       mastered; search narrows by title/set/location
-- [ ] Requirement panel: badge + "You need Rose 6."; language row shows the
+- [x] Requirement panel: badge + "You need Rose 6."; language row shows the
       known/not-learned hint; contamination line appears for cursed books; films/records
-      get the projector/phonograph hint
-- [ ] Record a memory with a matching aspect on the Memories screen, then pick the book
+      get the projector/phonograph hint (badge text now AA-derived per mode — D12;
+      hint icons carry accessibility labels)
+- [x] Record a memory with a matching aspect on the Memories screen, then pick the book
       in the helper — it appears under "Memories that satisfy it", best first
-- [ ] Tap a satisfying memory: the record-read sheet opens with that memory preselected
-      as "Memory used"
-- [ ] With no satisfying memory: near-misses show under "Closest recorded memories"
+      (candidates are earned-only since the spoiler pass — unearned imported
+      memories no longer masquerade as usable)
+- [x] Tap a satisfying memory: the record-read sheet opens with that memory preselected
+      as "Memory used" ("Memory used" itself is earned-only; the gained side keeps
+      the full table)
+- [x] With no satisfying memory: near-misses show under "Closest recorded memories"
       with "not enough alone", and the reach line says how far short you are
-- [ ] Skills section: a level-L skill shows +L+1 (primary) or +L (secondary)
-- [ ] Mastered books show the re-read panel with the yielded memory instead of candidates
-- [ ] Recording from the helper: book status/counters and Journal update; the Books
+- [x] Skills section: a level-L skill shows +L+1 (primary) or +L (secondary)
+- [x] Mastered books show the re-read panel with the yielded memory instead of candidates
+- [x] Recording from the helper: book status/counters and Journal update; the Books
       screen agrees afterwards
 
 ## Phase 5 — Skills & Journal screens (2026-10-06)
