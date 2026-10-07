@@ -29,6 +29,13 @@ struct ReadingHelperScreen: View {
         .frame(minWidth: 640)
         .searchable(text: $store.searchText, placement: .toolbar,
                     prompt: "Search for the book in hand…")
+        .toolbar {
+            ToolbarItemGroup(placement: .primaryAction) {
+                statusMenu
+                mysteryMenu
+                sortMenu
+            }
+        }
         .sheet(item: $recordingBook, onDismiss: {
             store.reload()
             prefilledMemoryID = nil
@@ -38,6 +45,51 @@ struct ReadingHelperScreen: View {
                                 preselectedMemoryID: prefilledMemoryID)
             }
         }
+    }
+
+    // MARK: Filter + sort menus (Books-screen vocabulary)
+
+    private var statusMenu: some View {
+        @Bindable var store = store
+        return Menu {
+            Picker("Show", selection: $store.statusFilter) {
+                ForEach(BookStatusFilter.allCases) { filter in
+                    Text(filter.rawValue).tag(filter)
+                }
+            }
+        } label: {
+            Label("Filter", systemImage: "line.3.horizontal.decrease.circle")
+        }
+        .help("Filter by read status — mastered, catalogued, unread…")
+    }
+
+    private var mysteryMenu: some View {
+        @Bindable var store = store
+        return Menu {
+            Picker("Mystery principle", selection: $store.mysteryPrincipleID) {
+                Text("Any mystery").tag(Int64?.none)
+                ForEach(appState.principles) { principle in
+                    Text(principle.name).tag(Int64?.some(principle.id))
+                }
+            }
+        } label: {
+            Label("Mystery", systemImage: "sparkles")
+        }
+        .help("Show only the books whose mystery is this principle")
+    }
+
+    private var sortMenu: some View {
+        @Bindable var store = store
+        return Menu {
+            Picker("Sort by", selection: $store.sort) {
+                ForEach(BookSort.allCases) { sort in
+                    Text(sort.rawValue).tag(sort)
+                }
+            }
+        } label: {
+            Label("Sort", systemImage: "arrow.up.arrow.down")
+        }
+        .help("Change the list order")
     }
 
     // MARK: Layout

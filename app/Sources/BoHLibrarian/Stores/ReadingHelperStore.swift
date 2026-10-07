@@ -20,6 +20,9 @@ final class ReadingHelperStore {
 
     private(set) var books: [Book] = []
     var searchText = ""
+    var statusFilter: BookStatusFilter = .all
+    var mysteryPrincipleID: Int64? = nil
+    var sort: BookSort = .status    // unread-first — the helper's native order
     var selectedBookID: Int64?
 
     init(db: SQLiteDatabase, playthroughID: Int64) {
@@ -36,27 +39,18 @@ final class ReadingHelperStore {
 
     // MARK: Picker
 
-    /// Search-filtered, unread first (this screen exists to choose the next read).
+    /// The full books-screen filtering vocabulary (user request 2026-10-06):
+    /// read-status filter, mystery-principle filter, name/mystery sorts — plus
+    /// the helper's unread-first native order via BookSort.status.
     var displayed: [Book] {
-        var list = books
-        let query = searchText.trimmingCharacters(in: .whitespacesAndNewlines)
-        if !query.isEmpty {
-            let needle = query.lowercased()
-            list = list.filter { book in
-                [book.title, book.setName, book.volume, book.location]
-                    .compactMap { $0 }
-                    .joined(separator: " ")
-                    .lowercased()
-                    .contains(needle)
-            }
-        }
-        return list.sorted {
-            let lhs = Self.statusRank($0.readStatus)
-            let rhs = Self.statusRank($1.readStatus)
-            return lhs == rhs
-                ? $0.title.localizedStandardCompare($1.title) == .orderedAscending
-                : lhs < rhs
-        }
+        var options = BookQueryOptions()
+        options.searchText = searchText
+        options.statusFilter = statusFilter
+        options.mysteryPrincipleID = mysteryPrincipleID
+        options.sort = sort
+        return BookFiltering.apply(books, options: options,
+                                   principleNames: principlesByID.mapValues(\.name),
+                                   languageNames: languagesByID.mapValues(\.name))
     }
 
     /// Resolved against all books, so the panel doesn't vanish mid-search.
@@ -68,14 +62,6 @@ final class ReadingHelperStore {
     func ensureSelection() {
         if selectedBookID == nil {
             selectedBookID = displayed.first?.id
-        }
-    }
-
-    static func statusRank(_ status: ReadStatus) -> Int {
-        switch status {
-        case .uncatalogued: return 0
-        case .catalogued: return 1
-        case .mastered: return 2
         }
     }
 

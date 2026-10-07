@@ -29,10 +29,12 @@ final class BookQueryTests: XCTestCase {
     }
 
     private func options(search: String = "", filter: BookStatusFilter = .all,
-                         sort: BookSort = .title) -> BookQueryOptions {
+                         sort: BookSort = .title,
+                         mysteryPrincipleID: Int64? = nil) -> BookQueryOptions {
         var options = BookQueryOptions()
         options.searchText = search
         options.statusFilter = filter
+        options.mysteryPrincipleID = mysteryPrincipleID
         options.sort = sort
         return options
     }
@@ -44,6 +46,29 @@ final class BookQueryTests: XCTestCase {
     }
 
     // MARK: Search
+
+    /// Mystery filter (Reading Helper): only books whose mystery is that
+    /// principle; books with no recorded principle drop out while filtered.
+    func testMysteryPrincipleFilter() {
+        let rose = options(mysteryPrincipleID: 10)
+        XCTAssertEqual(apply(rose), ["The Turquoise Hand"])
+        let scale = options(mysteryPrincipleID: 11)
+        XCTAssertEqual(apply(scale), ["Annals of St Brandans"])
+    }
+
+    /// Easiest-first: ascending difficulty, unknown last; title breaks ties.
+    func testEasiestFirstSort() {
+        var extra = library
+        extra.append(book("Cheap Read", id: 5, difficulty: (12, 2)))
+        var options = BookQueryOptions()
+        options.sort = .easiest
+        let titles = BookFiltering.apply(extra, options: options,
+                                         principleNames: principleNames,
+                                         languageNames: languageNames).map(\.title)
+        XCTAssertEqual(titles, ["Cheap Read", "Annals of St Brandans", "De Bellis Murorum",
+                                "The Turquoise Hand", "An Introduction to Histories"],
+                       "ascending, unknown last")
+    }
 
     /// The form's read-status picker can master a book outright — that counts as
     /// an actual read (counters + journal), never double-counting.

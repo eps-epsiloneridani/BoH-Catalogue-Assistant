@@ -130,6 +130,15 @@ during your first play session with that build.
 
 ## Phase 4 — Reading Helper (2026-10-06)
 
+### Needs hands — filter/sort feature (2026-10-06, user request)
+- [ ] Helper toolbar gains Filter / Mystery / Sort menus: Filter = All/Unread/Uncatalogued/
+      Catalogued/Mastered/Contaminated; Mystery = Any + the 13 principles (books without
+      a recorded mystery drop out while filtered); Sort = Status (unread-first, the
+      helper's default)/Title/Difficulty (hardest first)/Easiest first (new — ascending,
+      unknown last)/Recently added
+
+
+
 ### Verified automatically (unit tests — `swift test`, 71 green)
 - [x] Requirement sentence: "You need Rose 6."; graceful fallbacks when the principle
       or difficulty isn't recorded; canonical candidate/contribution queries already
