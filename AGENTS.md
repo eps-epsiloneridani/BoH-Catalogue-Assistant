@@ -34,7 +34,7 @@ Two goals, in priority order:
 ## Status snapshot (update every session)
 
 - **2026-10-06 — PARKED (Phases 0–5 + packaging) with user-requested additions shipped.**
-  Build + 96 tests pass from a clean checkout; `Boh.db` at schema v7 with an empty
+  Build + 101 tests pass from a clean checkout; `Boh.db` at schema v7 with an empty
   "First playthrough" loaded; tree clean. All roadmap screens live (Books, Memories,
   Reading Helper, Skills, Journal) plus **playthroughs**, **difficulty**, **save
   import** (Manage Playthroughs → "Import from Save…"; see `docs/SAVE_IMPORT.md`),
@@ -231,6 +231,22 @@ Two goals, in priority order:
   PrincipleBadges (read-only, AA text + combined VO semantics for free); editing is
   the Edit… sheet's job (MemoryFormView's AspectEditor + save-path verified);
   the dead inline-editor state + MemoriesStore.setAspects removed. 96 tests green.
+- 2026-10-06 (helper filter/sort, user feature): the Reading Helper picker adopts
+  the Books screen's tested vocabulary wholesale — BookQueryOptions gains a mystery-
+  principle filter (books without a recorded principle excluded while filtered) and
+  BookSort gains "Easiest first" (ascending difficulty, unknown last; the Books menu
+  offers it too). Helper toolbar: Filter (read status) / Mystery / Sort menus; the
+  helper's displayed list is now BookFiltering.apply(options…) — search widens to
+  notes/mystery-name/language (Books semantics); unread-first remains the default
+  via BookSort.status; dead statusRank removed. 101 tests green (+2: mystery filter,
+  easiest-first order).
+- 2026-10-06 (doc-bump footgun, twice bitten): README was silently emptied
+  again — the inline `open(path, "w").write(open(path).read()...)` pattern
+  truncates on the write-open before the read evaluates, and commits as empty
+  (twice now: 474de5b-era fixed at 05ad56f, re-broken by 1f590dd-era bumps;
+  count strings also drifted via assert-less replaces). RULE GOING FORWARD:
+  doc-bump scripts always read-then-write in two steps with hardcoded asserts
+  on the exact current strings before any write; never inline write(read()).
 - 2026-10-06 (manual-test Phase 4 cleared, user request): all Reading Helper
   hands-on items ticked in the user's pass; wording synced with this session's
   as-built truth (earned-only candidates, earned-only "Memory used" picker,
@@ -363,7 +379,7 @@ app/                 <- the Swift package (see docs/GUI_PLAN.md for the as-built
                                  repositories, pure query/math helpers, bundled migrations
   Sources/BoHLibrarian/        <- SwiftUI app: AppState (playthroughs, store wiring),
                                  RootView (routing), Stores/ (per-screen state), Views/
-  Tests/BoHLibrarianCoreTests/ <- 96 tests on :memory: databases
+  Tests/BoHLibrarianCoreTests/ <- 101 tests on :memory: databases
 ```
 
 ## Everyday commands

@@ -229,6 +229,11 @@ immediate. ⌘⇧J jumps to the journal and focuses quick-add.
       .entriesByBook`, `BookRepository.lessonSkillAmountsByBook` — tested);
       auxKey/task machinery retired; notes stay pane-local. 99 tests green.
 
+- [x] **Helper filter/sort (user feature).** ✅ (2026-10-06) read-status filter,
+      mystery-principle filter, and the Books screen's sort set incl. new
+      "Easiest first" (ascending, unknown last) — `BookFiltering.apply` drives the
+      helper's list; +2 tests. 101 tests green.
+
 ## Later / optional (only on request)
 
 - **File picker for save import.** The importer reads the standard save path only;

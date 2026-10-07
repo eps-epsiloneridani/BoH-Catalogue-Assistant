@@ -21,6 +21,7 @@ public enum BookSort: String, CaseIterable, Identifiable {
     case title = "Title"
     case difficulty = "Difficulty"
     case status = "Status"
+    case easiest = "Easiest first"
     case recent = "Recently added"
 
     public var id: String { rawValue }
@@ -29,6 +30,10 @@ public enum BookSort: String, CaseIterable, Identifiable {
 public struct BookQueryOptions {
     public var searchText: String = ""
     public var statusFilter: BookStatusFilter = .all
+    /// Show only books whose mystery is THIS principle (Reading Helper's
+    /// mystery filter); nil = any. Books with no recorded principle are
+    /// excluded while a filter is active.
+    public var mysteryPrincipleID: Int64? = nil
     public var sort: BookSort = .title
 
     public init() {}
@@ -79,9 +84,23 @@ public enum BookFiltering {
             result = result.filter { $0.contamination != nil && $0.contamination != .clear }
         }
 
+        // Mystery filter (Reading Helper + any screen adopting it).
+        if let principleID = options.mysteryPrincipleID {
+            result = result.filter { $0.mysteryPrincipleID == principleID }
+        }
+
         switch options.sort {
         case .title:
             result.sort { $0.title.localizedStandardCompare($1.title) == .orderedAscending }
+        case .easiest:
+            // Reading-planning order: lowest difficulty first, unknown last.
+            result.sort {
+                let lhs = $0.difficulty ?? Int.max
+                let rhs = $1.difficulty ?? Int.max
+                return lhs == rhs
+                    ? $0.title.localizedStandardCompare($1.title) == .orderedAscending
+                    : lhs < rhs
+            }
         case .difficulty:
             result.sort {
                 let lhs = $0.difficulty ?? Int.min
