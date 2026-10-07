@@ -216,6 +216,14 @@ immediate. ⌘⇧J jumps to the journal and focuses quick-add.
       yielding-book sync on save (Core: `setSources` replace-all with PK dedupe,
       `allYielding` any-status links for editing, `setYieldingBooks` two-way sync —
       tested). 97 tests green.
+- [x] **Memory pane went stale until reselect.** ✅ (2026-10-06, user bug) edits
+      saved in the edit sheet didn't appear in the display pane — the pane cached
+      sources/backlinks in @State keyed by .task(id:), which never re-fires for an
+      already-selected record. The pane now reads store-backed live caches built
+      from two grouped queries (`allSourcesByMemory`, `yieldingByMemory` — tested
+      for grouping + strict playthrough scoping); only notes (its own explicit
+      save flow) remains a local cache. Book-detail's quick-note path has the same
+      latent shape (flagged, not reproduced). 98 tests green.
 
 ## Later / optional (only on request)
 

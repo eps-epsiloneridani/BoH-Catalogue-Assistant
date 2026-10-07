@@ -14,6 +14,11 @@ final class MemoriesStore {
 
     private(set) var memories: [Memory] = []
     private(set) var booksForLinking: [BookRef] = []
+
+    /// Live per-record data, refreshed with every reload — the detail pane reads
+    /// these (never snapshots of its own: snapshots went stale until reselect).
+    private(set) var sourcesByID: [Int64: [MemorySource]] = [:]
+    private(set) var yieldingByID: [Int64: [BookRef]] = [:]
     var lastError: String?
 
     var options = MemoryQueryOptions()
@@ -57,6 +62,8 @@ final class MemoriesStore {
             // the player can't know yet; all() stays all-inclusive for pickers.
             memories = try repo.allKnown()
             booksForLinking = try bookRepo.all().map { BookRef(id: $0.id, title: $0.title) }
+            sourcesByID = try repo.allSourcesByMemory()
+            yieldingByID = try repo.yieldingByMemory()
         } catch {
             lastError = "\(error)"
         }
@@ -113,7 +120,12 @@ final class MemoriesStore {
     // MARK: Sources
 
     func sources(for memoryID: Int64) -> [MemorySource] {
-        (try? repo.sources(for: memoryID)) ?? []
+        sourcesByID[memoryID] ?? []
+    }
+
+    /// The mastered-only yielding links for display (allYielding is the edit twin).
+    func yielding(for memoryID: Int64) -> [BookRef] {
+        yieldingByID[memoryID] ?? []
     }
 
     /// Every yielding link, any status — the edit form edits the full set.

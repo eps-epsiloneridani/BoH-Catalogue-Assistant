@@ -231,6 +231,20 @@ Two goals, in priority order:
   PrincipleBadges (read-only, AA text + combined VO semantics for free); editing is
   the Edit… sheet's job (MemoryFormView's AspectEditor + save-path verified);
   the dead inline-editor state + MemoriesStore.setAspects removed. 96 tests green.
+- 2026-10-06 (stale display after save, user bug): edits made in the memory
+  edit sheet didn't show in the detail pane until reselecting the record — the
+  pane cached sources/backlinks in @State, refreshed only by .task(id:
+  memory.id), which never re-fires for an already-selected record (the book
+  pane's auxKey anticipated exactly this — multi-field refetch key). Fix: the
+  pane reads store-backed live caches — Core MemoryRepository.allSourcesByMemory
+  + yieldingByMemory (one grouped query each, playthrough-scoped, mastered-only
+  yields for display; +1 test incl. strict cross-playthrough scoping) — and the
+  store refills both dicts on every reload, so the pane (and a reopened form's
+  params) reflect saves the moment the sheet closes. The pane's only remaining
+  editable cache is notes, which is its own explicit Save-note flow. Flagged but
+  not changed: BookDetailView's quick-note path may leave ITS journal section
+  stale the same way (auxKey unchanged by journal inserts) — same fix shape if
+  reproduced. 98 tests green.
 - 2026-10-06 (verified): source/link editors outside the Form work — the user
   confirms entering details + kinds + saving + reopening on build e82e184;
   MANUAL_TEST item ticked. Project lesson recorded for future UI: on this macOS
