@@ -1,24 +1,24 @@
 # BoH Librarian — hands-on test checklist
 
 What this file is: the checks that need the **running app** (Unit tests only cover Core).
-- Run the automated side: `cd app && swift test` — 101 tests green (as of 2026-10-06).
+- Run the automated side: `cd app && swift test` — 108 tests green (as of 2026-10-08).
 - The outstanding hands-on items are grouped by screen/flow below; tick as you go through
   them in the app.
 - Work that's already been cleared by hand is a one-line record under **Cleared** at the
   bottom (the old per-session checklists were consolidated there on 2026-10-06).
 - Anything surprising goes to the Scratch pad.
 
-Last full hands-on pass: 2026-10-06 (Books screen, Memories screen, Reading Helper core
+Last full hands-on pass: 2026-10-07 (Books screen, Memories screen, Reading Helper core
 flows, imported-kind repair, earned-only lists).
 
 ## Outstanding hands-on — by screen
 
 ### Playthroughs & the manage sheet (Phase 3½)
 
-- [X] Sidebar shows the playthrough switcher (person icon + the active run's name)
+- [x] Sidebar shows the playthrough switcher (person icon + the active run's name)
 - [x] New Playthrough…: create a second run; Books/Memories screens are empty; footer
       name + counts changed; the previous run's rows are NOT visible
-- [X] Switch back via the menu: everything recorded in the first run is intact
+- [x] Switch back via the menu: everything recorded in the first run is intact
 - [x] Manage…: rows left-justified (plain layout, not a grouped Form); rename sticks
       three ways — Return, blur (click elsewhere/another row), and type-then-click-OK —
       including renaming the **active** run, with the sidebar switcher label following;
