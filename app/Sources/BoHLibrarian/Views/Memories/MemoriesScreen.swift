@@ -26,6 +26,7 @@ struct MemoriesScreen: View {
             }
         }
         .frame(minWidth: 640)
+        .onAppear { store.reload() }
         .searchable(text: $store.options.searchText, placement: .toolbar,
                     prompt: "Search name, aspects, notes…")
         .toolbar {
@@ -99,7 +100,6 @@ struct MemoriesScreen: View {
             }
         }
         .listStyle(.inset)
-        .onAppear { store.reload() }
     }
 
     private var emptyState: some View {

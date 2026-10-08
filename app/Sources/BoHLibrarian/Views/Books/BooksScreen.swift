@@ -29,6 +29,7 @@ struct BooksScreen: View {
         .frame(minWidth: 640)
         .searchable(text: $store.options.searchText, placement: .toolbar,
                     prompt: "Search title, set, notes…")
+        .onAppear { store.reload() }
         .toolbar {
             ToolbarItemGroup(placement: .primaryAction) {
                 Button {
@@ -103,7 +104,6 @@ struct BooksScreen: View {
             }
         }
         .listStyle(.inset)
-        .onAppear { store.reload() }
     }
 
     private var emptyState: some View {

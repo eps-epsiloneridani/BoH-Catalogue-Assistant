@@ -26,6 +26,7 @@ struct SkillsScreen: View {
             }
         }
         .frame(minWidth: 640)
+        .onAppear { store.reload() }
         .searchable(text: $store.options.searchText, placement: .toolbar,
                     prompt: "Search name, wisdom, notes…")
         .toolbar {
@@ -94,7 +95,6 @@ struct SkillsScreen: View {
             }
         }
         .listStyle(.inset)
-        .onAppear { store.reload() }
     }
 
     private var emptyState: some View {
