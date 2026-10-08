@@ -41,6 +41,54 @@ final class SaveImportTests: XCTestCase {
         XCTAssertEqual(LenientJSON.dictionaries(object["elements"]).count, 1)
     }
 
+    /// The old whole-text regex ate commas INSIDE string values ("... , ] ...");
+    /// the comma-stripper is string-aware now.
+    func testTrailingCommaStrippingIsStringAware() throws {
+        let text = "{ \"a\": [ \"hello , ] world\", ], \"b\": 2, }"
+        let object = try XCTUnwrap(LenientJSON.object(from: Data(text.utf8)) as? [String: Any])
+        XCTAssertEqual(LenientJSON.string((object["a"] as? [Any])?.first),
+                       "hello , ] world", "string content survives intact")
+        XCTAssertEqual(LenientJSON.intValue(object["b"]), 2, "the actual trailing comma still stripped")
+    }
+
+    /// Unknown contamination keys + Label-less skills surface in the report
+    /// instead of vanishing silently.
+    func testUnknownContaminationAndLabellessSkillWarn() throws {
+        let (db, playthrough) = try makeMigratedDB()
+        let dir = workDirectory.appendingPathComponent("warn-elems", isDirectory: true)
+        try FileManager.default.createDirectory(at: dir, withIntermediateDirectories: true)
+        _ = try writeFixture("tomes.json", into: dir, contents: """
+            { "elements": [
+              { "ID": "t.mad", "Label": "Mad Book",
+                "aspects": { "mystery.moon": 4, "codex": 1 } } ], }
+            """)
+        _ = try writeFixture("skills.json", into: dir, contents: """
+            { "elements": [
+              { "id": "s.labelless", "aspects": { "moon": 2 } } ], }
+            """)
+        let save = try writeFixture("AUTOSAVE.json", contents: """
+            { "RootPopulationCommand": { "Spheres": [ {
+              "Tokens": [
+                { "$type": "TokenCreationCommand", "Payload": {
+                "$type": "ElementStackCreationCommand", "EntityId": "t.mad",
+                "Mutations": { "contamination.madness": 1 } } },
+                { "$type": "TokenCreationCommand", "Payload": {
+                "$type": "ElementStackCreationCommand", "EntityId": "s.labelless", "Mutations": { } } }
+              ] } ] } }
+            """)
+
+        let report = try SaveImporter.run(saveURL: save, db: db,
+                                          playthroughID: playthrough.id,
+                                          elementsDirectory: dir)
+        XCTAssertTrue(report.warnings.contains { $0.contains("unknown contamination 'madness'") },
+                      "\(report.warnings)")
+        XCTAssertTrue(report.warnings.contains { $0.contains("no Label") })
+        let book = try XCTUnwrap(try BookRepository(db: db, playthroughID: playthrough.id)
+            .all().first)
+        XCTAssertNil(book.contamination, "unknown contamination is not guessed")
+        XCTAssertTrue(try SkillRepository(db: db, playthroughID: playthrough.id).all().isEmpty)
+    }
+
     // MARK: - Fixtures
 
     private func writeFixture(_ name: String, contents: String,
