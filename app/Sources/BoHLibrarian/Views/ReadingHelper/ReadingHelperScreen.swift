@@ -158,6 +158,7 @@ private struct HelperBookRow: View {
                     if book.contamination != nil && book.contamination != .clear {
                         Image(systemName: "exclamationmark.triangle.fill")
                             .foregroundStyle(.orange)
+                            .accessibilityLabel("contaminated")
                             .help("Contaminated")
                     }
                 }

@@ -39,6 +39,7 @@ struct AspectEditor: View {
                     Image(systemName: "minus.circle")
                 }
                 .buttonStyle(.borderless)
+                .accessibilityLabel("Remove aspect")
                 .help("Remove aspect")
             }
         }

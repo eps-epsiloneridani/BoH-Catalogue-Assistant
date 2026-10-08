@@ -133,8 +133,6 @@ private struct DetailView: View {
             } else {
                 FailureView(message: "The journal store is unavailable — the database may not have opened.")
             }
-        default:
-            SectionPlaceholder(section: section)
         }
     }
 

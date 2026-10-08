@@ -69,7 +69,6 @@ struct MarkAsReadSheet: View {
         Form {
             Section {
                 Toggle("Mastering read (first complete read)", isOn: $mastering)
-                    .disabled(book.readStatus == .mastered && !mastering)
                 if book.readStatus == .mastered {
                     Text("Already mastered — recording a re-read for the memory.")
                         .font(.caption)
