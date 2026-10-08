@@ -193,6 +193,7 @@ private struct HelperBookRow: View {
 // MARK: - Desk panel
 
 private struct DeskPanel: View {
+    @Environment(AppState.self) private var appState
     let book: Book
     let store: ReadingHelperStore
     var onRecord: (Int64?) -> Void   // argument: memory id to prefill, or nil
@@ -257,7 +258,16 @@ private struct DeskPanel: View {
                 .font(.callout)
             LabeledContent("Always yields") {
                 if let name = store.yieldedMemoryName(for: book) {
-                    Text(name).fontWeight(.medium)
+                    Button {
+                        if let id = book.yieldedMemoryID {
+                            appState.showMemory(id)
+                        }
+                    } label: {
+                        Text(name).fontWeight(.medium).underline()
+                    }
+                    .buttonStyle(.plain)
+                    .help("Show this memory in the Memories pane")
+                    .accessibilityHint("Opens the memory in the Memories pane")
                 } else {
                     Text("not recorded")
                         .foregroundStyle(.tertiary)
