@@ -116,7 +116,6 @@ final class MemoriesStore {
         }
     }
 
-    /// Replace all aspects (persisted immediately when editing inline).
     // MARK: Sources
 
     func sources(for memoryID: Int64) -> [MemorySource] {
@@ -139,12 +138,6 @@ final class MemoriesStore {
 
     func setYieldingBooks(_ memoryID: Int64, _ bookIDs: [Int64]) {
         perform("Saving yielding books") { try repo.setYieldingBooks(memoryID, bookIDs) }
-    }
-
-    // MARK: Book backlinks
-
-    func booksYielding(_ memoryID: Int64) -> [BookRef] {
-        (try? repo.booksYielding(memoryID)) ?? []
     }
 
 }

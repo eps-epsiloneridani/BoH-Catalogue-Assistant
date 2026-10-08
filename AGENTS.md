@@ -242,6 +242,14 @@ Two goals, in priority order:
   has none, the fixture regression-tests the guard). 101 tests green (location +
   fill-empty asserts added to the import tests).
 
+- 2026-10-07 (remediation 6/9): UI papercuts + dead code - AspectEditor’s
+  remove button finally carries its accessibility label (the a11y pass missed
+  this file); the Helper’s list-row contamination icon labelled; the record-read
+  sheet’s one-way .disabled removed from the mastering toggle (flip-off now
+  reversible); dead store wrapper + the orphan "Replace all aspects" comment +
+  RootView’s unreachable switch default removed (the plan’s "stale AuxKey
+  comment in BookDetailView" was already gone - skipped). 108 green.
+
 - 2026-10-07 (remediation 5/9): fail-closed write scoping - BookRepository
   (update/recordRead/updateReadStatus/setYieldedMemory/setLessonsCount),
   MemoryRepository.update, SkillRepository.update, JournalRepository.update all
