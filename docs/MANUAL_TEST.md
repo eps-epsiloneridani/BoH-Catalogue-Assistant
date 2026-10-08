@@ -81,6 +81,8 @@ flows, imported-kind repair, earned-only lists).
 - [ ] Journal search narrows the list; delete removes an entry immediately (no
       confirmation — notes are trivially re-typed)
 - [ ] Footer skills/journal counts update live
+- [ ] Fixed: the Reading Helper populated only after quit+reopen (empty branch had no reload) — open it first on a fresh run, record books, return — the picker fills
+- [ ] Clickable links: a memory's yielding-book row opens the book pane on that book; the book pane's yield line opens the memory; journal chips open book/memory/skill panes (masked "unrevealed memory" chips aren't clickable); a linked book stays visible even under an active filter
 
 ### Save import (+ the manage-sheet integration)
 

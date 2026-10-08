@@ -17,6 +17,27 @@ final class AppState {
     private(set) var phase: Phase = .loading
     var section: AppSection = .books
 
+    /// In-pane navigation: "open the relevant item" = switch the section and set
+    /// its selection (no windows). Used by clickable entity links (backlinks,
+    /// yield pointers, journal chips).
+    func showBook(_ id: Int64) {
+        section = .books
+        booksStore?.selectedBookID = id
+        booksStore?.reload()
+    }
+
+    func showMemory(_ id: Int64) {
+        section = .memories
+        memoriesStore?.selectedMemoryID = id
+        memoriesStore?.reload()
+    }
+
+    func showSkill(_ id: Int64) {
+        section = .skills
+        skillsStore?.selectedSkillID = id
+        skillsStore?.reload()
+    }
+
     /// Free text for "which in-game day is it" — pre-fills journal entries and the
     /// record-read sheet; kept for the whole session.
     var currentGameDay = ""

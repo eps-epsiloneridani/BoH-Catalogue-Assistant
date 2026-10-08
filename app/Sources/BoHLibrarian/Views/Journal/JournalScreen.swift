@@ -126,7 +126,7 @@ struct JournalScreen: View {
                         .padding(.top, 10)
                         .padding(.bottom, 2)
                 }
-                JournalRowView(entry: row.entry, store: store,
+                JournalRowView(appState: appState, entry: row.entry, store: store,
                                onEdit: { editingEntry = row.entry },
                                onDelete: { store.delete(row.entry) })
             }
@@ -165,6 +165,7 @@ struct JournalScreen: View {
 // MARK: - Entry row
 
 private struct JournalRowView: View {
+    let appState: AppState
     let entry: JournalEntry
     let store: JournalStore
     var onEdit: () -> Void
@@ -178,12 +179,20 @@ private struct JournalRowView: View {
                 if !linkChips.isEmpty {
                     HStack(spacing: 6) {
                         ForEach(linkChips) { chip in
-                            Label(chip.title, systemImage: chip.icon)
+                            let label = Label(chip.title, systemImage: chip.icon)
                                 .font(.caption2)
                                 .padding(.horizontal, 6)
                                 .padding(.vertical, 2)
                                 .background(Capsule().fill(.quaternary.opacity(0.5)))
-                                .foregroundStyle(.secondary)
+                            if let action = chip.action {
+                                Button(action: action) {
+                                    label.underline()
+                                }
+                                .buttonStyle(.plain)
+                                .accessibilityLabel("\(chip.title) — open")
+                            } else {
+                                label.foregroundStyle(.secondary)
+                            }
                         }
                     }
                 }
@@ -212,18 +221,25 @@ private struct JournalRowView: View {
         let id: String
         let title: String
         let icon: String
+        let action: (() -> Void)?
     }
 
     private var linkChips: [Chip] {
         var chips: [Chip] = []
         if let bookID = entry.bookID, let title = store.bookTitle(bookID) {
-            chips.append(Chip(id: "b\(bookID)", title: title, icon: "book"))
+            chips.append(Chip(id: "b\(bookID)", title: title, icon: "book",
+                              action: { appState.showBook(bookID) }))
         }
+        // A masked chip ("unrevealed memory") carries no action: the memory is
+        // not earned, so there is nothing to open yet.
         if let memoryID = entry.memoryID, let name = store.memoryName(memoryID) {
-            chips.append(Chip(id: "m\(memoryID)", title: name, icon: "sparkles"))
+            chips.append(Chip(id: "m\(memoryID)", title: name, icon: "sparkles",
+                              action: name == "unrevealed memory"
+                                  ? nil : { appState.showMemory(memoryID) }))
         }
         if let skillID = entry.skillID, let name = store.skillName(skillID) {
-            chips.append(Chip(id: "s\(skillID)", title: name, icon: "graduationcap"))
+            chips.append(Chip(id: "s\(skillID)", title: name, icon: "graduationcap",
+                              action: { appState.showSkill(skillID) }))
         }
         return chips
     }

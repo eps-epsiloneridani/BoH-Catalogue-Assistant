@@ -55,7 +55,10 @@ final class BooksStore {
     }
 
     var selectedBook: Book? {
+        // Unfiltered fallback: a book reached via a clickable link stays on
+        // screen even when the current filter/sort excludes it.
         displayed.first { $0.id == selectedBookID }
+        ?? books.first { $0.id == selectedBookID }
     }
 
     // MARK: Lookups for views

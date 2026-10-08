@@ -179,7 +179,16 @@ struct BookDetailView: View {
                     Text("revealed by mastering the book")
                         .foregroundStyle(.tertiary)
                 } else if let name = book.yieldedMemoryID.flatMap({ store.memoryName($0) }) {
-                    Text(name).fontWeight(.medium)
+                    Button {
+                        if let id = book.yieldedMemoryID {
+                            appState.showMemory(id)
+                        }
+                    } label: {
+                        Text(name).fontWeight(.medium).underline()
+                    }
+                    .buttonStyle(.plain)
+                    .help("Show this memory in the Memories pane")
+                    .accessibilityHint("Opens the memory in the Memories pane")
                 } else {
                     Text("not recorded")
                         .foregroundStyle(.tertiary)

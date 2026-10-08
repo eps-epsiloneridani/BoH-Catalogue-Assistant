@@ -140,22 +140,26 @@ Two goals, in priority order:
   launch); dist rebuilt with the synced migration. 87 tests green (87 = 86 +
   mapping-coverage fixture + 007 data-repair proof).
 
-- 2026-10-06 (007 verified + memory backlinks mastered-only, user request): the
-  user's relaunched app applied 007 (live db at v7; 82 mis-stamped rows now 'book',
-  both scrolls and the two genuine phonograph records intact; MANUAL_TEST items
-  ticked). Policy refinement of the spoiler posture (D6's spirit): "Books that yield
-  this" on a memory now displays only books the player has *mastered* — import and
-  record-read still stamp `yielded_memory_id` on unread books (the data keeps the
-  link, backlinks just don't reveal a yield the player hasn't earned). The link
-  becomes visible at mastery (both ways tested). "Link a book…" still offers all
-  books; note for the user: a manual link to a not-yet-mastered book stays hidden
-  until they master it.
+2026-10-0608 (remediation 6/9): UI papercuts + dead code - AspectEditor’s
+  remove button finally carries its accessibility label (the a11y pass missed
+  this file); the Helper’s list-row contamination icon labelled; the record-read
+  sheet’s one-way .disabled removed from the mastering toggle (flip-off now
+  reversible); dead store wrapper + the orphan "Replace all aspects" comment +
+  RootView’s unreachable switch default removed (the plan’s "stale AuxKey
+  comment in BookDetailView" was already gone - skipped). 108 green.
 
-- 2026-10-06 (anonymization + cold-start consolidation, user-requested): all docs,
-  logs, code comments, test comments and the save-preview script scrubbed of
-  personal name/home-path references ("the user" throughout; hardcoded /Users/…
-  path replaced with expanduser). New ground rule records the convention; commit
-  identities already pseudonymous (username + noreply email).
+- 2026-10-06 (accessibility pass, user request): assessment + fixes. Assessment:
+  semantic fonts/motion-free/native controls = solid; zero a11y modifiers anywhere;
+  computed WCAG contrast — **all 13 principle badges fail AA in ≥1 mode** (tint-as-text;
+  measured, e.g. Lantern 1.21:1 light, Edge 1.43:1 dark). Fix: Core `ColorMath`
+  (luminance/contrast/blend + `readableTextHex` deriving per-mode badge text; 5 tests
+  incl. all-tints-both-modes ≥4.5 enforcement); badges derive text (fill/border keep
+  the tint identity), whole book rows + badges announce as one crafted element; every
+  icon-only control labelled / decorations hidden (28 sites catalogued: journal
+  edit/delete, aspect remove, unlink, source remove/add, playthrough delete/active/
+  menu, save-selection, globe, status icons, language-known). D12 records the posture
+  (AA target; labels required on icon controls; revisit triggers). VoiceOver/Dynamic
+  Type hands-on checklist added to MANUAL_TEST; docs updated. 92 tests green.
 
 - 2026-10-06 (security review, user request): full pass over the published repo's
   attack surfaces. Verified clean: uniform parameterized SQL (only two interpolations,
@@ -172,18 +176,22 @@ Two goals, in priority order:
   history rewritten 2026-10-06 (filter-branch, 1:1 across all 36 commits; doc
   hash references remapped; backup bundle + refs/original purged after).**
 
-- 2026-10-06 (accessibility pass, user request): assessment + fixes. Assessment:
-  semantic fonts/motion-free/native controls = solid; zero a11y modifiers anywhere;
-  computed WCAG contrast — **all 13 principle badges fail AA in ≥1 mode** (tint-as-text;
-  measured, e.g. Lantern 1.21:1 light, Edge 1.43:1 dark). Fix: Core `ColorMath`
-  (luminance/contrast/blend + `readableTextHex` deriving per-mode badge text; 5 tests
-  incl. all-tints-both-modes ≥4.5 enforcement); badges derive text (fill/border keep
-  the tint identity), whole book rows + badges announce as one crafted element; every
-  icon-only control labelled / decorations hidden (28 sites catalogued: journal
-  edit/delete, aspect remove, unlink, source remove/add, playthrough delete/active/
-  menu, save-selection, globe, status icons, language-known). D12 records the posture
-  (AA target; labels required on icon controls; revisit triggers). VoiceOver/Dynamic
-  Type hands-on checklist added to MANUAL_TEST; docs updated. 92 tests green.
+- 2026-10-06 (007 verified + memory backlinks mastered-only, user request): the
+  user's relaunched app applied 007 (live db at v7; 82 mis-stamped rows now 'book',
+  both scrolls and the two genuine phonograph records intact; MANUAL_TEST items
+  ticked). Policy refinement of the spoiler posture (D6's spirit): "Books that yield
+  this" on a memory now displays only books the player has *mastered* — import and
+  record-read still stamp `yielded_memory_id` on unread books (the data keeps the
+  link, backlinks just don't reveal a yield the player hasn't earned). The link
+  becomes visible at mastery (both ways tested). "Link a book…" still offers all
+  books; note for the user: a manual link to a not-yet-mastered book stays hidden
+  until they master it.
+
+- 2026-10-06 (anonymization + cold-start consolidation, user-requested): all docs,
+  logs, code comments, test comments and the save-preview script scrubbed of
+  personal name/home-path references ("the user" throughout; hardcoded /Users/…
+  path replaced with expanduser). New ground rule records the convention; commit
+  identities already pseudonymous (username + noreply email).
 
 - 2026-10-06 (earned-only memory list, user request): the save import creates a
   memory (with aspects) for every imported book's yield — so the Memories list
@@ -224,61 +232,6 @@ Two goals, in priority order:
   case-insensitive) is the same game entity: reuse, and the read earns it; a
   different kind inserts. 95 tests green.
 
-- 2026-10-06 (memory detail pane is display-only, user manual-test report): the
-  pane embedded the full inline AspectEditor (pickers/steppers/remove rows) that
-  looked editable without a save; its per-change persistence path existed but the
-  affordance was wrong for a record view. The detail pane now renders aspects as
-  PrincipleBadges (read-only, AA text + combined VO semantics for free); editing is
-  the Edit… sheet's job (MemoryFormView's AspectEditor + save-path verified);
-  the dead inline-editor state + MemoriesStore.setAspects removed. 96 tests green.
-- 2026-10-06 (verified): source/link editors outside the Form work — the user
-  confirms entering details + kinds + saving + reopening on build e82e184;
-  MANUAL_TEST item ticked. Project lesson recorded for future UI: on this macOS
-  build, TextFields must stay out of ForEach-in-grouped-Form contexts — plain
-  VStack editor blocks + index bindings are the working pattern.
-- 2026-10-06 (still dead after owning its row — ForEach+TextField ruled out
-  wholesale): the user's db settles the mechanism questions: memory 33 carries
-  Forge 2/Grail 2 created via the quick-add's AspectEditor — ForEach($array)
-  pickers/steppers write through in grouped Forms; the old detail pane's add-row
-  wrote sources incl. details — plain VStack + TextField works; three source-rows
-  with details exist from early play. The only never-working combination is
-  TextField inside ForEach (any arrangement — own-row, direct binding). Fix: the
-  source/link editors moved OUT of the Form into a plain VStack below it
-  (the old pane's working context), driven by index-based data ForEach with
-  subscript bindings; Cancel/Save bar follows. 97 tests green.
-- 2026-10-06 (detail field still dead after the binding fix, follow-up): with the
-  hand-rolled binding gone the kind picker persisted (direct bindings write
-  through) but the detail TextField still took no input — the remaining suspect
-  is the grouped-Form row itself: TextFields sharing one row with a menu-style
-  Picker stop accepting input on macOS. Restructured each source as two plain
-  Form rows (kind + remove; detail field owning its own row — the one shape the
-  app's other Form TextFields use successfully). MANUAL_TEST re-verify stays open.
-- 2026-10-06 (source rows wouldn't take input, user report follow-up): on the edit
-  sheet, the "How to obtain" detail TextField reverted every keystroke and the kind
-  picker's changes didn't persist — the row's detail bound through a hand-rolled
-  Binding(get:set:) built from the ForEach projected binding, which reverts under
-  macOS grouped Forms. Fix: SourceRow carries a plain detailText (nil converted at
-  load/save edges) and every row control binds directly through the collection
-  binding — the same pattern as the (proven) AspectEditor steppers in the same
-  Form. 97 tests green.
-- 2026-10-06 (sources + yielding-links editing move into the edit sheet, user
-  request): same pane pass — "How to obtain" and "Books that yield this" were still
-  editing surfaces (add-source kind dropdown + detail field; "Link a book…" menu;
-  per-row remove/unlink buttons). The detail pane now displays both read-only;
-  editing moved to the Edit… form (MemoryFormView edit-mode sections): source rows
-  (kind picker + detail + remove, stable local row ids) and yielding-book links,
-  persisted on Save through new Core mechanics — MemoryRepository.setSources
-  (replace-all, PK-dedupe), allYielding (any-status links vs the mastered-only
-  display variant) and setYieldingBooks (two-way link sync; ids bound not
-  interpolated; empty list clears). Store wrappers addSource/removeSource/linkBook/
-  unlinkBook became dead and were removed. 97 tests green.
-- 2026-10-06 (record-read toggle defaults ON, user request): after the form-master
-  change the gap-fill flow exposed a rough default — MarkAsReadSheet seeded the
-  "Mastering read" toggle OFF for already-mastered books (it was ON only when the
-  book wasn't mastered yet). Now it defaults ON for every book: opening record-read
-  on a mastered-from-form book presents as the mastering read (lessons picker
-  visible; journal line "Mastered…"); a pure re-read is a deliberate flip-off.
-  UI-only change; no Core logic moved.
 - 2026-10-06 (form master counts as a read, user request): creating/editing a book
   with read status mastered wrote only the status text — no counter, no journal,
   yield unearned. Correct model (a player can catalogue a low-level mystery and
@@ -291,6 +244,134 @@ Two goals, in priority order:
   deliberately parked (the record-read sheet remains their home). 96 tests green.
 
 
+- 2026-10-06 (record-read toggle defaults ON, user request): after the form-master
+  change the gap-fill flow exposed a rough default — MarkAsReadSheet seeded the
+  "Mastering read" toggle OFF for already-mastered books (it was ON only when the
+  book wasn't mastered yet). Now it defaults ON for every book: opening record-read
+  on a mastered-from-form book presents as the mastering read (lessons picker
+  visible; journal line "Mastered…"); a pure re-read is a deliberate flip-off.
+  UI-only change; no Core logic moved.
+- 2026-10-06 (memory detail pane is display-only, user manual-test report): the
+  pane embedded the full inline AspectEditor (pickers/steppers/remove rows) that
+  looked editable without a save; its per-change persistence path existed but the
+  affordance was wrong for a record view. The detail pane now renders aspects as
+  PrincipleBadges (read-only, AA text + combined VO semantics for free); editing is
+  the Edit… sheet's job (MemoryFormView's AspectEditor + save-path verified);
+  the dead inline-editor state + MemoriesStore.setAspects removed. 96 tests green.
+- 2026-10-06 (source rows wouldn't take input, user report follow-up): on the edit
+  sheet, the "How to obtain" detail TextField reverted every keystroke and the kind
+  picker's changes didn't persist — the row's detail bound through a hand-rolled
+  Binding(get:set:) built from the ForEach projected binding, which reverts under
+  macOS grouped Forms. Fix: SourceRow carries a plain detailText (nil converted at
+  load/save edges) and every row control binds directly through the collection
+  binding — the same pattern as the (proven) AspectEditor steppers in the same
+  Form. 97 tests green.
+- 2026-10-06 (detail field still dead after the binding fix, follow-up): with the
+  hand-rolled binding gone the kind picker persisted (direct bindings write
+  through) but the detail TextField still took no input — the remaining suspect
+  is the grouped-Form row itself: TextFields sharing one row with a menu-style
+  Picker stop accepting input on macOS. Restructured each source as two plain
+  Form rows (kind + remove; detail field owning its own row — the one shape the
+  app's other Form TextFields use successfully). MANUAL_TEST re-verify stays open.
+- 2026-10-06 (still dead after owning its row — ForEach+TextField ruled out
+  wholesale): the user's db settles the mechanism questions: memory 33 carries
+  Forge 2/Grail 2 created via the quick-add's AspectEditor — ForEach($array)
+  pickers/steppers write through in grouped Forms; the old detail pane's add-row
+  wrote sources incl. details — plain VStack + TextField works; three source-rows
+  with details exist from early play. The only never-working combination is
+  TextField inside ForEach (any arrangement — own-row, direct binding). Fix: the
+  source/link editors moved OUT of the Form into a plain VStack below it
+  (the old pane's working context), driven by index-based data ForEach with
+  subscript bindings; Cancel/Save bar follows. 97 tests green.
+- 2026-10-06 (sources + yielding-links editing move into the edit sheet, user
+  request): same pane pass — "How to obtain" and "Books that yield this" were still
+  editing surfaces (add-source kind dropdown + detail field; "Link a book…" menu;
+  per-row remove/unlink buttons). The detail pane now displays both read-only;
+  editing moved to the Edit… form (MemoryFormView edit-mode sections): source rows
+  (kind picker + detail + remove, stable local row ids) and yielding-book links,
+  persisted on Save through new Core mechanics — MemoryRepository.setSources
+  (replace-all, PK-dedupe), allYielding (any-status links vs the mastered-only
+  display variant) and setYieldingBooks (two-way link sync; ids bound not
+  interpolated; empty list clears). Store wrappers addSource/removeSource/linkBook/
+  unlinkBook became dead and were removed. 97 tests green.
+- 2026-10-06 (verified): source/link editors outside the Form work — the user
+  confirms entering details + kinds + saving + reopening on build e82e184;
+  MANUAL_TEST item ticked. Project lesson recorded for future UI: on this macOS
+  build, TextFields must stay out of ForEach-in-grouped-Form contexts — plain
+  VStack editor blocks + index bindings are the working pattern.
+- 2026-10-07 (manual-test Phases 2 & 3 cleared, user request): the Books and
+  Memories "needs hands" checklists ticked in one pass per the user's hands-on
+  session; three items' wording updated to as-built truth at the same time
+  (difficulty recorded via toggle+stepper without a principle per D10; the detail
+  pane's aspects/sources/links are read-only with editing in Edit…). Counters
+  cited from the live db (book 97 times_read = 2; memory "Persistent" via
+  quick-add reuse).
+- 2026-10-07 (manage sheet: names left + renames stick, user bug): two issues on
+  ManagePlaythroughsSheet — rows were centered by the grouped Form's column, and
+  renames only committed via onSubmit (Return): typing then clicking OK/elsewhere
+  never called renamePlaythrough (which itself persists + refreshes fine — the app
+  layer was innocent). Same grouped-Form lesson again: the sheet rebuilt as a plain
+  left-justified layout (ScrollView; import button + footers as text rows; the Form
+  gone entirely); PlaythroughRow commits on blur via @FocusState.onChange AND on
+  Return; blank edits restore the stored name (double-commit guarded by the
+  unchanged check). 99 tests green.
+- 2026-10-07 ("can't rename the active playthrough"?, user question): answer —
+  deleting the active/only run is the only deliberate gate (mounted stores);
+  renaming the active run was never gated and persists identically. The observed
+  non-stick was the click-OK path: focus stays on the TextField, so blur-commit
+  never fired before dismissal. Fixed with a third commit path — rows commit on
+  disappear (sheet close/unmount), unchanged names no-op. 99 tests green.
+- 2026-10-07 (manual-test Phase 4 cleared, user request): all Reading Helper
+  hands-on items ticked in the user's pass; wording synced with this session's
+  as-built truth (earned-only candidates, earned-only "Memory used" picker,
+  AA badge text, labelled hint icons).
+- 2026-10-07 (helper filter/sort, user feature): the Reading Helper picker adopts
+  the Books screen's tested vocabulary wholesale — BookQueryOptions gains a mystery-
+  principle filter (books without a recorded principle excluded while filtered) and
+  BookSort gains "Easiest first" (ascending difficulty, unknown last; the Books menu
+  offers it too). Helper toolbar: Filter (read status) / Mystery / Sort menus; the
+  helper's displayed list is now BookFiltering.apply(options…) — search widens to
+  notes/mystery-name/language (Books semantics); unread-first remains the default
+  via BookSort.status; dead statusRank removed. 101 tests green (+2: mystery filter,
+  easiest-first order).
+- 2026-10-07 (doc-bump footgun, twice bitten): README was silently emptied
+  again — the inline `open(path, "w").write(open(path).read()...)` pattern
+  truncates on the write-open before the read evaluates, and commits as empty
+  (twice now: 474de5b-era fixed at 05ad56f, re-broken by 1f590dd-era bumps;
+  count strings also drifted via assert-less replaces). RULE GOING FORWARD:
+  doc-bump scripts always read-then-write in two steps with hardcoded asserts
+  on the exact current strings before any write; never inline write(read()).
+- 2026-10-07 (manual checklist rewritten, user request): MANUAL_TEST.md rebuilt
+  from 362 chronological lines into an organized, deduped document — outstanding
+  hands-on items grouped by screen (Playthroughs / Books / Reading Helper /
+  Skills & Journal / Save import / Packaged app / Accessibility), a consolidated
+  "verified automatically" map of the 101-test suite, and a one-line-per-pass
+  "Cleared by hand" record replacing the per-session ticked checklists; stale
+  duplicates (display-only pane items, earned-only items, backlink checks repeated
+  across sections) folded; the Playthrough-2 regression item reworded for the v7
+  era and every outstanding item carries current as-built wording.
+- 2026-10-07 (stale display after save, user bug): edits made in the memory
+  edit sheet didn't show in the detail pane until reselecting the record — the
+  pane cached sources/backlinks in @State, refreshed only by .task(id:
+  memory.id), which never re-fires for an already-selected record (the book
+  pane's auxKey anticipated exactly this — multi-field refetch key). Fix: the
+  pane reads store-backed live caches — Core MemoryRepository.allSourcesByMemory
+  + yieldingByMemory (one grouped query each, playthrough-scoped, mastered-only
+  yields for display; +1 test incl. strict cross-playthrough scoping) — and the
+  store refills both dicts on every reload, so the pane (and a reopened form's
+  params) reflect saves the moment the sheet closes. The pane's only remaining
+  editable cache is notes, which is its own explicit Save-note flow. Flagged but
+  not changed: BookDetailView's quick-note path may leave ITS journal section
+  stale the same way (auxKey unchanged by journal inserts) — same fix shape if
+  reproduced. 98 tests green.
+- 2026-10-07 (book pane applied the same live-cache fix, on request): the
+  latent quick-note staleness fixed — BookDetailView's four auxiliary snapshots
+  (yield name, journal entries, lesson names, language-known) now read live from
+  BooksStore dicts refilled on every reload; new Core queries:
+  JournalRepository.entriesByBook (newest-first per book) and
+  BookRepository.lessonSkillAmountsByBook (names resolved via the Skills join,
+  scoped by the Books join). Only notes stay pane-local (seeded per book id).
+  99 tests green.
 - 2026-10-07 (location stamping from the save, user question → feature): decoding
   the save's sphere hierarchy proved the save DOES know where everything is: each
   item's chain = room (`GoverningSphereSpec.Id`: Library, purchases.europe, portage…)
@@ -316,93 +397,46 @@ Two goals, in priority order:
   no new Core tests; the earned-visibility contract was already tested.
   101 green.
 
-- 2026-10-07 (manual checklist rewritten, user request): MANUAL_TEST.md rebuilt
-  from 362 chronological lines into an organized, deduped document — outstanding
-  hands-on items grouped by screen (Playthroughs / Books / Reading Helper /
-  Skills & Journal / Save import / Packaged app / Accessibility), a consolidated
-  "verified automatically" map of the 101-test suite, and a one-line-per-pass
-  "Cleared by hand" record replacing the per-session ticked checklists; stale
-  duplicates (display-only pane items, earned-only items, backlink checks repeated
-  across sections) folded; the Playthrough-2 regression item reworded for the v7
-  era and every outstanding item carries current as-built wording.
-- 2026-10-07 (helper filter/sort, user feature): the Reading Helper picker adopts
-  the Books screen's tested vocabulary wholesale — BookQueryOptions gains a mystery-
-  principle filter (books without a recorded principle excluded while filtered) and
-  BookSort gains "Easiest first" (ascending difficulty, unknown last; the Books menu
-  offers it too). Helper toolbar: Filter (read status) / Mystery / Sort menus; the
-  helper's displayed list is now BookFiltering.apply(options…) — search widens to
-  notes/mystery-name/language (Books semantics); unread-first remains the default
-  via BookSort.status; dead statusRank removed. 101 tests green (+2: mystery filter,
-  easiest-first order).
-- 2026-10-07 (doc-bump footgun, twice bitten): README was silently emptied
-  again — the inline `open(path, "w").write(open(path).read()...)` pattern
-  truncates on the write-open before the read evaluates, and commits as empty
-  (twice now: 474de5b-era fixed at 05ad56f, re-broken by 1f590dd-era bumps;
-  count strings also drifted via assert-less replaces). RULE GOING FORWARD:
-  doc-bump scripts always read-then-write in two steps with hardcoded asserts
-  on the exact current strings before any write; never inline write(read()).
-- 2026-10-07 (manual-test Phase 4 cleared, user request): all Reading Helper
-  hands-on items ticked in the user's pass; wording synced with this session's
-  as-built truth (earned-only candidates, earned-only "Memory used" picker,
-  AA badge text, labelled hint icons).
-- 2026-10-07 ("can't rename the active playthrough"?, user question): answer —
-  deleting the active/only run is the only deliberate gate (mounted stores);
-  renaming the active run was never gated and persists identically. The observed
-  non-stick was the click-OK path: focus stays on the TextField, so blur-commit
-  never fired before dismissal. Fixed with a third commit path — rows commit on
-  disappear (sheet close/unmount), unchanged names no-op. 99 tests green.
-- 2026-10-07 (manage sheet: names left + renames stick, user bug): two issues on
-  ManagePlaythroughsSheet — rows were centered by the grouped Form's column, and
-  renames only committed via onSubmit (Return): typing then clicking OK/elsewhere
-  never called renamePlaythrough (which itself persists + refreshes fine — the app
-  layer was innocent). Same grouped-Form lesson again: the sheet rebuilt as a plain
-  left-justified layout (ScrollView; import button + footers as text rows; the Form
-  gone entirely); PlaythroughRow commits on blur via @FocusState.onChange AND on
-  Return; blank edits restore the stored name (double-commit guarded by the
-  unchanged check). 99 tests green.
-- 2026-10-07 (manual-test Phases 2 & 3 cleared, user request): the Books and
-  Memories "needs hands" checklists ticked in one pass per the user's hands-on
-  session; three items' wording updated to as-built truth at the same time
-  (difficulty recorded via toggle+stepper without a principle per D10; the detail
-  pane's aspects/sources/links are read-only with editing in Edit…). Counters
-  cited from the live db (book 97 times_read = 2; memory "Persistent" via
-  quick-add reuse).
-- 2026-10-07 (book pane applied the same live-cache fix, on request): the
-  latent quick-note staleness fixed — BookDetailView's four auxiliary snapshots
-  (yield name, journal entries, lesson names, language-known) now read live from
-  BooksStore dicts refilled on every reload; new Core queries:
-  JournalRepository.entriesByBook (newest-first per book) and
-  BookRepository.lessonSkillAmountsByBook (names resolved via the Skills join,
-  scoped by the Books join). Only notes stay pane-local (seeded per book id).
-  99 tests green.
-- 2026-10-07 (stale display after save, user bug): edits made in the memory
-  edit sheet didn't show in the detail pane until reselecting the record — the
-  pane cached sources/backlinks in @State, refreshed only by .task(id:
-  memory.id), which never re-fires for an already-selected record (the book
-  pane's auxKey anticipated exactly this — multi-field refetch key). Fix: the
-  pane reads store-backed live caches — Core MemoryRepository.allSourcesByMemory
-  + yieldingByMemory (one grouped query each, playthrough-scoped, mastered-only
-  yields for display; +1 test incl. strict cross-playthrough scoping) — and the
-  store refills both dicts on every reload, so the pane (and a reopened form's
-  params) reflect saves the moment the sheet closes. The pane's only remaining
-  editable cache is notes, which is its own explicit Save-note flow. Flagged but
-  not changed: BookDetailView's quick-note path may leave ITS journal section
-  stale the same way (auxKey unchanged by journal inserts) — same fix shape if
-  reproduced. 98 tests green.
-- 2026-10-08 (remediation 7/9): the SPM resource bundle now ships inside the .app
-  (make-app.sh copies BoHLibrarian_BoHLibrarianCore.bundle into Contents/Resources
-  before signing) - the machine-specific .build fallback is retired; ROADMAP
-  pending item closed; smoke launch verified (the user's open instance quit with
-  it - relaunch from the fresh dist). Note: the review’s bundle name was wrong
-  (BoHLibrarianCore_* vs the actual BoHLibrarian_*); corrected before applying.
+- 2026-10-08 (phase 5 bug: the helper stayed empty until quit+reopen): the same
+  empty-state class as the journal's dead new-entry - the reload/ensureSelection
+  hook lived only on the FULL branch's list (.onAppear), so a helper first shown
+  while empty never populated when books arrived. Moved to the body level.
 
-- 2026-10-08 (remediation 6/9): UI papercuts + dead code - AspectEditor’s
-  remove button finally carries its accessibility label (the a11y pass missed
-  this file); the Helper’s list-row contamination icon labelled; the record-read
-  sheet’s one-way .disabled removed from the mastering toggle (flip-off now
-  reversible); dead store wrapper + the orphan "Replace all aspects" comment +
-  RootView’s unreachable switch default removed (the plan’s "stale AuxKey
-  comment in BookDetailView" was already gone - skipped). 108 green.
+- 2026-10-08 (clickable entity links, feature): backlinks/journal chips now
+  navigate in place (no windows) - AppState.showBook/showMemory/showSkill switch
+  the section + set the selection + reload. Underlined clickable rows: the memory
+  pane's yielding books, the book pane's earned yield memory, journal chips
+  (book/skill always; a masked unrevealed-memory chip carries no action).
+  BooksStore.selectedBook gains an unfiltered fallback so a filter never swallows
+  a linked-in record.
+
+- 2026-10-08 (remediation 1/9, plan review): SkillDetailView's Save/Revert for the
+  Tree of Wisdoms commitment were unreachable — commitmentsDirty was never set
+  (Return-to-save was the only path; a click-away edit was lost silently).
+  onChange on both fields now flips the flag; Return still saves.
+
+- 2026-10-08 (remediation 2/9): stale-notes data-loss closed in both detail
+  panes — an Edit…-sheet save + a later pane "Save note" used to overwrite the
+  fresh notes with the pane's snapshot (the panes' other data went live in
+  1f590dd/9cd2e76; notes were the last snapshot). Guarded re-seed
+  (.onChange of the notes prop when the editor is pristine) — not the plan's
+  unconditional multi-field key, which would clobber in-progress pane typing.
+
+- 2026-10-08 (remediation 3/9): Migrator robustness - (a) apply failure closes the
+  half-open file transaction (best-effort ROLLBACK + FK restore): the connection
+  stays usable, committed earlier migrations survive, the failed one's version
+  write rolls back; (b) resolve() no longer silently falls back to the bundled
+  copy when a PRESENT db/migrations fails to load (the stale-schema hazard);
+  (c) pending()/apply refuse databases NEWER than the app's migrations (fail loud
+  at launch instead of running blind). +3 tests.
+
+- 2026-10-08 (remediation 4/9): save-import robustness - the trailing-comma
+  stripper is now STRING-AWARE (the old whole-text regex ate ", ]" inside string
+  values - a live data-corruption bug the review caught; TLG/Illuminations text
+  is exactly where it would fire); unknown contamination.* keys and Label-less
+  skills now surface as ImportReport warnings instead of vanishing silently. +2
+  tests (string survival, warnings). The python prototype carries the same
+  comma bug (read-only cosmetic - waived for now).
 
 - 2026-10-08 (remediation 5/9): fail-closed write scoping - BookRepository
   (update/recordRead/updateReadStatus/setYieldedMemory/setLessonsCount),
@@ -413,33 +447,20 @@ Two goals, in priority order:
   insertOrReuse trims the name (match + insert) - a trailing-space draft can no
   longer sneak past the case-insensitive reuse and the raw UNIQUE. +2 tests.
 
-- 2026-10-08 (remediation 4/9): save-import robustness - the trailing-comma
-  stripper is now STRING-AWARE (the old whole-text regex ate ", ]" inside string
-  values - a live data-corruption bug the review caught; TLG/Illuminations text
-  is exactly where it would fire); unknown contamination.* keys and Label-less
-  skills now surface as ImportReport warnings instead of vanishing silently. +2
-  tests (string survival, warnings). The python prototype carries the same
-  comma bug (read-only cosmetic - waived for now).
+- 2026-10-08 (remediation 6/9): UI papercuts + dead code - AspectEditor’s
+  remove button finally carries its accessibility label (the a11y pass missed
+  this file); the Helper’s list-row contamination icon labelled; the record-read
+  sheet’s one-way .disabled removed from the mastering toggle (flip-off now
+  reversible); dead store wrapper + the orphan "Replace all aspects" comment +
+  RootView’s unreachable switch default removed (the plan’s "stale AuxKey
+  comment in BookDetailView" was already gone - skipped). 108 green.
 
-- 2026-10-08 (remediation 3/9): Migrator robustness - (a) apply failure closes the
-  half-open file transaction (best-effort ROLLBACK + FK restore): the connection
-  stays usable, committed earlier migrations survive, the failed one's version
-  write rolls back; (b) resolve() no longer silently falls back to the bundled
-  copy when a PRESENT db/migrations fails to load (the stale-schema hazard);
-  (c) pending()/apply refuse databases NEWER than the app's migrations (fail loud
-  at launch instead of running blind). +3 tests.
-
-- 2026-10-08 (remediation 2/9): stale-notes data-loss closed in both detail
-  panes — an Edit…-sheet save + a later pane "Save note" used to overwrite the
-  fresh notes with the pane's snapshot (the panes' other data went live in
-  1f590dd/9cd2e76; notes were the last snapshot). Guarded re-seed
-  (.onChange of the notes prop when the editor is pristine) — not the plan's
-  unconditional multi-field key, which would clobber in-progress pane typing.
-
-- 2026-10-08 (remediation 1/9, plan review): SkillDetailView's Save/Revert for the
-  Tree of Wisdoms commitment were unreachable — commitmentsDirty was never set
-  (Return-to-save was the only path; a click-away edit was lost silently).
-  onChange on both fields now flips the flag; Return still saves.
+- 2026-10-08 (remediation 7/9): the SPM resource bundle now ships inside the .app
+  (make-app.sh copies BoHLibrarian_BoHLibrarianCore.bundle into Contents/Resources
+  before signing) - the machine-specific .build fallback is retired; ROADMAP
+  pending item closed; smoke launch verified (the user's open instance quit with
+  it - relaunch from the fresh dist). Note: the review’s bundle name was wrong
+  (BoHLibrarianCore_* vs the actual BoHLibrarian_*); corrected before applying.
 
 ## Repository layout
 
