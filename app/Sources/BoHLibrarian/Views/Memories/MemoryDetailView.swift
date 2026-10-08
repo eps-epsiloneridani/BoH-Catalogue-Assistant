@@ -11,6 +11,8 @@ struct MemoryDetailView: View {
     let store: MemoriesStore
     var onEdit: () -> Void
 
+    @Environment(AppState.self) private var appState
+
     @State private var notes: String = ""
     @State private var notesDirty = false
     @State private var confirmingDelete = false
@@ -125,13 +127,21 @@ struct MemoryDetailView: View {
             } else {
                 VStack(alignment: .leading, spacing: 6) {
                     ForEach(store.yielding(for: memory.id)) { book in
-                        HStack(spacing: 6) {
-                            Image(systemName: "book")
-                                .foregroundStyle(.secondary)
-                                .accessibilityHidden(true)
-                            Text(book.title)
-                                .font(.callout)
+                        Button {
+                            appState.showBook(book.id)
+                        } label: {
+                            HStack(spacing: 6) {
+                                Image(systemName: "book")
+                                    .foregroundStyle(.secondary)
+                                    .accessibilityHidden(true)
+                                Text(book.title)
+                                    .font(.callout)
+                                    .underline()
+                            }
                         }
+                        .buttonStyle(.plain)
+                        .help("Show this book in the Books pane")
+                        .accessibilityHint("Opens the book in the Books pane")
                     }
                 }
             }
