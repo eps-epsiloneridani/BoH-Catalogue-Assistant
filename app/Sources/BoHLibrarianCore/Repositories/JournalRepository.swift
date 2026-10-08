@@ -81,9 +81,10 @@ public final class JournalRepository {
             """
             UPDATE Journal
             SET game_day = ?, entry = ?, book_id = ?, memory_id = ?, skill_id = ?
-            WHERE id = ?;
+            WHERE playthrough_id = ? AND id = ?
             """,
-            [entry.gameDay, entry.entry, entry.bookID, entry.memoryID, entry.skillID, entry.id]
+            [entry.gameDay, entry.entry, entry.bookID, entry.memoryID, entry.skillID,
+             playthroughID, entry.id]
         )
     }
 

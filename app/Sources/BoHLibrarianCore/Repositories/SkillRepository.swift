@@ -42,10 +42,10 @@ public final class SkillRepository {
             UPDATE Skills
             SET name = ?, is_language = ?, primary_principle_id = ?, secondary_principle_id = ?,
                 level = ?, wisdom = ?, element = ?, notes = ?, updated_at = datetime('now')
-            WHERE id = ?;
+            WHERE playthrough_id = ? AND id = ?
             """,
             [skill.name, skill.isLanguage, skill.primaryPrincipleID, skill.secondaryPrincipleID,
-             skill.level, skill.wisdom, skill.element, skill.notes, skill.id]
+             skill.level, skill.wisdom, skill.element, skill.notes, playthroughID, skill.id]
         )
     }
 

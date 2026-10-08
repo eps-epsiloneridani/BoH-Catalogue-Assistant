@@ -242,6 +242,15 @@ Two goals, in priority order:
   has none, the fixture regression-tests the guard). 101 tests green (location +
   fill-empty asserts added to the import tests).
 
+- 2026-10-07 (remediation 5/9): fail-closed write scoping - BookRepository
+  (update/recordRead/updateReadStatus/setYieldedMemory/setLessonsCount),
+  MemoryRepository.update, SkillRepository.update, JournalRepository.update all
+  carry WHERE playthrough_id = ? AND id = ? now; cross-playthrough writes are
+  silent no-ops (tested across every table). DATABASE.md's old "unscoped by
+  design" note retired in the same commit (the plan missed that doc).
+  insertOrReuse trims the name (match + insert) - a trailing-space draft can no
+  longer sneak past the case-insensitive reuse and the raw UNIQUE. +2 tests.
+
 - 2026-10-07 (remediation 4/9): save-import robustness - the trailing-comma
   stripper is now STRING-AWARE (the old whole-text regex ate ", ]" inside string
   values - a live data-corruption bug the review caught; TLG/Illuminations text

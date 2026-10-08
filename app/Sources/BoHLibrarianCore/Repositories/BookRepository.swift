@@ -57,12 +57,12 @@ public final class BookRepository {
                 mystery_principle_id = ?, difficulty = ?, read_status = ?,
                 contamination = ?, location = ?, lessons = ?, yielded_memory_id = ?,
                 notes = ?, updated_at = datetime('now')
-            WHERE id = ?;
+            WHERE playthrough_id = ? AND id = ?
             """,
             [book.title, book.setName, book.volume, book.bookKind.rawValue, book.languageID,
              book.mysteryPrincipleID, book.difficulty, book.readStatus.rawValue,
              book.contamination?.rawValue, book.location, book.lessons,
-             book.yieldedMemoryID, book.notes, book.id]
+             book.yieldedMemoryID, book.notes, playthroughID, book.id]
         )
     }
 
@@ -75,8 +75,8 @@ public final class BookRepository {
 
     public func updateReadStatus(_ id: Int64, _ status: ReadStatus) throws {
         try db.execute(
-            "UPDATE Books SET read_status = ?, updated_at = datetime('now') WHERE id = ?;",
-            [status.rawValue, id]
+            "UPDATE Books SET read_status = ?, updated_at = datetime('now') WHERE playthrough_id = ? AND id = ?",
+            [status.rawValue, playthroughID, id]
         )
     }
 
@@ -90,25 +90,25 @@ public final class BookRepository {
                 first_read_at = COALESCE(first_read_at, datetime('now')),
                 last_read_at = datetime('now'),
                 updated_at = datetime('now')
-            WHERE id = ?;
+            WHERE playthrough_id = ? AND id = ?;
             """,
-            [id]
+            [playthroughID, id]
         )
     }
 
     /// Point the book at the memory it always yields (record-read flow).
     public func setYieldedMemory(_ id: Int64, memoryID: Int64?) throws {
         try db.execute(
-            "UPDATE Books SET yielded_memory_id = ?, updated_at = datetime('now') WHERE id = ?;",
-            [memoryID, id]
+            "UPDATE Books SET yielded_memory_id = ?, updated_at = datetime('now') WHERE playthrough_id = ? AND id = ?",
+            [memoryID, playthroughID, id]
         )
     }
 
     /// Record how many Lessons the book granted on its mastering read.
     public func setLessonsCount(_ id: Int64, lessons: Int?) throws {
         try db.execute(
-            "UPDATE Books SET lessons = ?, updated_at = datetime('now') WHERE id = ?;",
-            [lessons, id]
+            "UPDATE Books SET lessons = ?, updated_at = datetime('now') WHERE playthrough_id = ? AND id = ?",
+            [lessons, playthroughID, id]
         )
     }
 
