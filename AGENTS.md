@@ -242,6 +242,14 @@ Two goals, in priority order:
   has none, the fixture regression-tests the guard). 101 tests green (location +
   fill-empty asserts added to the import tests).
 
+- 2026-10-07 (remediation 3/9): Migrator robustness - (a) apply failure closes the
+  half-open file transaction (best-effort ROLLBACK + FK restore): the connection
+  stays usable, committed earlier migrations survive, the failed one's version
+  write rolls back; (b) resolve() no longer silently falls back to the bundled
+  copy when a PRESENT db/migrations fails to load (the stale-schema hazard);
+  (c) pending()/apply refuse databases NEWER than the app's migrations (fail loud
+  at launch instead of running blind). +3 tests.
+
 - 2026-10-07 (remediation 2/9): stale-notes data-loss closed in both detail
   panes — an Edit…-sheet save + a later pane "Save note" used to overwrite the
   fresh notes with the pane's snapshot (the panes' other data went live in

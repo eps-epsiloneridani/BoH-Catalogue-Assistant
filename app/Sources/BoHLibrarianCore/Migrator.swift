@@ -23,6 +23,7 @@ public struct Migration: Identifiable, Equatable {
 
 public enum MigratorError: Error, CustomStringConvertible {
     case noMigrationsFound(location: String)
+    case databaseNewerThanMigrations(version: Int, migrations: Int)
     case badFileName(String)
     case unreadableMigration(String, underlying: String)
     case sequenceGap(expected: Int, found: Int)
@@ -34,6 +35,10 @@ public enum MigratorError: Error, CustomStringConvertible {
         switch self {
         case .noMigrationsFound(let location):
             return "no migrations found at \(location)"
+        case .databaseNewerThanMigrations(let version, let migrations):
+            return "database is at schema v\(version) but this app only knows migrations "
+                + "through v\(migrations) — the app is older than the database; "
+                + "update it, or restore a matching db."
         case .badFileName(let file):
             return "migration file names must look like NNN_description.sql — '\(file)'"
         case .unreadableMigration(let file, let underlying):
@@ -73,18 +78,29 @@ public final class Migrator {
         self.migrations = sorted
     }
 
-    public func pending(on db: SQLiteDatabase) -> [Migration] {
+    public func pending(on db: SQLiteDatabase) throws -> [Migration] {
         let version = db.userVersion
+        // The db knows schema states this app's migrations have never seen
+        // — run nothing against it silently (fail loud at launch).
+        if version > (migrations.last?.number ?? 0) {
+            throw MigratorError.databaseNewerThanMigrations(
+                version: version, migrations: migrations.last?.number ?? 0)
+        }
         return migrations.filter { $0.number > version }
     }
 
     public func apply(to db: SQLiteDatabase) throws {
-        for migration in pending(on: db) {
+        for migration in try pending(on: db) {
             // 001 drops the pre-project legacy tables; refuse if they still hold data (D8).
             if migration.number == 1 { try legacySafetyCheck(on: db) }
             do {
                 try db.executeScript(migration.sql)
             } catch {
+                // The failed file's transaction may still be open (failure between
+                // BEGIN and COMMIT) — close it and restore FK enforcement so the
+                // connection stays usable for the caller's error handling.
+                try? db.executeScript("ROLLBACK;")
+                try? db.executeScript("PRAGMA foreign_keys = ON;")
                 throw MigratorError.applyFailed(migration, message: "\(error)")
             }
             let after = db.userVersion
@@ -141,9 +157,12 @@ public final class Migrator {
                     : "../db/migrations",
                 relativeTo: parent == "." ? current : current.deletingLastPathComponent()
             )
-            if FileManager.default.fileExists(atPath: directory.path),
-               let list = try? load(fromDirectory: directory), !list.isEmpty {
-                return try Migrator(migrations: list)
+            // A PRESENT directory must load — silently falling back to the bundled
+            // copy would run a stale schema against a knowingly-edited repo (the
+            // silent-fallback class the ground rules warn about).
+            if FileManager.default.fileExists(atPath: directory.path) {
+                let list = try load(fromDirectory: directory)
+                if !list.isEmpty { return try Migrator(migrations: list) }
             }
         }
         return try Migrator(migrations: bundled())

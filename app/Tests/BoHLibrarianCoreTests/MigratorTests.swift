@@ -22,7 +22,7 @@ final class MigratorTests: XCTestCase {
     func testFreshApplyReachesVersion7AndSeeds() throws {
         let db = try freshDB()
         let migrator = try Migrator(migrations: Migrator.bundled())
-        XCTAssertEqual(migrator.pending(on: db).count, 7)
+        XCTAssertEqual(try migrator.pending(on: db).count, 7)
         try migrator.apply(to: db)
 
         XCTAssertEqual(db.userVersion, 7)
@@ -44,7 +44,7 @@ final class MigratorTests: XCTestCase {
         let migrator = try Migrator(migrations: Migrator.bundled())
         try migrator.apply(to: db)
         try migrator.apply(to: db)   // second run: nothing pending
-        XCTAssertTrue(migrator.pending(on: db).isEmpty)
+        XCTAssertTrue(try migrator.pending(on: db).isEmpty)
         XCTAssertEqual(db.userVersion, 7)
         XCTAssertEqual(try db.scalarInt("SELECT COUNT(*) FROM Principles;"), 13, "seeds must not duplicate")
         XCTAssertEqual(try db.scalarInt("SELECT COUNT(*) FROM Playthroughs;"), 1, "default playthrough must not duplicate")
@@ -198,7 +198,66 @@ final class MigratorTests: XCTestCase {
         XCTAssertEqual(try db.scalarInt("PRAGMA foreign_key_check;"), 0)
     }
 
-    // MARK: Bundled copy stays in sync with the repo
+    // Migrator robustness (remediation)
+
+    /// A statement failing mid-file leaves the file's own transaction open on the
+    /// connection; apply must close it (best-effort ROLLBACK), restore FKs, keep
+    /// the connection usable, and let user_version stay put.
+    func testFailedMigrationLeavesConnectionUsable() throws {
+        let migrations = [Migration(number: 1, name: "one", sql: "CREATE TABLE a (x); PRAGMA user_version = 1;"),
+                          Migration(number: 2, name: "bad", sql: """
+                              BEGIN;
+                              CREATE TABLE half_written (x);
+                              PRAGMA user_version = 2;
+                              THIS STATEMENT IS NOT SQL;
+                              """)]
+        let migrator = try Migrator(migrations: migrations)
+        let db = try freshDB()
+        XCTAssertThrowsError(try migrator.apply(to: db)) { error in
+            XCTAssertTrue("\(error)".contains("migration #2 'bad' failed"), "\(error)")
+        }
+        XCTAssertEqual(db.userVersion, 1,
+                       "migration #1 stands; #2's in-transaction version write rolled back")
+        XCTAssertThrowsError(try db.scalarInt("SELECT COUNT(*) FROM half_written;"),
+                             "rolled back")
+        XCTAssertTrue(try db.tableExists("a"), "the COMMITTED earlier migration survives")
+        XCTAssertEqual(try db.scalarInt("SELECT 1;"), 1, "the connection still answers")
+    }
+
+    /// A present db/migrations directory that fails to parse must NOT silently
+    /// fall back to the bundled copy - the stale schema hazard.
+    func testResolveFailsLoudWhenRepoMigrationsAreBroken() throws {
+        let fake = FileManager.default.temporaryDirectory
+            .appendingPathComponent("boh-resolve-\(UUID().uuidString)", isDirectory: true)
+        let broken = fake.appendingPathComponent("db").appendingPathComponent("migrations",
+                                                                             isDirectory: true)
+        try FileManager.default.createDirectory(at: broken, withIntermediateDirectories: true)
+        try Data("placeholder".utf8).write(to: broken.appendingPathComponent("NNN_bad.sql"))
+        defer { try? FileManager.default.removeItem(at: fake) }
+
+        let old = FileManager.default.currentDirectoryPath
+        FileManager.default.changeCurrentDirectoryPath(fake.path)
+        defer { FileManager.default.changeCurrentDirectoryPath(old) }
+
+        XCTAssertThrowsError(try Migrator.resolve()) { error in
+            if case MigratorError.badFileName? = error as? MigratorError { return }
+            XCTFail("expected badFileName, got \(error)")
+        }
+    }
+
+    /// A db newer than the app's migrations must be refused, not silently run.
+    func testNewerDatabaseIsRefused() throws {
+        let db = try freshDB()
+        try db.executeScript("PRAGMA user_version = 99;")
+        try db.executeScript("CREATE TABLE anything (x);")
+        let migrator = try Migrator(migrations: Migrator.bundled())
+        XCTAssertThrowsError(try migrator.pending(on: db)) { error in
+            XCTAssertTrue("\(error)".contains("older than the database"), "\(error)")
+        }
+        XCTAssertTrue(try db.tableExists("anything"), "untouched")
+    }
+
+    // MARK: Bundled copy stays in sync with the repo    // MARK: Bundled copy stays in sync with the repo
 
     func testBundledMigrationsMatchRepoDirectory() throws {
         guard FileManager.default.fileExists(atPath: Self.repoMigrations.path) else {
