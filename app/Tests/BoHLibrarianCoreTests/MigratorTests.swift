@@ -19,13 +19,13 @@ final class MigratorTests: XCTestCase {
 
     // MARK: Fresh application
 
-    func testFreshApplyReachesVersion7AndSeeds() throws {
+    func testFreshApplyReachesVersion8AndSeeds() throws {
         let db = try freshDB()
         let migrator = try Migrator(migrations: Migrator.bundled())
-        XCTAssertEqual(try migrator.pending(on: db).count, 7)
+        XCTAssertEqual(try migrator.pending(on: db).count, 8)
         try migrator.apply(to: db)
 
-        XCTAssertEqual(db.userVersion, 7)
+        XCTAssertEqual(db.userVersion, 8)
         for table in ["Principles", "Languages", "Memories", "MemoryAspects", "MemorySources",
                       "Books", "BookLessons", "Skills", "Journal", "Playthroughs", "Meta"] {
             XCTAssertTrue(try db.tableExists(table), "\(table) missing after migration")
@@ -45,7 +45,7 @@ final class MigratorTests: XCTestCase {
         try migrator.apply(to: db)
         try migrator.apply(to: db)   // second run: nothing pending
         XCTAssertTrue(try migrator.pending(on: db).isEmpty)
-        XCTAssertEqual(db.userVersion, 7)
+        XCTAssertEqual(db.userVersion, 8)
         XCTAssertEqual(try db.scalarInt("SELECT COUNT(*) FROM Principles;"), 13, "seeds must not duplicate")
         XCTAssertEqual(try db.scalarInt("SELECT COUNT(*) FROM Playthroughs;"), 1, "default playthrough must not duplicate")
     }
@@ -99,7 +99,7 @@ final class MigratorTests: XCTestCase {
         try db.executeScript("CREATE TABLE Books (Title TEXT); CREATE TABLE Memories (Name TEXT);")
         let migrator = try Migrator(migrations: Migrator.bundled())
         try migrator.apply(to: db)
-        XCTAssertEqual(db.userVersion, 7)
+        XCTAssertEqual(db.userVersion, 8)
         XCTAssertEqual(try db.scalarInt("SELECT COUNT(*) FROM Books;"), 0, "new Books table, empty")
     }
 
@@ -125,7 +125,7 @@ final class MigratorTests: XCTestCase {
         // The app's real path: full list, pending() picks up just 006 on the
         // now data-bearing v5 db.
         try Migrator(migrations: migrations).apply(to: db)
-        XCTAssertEqual(db.userVersion, 7, "latest is 007; 007 is a no-op on this db (no Books rows)")
+        XCTAssertEqual(db.userVersion, 8, "latest is 008; 008 is a no-op on this db (no matching rows)")
 
         // Ids preserved — FK references into these tables survive the rebuild.
         XCTAssertEqual(try db.scalarInt(
@@ -178,7 +178,7 @@ final class MigratorTests: XCTestCase {
             "setup reproduced the pre-007 state")
 
         try Migrator(migrations: migrations).apply(to: db)
-        XCTAssertEqual(db.userVersion, 7)
+        XCTAssertEqual(db.userVersion, 8)
 
         func kindOf(_ title: String) throws -> String? {
             try db.query("SELECT book_kind FROM Books WHERE title = ?;", [title]) {
@@ -257,6 +257,35 @@ final class MigratorTests: XCTestCase {
         XCTAssertTrue(try db.tableExists("anything"), "untouched")
     }
 
+    /// 008 humanizes the location feature's in-transit room prefixes
+    /// (purchases.europe / portage<N> / fixedverbs -> plain-speak).
+    func test008HumanizesTransitLocationPrefixes() throws {
+        let db = try freshDB()
+        let migrations = try Migrator.bundled()
+        try Migrator(migrations: Array(migrations.prefix(7))).apply(to: db)
+        let playthrough = try XCTUnwrap(PlaythroughRepository(db: db).active())
+        let seed = { (title: String, location: String, stamp: String) in
+            try db.execute(
+                "INSERT INTO Books (title, location, read_status, created_at, updated_at, playthrough_id) VALUES (?, ?, 'catalogued', ?, ?, ?);",
+                [title, location, stamp, stamp, playthrough.id])
+        }
+        try seed("Won Book", "purchases.europe", "2026-10-07 12:00:00")
+        try seed("Carried Book", "portage3", "2026-10-07 12:00:00")
+        try seed("Old Typed", "purchases.europe (my note)", "2026-10-05 12:00:00")
+
+        try Migrator(migrations: migrations).apply(to: db)
+        XCTAssertEqual(db.userVersion, 8)
+        func locationOf(_ title: String) throws -> String? {
+            try db.query("SELECT location FROM Books WHERE title = ?;", [title]) {
+                $0.string("location")
+            }.first ?? nil
+        }
+        XCTAssertEqual(try locationOf("Won Book"), "Oriflamme's auction")
+        XCTAssertEqual(try locationOf("Carried Book"), "in portage (player inventory)")
+        XCTAssertEqual(try locationOf("Old Typed"), "purchases.europe (my note)",
+                      "pre-feature stamps are never touched")
+    }
+
     // MARK: Bundled copy stays in sync with the repo    // MARK: Bundled copy stays in sync with the repo
 
     func testBundledMigrationsMatchRepoDirectory() throws {
@@ -275,7 +304,7 @@ final class MigratorTests: XCTestCase {
         defer { restoreEnv("BOH_MIGRATIONS", old) }
 
         let migrator = try Migrator.resolve()
-        XCTAssertEqual(migrator.migrations.count, 7)
+        XCTAssertEqual(migrator.migrations.count, 8)
     }
 
     private func restoreEnv(_ key: String, _ value: String?) {

@@ -35,6 +35,10 @@ spheres contain tokens). Element stacks (`ElementStackCreationCommand`) carry:
   (`ShelfSpaceSphereD.3` = shelf D slot 3, `ScrollSlot.2`, `ShelfSpaceDeskMid`).
   Films/records ride the same structure. Import stamps `Books.location` as a
   humanized "Room — slot" label, fill-empty only.
+- **Transit rooms**: `purchases.<region>` = Oriflamme's auction wins awaiting
+  shelving; `portage<N>` = the player's inventory (user correction — items being
+  held); `fixedverbs` = a task's output sphere. 008 humanizes these prefixes in
+  already-stamped locations.
 - **`Defunct` tokens**: stale copies of moved items — skipped entirely (mutations
   and location never merge from a defunct copy).
 - `Mutations` (String→Int) — the player state we need

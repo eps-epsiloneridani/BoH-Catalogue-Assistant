@@ -412,6 +412,18 @@ Two goals, in priority order:
   branch, so a screen first seen while its store was empty never reloaded. All
   three now reload at body level (the journal + helper pattern).
 
+- 2026-10-08 (migration 008 — transit locations humanized, user question): the
+  user asked what `purchases.europe` refers to — answer from the game's own
+  auctions recipe: lots WON at Oriflamme's auction waiting to be shelved
+  (`topath: ~/purchases.<region>`); `portage<N>` = the player's inventory
+  (USER CORRECTION of my "being carried" reading; runtime spheres, not static
+  game data); `fixedverbs` = a task's output sphere. Migration 008 rewrites
+  those prefixes on already-stamped rows (created_at >= 2026-10-07 = the
+  location feature's birth; user-typed locations untouched); the importer's
+  roomLabel now humanizes them at stamp-time too. Verified on a copy of the
+  live db first (6 rows rewritten, integrity ok); repo db at schema v8.
+  +1 test (pre-feature stamps untouched). 109 green.
+
 - 2026-10-08 (clickable entity links, feature): backlinks/journal chips now
   navigate in place (no windows) - AppState.showBook/showMemory/showSkill switch
   the section + set the selection + reload. Underlined clickable rows: the memory

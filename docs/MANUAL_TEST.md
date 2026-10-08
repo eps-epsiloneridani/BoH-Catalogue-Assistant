@@ -104,7 +104,12 @@ flows, imported-kind repair, earned-only lists).
 - [ ] Import into the *current* playthrough: no duplicates, existing notes untouched
 - [ ] With the game folder absent (another Mac): friendly empty state mentioning the
       parked file picker
-- [ ] Location stamping (2026-10-06): re-import the autosave into a playthrough with
+- [ ] Location stamping (2026-10-06/07): re-import the autosave into a playthrough with
+      unrecorded locations — Books rows show "Library — shelf D.3"-style subtitles from
+      the save's sphere chain (room > shelf/slot; desks/scroll-slots humanized); your own
+      recorded locations are never overwritten; in-transit items read "Oriflamme's
+      auction" (won lots awaiting shelving) / "in portage (player inventory)" (schema
+      v8 humanizes the raw sphere ids already stamped)
       unrecorded locations — Books rows show "Library — shelf D.3"-style subtitles from
       the save's sphere chain (room > shelf/slot; desks/scroll-slots humanized); your own
       recorded locations are never overwritten; in-transit items read "portage1 — …"/
