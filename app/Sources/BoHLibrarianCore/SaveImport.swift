@@ -564,23 +564,34 @@ public final class SaveImporter {
         }
     }
 
+    /// Room-level names the save uses for in-transit items:
+    /// purchases.* = Oriflamme's auction wins awaiting shelving (the auction
+    /// recipes deposit lots at `~/purchases.<region>`); portage<N> = items being
+    /// carried between rooms (runtime spheres); fixedverbs = mid-task output.
+    private static func roomLabel(_ id: String) -> String {
+        if id.hasPrefix("purchases.") { return "Oriflamme's auction (awaiting shelving)" }
+        if id.hasPrefix("portage") { return "in portage (player inventory)" }
+        if id == "fixedverbs" { return "in a task's output sphere" }
+        return id
+    }
+
     /// "Library — shelf D.3" / "Library — scroll slot 2" / "purchases.europe — desk Mid":
     /// first non-empty spec id = the room, last = the slot; game slot ids humanized.
     private static func locationLabel(_ chain: [String]) -> String? {
         let parts = chain.filter { !$0.isEmpty }
         guard let room = parts.first else { return nil }
-        guard parts.count > 1 else { return room }
+        guard parts.count > 1 else { return roomLabel(room) }
         let slot = parts.last!
         if slot.hasPrefix("ShelfSpaceSphere") {
-            return "\(room) — shelf \(slot.dropFirst("ShelfSpaceSphere".count))"
+            return "\(roomLabel(room)) — shelf \(slot.dropFirst("ShelfSpaceSphere".count))"
         }
         if slot.hasPrefix("ScrollSlot") {
-            return "\(room) — scroll slot \(slot.dropFirst("ScrollSlot".count))"
+            return "\(roomLabel(room)) — scroll slot \(slot.dropFirst("ScrollSlot".count))"
         }
         if slot.hasPrefix("ShelfSpaceDesk") {
-            return "\(room) — desk \(slot.dropFirst("ShelfSpaceDesk".count))"
+            return "\(roomLabel(room)) — desk \(slot.dropFirst("ShelfSpaceDesk".count))"
         }
-        return "\(room) — \(slot)"
+        return "\(roomLabel(room)) — \(slot)"
     }
 
     private static func elementIndex(in directory: URL) throws -> [String: [String: Any]] {
