@@ -402,6 +402,10 @@ Two goals, in priority order:
   hook lived only on the FULL branch's list (.onAppear), so a helper first shown
   while empty never populated when books arrived. Moved to the body level.
 
+- 2026-10-08 (helper yield backlink, feature): the mastered book pane's "Always
+  yields" memory is a backlink too (underlined, opens the Memories pane via
+  showMemory) - matching the Books pane's yield pointer.
+
 - 2026-10-08 (the same empty-state class on memories/books/skills, user bug:
   a memory created from a book read didn't show until quit+restart) — the three
   remaining screens (Books/Memories/Skills) hooked reload only on their full-list
