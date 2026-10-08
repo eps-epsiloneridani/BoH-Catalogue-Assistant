@@ -397,6 +397,15 @@ Two goals, in priority order:
   no new Core tests; the earned-visibility contract was already tested.
   101 green.
 
+- 2026-10-08 (unacquired auction lots, user RULING): books in Oriflamme's-auction
+  purchases.* spheres = seen, not owned → unearned → the spoiler category:
+  (a) the importer skips them (report.unearnedSkipped counts; the bug was the skip
+  reading the wrong chain scope — tokens’ room = the current sphere’s spec,
+  not the ancestors’); (b) migration 009 deletes the four such rows the earlier
+  import had created in "Imported from AUTOSAVE"-era playthroughs (verified first on
+  a copy of the live db: 51→47 rows there, nothing else touched; repo db v9);
+  their linked hidden memories stay in the table, correctly remaining unearned.
+
 - 2026-10-08 (phase 5 bug: the helper stayed empty until quit+reopen): the same
   empty-state class as the journal's dead new-entry - the reload/ensureSelection
   hook lived only on the FULL branch's list (.onAppear), so a helper first shown

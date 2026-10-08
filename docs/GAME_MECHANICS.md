@@ -54,7 +54,9 @@ Aspects that everything in the game carries. The original db schema had 11 colum
   `Books.difficulty`, usable even before the book is mastered. "Mystery" refers to the
   principle side of the requirement (the pair is what the game's card shows).
 - ~280+ books exist in total; ~170+ obtainable in Hush House (incl. hidden Numen books), the
-  rest via Oriflamme's auctions.
+  rest via Oriflamme's auctions. **Auction lots the player has seen but not bought sit in
+  `purchases.<region>` spheres** — the save carries their titles, but app policy treats
+  them as unearned (never imported; user ruling 2026-10-08).
 
 ## Memories
 
