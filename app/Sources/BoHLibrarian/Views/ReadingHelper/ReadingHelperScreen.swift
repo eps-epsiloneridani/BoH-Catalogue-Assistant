@@ -27,6 +27,14 @@ struct ReadingHelperScreen: View {
             }
         }
         .frame(minWidth: 640)
+        // The reload/selection hook lives at the BODY level: the EMPTY branch had
+        // neither (the picker list's onAppear only existed on the full branch) —
+        // so a helper first shown while empty never populated until quit+reopen
+        // (the same empty-state class as the journal's dead new-entry bug).
+        .onAppear {
+            store.reload()
+            store.ensureSelection()
+        }
         .searchable(text: $store.searchText, placement: .toolbar,
                     prompt: "Search for the book in hand…")
         .toolbar {
@@ -123,10 +131,6 @@ struct ReadingHelperScreen: View {
             }
         }
         .listStyle(.inset)
-        .onAppear {
-            store.reload()
-            store.ensureSelection()
-        }
     }
 
     private var emptyState: some View {
