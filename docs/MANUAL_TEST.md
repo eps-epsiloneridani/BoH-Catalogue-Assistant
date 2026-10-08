@@ -103,7 +103,11 @@ flows, imported-kind repair, earned-only lists).
       its contamination; skills show levels; the Journal records the import
 - [ ] Import into the *current* playthrough: no duplicates, existing notes untouched
 - [ ] With the game folder absent (another Mac): friendly empty state mentioning the
-      parked file picker
+      parked file picker- [ ] Unacquired auction lots (2026-10-08 ruling): the four books your earlier import
+      stamped "Oriflamme's auction" are GONE from the Books screen after the next launch
+      (migration 009; seen-not-owned = spoiler class); a fresh re-import reports
+      "N unacquired lots skipped (seen at the auction, not owned)" and does NOT create them
+
 - [ ] Location stamping (2026-10-06/07): re-import the autosave into a playthrough with
       unrecorded locations — Books rows show "Library — shelf D.3"-style subtitles from
       the save's sphere chain (room > shelf/slot; desks/scroll-slots humanized); your own

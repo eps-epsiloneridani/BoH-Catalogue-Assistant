@@ -56,6 +56,10 @@ Decoded state (verified against this save):
   (x→prefix code: xfet=Fet, xwis=Wist, xtri=Trist, xcho=Chor, xmet=Mettle,
   xere=Ereb, xhea=Health…). Note: the save holds duplicate skill stacks
   (committed and uncommitted copies) — dedupe by EntityId.
+- **Unacquired auction lots**: books sitting in `purchases.<region>` spheres are
+  SEEN at Oriflamme's auction but NOT owned (user ruling 2026-10-08) — unearned,
+  spoiler-class: the importer skips them entirely (report counts `unearnedSkipped`);
+  migration 009 removed rows an earlier import created.
 - **Uncatalogued books**: `uncatbook.<tier>` stacks (baronial/curia/nocturnal/solar/
   dawn). The save does *not* know which book each becomes — `DealersTable` draws at
   catalogue time. An importer should skip them (or record counts only).

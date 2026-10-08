@@ -251,6 +251,8 @@ public struct ImportReport {
     public var memoriesCreated = 0
     public var languagesAdded: [String] = []
     public var uncataloguedSkipped = 0
+    /// Books seen at the auction but not acquired: unearned, never imported.
+    public var unearnedSkipped = 0
     public var warnings: [String] = []
 
     public var summary: String {
@@ -262,6 +264,9 @@ public struct ImportReport {
         }
         if uncataloguedSkipped > 0 {
             parts.append("\(uncataloguedSkipped) uncatalogued texts skipped (identity unknown)")
+        }
+        if unearnedSkipped > 0 {
+            parts.append("\(unearnedSkipped) unacquired lots skipped (seen at the auction, not owned)")
         }
         if !warnings.isEmpty {
             parts.append("\(warnings.count) warning(s)")
@@ -304,9 +309,10 @@ public final class SaveImporter {
         var stacks: [String: [String: Any]] = [:]
         var locations: [String: String] = [:]
         var uncatalogued = 0
+        var unearned = 0
         for sphere in LenientJSON.dictionaries(root["Spheres"]) {
             collectStacks(fromSphere: sphere, into: &stacks, locations: &locations,
-                          uncatalogued: &uncatalogued, chain: [])
+                          uncatalogued: &uncatalogued, unearned: &unearned, chain: [])
         }
 
         // Our lookups.
@@ -328,6 +334,7 @@ public final class SaveImporter {
         let journalRepo = JournalRepository(db: db, playthroughID: playthroughID)
 
         var report = ImportReport()
+        report.unearnedSkipped = unearned
         var existingBooksByTitle: [String: Book] = [:]
         for book in try bookRepo.all() { existingBooksByTitle[book.title] = book }
         var existingMemoriesByName: [String: Memory] = [:]
@@ -526,6 +533,7 @@ public final class SaveImporter {
                                       into stacks: inout [String: [String: Any]],
                                       locations: inout [String: String],
                                       uncatalogued: inout Int,
+                                      unearned: inout Int,
                                       chain: [String]) {
         // GoverningSphereSpec.Id names the room and (nested) shelf/slot spheres.
         let specID = ((sphere["GoverningSphereSpec"] as? [String: Any])?["Id"] as? String) ?? ""
@@ -537,6 +545,14 @@ public final class SaveImporter {
                let entityID = LenientJSON.string(payload["EntityId"]) {
                 // Defunct tokens are stale copies left behind by moved items — skip.
                 if (payload["Defunct"] as? Bool) == true { continue }
+                // Books sitting in an Oriflamme's-auction purchases sphere: seen
+                // but not acquired - unearned, never imported (spoiler posture).
+                if entityID.hasPrefix("t."),
+                   let room = thisChain.first(where: { !$0.isEmpty }),
+                   room.hasPrefix("purchases.") {
+                    unearned += 1
+                    continue
+                }
                 let mutations = LenientJSON.dictionary(payload["Mutations"]) ?? [:]
                 if entityID.hasPrefix("uncatbook.") {
                     uncatalogued += 1
@@ -558,7 +574,7 @@ public final class SaveImporter {
             for dominion in LenientJSON.dictionaries(payload["Dominions"]) {
                 for nested in LenientJSON.dictionaries(dominion["Spheres"]) {
                     collectStacks(fromSphere: nested, into: &stacks, locations: &locations,
-                                  uncatalogued: &uncatalogued, chain: thisChain)
+                                  uncatalogued: &uncatalogued, unearned: &unearned, chain: thisChain)
                 }
             }
         }

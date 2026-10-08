@@ -343,6 +343,45 @@ final class SaveImportTests: XCTestCase {
         XCTAssertEqual(try SkillRepository(db: db, playthroughID: second.id).all().count, 2)
     }
 
+    /// Books sitting in an Oriflamme's-auction purchases sphere: seen but not
+    /// owned - unearned, skipped entirely (user ruling 2026-10-08).
+    func testAuctionLotsAreSkippedAsUnearned() throws {
+        let (db, playthrough) = try makeMigratedDB()
+        let dir = workDirectory.appendingPathComponent("auction-elems", isDirectory: true)
+        try FileManager.default.createDirectory(at: dir, withIntermediateDirectories: true)
+        _ = try writeFixture("tomes.json", into: dir, contents: """
+            { "elements": [
+              { "ID": "t.lot", "Label": "Unacquired Tome",
+                "aspects": { "mystery.moon": 4, "codex": 1 } },
+              { "ID": "t.owned", "Label": "Owned Tome",
+                "aspects": { "mystery.rose": 2, "codex": 1 } } ], }
+            """)
+        _ = try writeFixture("skills.json", into: dir, contents: "{ \"elements\": [] }")
+        let save = try writeFixture("AUTOSAVE.json", contents: """
+            { "RootPopulationCommand": { "Spheres": [ {
+              "$type": "SphereCreationCommand",
+              "GoverningSphereSpec": { "$type": "SphereSpec", "Id": "purchases.europe", "Label": "" },
+              "Tokens": [
+                { "$type": "TokenCreationCommand", "Payload": {
+                "$type": "ElementStackCreationCommand", "EntityId": "t.lot", "Mutations": { } } }
+              ] },
+              { "$type": "SphereCreationCommand",
+              "GoverningSphereSpec": { "$type": "SphereSpec", "Id": "Library", "Label": "" },
+              "Tokens": [
+                { "$type": "TokenCreationCommand", "Payload": {
+                "$type": "ElementStackCreationCommand", "EntityId": "t.owned", "Mutations": { } } }
+              ] } ] } }
+            """)
+
+        let report = try SaveImporter.run(saveURL: save, db: db,
+                                          playthroughID: playthrough.id,
+                                          elementsDirectory: dir)
+        XCTAssertEqual(report.unearnedSkipped, 1, "the auction lot is skipped")
+        XCTAssertEqual(report.booksCreated, 1, "the shelved book imports")
+        let titles = try BookRepository(db: db, playthroughID: playthrough.id).all().map(\.title)
+        XCTAssertEqual(titles, ["Owned Tome"], "the unacquired tome never lands")
+    }
+
     // MARK: - Scanner
 
     func testSaveScannerFindsOnlyValidSaves() throws {
