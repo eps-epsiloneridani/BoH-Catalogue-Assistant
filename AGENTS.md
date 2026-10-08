@@ -242,6 +242,14 @@ Two goals, in priority order:
   has none, the fixture regression-tests the guard). 101 tests green (location +
   fill-empty asserts added to the import tests).
 
+- 2026-10-07 (remediation 4/9): save-import robustness - the trailing-comma
+  stripper is now STRING-AWARE (the old whole-text regex ate ", ]" inside string
+  values - a live data-corruption bug the review caught; TLG/Illuminations text
+  is exactly where it would fire); unknown contamination.* keys and Label-less
+  skills now surface as ImportReport warnings instead of vanishing silently. +2
+  tests (string survival, warnings). The python prototype carries the same
+  comma bug (read-only cosmetic - waived for now).
+
 - 2026-10-07 (remediation 3/9): Migrator robustness - (a) apply failure closes the
   half-open file transaction (best-effort ROLLBACK + FK restore): the connection
   stays usable, committed earlier migrations survive, the failed one's version

@@ -60,13 +60,39 @@ enum LenientJSON {
         return out
     }
 
-    /// Remove trailing commas the game's parser tolerates.
+    /// Remove trailing commas the game's parser tolerates - OUTSIDE strings only:
+    /// a string value may contain ", ]" as text, which the old whole-text regex
+    /// corrupted. Same state machine as escapingControlCharacters.
     static func strippingTrailingCommas(in text: String) -> String {
-        let pattern = ",(\\s*[\\]}])"
-        guard let regex = try? NSRegularExpression(pattern: pattern) else { return text }
-        let range = NSRange(text.startIndex..., in: text)
-        return regex.stringByReplacingMatches(in: text, options: [], range: range,
-                                              withTemplate: "$1")
+        var out = String(); out.reserveCapacity(text.count)
+        var pending: [Unicode.Scalar] = []   // commas/whitespace since the last significant char
+        var inString = false, escaped = false
+        for scalar in text.unicodeScalars {
+            if inString {
+                if escaped { escaped = false; out.unicodeScalars.append(scalar); continue }
+                if scalar == "\\" { escaped = true; out.unicodeScalars.append(scalar); continue }
+                if scalar == "\"" { inString = false; out.unicodeScalars.append(scalar); continue }
+                out.unicodeScalars.append(scalar); continue
+            }
+            switch scalar {
+            case "\"":
+                out += String(String.UnicodeScalarView(pending)); pending.removeAll()
+                inString = true; out.unicodeScalars.append(scalar)
+            case " ", "\t", "\n", "\r":
+                pending.append(scalar)
+            case ",":
+                pending.append(scalar)
+            case "]", "}":
+                out += String(String.UnicodeScalarView(pending.filter { $0 != "," }))
+                pending.removeAll()
+                out.unicodeScalars.append(scalar)
+            default:
+                out += String(String.UnicodeScalarView(pending)); pending.removeAll()
+                out.unicodeScalars.append(scalar)
+            }
+        }
+        out += String(String.UnicodeScalarView(pending))
+        return out
     }
 
     // Typed accessors over JSONSerialization output.
@@ -317,7 +343,10 @@ public final class SaveImporter {
                 continue
             }
             let level = 1 + (stackMutation("skill", in: stack) ?? 0)
-            guard let name = LenientJSON.string(def["Label"]) else { continue }
+            guard let name = LenientJSON.string(def["Label"]) else {
+                report.warnings.append("skill \(entityID) has no Label — skipped")
+                continue
+            }
             let isLanguage = LenientJSON.dictionary(def["aspects"])?["skill.language"] != nil
             let wisdom = stack.keys.first(where: { $0.hasPrefix("w.") && (stack[$0] as? Int) == -1 })?.dropFirst(2)
             let elementCode = stack.keys.first(where: { $0.hasPrefix("a.x") })?.dropFirst(3)
@@ -393,7 +422,12 @@ public final class SaveImporter {
             let mastered = mutations.keys.contains { $0.hasPrefix("mastery.") }
             var contamination: Contamination?
             if let key = mutations.keys.first(where: { $0.hasPrefix("contamination.") }) {
-                contamination = Contamination(rawValue: String(key.dropFirst("contamination.".count)))
+                let raw = String(key.dropFirst("contamination.".count))
+                if let known = Contamination(rawValue: raw) {
+                    contamination = known
+                } else {
+                    report.warnings.append("\(title): unknown contamination '\(raw)' — recording none")
+                }
             }
 
             // Lessons.
