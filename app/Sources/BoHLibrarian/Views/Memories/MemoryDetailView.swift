@@ -36,6 +36,11 @@ struct MemoryDetailView: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .task(id: memory.id) { load() }
+        // Same guarded re-seed: sheet saves refresh the pane's notes while they
+        // are not mid-edit; mid-edit typing is preserved, never clobbered.
+        .onChange(of: memory.notes) { _, fresh in
+            if !notesDirty { notes = fresh ?? "" }
+        }
     }
 
     // MARK: Header
