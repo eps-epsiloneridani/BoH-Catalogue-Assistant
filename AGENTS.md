@@ -242,6 +242,13 @@ Two goals, in priority order:
   has none, the fixture regression-tests the guard). 101 tests green (location +
   fill-empty asserts added to the import tests).
 
+- 2026-10-07 (remediation 2/9): stale-notes data-loss closed in both detail
+  panes — an Edit…-sheet save + a later pane "Save note" used to overwrite the
+  fresh notes with the pane's snapshot (the panes' other data went live in
+  1f590dd/9cd2e76; notes were the last snapshot). Guarded re-seed
+  (.onChange of the notes prop when the editor is pristine) — not the plan's
+  unconditional multi-field key, which would clobber in-progress pane typing.
+
 - 2026-10-07 (remediation 1/9, plan review): SkillDetailView's Save/Revert for the
   Tree of Wisdoms commitment were unreachable — commitmentsDirty was never set
   (Return-to-save was the only path; a click-away edit was lost silently).

@@ -47,6 +47,12 @@ struct BookDetailView: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .task(id: book.id) { seedNotes() }
+        // An Edit…-sheet save changes notes while this pane is mounted; re-seed
+        // ONLY if the pane's notes editor is pristine, or "Save note" would
+        // clobber the sheet's fresh notes with the stale string (data loss).
+        .onChange(of: book.notes) { _, fresh in
+            if !notesDirty { notes = fresh ?? "" }
+        }
     }
 
     // MARK: Header
