@@ -242,6 +242,11 @@ Two goals, in priority order:
   has none, the fixture regression-tests the guard). 101 tests green (location +
   fill-empty asserts added to the import tests).
 
+- 2026-10-07 (remediation 1/9, plan review): SkillDetailView's Save/Revert for the
+  Tree of Wisdoms commitment were unreachable — commitmentsDirty was never set
+  (Return-to-save was the only path; a click-away edit was lost silently).
+  onChange on both fields now flips the flag; Return still saves.
+
 - 2026-10-06 (gained-memory placeholder redesign, user request): Phase 4 cleared
   (user ticked); the user then re-directed the gained-memory flow — "Memory gained"
   lists ONLY earned memories, with the book’s unearned imported yield as a
