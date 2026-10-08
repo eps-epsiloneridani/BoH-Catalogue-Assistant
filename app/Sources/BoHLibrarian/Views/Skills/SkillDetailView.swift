@@ -137,8 +137,10 @@ struct SkillDetailView: View {
             sectionTitle("Tree of Wisdoms commitment")
             TextField("Wisdom (e.g. Birdsong)", text: $wisdom)
                 .onSubmit { saveCommitments() }
+                .onChange(of: wisdom) { _, _ in commitmentsDirty = true }
             TextField("Element of the Soul gained (e.g. Trist)", text: $element)
                 .onSubmit { saveCommitments() }
+                .onChange(of: element) { _, _ in commitmentsDirty = true }
             if commitmentsDirty {
                 HStack {
                     Button("Save") { saveCommitments() }
