@@ -402,6 +402,12 @@ Two goals, in priority order:
   hook lived only on the FULL branch's list (.onAppear), so a helper first shown
   while empty never populated when books arrived. Moved to the body level.
 
+- 2026-10-08 (the same empty-state class on memories/books/skills, user bug:
+  a memory created from a book read didn't show until quit+restart) — the three
+  remaining screens (Books/Memories/Skills) hooked reload only on their full-list
+  branch, so a screen first seen while its store was empty never reloaded. All
+  three now reload at body level (the journal + helper pattern).
+
 - 2026-10-08 (clickable entity links, feature): backlinks/journal chips now
   navigate in place (no windows) - AppState.showBook/showMemory/showSkill switch
   the section + set the selection + reload. Underlined clickable rows: the memory

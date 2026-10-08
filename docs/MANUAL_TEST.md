@@ -82,6 +82,7 @@ flows, imported-kind repair, earned-only lists).
       confirmation — notes are trivially re-typed)
 - [ ] Footer skills/journal counts update live
 - [ ] Fixed: the Reading Helper populated only after quit+reopen (empty branch had no reload) — open it first on a fresh run, record books, return — the picker fills
+- [ ] Same fix, Memories + Books + Skills: open a section while its list is empty, create entries elsewhere, return — lists populate without quit/restart (fixed for all three screens + the helper)
 - [ ] Clickable links: a memory's yielding-book row opens the book pane on that book; the book pane's yield line opens the memory; journal chips open book/memory/skill panes (masked "unrevealed memory" chips aren't clickable); a linked book stays visible even under an active filter
 
 ### Save import (+ the manage-sheet integration)
