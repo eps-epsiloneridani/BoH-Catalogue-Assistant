@@ -75,18 +75,23 @@ public final class MemoryRepository {
     /// legitimately re-create by hand: reusing it links the existing row rather
     /// than failing the whole read. Returns the memory with its aspects.
     public func insertOrReuse(_ draft: MemoryDraft) throws -> Memory {
+        // Trim the name: otherwise a trailing-space draft bypasses the
+        // case-insensitive match AND the raw UNIQUE, creating a duplicate.
+        let name = draft.name.trimmingCharacters(in: .whitespacesAndNewlines)
         if let existing = try db.query(
             """
             SELECT id FROM Memories
             WHERE playthrough_id = ? AND kind = ? AND LOWER(name) = LOWER(?)
             LIMIT 1;
             """,
-            [playthroughID, draft.kind.rawValue, draft.name],
+            [playthroughID, draft.kind.rawValue, name],
             map: { try $0.requireInt64("id") }
         ).first {
             return try get(existing)!
         }
-        return try insert(draft)
+        var trimmedDraft = draft
+        trimmedDraft.name = name
+        return try insert(trimmedDraft)
     }
     public func update(_ memory: Memory) throws {
         try db.transaction {
@@ -94,9 +99,10 @@ public final class MemoryRepository {
                 """
                 UPDATE Memories
                 SET name = ?, kind = ?, persistent = ?, notes = ?, updated_at = datetime('now')
-                WHERE id = ?;
+                WHERE playthrough_id = ? AND id = ?
                 """,
-                [memory.name, memory.kind.rawValue, memory.persistent, memory.notes, memory.id]
+                [memory.name, memory.kind.rawValue, memory.persistent, memory.notes,
+                 playthroughID, memory.id]
             )
             try setAspects(memory.id, memory.aspects.map { AspectDraft(principleID: $0.principleID, level: $0.level) })
         }

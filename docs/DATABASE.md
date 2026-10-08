@@ -148,7 +148,8 @@ GROUP BY p.id ORDER BY p.sort_order;
     `Skills`, `Journal`, backfilled to a default playthrough. Nullability is a SQLite
     ADD COLUMN limitation: **the application enforces scoping** — every repository is
     constructed with a playthrough id; all list queries filter on it; all inserts stamp it.
-    Update/delete by id are unscoped (ids always originate from scoped queries).
+    Update/delete by id are **playthrough-scoped too** (fail-closed: a cross-playthrough
+    write by id is a no-op/nil — 2026-10-07; the earlier 'unscoped by design' note is retired).
   - Principles/Languages are game structure — unscoped.
 - **006 — per-playthrough unique names:** 005 scoped the entity *tables* but left
   001's table-global `UNIQUE` constraints — `Skills.name` and `Memories (name, kind)`

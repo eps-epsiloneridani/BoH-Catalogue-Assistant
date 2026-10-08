@@ -325,6 +325,57 @@ final class RepositoryTests: XCTestCase {
         XCTAssertEqual(yielding, [memory.id: [BookRef(id: book.id, title: "The Carbonek Schism")]])
     }
 
+    /// Fail-closed scoping: id-based writes only bite within their own
+    /// playthrough (a cross-playthrough update is a silent no-op / clean nil).
+    func testCrossPlaythroughWritesNoOp() throws {
+        let second = try PlaythroughRepository(db: db).insert(name: "Second")
+        let books2 = BookRepository(db: db, playthroughID: second.id)
+        let memories2 = MemoryRepository(db: db, playthroughID: second.id)
+        let skills2 = SkillRepository(db: db, playthroughID: second.id)
+
+        let book = try books.insert(BookDraft(title: "The Carbonek Schism"))
+        try books2.updateReadStatus(book.id, .mastered)
+        XCTAssertNotEqual(try books.get(book.id)?.readStatus, .mastered,
+                          "another playthrough's repo cannot restatus the book")
+        try books2.recordRead(book.id)
+        XCTAssertEqual(try books.get(book.id)?.timesRead, 0)
+        try books2.setYieldedMemory(book.id, memoryID: nil)
+        try books2.setLessonsCount(book.id, lessons: 2)
+        XCTAssertNil(try books.get(book.id)?.lessons)
+
+        let memory = try memories.insert(MemoryDraft(name: "Memory: Impulse", kind: .memory, persistent: false))
+        try memories2.update(memory)
+        XCTAssertEqual(try memories.get(memory.id)?.name, "Memory: Impulse")
+
+        let skill = try skills.insert(SkillDraft(name: "Sky Stories",
+                                                 primaryPrincipleID: try principle("Sky").id, level: 1))
+        try skills2.update(skill)
+        XCTAssertEqual(try db.scalarInt(
+            "SELECT level FROM Skills WHERE id = ?;", [skill.id]), 1)
+
+        let entry = try journal.insert(JournalDraft(entry: "found it", bookID: book.id))
+        let journal2 = JournalRepository(db: db, playthroughID: second.id)
+        var edited = entry
+        edited.entry = "hijacked"
+        try journal2.update(edited)
+        XCTAssertEqual(try journal.get(entry.id)?.entry, "found it")
+    }
+
+    /// insertOrReuse trims: a trailing-space draft reuses the stored row
+    /// instead of sneaking past it and creating a near-duplicate.
+    func testInsertOrReuseTrimsWhitespaceNames() throws {
+        let existing = try memories.insert(MemoryDraft(name: "Memory: Salt", kind: .memory, persistent: false))
+        let reuse = try memories.insertOrReuse(
+            MemoryDraft(name: "  Memory: Salt  ", kind: .memory, persistent: false))
+        XCTAssertEqual(reuse.id, existing.id, "trimmed match")
+        XCTAssertEqual(reuse.name, "Memory: Salt", "stored name keeps its shape")
+        XCTAssertEqual(try memories.all().count, 1)
+
+        let blankish = try memories.insertOrReuse(
+            MemoryDraft(name: "   ", kind: .memory, persistent: false))
+        XCTAssertEqual(blankish.name, "", "insert trims too (documented edge)")
+    }
+
     /// The edit form's source/link editors: setSources replaces wholesale,
     /// allYielding covers links of any status (unlike the mastered-only display
     /// variant), setYieldingBooks syncs links both ways.
