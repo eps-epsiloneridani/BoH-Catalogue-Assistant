@@ -33,8 +33,8 @@ Two goals, in priority order:
 
 ## Status snapshot (update every session)
 
-- **2026-10-06 — PARKED (Phases 0–5 + packaging) with user-requested additions shipped.**
-  Build + 101 tests pass from a clean checkout; `Boh.db` at schema v7 with an empty
+- **2026-10-08 — PARKED (Phases 0–5 + packaging); security, accessibility and spoiler-posture passes shipped; remediation run complete this session.**
+  Build + 108 tests pass from a clean checkout; `Boh.db` at schema v7 with an empty
   "First playthrough" loaded; tree clean. All roadmap screens live (Books, Memories,
   Reading Helper, Skills, Journal) plus **playthroughs**, **difficulty**, **save
   import** (Manage Playthroughs → "Import from Save…"; see `docs/SAVE_IMPORT.md`),
@@ -449,7 +449,7 @@ README.md            <- short human-facing overview
 Boh.db               <- THE DATA (SQLite, schema v7). Committed to git on purpose (D1).
 db/migrations/       <- numbered SQL migrations (canonical schema source; 001–007 applied)
 docs/
-  DATABASE.md        <- schema design (through v6), value sets, canonical queries, future tables
+  DATABASE.md        <- schema design (through v7), value sets, canonical queries, future tables
   GUI_PLAN.md        <- app architecture, as-built layout, screens, stack decisions, build/run/test
   GAME_MECHANICS.md  <- distilled Book of Hours facts that drive the schema + sources
   ROADMAP.md         <- phases, definitions of done, current status
@@ -465,7 +465,7 @@ app/                 <- the Swift package (see docs/GUI_PLAN.md for the as-built
                                  repositories, pure query/math helpers, bundled migrations
   Sources/BoHLibrarian/        <- SwiftUI app: AppState (playthroughs, store wiring),
                                  RootView (routing), Stores/ (per-screen state), Views/
-  Tests/BoHLibrarianCoreTests/ <- 101 tests on :memory: databases
+  Tests/BoHLibrarianCoreTests/ <- 108 tests on :memory: databases
 ```
 
 ## Everyday commands
