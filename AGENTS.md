@@ -242,6 +242,13 @@ Two goals, in priority order:
   has none, the fixture regression-tests the guard). 101 tests green (location +
   fill-empty asserts added to the import tests).
 
+- 2026-10-07 (remediation 7/9): the SPM resource bundle now ships inside the .app
+  (make-app.sh copies BoHLibrarian_BoHLibrarianCore.bundle into Contents/Resources
+  before signing) - the machine-specific .build fallback is retired; ROADMAP
+  pending item closed; smoke launch verified (the user's open instance quit with
+  it - relaunch from the fresh dist). Note: the review’s bundle name was wrong
+  (BoHLibrarianCore_* vs the actual BoHLibrarian_*); corrected before applying.
+
 - 2026-10-07 (remediation 6/9): UI papercuts + dead code - AspectEditor’s
   remove button finally carries its accessibility label (the a11y pass missed
   this file); the Helper’s list-row contamination icon labelled; the record-read
