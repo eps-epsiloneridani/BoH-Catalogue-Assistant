@@ -111,14 +111,13 @@ immediate. ⌘⇧J jumps to the journal and focuses quick-add.
 
 ## Pending items — user-reported
 
-- [ ] **Package the resource bundle into the .app (portability papercut).**
-      Discovered while shipping the kind-repair: `make-app.sh` copies only the bare
-      executable, so the packaged app's `Bundle.module` (bohLibrarianCore migrations)
-      resolves via the hardcoded SwiftPM *build-directory* fallback — it works only on
-      this Mac while `app/.build` exists. A truly portable copy (another Mac, or
-      .build cleaned) would fail to find migrations on launch. Fix: copy
-      `BoHLibrarian_BoHLibrarianCore.bundle` into the .app's `Contents/Resources`
-      and re-sign; verify the smoke test finds migrations with `.build` moved aside.
+- [x] **Resource bundle ships in the .app.** ✅ (2026-10-07, remediation 7/9)
+      make-app.sh now copies BoHLibrarian_BoHLibrarianCore.bundle into Contents/Resources/
+      (was: only the bare executable - migrations resolved via the SwiftPM .build-
+      directory fallback, machine-specific). Smoke-launched from the rebuilt dist:
+      launches, stays alive, quits clean; bundle + 007 verified inside the .app.
+      Portable: works where app/.build is absent.
+
 - [x] **OK/Cancel buttons on the playthrough manager sheet.** ✅ (2026-10-06)
       Done in the save-import UI commit — the manager sheet gained a trailing
       Cancel + OK section (both dismiss; changes apply immediately, as designed).

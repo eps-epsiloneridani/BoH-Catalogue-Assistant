@@ -27,6 +27,14 @@ mkdir -p "$APP/Contents/MacOS"
 
 cp "$BINARY" "$APP/Contents/MacOS/$APP_NAME"
 
+# The SPM resource bundle (bundled migrations) ships inside the app: without it the
+# packaged app silently resolved migrations via the hardcoded .build-directory
+# fallback - machine-specific, breaks anywhere the dev tree is absent.
+BUNDLE="$BIN_PATH/BoHLibrarian_BoHLibrarianCore.bundle"
+mkdir -p "$APP/Contents/Resources"
+cp -R "$BUNDLE" "$APP/Contents/Resources/"
+
+
 GIT_HASH="$(git -C "$ROOT" rev-parse --short HEAD)"
 cat > "$APP/Contents/Info.plist" <<PLIST
 <?xml version="1.0" encoding="UTF-8"?>
