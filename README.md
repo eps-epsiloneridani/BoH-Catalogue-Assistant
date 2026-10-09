@@ -30,3 +30,8 @@ scripts/migrate.sh          # apply pending schema migrations
 scripts/migrate.sh --status # show current/pending migrations
 sqlite3 Boh.db              # inspect data directly
 ```
+## Built with
+
+Vibe coded end-to-end with the [pi coding agent](https://pi.dev) running GLM-5.3 and
+GLM-5.3-flash (Z.ai) — aside from some minor copy changes, every line of this repo is
+agent-written.
