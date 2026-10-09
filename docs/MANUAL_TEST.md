@@ -125,6 +125,10 @@ flows, imported-kind repair, earned-only lists).
 
 ### Packaged app
 
+- [ ] CRASH FIX re-verify (2026-10-09): the previous packaged build crashed at launch
+      (Bundle.module couldn't find the SPM resource bundle). The rebuilt dist ships
+      migrations as plain files in Contents/Resources/Migrations — double-click must
+      now launch cleanly
 - [ ] Double-click `dist/BoH Librarian.app` from Finder — window opens, no terminal
 - [ ] The Dock/Finder shows the new icon (open book on an indigo tile — Phosphor book-open-text, MIT)
 - [ ] Portability (new: the resource bundle ships in the app): launch it on a Mac

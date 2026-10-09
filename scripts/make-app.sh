@@ -29,9 +29,18 @@ cp "$BINARY" "$APP/Contents/MacOS/$APP_NAME"
 # The SPM resource bundle (bundled migrations) ships inside the app: without it the
 # packaged app silently resolved migrations via the hardcoded .build-directory
 # fallback - machine-specific, breaks anywhere the dev tree is absent.
-BUNDLE="$BIN_PATH/BoHLibrarian_BoHLibrarianCore.bundle"
+# Migrations ship as PLAIN FILES in Contents/Resources/Migrations - the Migrator
+# reads them directly. (The SPM resource bundle proved fragile: a CI-built app
+# crashed at launch when Bundle.module could not find it.)
+MIGRATIONS_SRC="$ROOT/app/Sources/BoHLibrarianCore/Resources/Migrations"
+test -d "$MIGRATIONS_SRC" || { echo "error: migrations not found at $MIGRATIONS_SRC" >&2; exit 1; }
 mkdir -p "$APP/Contents/Resources"
-cp -R "$BUNDLE" "$APP/Contents/Resources/"
+cp "$MIGRATIONS_SRC"/*.sql "$APP/Contents/Resources/Migrations/" 2>/dev/null || {
+  mkdir -p "$APP/Contents/Resources/Migrations"
+  cp "$MIGRATIONS_SRC"/*.sql "$APP/Contents/Resources/Migrations/"
+}
+test -f "$APP/Contents/Resources/Migrations/009_remove_unacquired_auction_books.sql" \
+  || { echo "error: migrations incomplete in the packaged app" >&2; exit 1; }
 cp "$ROOT/scripts/assets/AppIcon.icns" "$APP/Contents/Resources/AppIcon.icns"
 
 

@@ -132,6 +132,16 @@ public final class Migrator {
         return try parse(urls: urls)
     }
 
+    /// Migrations shipped as plain files in the app bundle's Resources/Migrations
+    /// (nil when absent - callers fall through to the bundled copy).
+    public static func loadMainResourceMigrations(resourceURL: URL?) -> [Migration]? {
+        guard let resourceURL else { return nil }
+        let directory = resourceURL.appendingPathComponent("Migrations", isDirectory: true)
+        guard FileManager.default.fileExists(atPath: directory.path),
+              let list = try? load(fromDirectory: directory), !list.isEmpty else { return nil }
+        return list
+    }
+
     /// Migrations bundled with BoHLibrarianCore (fallback when the repo isn't present).
     public static func bundled() throws -> [Migration] {
         let urls = Bundle.bohLibrarianCore.urls(
@@ -164,6 +174,13 @@ public final class Migrator {
                 let list = try load(fromDirectory: directory)
                 if !list.isEmpty { return try Migrator(migrations: list) }
             }
+        }
+        // Packaged app: make-app.sh ships plain Migrations/ files in the app's
+        // Resources - read them directly, no SPM bundle machinery to fail at
+        // runtime (the 2026-10-09 launch crash was exactly that failure mode).
+        if let list = loadMainResourceMigrations(resourceURL: Bundle.main.resourceURL),
+           !list.isEmpty {
+            return try Migrator(migrations: list)
         }
         return try Migrator(migrations: bundled())
     }

@@ -518,6 +518,18 @@ Two goals, in priority order:
   live-game import test skips cleanly on runners. First release: push main, then
   tag v0.1.0 and push the tag.
 
+- 2026-10-09 (CI release crash + the plain-files fix, user crash report): the
+  CI-built release app CRASHED at launch (Bundle.module fatalError - the SPM
+  resource bundle wasn't found; the crash log's NSBundle.module frame). Root
+  cause: the packaged app's migrations depended on SPM bundle machinery that
+  didn't survive CI packaging. Fix: make-app.sh now ships migrations as PLAIN
+  FILES in Contents/Resources/Migrations (verified present + count-checked in
+  the script), and Migrator.resolve() reads them via a new
+  loadMainResourceMigrations(resourceURL:) candidate BEFORE the Bundle.module
+  fallback (testable seam; +1 test incl. empty/absent cases). The SPM bundle
+  copy remains for dev/tests. THE DEFINITIVE FIX for the launch-crash class:
+  packaged builds no longer depend on bundle lookup at all. 111 green.
+
 - 2026-10-08 (remediation 7/9): the SPM resource bundle now ships inside the .app
   (make-app.sh copies BoHLibrarian_BoHLibrarianCore.bundle into Contents/Resources
   before signing) - the machine-specific .build fallback is retired; ROADMAP
