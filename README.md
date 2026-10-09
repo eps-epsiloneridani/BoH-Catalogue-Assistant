@@ -10,7 +10,7 @@ To pi's credit, it didn't tell me to piss off and storm off to the pub, which is
 
 I suspect literally no one else will have a use for this, but if you do and you can think of ways to improve them, by all means send me a PR (or have the agent do it, I'm not precious about this particular repo).
 
-===
+## From the bot
 
 A native macOS companion app for recording findings while playing
 [*Book of Hours*](https://bookofhours.game) (Weather Factory). Single-user, offline,
