@@ -1,5 +1,16 @@
 # BoH Librarian
 
+## Note from the bot wrangler
+
+This was created to scratch an exceptionally specific itch - note taking for Book of Hours. This could have as easily been a spreadsheet, or even a notebook, but unfortunately for all concerned the advent of agentic coding tools means that even the most ham-fisted wannabe developer (me) can come up with something that, superficially, looks OK. 
+
+I initially prompted pi to tell me about SQlite syntax when it occurred to me that I could do a bit more, and here we are. The mechanics are not thought through and the app has evolved rather than being designed, in a process that I suspect is depressingly familiar to anyone who has to tried to steer a software project through user acceptance. 
+
+To pi's credit, it didn't tell me to piss off and storm off to the pub, which is both the saving grace and the ultimate downfall of these things.
+
+I suspect literally no one else will have a use for this, but if you do and you can think of ways to improve them, by all means send me a PR (or have the agent do it, I'm not precious about this particular repo).
+
+
 A native macOS companion app for recording findings while playing
 [*Book of Hours*](https://bookofhours.game) (Weather Factory). Single-user, offline,
 zero dependencies. Data lives in `Boh.db` (SQLite) at the repo root and is versioned
@@ -35,3 +46,8 @@ sqlite3 Boh.db              # inspect data directly
 Vibe coded end-to-end with the [pi coding agent](https://pi.dev) running GLM-5.3 and
 GLM-5.3-flash (Z.ai) — aside from some minor copy changes, every line of this repo is
 agent-written.
+
+## License
+
+Copyright © 2026 eps@epsiloneridani.io. This project is licensed under the
+[GNU General Public License v3.0](LICENSE) — see [LICENSE](LICENSE) for the full terms.
