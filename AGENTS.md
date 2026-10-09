@@ -21,7 +21,7 @@ Two goals, in priority order:
 
 ## Ground rules (non-negotiables)
 
-- **`Boh.db` is user data.** Never make a destructive change without a git commit immediately
+- **User data lives in Application Support, not in the repo.** Never make a destructive change without a git commit immediately
   before. Migrations are **forward-only** and must preserve data.
 - **Docs first.** Schema or plan changes update `docs/` in the same commit.
 - **No external package dependencies.** Build must work offline. SQLite is accessed through
@@ -29,7 +29,7 @@ Two goals, in priority order:
 - **No spoilers in seeds.** Only structural reference data is pre-seeded (principles,
   languages). Books, skills and memories are recorded by the player as they find them (D6).
 - **End of session:** update `docs/ROADMAP.md` status, update the Status snapshot here,
-  commit everything (`Boh.db` included), and summarize state for the next session.
+  commit everything, and summarize state for the next session.
 
 ## Status snapshot (update every session)
 
@@ -530,7 +530,7 @@ Two goals, in priority order:
 ```
 AGENTS.md            <- you are here (entry point)
 README.md            <- short human-facing overview
-Boh.db               <- THE DATA (SQLite, schema v7). Committed to git on purpose (D1).
+Boh.db               <- dev-local (schema v9); git-ignored since 2026-10-09 (D1).
 db/migrations/       <- numbered SQL migrations (canonical schema source; 001–007 applied)
 docs/
   DATABASE.md        <- schema design (through v7), value sets, canonical queries, future tables
@@ -565,7 +565,6 @@ app/                 <- the Swift package (see docs/GUI_PLAN.md for the as-built
 | Run the app (dev) | `cd app && swift run` |
 | Package a double-clickable .app | `scripts/make-app.sh` → `dist/BoH Librarian.app` |
 | Run tests | `cd app && swift test` |
-| Commit play-session data | `git add Boh.db && git commit -m "data: <what you recorded>"` |
 
 ## Conventions
 
@@ -580,7 +579,7 @@ app/                 <- the Swift package (see docs/GUI_PLAN.md for the as-built
 - **Enums:** stored as TEXT, documented value sets in `docs/DATABASE.md`; the GUI constrains
   entry (SQLite CHECKs deliberately minimal so value sets can grow without table rebuilds).
 - **Commits:** small, described imperatively. Always include doc updates with the change they
-  describe. Commit `Boh.db` freely — that's the versioning story for playthrough data.
+  describe. `Boh.db` is git-ignored (D1 revised 2026-10-09) — the real playthrough data lives in Application Support, outside any repo.
 - **Verify wiring, not just builds:** after routing a screen or connecting a flow, grep the
   call site and smoke-run — Phase 2 shipped a fully-tested but *unreachable* screen for
   exactly one session because an edit call failed silently and the build still passed.

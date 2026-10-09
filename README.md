@@ -13,8 +13,9 @@ I suspect literally no one else will have a use for this, but if you do and you 
 
 A native macOS companion app for recording findings while playing
 [*Book of Hours*](https://bookofhours.game) (Weather Factory). Single-user, offline,
-zero dependencies. Data lives in `Boh.db` (SQLite) at the repo root and is versioned
-with the repo — one database, any number of playthroughs.
+zero dependencies. Data lives in `Boh.db` (SQLite) at the repo root — one database,
+any number of playthroughs. (The db file itself is dev-local and not tracked by git
+as of 2026-10-09; your real playthrough data lives in Application Support.)
 
 What it does: record books (with difficulty, language, contamination, lessons and
 the memory each one yields), memories and their aspects, skills and their levels,
