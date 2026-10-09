@@ -53,5 +53,7 @@ agent-written.
 
 ## License
 
-Copyright © 2026 eps@epsiloneridani.io. This project is licensed under the
+Copyright © 2026 eps@epsiloneridani.io, with the exception of any references or other data that is copyright of Weather Factory Ltd. No permission has been sought or granted for the use of those references and these are solely used in the context of a fan project with no assertion of rights or ownership.
+
+This project is licensed under the
 [GNU General Public License v3.0](LICENSE) — see [LICENSE](LICENSE) for the full terms.
