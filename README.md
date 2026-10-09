@@ -2,7 +2,9 @@
 
 ## Note from the bot wrangler
 
-This was created to scratch an exceptionally specific itch - note taking for [Book of Hours](https://bookofhours.game) (is good, you should buy, and don't forget to wishlist [Travelling at Night!](https://store.steampowered.com/app/2915730/Travelling_At_Night/)) This could have as easily been a spreadsheet, or even a notebook, but unfortunately for all concerned the advent of agentic coding tools means that even the most ham-fisted wannabe developer (me) can come up with something that, superficially, looks OK. 
+This was created to scratch an exceptionally specific itch - note taking for [Book of Hours](https://bookofhours.game) (is good, you should buy, and don't forget to wishlist [Travelling at Night!](https://store.steampowered.com/app/2915730/Travelling_At_Night/)) 
+
+This could have as easily been a spreadsheet, or even a notebook, but unfortunately for all concerned the advent of agentic coding tools means that even the most ham-fisted wannabe developer (me) can come up with something that, superficially, looks OK. 
 
 I initially prompted pi to tell me about SQlite syntax when it occurred to me that I could do a bit more, and here we are. The mechanics are not thought through and the app has evolved rather than being designed, in a process that I suspect is depressingly familiar to anyone who has to tried to steer a software project through user acceptance. 
 
