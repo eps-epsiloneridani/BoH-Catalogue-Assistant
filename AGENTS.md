@@ -492,6 +492,10 @@ Two goals, in priority order:
   RootView’s unreachable switch default removed (the plan’s "stale AuxKey
   comment in BookDetailView" was already gone - skipped). 108 green.
 
+- 2026-10-09 (CI zip fix): the v0.1.0 release run failed at the zip step - the
+  GitHub runner's ditto lacks --sequesterRsc (resource-fork flag; this app has
+  none). Flag dropped; keepParent kept. Re-run pending.
+
 - 2026-10-09 (app icon, user request): the packaged app now carries a real icon -
   Phosphor's duotone `book-open-text` glyph (MIT, human-made; user picked from a
   reviewed set: Lucide/Bootstrap/Tabler/Phosphor) rendered on an indigo tile.
