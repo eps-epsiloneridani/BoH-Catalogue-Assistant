@@ -499,6 +499,13 @@ Two goals, in priority order:
   (scripts/assets/AppIcon.icns, committed); make-app.sh ships it in
   Contents/Resources + Info.plist CFBundleIconFile; NOTICE.md records provenance.
 
+- 2026-10-09 (CI + release workflow): .github/workflows/ci.yml - pushes to main
+  run the unit suite (macos-15 runner); pushing a v* tag runs the suite, packages
+  via make-app.sh, zips with ditto (bundle-layout-safe) and publishes a GitHub
+  Release with the app + auto-notes (incl. the ad-hoc-signing launch hint). The
+  live-game import test skips cleanly on runners. First release: push main, then
+  tag v0.1.0 and push the tag.
+
 - 2026-10-08 (remediation 7/9): the SPM resource bundle now ships inside the .app
   (make-app.sh copies BoHLibrarian_BoHLibrarianCore.bundle into Contents/Resources
   before signing) - the machine-specific .build fallback is retired; ROADMAP

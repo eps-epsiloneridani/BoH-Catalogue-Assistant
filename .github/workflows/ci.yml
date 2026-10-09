@@ -1,0 +1,43 @@
+name: CI & Release
+
+on:
+  push:
+    branches: [main]
+    tags: ["v*"]
+  workflow_dispatch:
+
+jobs:
+  # Every push to main (and manual dispatch): run the unit suite.
+  test:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run tests
+        run: cd app && swift test -v
+
+  # A tag push (v*) runs the suite, packages the app, and publishes a release.
+  release:
+    if: startsWith(github.ref, 'refs/tags/v')
+    runs-on: macos-15
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run tests
+        run: cd app && swift test
+      - name: Package the app
+        run: scripts/make-app.sh
+      - name: Zip (preserves bundle layout)
+        run: |
+          TAG="${GITHUB_REF_NAME}"
+          ditto -c -k --sequesterRsc --keepParent "dist/BoH Librarian.app" "BoH-Librarian-${TAG}.zip"
+      - name: Create release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          TAG="${GITHUB_REF_NAME}"
+          gh release create "$TAG" "BoH-Librarian-${TAG}.zip" \
+            --title "BoH Librarian $TAG" \
+            --generate-notes \
+            --notes "macOS 14+. Ad-hoc signed personal build: on first launch, right-click the app and choose Open (or clear quarantine with \`xattr -cr \"BoH Librarian.app\"\`)."
