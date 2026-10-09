@@ -17,14 +17,13 @@ APP="$DIST/$APP_NAME.app"
 
 cd "$ROOT/app"
 
-echo "Building release binary…"
+echo "Building release binary (Apple Silicon)…"
 swift build -c release
 BIN_PATH="$(swift build -c release --show-bin-path)"
 BINARY="$BIN_PATH/BoHLibrarian"
 
 rm -rf "$APP"
 mkdir -p "$APP/Contents/MacOS"
-
 cp "$BINARY" "$APP/Contents/MacOS/$APP_NAME"
 
 # The SPM resource bundle (bundled migrations) ships inside the app: without it the
