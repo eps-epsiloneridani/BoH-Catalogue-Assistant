@@ -439,6 +439,14 @@ Two goals, in priority order:
   clickable links, helper backlink). Outstanding: 11 items - packaged-app smoke
   (6) + accessibility hands-on (5).
 
+- 2026-10-09 (release pipeline: the rerun lesson + arm64-only): the gh rerun
+  used the ORIGINAL tag commit's workflow (still had the broken zip flag) and
+  failed identically - a rerun can't escape its workflow version. The tag was
+  deleted and re-pointed at main (fixed workflow). A universal-build attempt
+  (SPM --arch twice + lipo) turned out arm64-only either way (SPM builds no fat
+  product for executables); REVERTED at the user's request: Apple Silicon only
+  is fine for this release.
+
 - 2026-10-08 (clickable entity links, feature): backlinks/journal chips now
   navigate in place (no windows) - AppState.showBook/showMemory/showSkill switch
   the section + set the selection + reload. Underlined clickable rows: the memory
