@@ -8,7 +8,7 @@ What this file is: the checks that need the **running app** (Unit tests only cov
   bottom (the old per-session checklists were consolidated there on 2026-10-06).
 - Anything surprising goes to the Scratch pad.
 
-Last full hands-on pass: 2026-10-07 (Books screen, Memories screen, Reading Helper core
+Last full hands-on pass: 2026-10-08 (everything except the Packaged app and Accessibility sections — those remain the user's checklist). (Books screen, Memories screen, Reading Helper core
 flows, imported-kind repair, earned-only lists).
 
 ## Outstanding hands-on — by screen
@@ -47,7 +47,7 @@ flows, imported-kind repair, earned-only lists).
       memories you've earned; the "Always yields" panel appears only for mastered
       books; the Books screen's detail for that book shows "revealed by mastering the
       book" instead of the yield name
-- [ ] Record read on an unmastered imported book — the gained redesign (user
+- [x] Record read on an unmastered imported book — the gained redesign (user
       request 2026-10-06): "Memory gained" lists ONLY earned memories by name; the
       book’s imported-but-unearned yield appears as a placeholder — "Unrevealed
       memory — this read earns it" — selectable without revealing the name;
@@ -58,57 +58,57 @@ flows, imported-kind repair, earned-only lists).
 
 ### Skills & Journal (Phase 5)
 
-- [ ] Skills screen opens empty-state; Add Skill records name + principles + level 1;
+- [x] Skills screen opens empty-state; Add Skill records name + principles + level 1;
       the row shows contribution badges (e.g. Sky 2 · Rose 1) and "level 1"
-- [ ] Level stepper in detail: +/− persists immediately and updates the badges;
+- [x] Level stepper in detail: +/− persists immediately and updates the badges;
       runs 1–9 only
-- [ ] Language toggle in the form: languages get the globe icon and appear under the
+- [x] Language toggle in the form: languages get the globe icon and appear under the
       "Languages" kind filter — and the Books screen's language-known hint turns green
       for a language recorded this way
-- [ ] Principle filter + sort menus work; search matches wisdom/notes
-- [ ] Wisdom/Element fields: type + return (or Save) persists; shows in the detail
+- [x] Principle filter + sort menus work; search matches wisdom/notes
+- [x] Wisdom/Element fields: type + return (or Save) persists; shows in the detail
       header captions
-- [ ] Journal: ⌘⇧J (or the Go menu) jumps to the journal with quick-add focused; a
+- [x] Journal: ⌘⇧J (or the Go menu) jumps to the journal with quick-add focused; a
       note typed + return lands at the top under the current in-game day
-- [ ] Empty journal (fresh run or new playthrough): the quick-capture box shows above
+- [x] Empty journal (fresh run or new playthrough): the quick-capture box shows above
       the "Nothing in the journal yet" card; "Note today's finding" focuses the box;
       ⌘⇧J from another section lands there focused; the first note flips the screen
       to the timeline
-- [ ] Day headers: entries group when the in-game day changes; entries without a day
+- [x] Day headers: entries group when the in-game day changes; entries without a day
       group under "No in-game day noted"
-- [ ] Link chips appear on entries created via record-read (book + memory chips); the
+- [x] Link chips appear on entries created via record-read (book + memory chips); the
       edit sheet can add/change/remove all three links and edit text/day
-- [ ] Journal search narrows the list; delete removes an entry immediately (no
+- [x] Journal search narrows the list; delete removes an entry immediately (no
       confirmation — notes are trivially re-typed)
-- [ ] Footer skills/journal counts update live
-- [ ] Fixed: the Reading Helper populated only after quit+reopen (empty branch had no reload) — open it first on a fresh run, record books, return — the picker fills
-- [ ] Same fix, Memories + Books + Skills: open a section while its list is empty, create entries elsewhere, return — lists populate without quit/restart (fixed for all three screens + the helper)
-- [ ] Clickable links: a memory's yielding-book row opens the book pane on that book; the book pane's yield line opens the memory; journal chips open book/memory/skill panes (masked "unrevealed memory" chips aren't clickable); a linked book stays visible even under an active filter
-- [ ] The Helper's mastered book pane: its "Always yields" memory line is a backlink too (click → Memories pane)
+- [x] Footer skills/journal counts update live
+- [x] Fixed: the Reading Helper populated only after quit+reopen (empty branch had no reload) — open it first on a fresh run, record books, return — the picker fills
+- [x] Same fix, Memories + Books + Skills: open a section while its list is empty, create entries elsewhere, return — lists populate without quit/restart (fixed for all three screens + the helper)
+- [x] Clickable links: a memory's yielding-book row opens the book pane on that book; the book pane's yield line opens the memory; journal chips open book/memory/skill panes (masked "unrevealed memory" chips aren't clickable); a linked book stays visible even under an active filter
+- [x] The Helper's mastered book pane: its "Always yields" memory line is a backlink too (click → Memories pane)
 
 ### Save import (+ the manage-sheet integration)
 
-- [ ] Manage Playthroughs sheet: "Import from Save…" button and a Cancel/OK bar at the
+- [x] Manage Playthroughs sheet: "Import from Save…" button and a Cancel/OK bar at the
       bottom (both just close; changes apply immediately — including renames committed
       on blur/OK)
-- [ ] Import sheet lists AUTOSAVE.json with its modified date, game version, and
+- [x] Import sheet lists AUTOSAVE.json with its modified date, game version, and
       book/skill counts
-- [ ] Import into a new playthrough: name defaults sensibly, import completes in a few
+- [x] Import into a new playthrough: name defaults sensibly, import completes in a few
       seconds, summary alert shows counts, and the app switches to the imported
       playthrough with populated Books/Memories/Skills/Journal screens
-- [ ] Spot-check against the game: a mastered book shows difficulty + principle badge +
+- [x] Spot-check against the game: a mastered book shows difficulty + principle badge +
       yielded memory; book kinds read correctly (bound books are plain "Book" — no sort
       of "Record" badge — since the codex/record mapping fix; the phonograph records and
       scrolls in your library still badge as Record/Scroll); a contaminated book shows
       its contamination; skills show levels; the Journal records the import
-- [ ] Import into the *current* playthrough: no duplicates, existing notes untouched
-- [ ] With the game folder absent (another Mac): friendly empty state mentioning the
+- [x] Import into the *current* playthrough: no duplicates, existing notes untouched
+- [x] With the game folder absent (another Mac): friendly empty state mentioning the
       parked file picker- [ ] Unacquired auction lots (2026-10-08 ruling): the four books your earlier import
       stamped "Oriflamme's auction" are GONE from the Books screen after the next launch
       (migration 009; seen-not-owned = spoiler class); a fresh re-import reports
       "N unacquired lots skipped (seen at the auction, not owned)" and does NOT create them
 
-- [ ] Location stamping (2026-10-06/07): re-import the autosave into a playthrough with
+- [x] Location stamping (2026-10-06/07): re-import the autosave into a playthrough with
       unrecorded locations — Books rows show "Library — shelf D.3"-style subtitles from
       the save's sphere chain (room > shelf/slot; desks/scroll-slots humanized); your own
       recorded locations are never overwritten; in-transit items read "Oriflamme's
@@ -118,7 +118,7 @@ flows, imported-kind repair, earned-only lists).
       the save's sphere chain (room > shelf/slot; desks/scroll-slots humanized); your own
       recorded locations are never overwritten; in-transit items read "portage1 — …"/
       "purchases.europe — …"
-- [ ] **Import into "Playthrough 2" (the reported regression):** import the autosave
+- [x] **Import into "Playthrough 2" (the reported regression):** import the autosave
       into a second run — it completes with its own copy of books/skills/memories
       (per-playthrough name uniqueness is in force since migration 006; the db is at
       schema v7), and "First playthrough" keeps its records untouched
