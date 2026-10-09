@@ -289,6 +289,28 @@ final class MigratorTests: XCTestCase {
                       "pre-feature stamps are never touched")
     }
 
+    /// Packaged-app migrations: plain Migrations/ files in the main bundle's
+    /// Resources are picked up by resolve() (the packaged app never touches the
+    /// SPM bundle machinery - the 2026-10-09 crash class).
+    func testMainResourceMigrationsAreLoaded() throws {
+        let fake = FileManager.default.temporaryDirectory
+            .appendingPathComponent("boh-mainres-\(UUID().uuidString)", isDirectory: true)
+        defer { try? FileManager.default.removeItem(at: fake) }
+
+        let resourcesDir = fake.appendingPathComponent("Resources", isDirectory: true)
+        try FileManager.default.createDirectory(at: resourcesDir.appendingPathComponent("Migrations", isDirectory: true),
+                                                withIntermediateDirectories: true)
+        try Data("PRAGMA user_version = 42;".utf8)
+            .write(to: resourcesDir.appendingPathComponent("Migrations/042_plain_files.sql"))
+        let list = try Migrator.loadMainResourceMigrations(resourceURL: resourcesDir)
+        XCTAssertEqual(try XCTUnwrap(list).count, 1)
+        XCTAssertNil(Migrator.loadMainResourceMigrations(resourceURL: nil))
+        let empty = FileManager.default.temporaryDirectory
+            .appendingPathComponent("boh-empty-\(UUID().uuidString)", isDirectory: true)
+        try FileManager.default.createDirectory(at: empty, withIntermediateDirectories: true)
+        XCTAssertNil(try Migrator.loadMainResourceMigrations(resourceURL: empty))
+    }
+
     // MARK: Bundled copy stays in sync with the repo    // MARK: Bundled copy stays in sync with the repo
 
     func testBundledMigrationsMatchRepoDirectory() throws {
