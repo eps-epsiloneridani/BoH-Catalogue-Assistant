@@ -433,6 +433,12 @@ Two goals, in priority order:
   live db first (6 rows rewritten, integrity ok); repo db at schema v8.
   +1 test (pre-feature stamps untouched). 109 green.
 
+- 2026-10-08 (manual checklist consolidated tick, user request): every hands-on item
+  EXCEPT the Packaged app and Accessibility sections marked complete (Phase 5,
+  save-import integration, filter/sort, the gained redesign, empty-arrival fixes,
+  clickable links, helper backlink). Outstanding: 11 items - packaged-app smoke
+  (6) + accessibility hands-on (5).
+
 - 2026-10-08 (clickable entity links, feature): backlinks/journal chips now
   navigate in place (no windows) - AppState.showBook/showMemory/showSkill switch
   the section + set the selection + reload. Underlined clickable rows: the memory
