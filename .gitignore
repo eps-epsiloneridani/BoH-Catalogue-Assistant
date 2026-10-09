@@ -18,3 +18,4 @@ xcuserdata/
 *.xcodeproj
 # Packaged app output (scripts/make-app.sh)
 dist/
+Boh.db
