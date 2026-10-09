@@ -33,6 +33,7 @@ cp "$BINARY" "$APP/Contents/MacOS/$APP_NAME"
 BUNDLE="$BIN_PATH/BoHLibrarian_BoHLibrarianCore.bundle"
 mkdir -p "$APP/Contents/Resources"
 cp -R "$BUNDLE" "$APP/Contents/Resources/"
+cp "$ROOT/scripts/assets/AppIcon.icns" "$APP/Contents/Resources/AppIcon.icns"
 
 
 GIT_HASH="$(git -C "$ROOT" rev-parse --short HEAD)"
@@ -50,6 +51,7 @@ cat > "$APP/Contents/Info.plist" <<PLIST
     <key>CFBundleVersion</key><string>${GIT_HASH}</string>
     <key>LSMinimumSystemVersion</key><string>14.0</string>
     <key>NSHighResolutionCapable</key><true/>
+    <key>CFBundleIconFile</key><string>AppIcon</string>
     <key>NSPrincipalClass</key><string>NSApplication</string>
     <key>LSApplicationCategoryType</key><string>public.app-category.productivity</string>
     <key>NSHumanReadableCopyright</key><string>Personal-use companion tool for Book of Hours (Weather Factory). Not affiliated.</string>

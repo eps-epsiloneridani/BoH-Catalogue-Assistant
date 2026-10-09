@@ -492,6 +492,13 @@ Two goals, in priority order:
   RootView’s unreachable switch default removed (the plan’s "stale AuxKey
   comment in BookDetailView" was already gone - skipped). 108 green.
 
+- 2026-10-09 (app icon, user request): the packaged app now carries a real icon -
+  Phosphor's duotone `book-open-text` glyph (MIT, human-made; user picked from a
+  reviewed set: Lucide/Bootstrap/Tabler/Phosphor) rendered on an indigo tile.
+  Pipeline: composed SVG -> QuickLook render -> iconset -> iconutil -> icns
+  (scripts/assets/AppIcon.icns, committed); make-app.sh ships it in
+  Contents/Resources + Info.plist CFBundleIconFile; NOTICE.md records provenance.
+
 - 2026-10-08 (remediation 7/9): the SPM resource bundle now ships inside the .app
   (make-app.sh copies BoHLibrarian_BoHLibrarianCore.bundle into Contents/Resources
   before signing) - the machine-specific .build fallback is retired; ROADMAP

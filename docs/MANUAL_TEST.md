@@ -126,6 +126,7 @@ flows, imported-kind repair, earned-only lists).
 ### Packaged app
 
 - [ ] Double-click `dist/BoH Librarian.app` from Finder — window opens, no terminal
+- [ ] The Dock/Finder shows the new icon (open book on an indigo tile — Phosphor book-open-text, MIT)
 - [ ] Portability (new: the resource bundle ships in the app): launch it on a Mac
       without `app/.build` (or rename the folder temporarily) — migrations still resolve
 - [ ] Footer shows the Application Support db path (not the repo's `../Boh.db`)
