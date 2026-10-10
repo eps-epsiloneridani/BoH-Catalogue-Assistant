@@ -1,15 +1,26 @@
-// BoH Librarian — Qt port entry point. Plan Task 1: an empty main window.
-// Sidebar navigation, stores, and db bootstrap arrive in Tasks 9–10.
-#include <QApplication>
-#include <QMainWindow>
+// BoH Librarian — Qt port entry point (plan Task 9): bootstrap the controller,
+// show the main window, fail loud when the db can't open.
+#include "AppController.h"
+#include "Views/MainWindow.h"
 
-int main(int argc, char* argv[]) {
+#include <QApplication>
+#include <QMessageBox>
+
+int main(int argc, char* argv[])
+{
     QApplication app(argc, argv);
     app.setApplicationName(QStringLiteral("BoH Librarian"));
 
-    QMainWindow window;
-    window.setWindowTitle(QStringLiteral("BoH Librarian"));
-    window.resize(1100, 720);
+    boh::AppController controller;
+    controller.bootstrap();
+    if (controller.phase() == boh::AppController::Phase::Failed) {
+        QMessageBox::critical(nullptr, QStringLiteral("BoH Librarian"),
+                              QStringLiteral("The library failed to open:\n\n%1")
+                                  .arg(controller.failureMessage()));
+        return 1;
+    }
+
+    boh::MainWindow window(controller);
     window.show();
     return QApplication::exec();
 }

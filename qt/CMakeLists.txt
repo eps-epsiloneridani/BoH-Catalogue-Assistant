@@ -23,6 +23,7 @@ add_library(bohcore STATIC
   src/core/BookQuery.cpp
   src/core/MemoryQuery.cpp
   src/core/SkillQuery.cpp
+  src/core/DatabaseLocation.cpp
   src/core/Repositories/PlaythroughRepository.cpp
   src/core/Repositories/LookupRepositories.cpp
   src/core/Repositories/BookRepository.cpp
@@ -60,10 +61,19 @@ qt_add_resources(bohcore "migrations"
 target_include_directories(bohcore PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/src/core)
 target_link_libraries(bohcore PUBLIC Qt6::Core SQLite::SQLite3)
 
+# App layer: controller + views (QObject classes; AUTOMOC handles them).
+add_library(bohapp STATIC
+  src/app/AppController.h src/app/AppController.cpp
+  src/app/Views/MainWindow.h src/app/Views/MainWindow.cpp
+  src/app/Views/Sidebar.h src/app/Views/Sidebar.cpp
+)
+target_include_directories(bohapp PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/src/app)
+target_link_libraries(bohapp PUBLIC bohcore Qt6::Core Qt6::Gui Qt6::Widgets)
+
 add_executable(boh-librarian
   src/app/main.cpp
 )
-target_link_libraries(boh-librarian PRIVATE bohcore Qt6::Gui Qt6::Widgets)
+target_link_libraries(boh-librarian PRIVATE bohapp bohcore Qt6::Gui Qt6::Widgets)
 
 enable_testing()
 
@@ -110,3 +120,12 @@ add_test(NAME PlaythroughRepository COMMAND test_PlaythroughRepository)
 add_executable(test_SaveImport tests/test_SaveImport.cpp)
 target_link_libraries(test_SaveImport PRIVATE bohcore Qt6::Core Qt6::Test)
 add_test(NAME SaveImport COMMAND test_SaveImport)
+
+add_executable(test_DatabaseLocation tests/test_DatabaseLocation.cpp)
+target_link_libraries(test_DatabaseLocation PRIVATE bohcore Qt6::Core Qt6::Test)
+add_test(NAME DatabaseLocation COMMAND test_DatabaseLocation)
+
+add_executable(test_AppController tests/test_AppController.cpp)
+target_link_libraries(test_AppController PRIVATE bohapp Qt6::Core Qt6::Test)
+add_test(NAME AppController COMMAND test_AppController)
+set_tests_properties(AppController PROPERTIES ENVIRONMENT "QT_QPA_PLATFORM=offscreen")
