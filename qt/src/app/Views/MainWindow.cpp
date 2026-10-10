@@ -1,5 +1,6 @@
 #include "MainWindow.h"
 #include "Books/BooksScreen.h"
+#include "Memories/MemoriesScreen.h"
 #include "Sidebar.h"
 
 #include <QAction>
@@ -75,6 +76,20 @@ void MainWindow::buildBody()
     m_booksScreen = new BooksScreen(m_controller.booksStore(), m_controller.principles(),
                                     m_controller.languages(), central);
     m_booksScreen->setController(&m_controller);
+    // The Memories screen (Task 13) replaces its placeholder.
+    m_memoriesScreen = new MemoriesScreen(m_controller.memoriesStore(), m_controller.principles(),
+                                          &m_controller, central);
+    connect(m_booksScreen, &BooksScreen::showMemoryRequested, this, [this](qint64 memoryID) {
+        selectSection(1);
+        m_memoriesScreen->selectMemory(memoryID);
+    });
+    connect(m_memoriesScreen, &MemoriesScreen::showBookRequested, this, [this](qint64 bookID) {
+        selectSection(0);
+        m_booksScreen->selectBook(bookID);
+    });
+    connect(&m_controller, &AppController::playthroughsChanged, this, [this] {
+        m_memoriesScreen->setStore(m_controller.memoriesStore());
+    });
     connect(m_booksScreen, &BooksScreen::showMemoryRequested, this, [this](qint64 memoryID) {
         // The Memories screen lands in Task 13; remember the target then.
         statusBar()->showMessage(QStringLiteral("Opening memory #%1 (Memories screen arrives "
@@ -132,6 +147,10 @@ void MainWindow::buildMenus()
             m_booksScreen->addNew();
             return;
         }
+        if (m_currentSection == 1 && m_memoriesScreen) {
+            m_memoriesScreen->addNew();
+            return;
+        }
         statusBar()->showMessage(QStringLiteral("New “%1” arrives with its screen.")
                                      .arg(sectionTitle(m_currentSection)),
                                  4000);
@@ -142,6 +161,10 @@ void MainWindow::buildMenus()
     connect(find, &QAction::triggered, this, [this] {
         if (m_currentSection == 0 && m_booksScreen) {
             m_booksScreen->focusSearch();
+            return;
+        }
+        if (m_currentSection == 1 && m_memoriesScreen) {
+            m_memoriesScreen->focusSearch();
             return;
         }
         focusSearch();

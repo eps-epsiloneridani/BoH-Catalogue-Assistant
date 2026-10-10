@@ -34,6 +34,7 @@ public:
 
     void addNew();     // Ctrl+N
     void focusSearch(); // Ctrl+F
+    void selectBook(qint64 bookID); // backlink navigation
     /// The controller rebuilds stores on playthrough switch — re-point at the
     /// new instance (connections to the old store die with it).
     void setStore(BooksStore* store);

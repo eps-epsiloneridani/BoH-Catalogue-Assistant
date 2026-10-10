@@ -287,6 +287,13 @@ void BooksScreen::addNew()
         showError();
 }
 
+void BooksScreen::selectBook(qint64 bookID)
+{
+    m_store->setSelectedBookID(bookID);
+    rebuildList();
+    refreshDetail();
+}
+
 void BooksScreen::focusSearch()
 {
     m_search->setFocus();

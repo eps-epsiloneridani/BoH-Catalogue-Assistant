@@ -482,6 +482,7 @@ CMakeFiles/bohapp.dir/src/app/Views/MainWindow.cpp.o: \
  /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qgridlayout.h \
  /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QWidget \
  /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qwidget.h \
+ /home/rich/BoH-Catalogue-Assistant/qt/src/app/Views/Memories/MemoriesScreen.h \
  /home/rich/BoH-Catalogue-Assistant/qt/src/app/Views/Sidebar.h \
  /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QListWidget \
  /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qlistwidget.h \
