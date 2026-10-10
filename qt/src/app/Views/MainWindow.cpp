@@ -1,6 +1,7 @@
 #include "MainWindow.h"
 #include "Books/BooksScreen.h"
 #include "Memories/MemoriesScreen.h"
+#include "ReadingHelper/ReadingHelperScreen.h"
 #include "Sidebar.h"
 
 #include <QAction>
@@ -87,8 +88,20 @@ void MainWindow::buildBody()
         selectSection(0);
         m_booksScreen->selectBook(bookID);
     });
+    // The Reading Helper (Task 14) replaces its placeholder.
+    m_helperScreen = new ReadingHelperScreen(m_controller.helperStore(), &m_controller,
+                                             m_controller.principles(), central);
+    connect(m_helperScreen, &ReadingHelperScreen::showMemoryRequested, this, [this](qint64 memoryID) {
+        selectSection(1);
+        m_memoriesScreen->selectMemory(memoryID);
+    });
+    connect(m_helperScreen, &ReadingHelperScreen::showBookRequested, this, [this](qint64 bookID) {
+        selectSection(0);
+        m_booksScreen->selectBook(bookID);
+    });
     connect(&m_controller, &AppController::playthroughsChanged, this, [this] {
         m_memoriesScreen->setStore(m_controller.memoriesStore());
+        m_helperScreen->setStore(m_controller.helperStore());
     });
     connect(m_booksScreen, &BooksScreen::showMemoryRequested, this, [this](qint64 memoryID) {
         // The Memories screen lands in Task 13; remember the target then.
@@ -165,6 +178,10 @@ void MainWindow::buildMenus()
         }
         if (m_currentSection == 1 && m_memoriesScreen) {
             m_memoriesScreen->focusSearch();
+            return;
+        }
+        if (m_currentSection == 4 && m_helperScreen) {
+            m_helperScreen->focusSearch();
             return;
         }
         focusSearch();

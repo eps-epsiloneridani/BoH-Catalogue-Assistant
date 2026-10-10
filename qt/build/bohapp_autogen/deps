@@ -23,6 +23,8 @@ bohapp_autogen/timestamp: \
 	/home/rich/BoH-Catalogue-Assistant/qt/src/app/Views/MainWindow.h \
 	/home/rich/BoH-Catalogue-Assistant/qt/src/app/Views/Memories/MemoriesScreen.cpp \
 	/home/rich/BoH-Catalogue-Assistant/qt/src/app/Views/Memories/MemoriesScreen.h \
+	/home/rich/BoH-Catalogue-Assistant/qt/src/app/Views/ReadingHelper/ReadingHelperScreen.cpp \
+	/home/rich/BoH-Catalogue-Assistant/qt/src/app/Views/ReadingHelper/ReadingHelperScreen.h \
 	/home/rich/BoH-Catalogue-Assistant/qt/src/app/Views/Shared/AspectEditor.cpp \
 	/home/rich/BoH-Catalogue-Assistant/qt/src/app/Views/Shared/AspectEditor.h \
 	/home/rich/BoH-Catalogue-Assistant/qt/src/app/Views/Shared/Badges.cpp \

@@ -1,14 +1,14 @@
-smoke 35 0.000301883
-SQLiteDatabase 35 0.000431937
-Migrator 35 0.0019559
-ColorMath 33 0.000392749
-ReadingMath 33 0.000295776
-BookQuery 31 0.000354118
-MemoryQuery 31 0.00041842
-SkillQuery 31 0.000319441
-Repositories 29 0.00657581
-PlaythroughRepository 27 0.00138638
-SaveImport 23 0.0238906
-DatabaseLocation 15 0.000785508
-AppController 14 0.00491191
+smoke 38 0.000249165
+SQLiteDatabase 38 0.000371663
+Migrator 38 0.00159311
+ColorMath 36 0.00030089
+ReadingMath 36 0.000259573
+BookQuery 34 0.000314134
+MemoryQuery 34 0.000314769
+SkillQuery 34 0.000363797
+Repositories 32 0.00550649
+PlaythroughRepository 30 0.00141075
+SaveImport 26 0.0207437
+DatabaseLocation 18 0.000746202
+AppController 17 0.00524008
 ---

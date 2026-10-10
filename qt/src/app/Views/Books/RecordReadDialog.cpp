@@ -128,6 +128,15 @@ RecordReadDialog::RecordReadDialog(const Book& book, BooksStore* store, AppContr
     layout->addLayout(buttons);
 }
 
+void RecordReadDialog::setPreselectedMemoryID(qint64 id)
+{
+    if (id == 0)
+        return;
+    const int index = m_usedMemory->findData(id);
+    if (index >= 0)
+        m_usedMemory->setCurrentIndex(index);
+}
+
 void RecordReadDialog::rebuildGainedChoices()
 {
     QSignalBlocker blocker(m_gainedChoice);

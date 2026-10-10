@@ -308,6 +308,12 @@
 			null
 		],
 		[
+			"/home/rich/BoH-Catalogue-Assistant/qt/src/app/Views/ReadingHelper/ReadingHelperScreen.h",
+			"Mu",
+			"BKM2U3M7R5/moc_ReadingHelperScreen.cpp",
+			null
+		],
+		[
 			"/home/rich/BoH-Catalogue-Assistant/qt/src/app/Views/Shared/AspectEditor.h",
 			"Mu",
 			"P2LIO7MJ6I/moc_AspectEditor.cpp",
@@ -447,6 +453,11 @@
 		],
 		[
 			"/home/rich/BoH-Catalogue-Assistant/qt/src/app/Views/Memories/MemoriesScreen.cpp",
+			"Mu",
+			null
+		],
+		[
+			"/home/rich/BoH-Catalogue-Assistant/qt/src/app/Views/ReadingHelper/ReadingHelperScreen.cpp",
 			"Mu",
 			null
 		],

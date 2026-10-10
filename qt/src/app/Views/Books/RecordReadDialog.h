@@ -31,6 +31,8 @@ class RecordReadDialog final : public QDialog {
 public:
     RecordReadDialog(const Book& book, BooksStore* store, AppController* controller,
                      QWidget* parent = nullptr);
+    /// Reading-Helper flows open the dialog with the chosen memory in hand.
+    void setPreselectedMemoryID(qint64 id);
 
 private:
     void record();

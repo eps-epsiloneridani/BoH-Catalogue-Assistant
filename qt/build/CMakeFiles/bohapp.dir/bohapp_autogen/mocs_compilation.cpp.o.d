@@ -495,6 +495,8 @@ CMakeFiles/bohapp.dir/bohapp_autogen/mocs_compilation.cpp.o: \
  /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qframe.h \
  /home/rich/BoH-Catalogue-Assistant/qt/build/bohapp_autogen/D24MOPL25K/moc_MemoriesScreen.cpp \
  /home/rich/BoH-Catalogue-Assistant/qt/build/bohapp_autogen/D24MOPL25K/../../../src/app/Views/Memories/MemoriesScreen.h \
+ /home/rich/BoH-Catalogue-Assistant/qt/build/bohapp_autogen/BKM2U3M7R5/moc_ReadingHelperScreen.cpp \
+ /home/rich/BoH-Catalogue-Assistant/qt/build/bohapp_autogen/BKM2U3M7R5/../../../src/app/Views/ReadingHelper/ReadingHelperScreen.h \
  /home/rich/BoH-Catalogue-Assistant/qt/build/bohapp_autogen/P2LIO7MJ6I/moc_AspectEditor.cpp \
  /home/rich/BoH-Catalogue-Assistant/qt/build/bohapp_autogen/P2LIO7MJ6I/../../../src/app/Views/Shared/AspectEditor.h \
  /home/rich/BoH-Catalogue-Assistant/qt/build/bohapp_autogen/P2LIO7MJ6I/moc_BookRowDelegate.cpp \
