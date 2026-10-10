@@ -57,3 +57,20 @@ Copyright © 2026 eps@epsiloneridani.io, with the exception of any references or
 
 This project is licensed under the
 [GNU General Public License v3.0](LICENSE) — see [LICENSE](LICENSE) for the full terms.
+
+
+## Linux (Qt port)
+
+A native Linux desktop app lives in `qt/` — same features, same schema
+(`db/migrations/` is the single source for both platforms). Build:
+
+```sh
+sudo apt-get install qt6-base-dev libsqlite3-dev pkg-config   # Debian/Ubuntu
+cmake -S qt -B qt/build && cmake --build qt/build
+./qt/build/boh-librarian
+```
+
+The database lives at `~/.local/share/BoH Librarian/Boh.db` (or `BOH_DB_PATH`);
+save import probes the native Linux build's `~/.config/unity3d/Weather Factory/
+Book of Hours` first, then Proton prefixes. AppImage packaging:
+`qt/packaging/make-appimage.sh`. Plan: `docs/superpowers/plans/2026-10-09-linux-qt-port.md`.

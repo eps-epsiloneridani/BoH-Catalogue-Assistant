@@ -12,7 +12,7 @@ Config: Using QtTest library 6.8.2, Qt 6.8.2 (x86_64-little_endian-lp64 shared (
 PASS   : SmokeTest::initTestCase()
 PASS   : SmokeTest::triviallyTrue()
 PASS   : SmokeTest::cleanupTestCase()
-Totals: 3 passed, 0 failed, 0 skipped, 0 blacklisted, 2ms
+Totals: 3 passed, 0 failed, 0 skipped, 0 blacklisted, 1ms
 ********* Finished testing of SmokeTest *********
 <end of output>
 Test time =   0.01 sec
@@ -47,10 +47,10 @@ PASS   : SQLiteDatabaseTests::transactionRollsBackOnError()
 PASS   : SQLiteDatabaseTests::tableExists()
 PASS   : SQLiteDatabaseTests::userVersionRoundTrip()
 PASS   : SQLiteDatabaseTests::cleanupTestCase()
-Totals: 16 passed, 0 failed, 0 skipped, 0 blacklisted, 6ms
+Totals: 16 passed, 0 failed, 0 skipped, 0 blacklisted, 5ms
 ********* Finished testing of SQLiteDatabaseTests *********
 <end of output>
-Test time =   0.03 sec
+Test time =   0.02 sec
 ----------------------------------------------------------
 Test Passed.
 "SQLiteDatabase" end time: Oct 10 19:25 BST
@@ -84,10 +84,10 @@ PASS   : MigratorTests::mainResourceMigrationsAreLoaded()
 PASS   : MigratorTests::bundledMigrationsMatchRepoDirectory()
 PASS   : MigratorTests::resolveUsesEnvVariableWhenSet()
 PASS   : MigratorTests::cleanupTestCase()
-Totals: 18 passed, 0 failed, 0 skipped, 0 blacklisted, 63ms
+Totals: 18 passed, 0 failed, 0 skipped, 0 blacklisted, 53ms
 ********* Finished testing of MigratorTests *********
 <end of output>
-Test time =   0.07 sec
+Test time =   0.06 sec
 ----------------------------------------------------------
 Test Passed.
 "Migrator" end time: Oct 10 19:25 BST
@@ -110,7 +110,7 @@ PASS   : ColorMathTests::blending()
 PASS   : ColorMathTests::readableTextMeetsAAForEverySeededPrincipleInBothModes()
 PASS   : ColorMathTests::readableTextKeepsAlreadyReadableTintsUntouched()
 PASS   : ColorMathTests::cleanupTestCase()
-Totals: 7 passed, 0 failed, 0 skipped, 0 blacklisted, 3ms
+Totals: 7 passed, 0 failed, 0 skipped, 0 blacklisted, 4ms
 ********* Finished testing of ColorMathTests *********
 <end of output>
 Test time =   0.01 sec
@@ -235,7 +235,7 @@ PASS   : SkillQueryTests::sortByNameAndRecent()
 PASS   : SkillQueryTests::levelOneSkillShowsTwoPrimaryOneSecondary()
 PASS   : SkillQueryTests::levelNineSkillShowsTenAndNine()
 PASS   : SkillQueryTests::cleanupTestCase()
-Totals: 9 passed, 0 failed, 0 skipped, 0 blacklisted, 3ms
+Totals: 9 passed, 0 failed, 0 skipped, 0 blacklisted, 4ms
 ********* Finished testing of SkillQueryTests *********
 <end of output>
 Test time =   0.02 sec
@@ -278,10 +278,10 @@ PASS   : RepositoryTests::skillLifecycleAndContributions()
 PASS   : RepositoryTests::languagesDoNotCountAsSkillContributions()
 PASS   : RepositoryTests::journalLifecycle()
 PASS   : RepositoryTests::cleanupTestCase()
-Totals: 24 passed, 0 failed, 0 skipped, 0 blacklisted, 191ms
+Totals: 24 passed, 0 failed, 0 skipped, 0 blacklisted, 222ms
 ********* Finished testing of RepositoryTests *********
 <end of output>
-Test time =   0.20 sec
+Test time =   0.24 sec
 ----------------------------------------------------------
 Test Passed.
 "Repositories" end time: Oct 10 19:25 BST
@@ -303,7 +303,7 @@ PASS   : PlaythroughRepositoryTests::insertSetAndGetRoundTrip()
 PASS   : PlaythroughRepositoryTests::scopingIsolatesPlaythroughs()
 PASS   : PlaythroughRepositoryTests::deletingPlaythroughCascadesFindings()
 PASS   : PlaythroughRepositoryTests::cleanupTestCase()
-Totals: 6 passed, 0 failed, 0 skipped, 0 blacklisted, 40ms
+Totals: 6 passed, 0 failed, 0 skipped, 0 blacklisted, 48ms
 ********* Finished testing of PlaythroughRepositoryTests *********
 <end of output>
 Test time =   0.06 sec
@@ -342,10 +342,10 @@ PASS   : SaveImportTests::discoveryFindsTheRealInstallWhenPresent()
 PASS   : SaveImportTests::importFromRealInstalledGameAndSave()
 PASS   : SaveImportTests::saveScannerFindsOnlyValidSaves()
 PASS   : SaveImportTests::cleanupTestCase()
-Totals: 20 passed, 0 failed, 0 skipped, 0 blacklisted, 662ms
+Totals: 20 passed, 0 failed, 0 skipped, 0 blacklisted, 588ms
 ********* Finished testing of SaveImportTests *********
 <end of output>
-Test time =   0.68 sec
+Test time =   0.61 sec
 ----------------------------------------------------------
 Test Passed.
 "SaveImport" end time: Oct 10 19:25 BST
@@ -367,10 +367,10 @@ PASS   : DatabaseLocationTests::currentDirectoryDbWinsOverXdg()
 PASS   : DatabaseLocationTests::xdgDataHomeIsHonoredAndCreatedWithTightPerms()
 PASS   : DatabaseLocationTests::xdgFallsBackToLocalShare()
 PASS   : DatabaseLocationTests::cleanupTestCase()
-Totals: 6 passed, 0 failed, 0 skipped, 0 blacklisted, 5ms
+Totals: 6 passed, 0 failed, 0 skipped, 0 blacklisted, 2ms
 ********* Finished testing of DatabaseLocationTests *********
 <end of output>
-Test time =   0.02 sec
+Test time =   0.01 sec
 ----------------------------------------------------------
 Test Passed.
 "DatabaseLocation" end time: Oct 10 19:25 BST
@@ -392,10 +392,10 @@ PASS   : AppControllerTests::bootstrapFailsLoudWhenEnvPathDirIsMissing()
 PASS   : AppControllerTests::bootstrapFailsLoudOnABrokenSetup()
 PASS   : AppControllerTests::switchPlaythroughRemountsAndCountsFollow()
 PASS   : AppControllerTests::cleanupTestCase()
-Totals: 6 passed, 0 failed, 0 skipped, 0 blacklisted, 58ms
+Totals: 6 passed, 0 failed, 0 skipped, 0 blacklisted, 41ms
 ********* Finished testing of AppControllerTests *********
 <end of output>
-Test time =   0.13 sec
+Test time =   0.08 sec
 ----------------------------------------------------------
 Test Passed.
 "AppController" end time: Oct 10 19:25 BST
