@@ -16,6 +16,23 @@ jobs:
       - name: Run tests
         run: cd app && swift test -v
 
+  # Linux port suite (qt/): run on ubuntu-22.04 — the oldest supported build
+  # host, so the whole port stays inside the compat floors (Qt 6.2+, SQLite
+  # 3.35+ — jammy ships SQLite 3.37). Plan Task 1,
+  # docs/superpowers/plans/2026-10-09-linux-qt-port.md.
+  linux-test:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install build dependencies
+        run: sudo apt-get update && sudo apt-get install -y qt6-base-dev libsqlite3-dev pkg-config
+      - name: Configure
+        run: cmake -S qt -B qt/build
+      - name: Build
+        run: cmake --build qt/build
+      - name: Run tests
+        run: ctest --test-dir qt/build --output-on-failure
+
   # A tag push (v*) runs the suite, packages the app, and publishes a release.
   release:
     if: startsWith(github.ref, 'refs/tags/v')
