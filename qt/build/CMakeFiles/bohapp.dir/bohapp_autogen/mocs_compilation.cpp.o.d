@@ -483,6 +483,8 @@ CMakeFiles/bohapp.dir/bohapp_autogen/mocs_compilation.cpp.o: \
  /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qgridlayout.h \
  /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QWidget \
  /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qwidget.h \
+ /home/rich/BoH-Catalogue-Assistant/qt/build/bohapp_autogen/NFBRDKPPNV/moc_RecordReadDialog.cpp \
+ /home/rich/BoH-Catalogue-Assistant/qt/build/bohapp_autogen/NFBRDKPPNV/../../../src/app/Views/Books/RecordReadDialog.h \
  /home/rich/BoH-Catalogue-Assistant/qt/build/bohapp_autogen/KZ2CQRJLRB/moc_MainWindow.cpp \
  /home/rich/BoH-Catalogue-Assistant/qt/build/bohapp_autogen/KZ2CQRJLRB/../../../src/app/Views/MainWindow.h \
  /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QMainWindow \
@@ -491,6 +493,8 @@ CMakeFiles/bohapp.dir/bohapp_autogen/mocs_compilation.cpp.o: \
  /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QStackedWidget \
  /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qstackedwidget.h \
  /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qframe.h \
+ /home/rich/BoH-Catalogue-Assistant/qt/build/bohapp_autogen/P2LIO7MJ6I/moc_AspectEditor.cpp \
+ /home/rich/BoH-Catalogue-Assistant/qt/build/bohapp_autogen/P2LIO7MJ6I/../../../src/app/Views/Shared/AspectEditor.h \
  /home/rich/BoH-Catalogue-Assistant/qt/build/bohapp_autogen/P2LIO7MJ6I/moc_BookRowDelegate.cpp \
  /home/rich/BoH-Catalogue-Assistant/qt/build/bohapp_autogen/P2LIO7MJ6I/../../../src/app/Views/Shared/BookRowDelegate.h \
  /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QStyledItemDelegate \

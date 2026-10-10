@@ -21,6 +21,7 @@ class QSpinBox;
 
 namespace boh {
 
+class AppController;
 class BookDetailView;
 class BookFormView;
 
@@ -36,6 +37,7 @@ public:
     /// The controller rebuilds stores on playthrough switch — re-point at the
     /// new instance (connections to the old store die with it).
     void setStore(BooksStore* store);
+    void setController(AppController* controller);
 
 signals:
     /// Clickable yield backlink → the app switches to the Memories section.
@@ -49,6 +51,7 @@ private:
 
     std::vector<Principle> m_principles;
     std::vector<Language> m_languages;
+    AppController* m_controller = nullptr;
 
     BooksStore* m_store;
     QLineEdit* m_search = nullptr;
@@ -108,6 +111,7 @@ private:
 
     std::vector<Principle> m_principles;
     std::vector<Language> m_languages;
+    AppController* m_controller = nullptr;
     std::optional<Book> m_original;
     QLineEdit* m_title = nullptr;
     QComboBox* m_kind = nullptr;

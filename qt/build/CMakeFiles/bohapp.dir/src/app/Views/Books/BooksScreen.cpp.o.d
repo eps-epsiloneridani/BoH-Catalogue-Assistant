@@ -466,6 +466,15 @@ CMakeFiles/bohapp.dir/src/app/Views/Books/BooksScreen.cpp.o: \
  /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qgridlayout.h \
  /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QWidget \
  /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qwidget.h \
+ /home/rich/BoH-Catalogue-Assistant/qt/src/app/AppController.h \
+ /home/rich/BoH-Catalogue-Assistant/qt/src/core/Repositories/PlaythroughRepository.h \
+ /home/rich/BoH-Catalogue-Assistant/qt/src/app/Stores/JournalStore.h \
+ /home/rich/BoH-Catalogue-Assistant/qt/src/app/Stores/MemoriesStore.h \
+ /home/rich/BoH-Catalogue-Assistant/qt/src/core/MemoryQuery.h \
+ /home/rich/BoH-Catalogue-Assistant/qt/src/app/Stores/ReadingHelperStore.h \
+ /home/rich/BoH-Catalogue-Assistant/qt/src/app/Stores/SkillsStore.h \
+ /home/rich/BoH-Catalogue-Assistant/qt/src/core/SkillQuery.h \
+ /home/rich/BoH-Catalogue-Assistant/qt/src/app/Views/Books/RecordReadDialog.h \
  /home/rich/BoH-Catalogue-Assistant/qt/src/app/Views/Shared/Badges.h \
  /usr/include/x86_64-linux-gnu/qt6/QtGui/QPainter \
  /usr/include/x86_64-linux-gnu/qt6/QtGui/qpainter.h \

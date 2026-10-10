@@ -1064,6 +1064,30 @@ src/app/Views/Books/BooksScreen.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/bohapp.dir/build.make CMakeFiles/bohapp.dir/src/app/Views/Books/BooksScreen.cpp.s
 .PHONY : src/app/Views/Books/BooksScreen.cpp.s
 
+src/app/Views/Books/RecordReadDialog.o: src/app/Views/Books/RecordReadDialog.cpp.o
+.PHONY : src/app/Views/Books/RecordReadDialog.o
+
+# target to build an object file
+src/app/Views/Books/RecordReadDialog.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bohapp.dir/build.make CMakeFiles/bohapp.dir/src/app/Views/Books/RecordReadDialog.cpp.o
+.PHONY : src/app/Views/Books/RecordReadDialog.cpp.o
+
+src/app/Views/Books/RecordReadDialog.i: src/app/Views/Books/RecordReadDialog.cpp.i
+.PHONY : src/app/Views/Books/RecordReadDialog.i
+
+# target to preprocess a source file
+src/app/Views/Books/RecordReadDialog.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bohapp.dir/build.make CMakeFiles/bohapp.dir/src/app/Views/Books/RecordReadDialog.cpp.i
+.PHONY : src/app/Views/Books/RecordReadDialog.cpp.i
+
+src/app/Views/Books/RecordReadDialog.s: src/app/Views/Books/RecordReadDialog.cpp.s
+.PHONY : src/app/Views/Books/RecordReadDialog.s
+
+# target to generate assembly for a file
+src/app/Views/Books/RecordReadDialog.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bohapp.dir/build.make CMakeFiles/bohapp.dir/src/app/Views/Books/RecordReadDialog.cpp.s
+.PHONY : src/app/Views/Books/RecordReadDialog.cpp.s
+
 src/app/Views/MainWindow.o: src/app/Views/MainWindow.cpp.o
 .PHONY : src/app/Views/MainWindow.o
 
@@ -1087,6 +1111,30 @@ src/app/Views/MainWindow.s: src/app/Views/MainWindow.cpp.s
 src/app/Views/MainWindow.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/bohapp.dir/build.make CMakeFiles/bohapp.dir/src/app/Views/MainWindow.cpp.s
 .PHONY : src/app/Views/MainWindow.cpp.s
+
+src/app/Views/Shared/AspectEditor.o: src/app/Views/Shared/AspectEditor.cpp.o
+.PHONY : src/app/Views/Shared/AspectEditor.o
+
+# target to build an object file
+src/app/Views/Shared/AspectEditor.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bohapp.dir/build.make CMakeFiles/bohapp.dir/src/app/Views/Shared/AspectEditor.cpp.o
+.PHONY : src/app/Views/Shared/AspectEditor.cpp.o
+
+src/app/Views/Shared/AspectEditor.i: src/app/Views/Shared/AspectEditor.cpp.i
+.PHONY : src/app/Views/Shared/AspectEditor.i
+
+# target to preprocess a source file
+src/app/Views/Shared/AspectEditor.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bohapp.dir/build.make CMakeFiles/bohapp.dir/src/app/Views/Shared/AspectEditor.cpp.i
+.PHONY : src/app/Views/Shared/AspectEditor.cpp.i
+
+src/app/Views/Shared/AspectEditor.s: src/app/Views/Shared/AspectEditor.cpp.s
+.PHONY : src/app/Views/Shared/AspectEditor.s
+
+# target to generate assembly for a file
+src/app/Views/Shared/AspectEditor.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bohapp.dir/build.make CMakeFiles/bohapp.dir/src/app/Views/Shared/AspectEditor.cpp.s
+.PHONY : src/app/Views/Shared/AspectEditor.cpp.s
 
 src/app/Views/Shared/Badges.o: src/app/Views/Shared/Badges.cpp.o
 .PHONY : src/app/Views/Shared/Badges.o
@@ -2311,9 +2359,15 @@ help:
 	@echo "... src/app/Views/Books/BooksScreen.o"
 	@echo "... src/app/Views/Books/BooksScreen.i"
 	@echo "... src/app/Views/Books/BooksScreen.s"
+	@echo "... src/app/Views/Books/RecordReadDialog.o"
+	@echo "... src/app/Views/Books/RecordReadDialog.i"
+	@echo "... src/app/Views/Books/RecordReadDialog.s"
 	@echo "... src/app/Views/MainWindow.o"
 	@echo "... src/app/Views/MainWindow.i"
 	@echo "... src/app/Views/MainWindow.s"
+	@echo "... src/app/Views/Shared/AspectEditor.o"
+	@echo "... src/app/Views/Shared/AspectEditor.i"
+	@echo "... src/app/Views/Shared/AspectEditor.s"
 	@echo "... src/app/Views/Shared/Badges.o"
 	@echo "... src/app/Views/Shared/Badges.i"
 	@echo "... src/app/Views/Shared/Badges.s"
