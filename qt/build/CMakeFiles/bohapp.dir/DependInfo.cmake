@@ -10,6 +10,11 @@ set(CMAKE_DEPENDS_LANGUAGES
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/home/rich/BoH-Catalogue-Assistant/qt/build/bohapp_autogen/mocs_compilation.cpp" "CMakeFiles/bohapp.dir/bohapp_autogen/mocs_compilation.cpp.o" "gcc" "CMakeFiles/bohapp.dir/bohapp_autogen/mocs_compilation.cpp.o.d"
   "/home/rich/BoH-Catalogue-Assistant/qt/src/app/AppController.cpp" "CMakeFiles/bohapp.dir/src/app/AppController.cpp.o" "gcc" "CMakeFiles/bohapp.dir/src/app/AppController.cpp.o.d"
+  "/home/rich/BoH-Catalogue-Assistant/qt/src/app/Stores/BooksStore.cpp" "CMakeFiles/bohapp.dir/src/app/Stores/BooksStore.cpp.o" "gcc" "CMakeFiles/bohapp.dir/src/app/Stores/BooksStore.cpp.o.d"
+  "/home/rich/BoH-Catalogue-Assistant/qt/src/app/Stores/JournalStore.cpp" "CMakeFiles/bohapp.dir/src/app/Stores/JournalStore.cpp.o" "gcc" "CMakeFiles/bohapp.dir/src/app/Stores/JournalStore.cpp.o.d"
+  "/home/rich/BoH-Catalogue-Assistant/qt/src/app/Stores/MemoriesStore.cpp" "CMakeFiles/bohapp.dir/src/app/Stores/MemoriesStore.cpp.o" "gcc" "CMakeFiles/bohapp.dir/src/app/Stores/MemoriesStore.cpp.o.d"
+  "/home/rich/BoH-Catalogue-Assistant/qt/src/app/Stores/ReadingHelperStore.cpp" "CMakeFiles/bohapp.dir/src/app/Stores/ReadingHelperStore.cpp.o" "gcc" "CMakeFiles/bohapp.dir/src/app/Stores/ReadingHelperStore.cpp.o.d"
+  "/home/rich/BoH-Catalogue-Assistant/qt/src/app/Stores/SkillsStore.cpp" "CMakeFiles/bohapp.dir/src/app/Stores/SkillsStore.cpp.o" "gcc" "CMakeFiles/bohapp.dir/src/app/Stores/SkillsStore.cpp.o.d"
   "/home/rich/BoH-Catalogue-Assistant/qt/src/app/Views/MainWindow.cpp" "CMakeFiles/bohapp.dir/src/app/Views/MainWindow.cpp.o" "gcc" "CMakeFiles/bohapp.dir/src/app/Views/MainWindow.cpp.o.d"
   "/home/rich/BoH-Catalogue-Assistant/qt/src/app/Views/Sidebar.cpp" "CMakeFiles/bohapp.dir/src/app/Views/Sidebar.cpp.o" "gcc" "CMakeFiles/bohapp.dir/src/app/Views/Sidebar.cpp.o.d"
   )

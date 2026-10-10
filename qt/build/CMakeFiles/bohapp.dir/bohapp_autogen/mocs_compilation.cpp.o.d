@@ -356,6 +356,14 @@ CMakeFiles/bohapp.dir/bohapp_autogen/mocs_compilation.cpp.o: \
  /usr/include/x86_64-linux-gnu/qt6/QtCore/qstringmatcher.h \
  /usr/include/sqlite3.h \
  /home/rich/BoH-Catalogue-Assistant/qt/src/core/Repositories/PlaythroughRepository.h \
+ /home/rich/BoH-Catalogue-Assistant/qt/build/bohapp_autogen/ISMKEKEPX5/../../../src/app/Stores/BooksStore.h \
+ /home/rich/BoH-Catalogue-Assistant/qt/src/core/BookQuery.h \
+ /home/rich/BoH-Catalogue-Assistant/qt/src/core/Repositories/BookRepository.h \
+ /usr/include/x86_64-linux-gnu/qt6/QtCore/QList \
+ /usr/include/x86_64-linux-gnu/qt6/QtCore/qlist.h \
+ /home/rich/BoH-Catalogue-Assistant/qt/src/core/Repositories/JournalRepository.h \
+ /home/rich/BoH-Catalogue-Assistant/qt/src/core/Repositories/MemoryRepository.h \
+ /home/rich/BoH-Catalogue-Assistant/qt/src/core/Repositories/SkillRepository.h \
  /usr/include/x86_64-linux-gnu/qt6/QtCore/QObject \
  /usr/include/x86_64-linux-gnu/qt6/QtCore/qobject.h \
  /usr/include/x86_64-linux-gnu/qt6/QtCore/qobjectdefs.h \
@@ -395,7 +403,23 @@ CMakeFiles/bohapp.dir/bohapp_autogen/mocs_compilation.cpp.o: \
  /usr/include/c++/14/charconv /usr/include/c++/14/span \
  /usr/include/c++/14/bits/unicode.h \
  /usr/include/c++/14/bits/unicode-data.h \
+ /usr/include/x86_64-linux-gnu/qt6/QtCore/QSet \
+ /usr/include/x86_64-linux-gnu/qt6/QtCore/qset.h \
+ /usr/include/x86_64-linux-gnu/qt6/QtCore/qhash.h \
+ /usr/include/x86_64-linux-gnu/qt6/QtCore/QStringList \
+ /usr/include/x86_64-linux-gnu/qt6/QtCore/qstringlist.h \
+ /home/rich/BoH-Catalogue-Assistant/qt/build/bohapp_autogen/ISMKEKEPX5/../../../src/app/Stores/JournalStore.h \
+ /home/rich/BoH-Catalogue-Assistant/qt/build/bohapp_autogen/ISMKEKEPX5/../../../src/app/Stores/MemoriesStore.h \
+ /home/rich/BoH-Catalogue-Assistant/qt/src/core/MemoryQuery.h \
+ /home/rich/BoH-Catalogue-Assistant/qt/build/bohapp_autogen/ISMKEKEPX5/../../../src/app/Stores/ReadingHelperStore.h \
+ /home/rich/BoH-Catalogue-Assistant/qt/build/bohapp_autogen/ISMKEKEPX5/../../../src/app/Stores/SkillsStore.h \
+ /home/rich/BoH-Catalogue-Assistant/qt/src/core/SkillQuery.h \
  /usr/include/x86_64-linux-gnu/qt6/QtCore/qtmochelpers.h \
+ /home/rich/BoH-Catalogue-Assistant/qt/build/bohapp_autogen/QLRDJBIM37/moc_BooksStore.cpp \
+ /home/rich/BoH-Catalogue-Assistant/qt/build/bohapp_autogen/QLRDJBIM37/moc_JournalStore.cpp \
+ /home/rich/BoH-Catalogue-Assistant/qt/build/bohapp_autogen/QLRDJBIM37/moc_MemoriesStore.cpp \
+ /home/rich/BoH-Catalogue-Assistant/qt/build/bohapp_autogen/QLRDJBIM37/moc_ReadingHelperStore.cpp \
+ /home/rich/BoH-Catalogue-Assistant/qt/build/bohapp_autogen/QLRDJBIM37/moc_SkillsStore.cpp \
  /home/rich/BoH-Catalogue-Assistant/qt/build/bohapp_autogen/KZ2CQRJLRB/moc_MainWindow.cpp \
  /home/rich/BoH-Catalogue-Assistant/qt/build/bohapp_autogen/KZ2CQRJLRB/../../../src/app/Views/MainWindow.h \
  /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QMainWindow \
@@ -441,7 +465,6 @@ CMakeFiles/bohapp.dir/bohapp_autogen/mocs_compilation.cpp.o: \
  /usr/include/x86_64-linux-gnu/qt6/QtCore/qmap.h \
  /usr/include/x86_64-linux-gnu/qt6/QtCore/qshareddata_impl.h \
  /usr/include/x86_64-linux-gnu/qt6/QtCore/qset.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qhash.h \
  /usr/include/x86_64-linux-gnu/qt6/QtCore/qvarlengtharray.h \
  /usr/include/x86_64-linux-gnu/qt6/QtGui/qpalette.h \
  /usr/include/x86_64-linux-gnu/qt6/QtGui/qbrush.h \

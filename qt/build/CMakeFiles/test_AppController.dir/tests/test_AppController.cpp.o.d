@@ -955,11 +955,24 @@ CMakeFiles/test_AppController.dir/tests/test_AppController.cpp.o: \
  /usr/include/x86_64-linux-gnu/qt6/QtCore/QByteArray \
  /usr/include/x86_64-linux-gnu/qt6/QtCore/QHash /usr/include/sqlite3.h \
  /home/rich/BoH-Catalogue-Assistant/qt/src/core/Repositories/PlaythroughRepository.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/QObject \
- /home/rich/BoH-Catalogue-Assistant/qt/src/core/Migrator.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/QDir \
+ /home/rich/BoH-Catalogue-Assistant/qt/src/app/Stores/BooksStore.h \
+ /home/rich/BoH-Catalogue-Assistant/qt/src/core/BookQuery.h \
  /home/rich/BoH-Catalogue-Assistant/qt/src/core/Repositories/BookRepository.h \
  /usr/include/x86_64-linux-gnu/qt6/QtCore/QList \
+ /home/rich/BoH-Catalogue-Assistant/qt/src/core/Repositories/JournalRepository.h \
+ /home/rich/BoH-Catalogue-Assistant/qt/src/core/Repositories/MemoryRepository.h \
+ /home/rich/BoH-Catalogue-Assistant/qt/src/core/Repositories/SkillRepository.h \
+ /usr/include/x86_64-linux-gnu/qt6/QtCore/QObject \
+ /usr/include/x86_64-linux-gnu/qt6/QtCore/QSet \
+ /usr/include/x86_64-linux-gnu/qt6/QtCore/QStringList \
+ /home/rich/BoH-Catalogue-Assistant/qt/src/app/Stores/JournalStore.h \
+ /home/rich/BoH-Catalogue-Assistant/qt/src/app/Stores/MemoriesStore.h \
+ /home/rich/BoH-Catalogue-Assistant/qt/src/core/MemoryQuery.h \
+ /home/rich/BoH-Catalogue-Assistant/qt/src/app/Stores/ReadingHelperStore.h \
+ /home/rich/BoH-Catalogue-Assistant/qt/src/app/Stores/SkillsStore.h \
+ /home/rich/BoH-Catalogue-Assistant/qt/src/core/SkillQuery.h \
+ /home/rich/BoH-Catalogue-Assistant/qt/src/core/Migrator.h \
+ /usr/include/x86_64-linux-gnu/qt6/QtCore/QDir \
  /usr/include/x86_64-linux-gnu/qt6/QtCore/QFile \
  /usr/include/x86_64-linux-gnu/qt6/QtCore/QTemporaryDir \
  /usr/include/x86_64-linux-gnu/sys/stat.h \

@@ -920,6 +920,126 @@ src/app/AppController.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/bohapp.dir/build.make CMakeFiles/bohapp.dir/src/app/AppController.cpp.s
 .PHONY : src/app/AppController.cpp.s
 
+src/app/Stores/BooksStore.o: src/app/Stores/BooksStore.cpp.o
+.PHONY : src/app/Stores/BooksStore.o
+
+# target to build an object file
+src/app/Stores/BooksStore.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bohapp.dir/build.make CMakeFiles/bohapp.dir/src/app/Stores/BooksStore.cpp.o
+.PHONY : src/app/Stores/BooksStore.cpp.o
+
+src/app/Stores/BooksStore.i: src/app/Stores/BooksStore.cpp.i
+.PHONY : src/app/Stores/BooksStore.i
+
+# target to preprocess a source file
+src/app/Stores/BooksStore.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bohapp.dir/build.make CMakeFiles/bohapp.dir/src/app/Stores/BooksStore.cpp.i
+.PHONY : src/app/Stores/BooksStore.cpp.i
+
+src/app/Stores/BooksStore.s: src/app/Stores/BooksStore.cpp.s
+.PHONY : src/app/Stores/BooksStore.s
+
+# target to generate assembly for a file
+src/app/Stores/BooksStore.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bohapp.dir/build.make CMakeFiles/bohapp.dir/src/app/Stores/BooksStore.cpp.s
+.PHONY : src/app/Stores/BooksStore.cpp.s
+
+src/app/Stores/JournalStore.o: src/app/Stores/JournalStore.cpp.o
+.PHONY : src/app/Stores/JournalStore.o
+
+# target to build an object file
+src/app/Stores/JournalStore.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bohapp.dir/build.make CMakeFiles/bohapp.dir/src/app/Stores/JournalStore.cpp.o
+.PHONY : src/app/Stores/JournalStore.cpp.o
+
+src/app/Stores/JournalStore.i: src/app/Stores/JournalStore.cpp.i
+.PHONY : src/app/Stores/JournalStore.i
+
+# target to preprocess a source file
+src/app/Stores/JournalStore.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bohapp.dir/build.make CMakeFiles/bohapp.dir/src/app/Stores/JournalStore.cpp.i
+.PHONY : src/app/Stores/JournalStore.cpp.i
+
+src/app/Stores/JournalStore.s: src/app/Stores/JournalStore.cpp.s
+.PHONY : src/app/Stores/JournalStore.s
+
+# target to generate assembly for a file
+src/app/Stores/JournalStore.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bohapp.dir/build.make CMakeFiles/bohapp.dir/src/app/Stores/JournalStore.cpp.s
+.PHONY : src/app/Stores/JournalStore.cpp.s
+
+src/app/Stores/MemoriesStore.o: src/app/Stores/MemoriesStore.cpp.o
+.PHONY : src/app/Stores/MemoriesStore.o
+
+# target to build an object file
+src/app/Stores/MemoriesStore.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bohapp.dir/build.make CMakeFiles/bohapp.dir/src/app/Stores/MemoriesStore.cpp.o
+.PHONY : src/app/Stores/MemoriesStore.cpp.o
+
+src/app/Stores/MemoriesStore.i: src/app/Stores/MemoriesStore.cpp.i
+.PHONY : src/app/Stores/MemoriesStore.i
+
+# target to preprocess a source file
+src/app/Stores/MemoriesStore.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bohapp.dir/build.make CMakeFiles/bohapp.dir/src/app/Stores/MemoriesStore.cpp.i
+.PHONY : src/app/Stores/MemoriesStore.cpp.i
+
+src/app/Stores/MemoriesStore.s: src/app/Stores/MemoriesStore.cpp.s
+.PHONY : src/app/Stores/MemoriesStore.s
+
+# target to generate assembly for a file
+src/app/Stores/MemoriesStore.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bohapp.dir/build.make CMakeFiles/bohapp.dir/src/app/Stores/MemoriesStore.cpp.s
+.PHONY : src/app/Stores/MemoriesStore.cpp.s
+
+src/app/Stores/ReadingHelperStore.o: src/app/Stores/ReadingHelperStore.cpp.o
+.PHONY : src/app/Stores/ReadingHelperStore.o
+
+# target to build an object file
+src/app/Stores/ReadingHelperStore.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bohapp.dir/build.make CMakeFiles/bohapp.dir/src/app/Stores/ReadingHelperStore.cpp.o
+.PHONY : src/app/Stores/ReadingHelperStore.cpp.o
+
+src/app/Stores/ReadingHelperStore.i: src/app/Stores/ReadingHelperStore.cpp.i
+.PHONY : src/app/Stores/ReadingHelperStore.i
+
+# target to preprocess a source file
+src/app/Stores/ReadingHelperStore.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bohapp.dir/build.make CMakeFiles/bohapp.dir/src/app/Stores/ReadingHelperStore.cpp.i
+.PHONY : src/app/Stores/ReadingHelperStore.cpp.i
+
+src/app/Stores/ReadingHelperStore.s: src/app/Stores/ReadingHelperStore.cpp.s
+.PHONY : src/app/Stores/ReadingHelperStore.s
+
+# target to generate assembly for a file
+src/app/Stores/ReadingHelperStore.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bohapp.dir/build.make CMakeFiles/bohapp.dir/src/app/Stores/ReadingHelperStore.cpp.s
+.PHONY : src/app/Stores/ReadingHelperStore.cpp.s
+
+src/app/Stores/SkillsStore.o: src/app/Stores/SkillsStore.cpp.o
+.PHONY : src/app/Stores/SkillsStore.o
+
+# target to build an object file
+src/app/Stores/SkillsStore.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bohapp.dir/build.make CMakeFiles/bohapp.dir/src/app/Stores/SkillsStore.cpp.o
+.PHONY : src/app/Stores/SkillsStore.cpp.o
+
+src/app/Stores/SkillsStore.i: src/app/Stores/SkillsStore.cpp.i
+.PHONY : src/app/Stores/SkillsStore.i
+
+# target to preprocess a source file
+src/app/Stores/SkillsStore.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bohapp.dir/build.make CMakeFiles/bohapp.dir/src/app/Stores/SkillsStore.cpp.i
+.PHONY : src/app/Stores/SkillsStore.cpp.i
+
+src/app/Stores/SkillsStore.s: src/app/Stores/SkillsStore.cpp.s
+.PHONY : src/app/Stores/SkillsStore.s
+
+# target to generate assembly for a file
+src/app/Stores/SkillsStore.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bohapp.dir/build.make CMakeFiles/bohapp.dir/src/app/Stores/SkillsStore.cpp.s
+.PHONY : src/app/Stores/SkillsStore.cpp.s
+
 src/app/Views/MainWindow.o: src/app/Views/MainWindow.cpp.o
 .PHONY : src/app/Views/MainWindow.o
 
@@ -2101,6 +2221,21 @@ help:
 	@echo "... src/app/AppController.o"
 	@echo "... src/app/AppController.i"
 	@echo "... src/app/AppController.s"
+	@echo "... src/app/Stores/BooksStore.o"
+	@echo "... src/app/Stores/BooksStore.i"
+	@echo "... src/app/Stores/BooksStore.s"
+	@echo "... src/app/Stores/JournalStore.o"
+	@echo "... src/app/Stores/JournalStore.i"
+	@echo "... src/app/Stores/JournalStore.s"
+	@echo "... src/app/Stores/MemoriesStore.o"
+	@echo "... src/app/Stores/MemoriesStore.i"
+	@echo "... src/app/Stores/MemoriesStore.s"
+	@echo "... src/app/Stores/ReadingHelperStore.o"
+	@echo "... src/app/Stores/ReadingHelperStore.i"
+	@echo "... src/app/Stores/ReadingHelperStore.s"
+	@echo "... src/app/Stores/SkillsStore.o"
+	@echo "... src/app/Stores/SkillsStore.i"
+	@echo "... src/app/Stores/SkillsStore.s"
 	@echo "... src/app/Views/MainWindow.o"
 	@echo "... src/app/Views/MainWindow.i"
 	@echo "... src/app/Views/MainWindow.s"

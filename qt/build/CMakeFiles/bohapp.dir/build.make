@@ -100,10 +100,80 @@ CMakeFiles/bohapp.dir/src/app/AppController.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/bohapp.dir/src/app/AppController.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/rich/BoH-Catalogue-Assistant/qt/src/app/AppController.cpp -o CMakeFiles/bohapp.dir/src/app/AppController.cpp.s
 
+CMakeFiles/bohapp.dir/src/app/Stores/BooksStore.cpp.o: CMakeFiles/bohapp.dir/flags.make
+CMakeFiles/bohapp.dir/src/app/Stores/BooksStore.cpp.o: /home/rich/BoH-Catalogue-Assistant/qt/src/app/Stores/BooksStore.cpp
+CMakeFiles/bohapp.dir/src/app/Stores/BooksStore.cpp.o: CMakeFiles/bohapp.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/rich/BoH-Catalogue-Assistant/qt/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/bohapp.dir/src/app/Stores/BooksStore.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/bohapp.dir/src/app/Stores/BooksStore.cpp.o -MF CMakeFiles/bohapp.dir/src/app/Stores/BooksStore.cpp.o.d -o CMakeFiles/bohapp.dir/src/app/Stores/BooksStore.cpp.o -c /home/rich/BoH-Catalogue-Assistant/qt/src/app/Stores/BooksStore.cpp
+
+CMakeFiles/bohapp.dir/src/app/Stores/BooksStore.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/bohapp.dir/src/app/Stores/BooksStore.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/rich/BoH-Catalogue-Assistant/qt/src/app/Stores/BooksStore.cpp > CMakeFiles/bohapp.dir/src/app/Stores/BooksStore.cpp.i
+
+CMakeFiles/bohapp.dir/src/app/Stores/BooksStore.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/bohapp.dir/src/app/Stores/BooksStore.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/rich/BoH-Catalogue-Assistant/qt/src/app/Stores/BooksStore.cpp -o CMakeFiles/bohapp.dir/src/app/Stores/BooksStore.cpp.s
+
+CMakeFiles/bohapp.dir/src/app/Stores/JournalStore.cpp.o: CMakeFiles/bohapp.dir/flags.make
+CMakeFiles/bohapp.dir/src/app/Stores/JournalStore.cpp.o: /home/rich/BoH-Catalogue-Assistant/qt/src/app/Stores/JournalStore.cpp
+CMakeFiles/bohapp.dir/src/app/Stores/JournalStore.cpp.o: CMakeFiles/bohapp.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/rich/BoH-Catalogue-Assistant/qt/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/bohapp.dir/src/app/Stores/JournalStore.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/bohapp.dir/src/app/Stores/JournalStore.cpp.o -MF CMakeFiles/bohapp.dir/src/app/Stores/JournalStore.cpp.o.d -o CMakeFiles/bohapp.dir/src/app/Stores/JournalStore.cpp.o -c /home/rich/BoH-Catalogue-Assistant/qt/src/app/Stores/JournalStore.cpp
+
+CMakeFiles/bohapp.dir/src/app/Stores/JournalStore.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/bohapp.dir/src/app/Stores/JournalStore.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/rich/BoH-Catalogue-Assistant/qt/src/app/Stores/JournalStore.cpp > CMakeFiles/bohapp.dir/src/app/Stores/JournalStore.cpp.i
+
+CMakeFiles/bohapp.dir/src/app/Stores/JournalStore.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/bohapp.dir/src/app/Stores/JournalStore.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/rich/BoH-Catalogue-Assistant/qt/src/app/Stores/JournalStore.cpp -o CMakeFiles/bohapp.dir/src/app/Stores/JournalStore.cpp.s
+
+CMakeFiles/bohapp.dir/src/app/Stores/MemoriesStore.cpp.o: CMakeFiles/bohapp.dir/flags.make
+CMakeFiles/bohapp.dir/src/app/Stores/MemoriesStore.cpp.o: /home/rich/BoH-Catalogue-Assistant/qt/src/app/Stores/MemoriesStore.cpp
+CMakeFiles/bohapp.dir/src/app/Stores/MemoriesStore.cpp.o: CMakeFiles/bohapp.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/rich/BoH-Catalogue-Assistant/qt/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/bohapp.dir/src/app/Stores/MemoriesStore.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/bohapp.dir/src/app/Stores/MemoriesStore.cpp.o -MF CMakeFiles/bohapp.dir/src/app/Stores/MemoriesStore.cpp.o.d -o CMakeFiles/bohapp.dir/src/app/Stores/MemoriesStore.cpp.o -c /home/rich/BoH-Catalogue-Assistant/qt/src/app/Stores/MemoriesStore.cpp
+
+CMakeFiles/bohapp.dir/src/app/Stores/MemoriesStore.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/bohapp.dir/src/app/Stores/MemoriesStore.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/rich/BoH-Catalogue-Assistant/qt/src/app/Stores/MemoriesStore.cpp > CMakeFiles/bohapp.dir/src/app/Stores/MemoriesStore.cpp.i
+
+CMakeFiles/bohapp.dir/src/app/Stores/MemoriesStore.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/bohapp.dir/src/app/Stores/MemoriesStore.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/rich/BoH-Catalogue-Assistant/qt/src/app/Stores/MemoriesStore.cpp -o CMakeFiles/bohapp.dir/src/app/Stores/MemoriesStore.cpp.s
+
+CMakeFiles/bohapp.dir/src/app/Stores/ReadingHelperStore.cpp.o: CMakeFiles/bohapp.dir/flags.make
+CMakeFiles/bohapp.dir/src/app/Stores/ReadingHelperStore.cpp.o: /home/rich/BoH-Catalogue-Assistant/qt/src/app/Stores/ReadingHelperStore.cpp
+CMakeFiles/bohapp.dir/src/app/Stores/ReadingHelperStore.cpp.o: CMakeFiles/bohapp.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/rich/BoH-Catalogue-Assistant/qt/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/bohapp.dir/src/app/Stores/ReadingHelperStore.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/bohapp.dir/src/app/Stores/ReadingHelperStore.cpp.o -MF CMakeFiles/bohapp.dir/src/app/Stores/ReadingHelperStore.cpp.o.d -o CMakeFiles/bohapp.dir/src/app/Stores/ReadingHelperStore.cpp.o -c /home/rich/BoH-Catalogue-Assistant/qt/src/app/Stores/ReadingHelperStore.cpp
+
+CMakeFiles/bohapp.dir/src/app/Stores/ReadingHelperStore.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/bohapp.dir/src/app/Stores/ReadingHelperStore.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/rich/BoH-Catalogue-Assistant/qt/src/app/Stores/ReadingHelperStore.cpp > CMakeFiles/bohapp.dir/src/app/Stores/ReadingHelperStore.cpp.i
+
+CMakeFiles/bohapp.dir/src/app/Stores/ReadingHelperStore.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/bohapp.dir/src/app/Stores/ReadingHelperStore.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/rich/BoH-Catalogue-Assistant/qt/src/app/Stores/ReadingHelperStore.cpp -o CMakeFiles/bohapp.dir/src/app/Stores/ReadingHelperStore.cpp.s
+
+CMakeFiles/bohapp.dir/src/app/Stores/SkillsStore.cpp.o: CMakeFiles/bohapp.dir/flags.make
+CMakeFiles/bohapp.dir/src/app/Stores/SkillsStore.cpp.o: /home/rich/BoH-Catalogue-Assistant/qt/src/app/Stores/SkillsStore.cpp
+CMakeFiles/bohapp.dir/src/app/Stores/SkillsStore.cpp.o: CMakeFiles/bohapp.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/rich/BoH-Catalogue-Assistant/qt/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/bohapp.dir/src/app/Stores/SkillsStore.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/bohapp.dir/src/app/Stores/SkillsStore.cpp.o -MF CMakeFiles/bohapp.dir/src/app/Stores/SkillsStore.cpp.o.d -o CMakeFiles/bohapp.dir/src/app/Stores/SkillsStore.cpp.o -c /home/rich/BoH-Catalogue-Assistant/qt/src/app/Stores/SkillsStore.cpp
+
+CMakeFiles/bohapp.dir/src/app/Stores/SkillsStore.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/bohapp.dir/src/app/Stores/SkillsStore.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/rich/BoH-Catalogue-Assistant/qt/src/app/Stores/SkillsStore.cpp > CMakeFiles/bohapp.dir/src/app/Stores/SkillsStore.cpp.i
+
+CMakeFiles/bohapp.dir/src/app/Stores/SkillsStore.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/bohapp.dir/src/app/Stores/SkillsStore.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/rich/BoH-Catalogue-Assistant/qt/src/app/Stores/SkillsStore.cpp -o CMakeFiles/bohapp.dir/src/app/Stores/SkillsStore.cpp.s
+
 CMakeFiles/bohapp.dir/src/app/Views/MainWindow.cpp.o: CMakeFiles/bohapp.dir/flags.make
 CMakeFiles/bohapp.dir/src/app/Views/MainWindow.cpp.o: /home/rich/BoH-Catalogue-Assistant/qt/src/app/Views/MainWindow.cpp
 CMakeFiles/bohapp.dir/src/app/Views/MainWindow.cpp.o: CMakeFiles/bohapp.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/rich/BoH-Catalogue-Assistant/qt/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/bohapp.dir/src/app/Views/MainWindow.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/rich/BoH-Catalogue-Assistant/qt/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/bohapp.dir/src/app/Views/MainWindow.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/bohapp.dir/src/app/Views/MainWindow.cpp.o -MF CMakeFiles/bohapp.dir/src/app/Views/MainWindow.cpp.o.d -o CMakeFiles/bohapp.dir/src/app/Views/MainWindow.cpp.o -c /home/rich/BoH-Catalogue-Assistant/qt/src/app/Views/MainWindow.cpp
 
 CMakeFiles/bohapp.dir/src/app/Views/MainWindow.cpp.i: cmake_force
@@ -117,7 +187,7 @@ CMakeFiles/bohapp.dir/src/app/Views/MainWindow.cpp.s: cmake_force
 CMakeFiles/bohapp.dir/src/app/Views/Sidebar.cpp.o: CMakeFiles/bohapp.dir/flags.make
 CMakeFiles/bohapp.dir/src/app/Views/Sidebar.cpp.o: /home/rich/BoH-Catalogue-Assistant/qt/src/app/Views/Sidebar.cpp
 CMakeFiles/bohapp.dir/src/app/Views/Sidebar.cpp.o: CMakeFiles/bohapp.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/rich/BoH-Catalogue-Assistant/qt/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/bohapp.dir/src/app/Views/Sidebar.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/rich/BoH-Catalogue-Assistant/qt/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/bohapp.dir/src/app/Views/Sidebar.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/bohapp.dir/src/app/Views/Sidebar.cpp.o -MF CMakeFiles/bohapp.dir/src/app/Views/Sidebar.cpp.o.d -o CMakeFiles/bohapp.dir/src/app/Views/Sidebar.cpp.o -c /home/rich/BoH-Catalogue-Assistant/qt/src/app/Views/Sidebar.cpp
 
 CMakeFiles/bohapp.dir/src/app/Views/Sidebar.cpp.i: cmake_force
@@ -132,6 +202,11 @@ CMakeFiles/bohapp.dir/src/app/Views/Sidebar.cpp.s: cmake_force
 bohapp_OBJECTS = \
 "CMakeFiles/bohapp.dir/bohapp_autogen/mocs_compilation.cpp.o" \
 "CMakeFiles/bohapp.dir/src/app/AppController.cpp.o" \
+"CMakeFiles/bohapp.dir/src/app/Stores/BooksStore.cpp.o" \
+"CMakeFiles/bohapp.dir/src/app/Stores/JournalStore.cpp.o" \
+"CMakeFiles/bohapp.dir/src/app/Stores/MemoriesStore.cpp.o" \
+"CMakeFiles/bohapp.dir/src/app/Stores/ReadingHelperStore.cpp.o" \
+"CMakeFiles/bohapp.dir/src/app/Stores/SkillsStore.cpp.o" \
 "CMakeFiles/bohapp.dir/src/app/Views/MainWindow.cpp.o" \
 "CMakeFiles/bohapp.dir/src/app/Views/Sidebar.cpp.o"
 
@@ -140,11 +215,16 @@ bohapp_EXTERNAL_OBJECTS =
 
 libbohapp.a: CMakeFiles/bohapp.dir/bohapp_autogen/mocs_compilation.cpp.o
 libbohapp.a: CMakeFiles/bohapp.dir/src/app/AppController.cpp.o
+libbohapp.a: CMakeFiles/bohapp.dir/src/app/Stores/BooksStore.cpp.o
+libbohapp.a: CMakeFiles/bohapp.dir/src/app/Stores/JournalStore.cpp.o
+libbohapp.a: CMakeFiles/bohapp.dir/src/app/Stores/MemoriesStore.cpp.o
+libbohapp.a: CMakeFiles/bohapp.dir/src/app/Stores/ReadingHelperStore.cpp.o
+libbohapp.a: CMakeFiles/bohapp.dir/src/app/Stores/SkillsStore.cpp.o
 libbohapp.a: CMakeFiles/bohapp.dir/src/app/Views/MainWindow.cpp.o
 libbohapp.a: CMakeFiles/bohapp.dir/src/app/Views/Sidebar.cpp.o
 libbohapp.a: CMakeFiles/bohapp.dir/build.make
 libbohapp.a: CMakeFiles/bohapp.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/rich/BoH-Catalogue-Assistant/qt/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking CXX static library libbohapp.a"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/rich/BoH-Catalogue-Assistant/qt/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Linking CXX static library libbohapp.a"
 	$(CMAKE_COMMAND) -P CMakeFiles/bohapp.dir/cmake_clean_target.cmake
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/bohapp.dir/link.txt --verbose=$(VERBOSE)
 

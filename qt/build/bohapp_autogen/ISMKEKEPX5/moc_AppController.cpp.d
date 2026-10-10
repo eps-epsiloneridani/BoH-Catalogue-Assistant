@@ -1,10 +1,22 @@
 /home/rich/BoH-Catalogue-Assistant/qt/build/bohapp_autogen/ISMKEKEPX5/moc_AppController.cpp: /home/rich/BoH-Catalogue-Assistant/qt/src/app/AppController.h \
   /home/rich/BoH-Catalogue-Assistant/qt/build/bohapp_autogen/moc_predefs.h \
+  /home/rich/BoH-Catalogue-Assistant/qt/src/app/Stores/BooksStore.h \
+  /home/rich/BoH-Catalogue-Assistant/qt/src/app/Stores/JournalStore.h \
+  /home/rich/BoH-Catalogue-Assistant/qt/src/app/Stores/MemoriesStore.h \
+  /home/rich/BoH-Catalogue-Assistant/qt/src/app/Stores/ReadingHelperStore.h \
+  /home/rich/BoH-Catalogue-Assistant/qt/src/app/Stores/SkillsStore.h \
+  /home/rich/BoH-Catalogue-Assistant/qt/src/core/BookQuery.h \
+  /home/rich/BoH-Catalogue-Assistant/qt/src/core/MemoryQuery.h \
   /home/rich/BoH-Catalogue-Assistant/qt/src/core/Models.h \
+  /home/rich/BoH-Catalogue-Assistant/qt/src/core/Repositories/BookRepository.h \
+  /home/rich/BoH-Catalogue-Assistant/qt/src/core/Repositories/JournalRepository.h \
   /home/rich/BoH-Catalogue-Assistant/qt/src/core/Repositories/LookupRepositories.h \
+  /home/rich/BoH-Catalogue-Assistant/qt/src/core/Repositories/MemoryRepository.h \
   /home/rich/BoH-Catalogue-Assistant/qt/src/core/Repositories/PlaythroughRepository.h \
+  /home/rich/BoH-Catalogue-Assistant/qt/src/core/Repositories/SkillRepository.h \
   /home/rich/BoH-Catalogue-Assistant/qt/src/core/SQLiteDatabase.h \
   /home/rich/BoH-Catalogue-Assistant/qt/src/core/SQLiteValue.h \
+  /home/rich/BoH-Catalogue-Assistant/qt/src/core/SkillQuery.h \
   /usr/include/alloca.h \
   /usr/include/asm-generic/bitsperlong.h \
   /usr/include/asm-generic/errno-base.h \
@@ -316,8 +328,11 @@
   /usr/include/x86_64-linux-gnu/gnu/stubs.h \
   /usr/include/x86_64-linux-gnu/qt6/QtCore/QByteArray \
   /usr/include/x86_64-linux-gnu/qt6/QtCore/QHash \
+  /usr/include/x86_64-linux-gnu/qt6/QtCore/QList \
   /usr/include/x86_64-linux-gnu/qt6/QtCore/QObject \
+  /usr/include/x86_64-linux-gnu/qt6/QtCore/QSet \
   /usr/include/x86_64-linux-gnu/qt6/QtCore/QString \
+  /usr/include/x86_64-linux-gnu/qt6/QtCore/QStringList \
   /usr/include/x86_64-linux-gnu/qt6/QtCore/QtGlobal \
   /usr/include/x86_64-linux-gnu/qt6/QtCore/q20functional.h \
   /usr/include/x86_64-linux-gnu/qt6/QtCore/q20memory.h \
@@ -382,6 +397,7 @@
   /usr/include/x86_64-linux-gnu/qt6/QtCore/qrefcount.h \
   /usr/include/x86_64-linux-gnu/qt6/QtCore/qscopedpointer.h \
   /usr/include/x86_64-linux-gnu/qt6/QtCore/qscopeguard.h \
+  /usr/include/x86_64-linux-gnu/qt6/QtCore/qset.h \
   /usr/include/x86_64-linux-gnu/qt6/QtCore/qstring.h \
   /usr/include/x86_64-linux-gnu/qt6/QtCore/qstringalgorithms.h \
   /usr/include/x86_64-linux-gnu/qt6/QtCore/qstringbuilder.h \
