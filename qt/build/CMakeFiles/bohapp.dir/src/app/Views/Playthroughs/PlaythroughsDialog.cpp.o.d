@@ -523,6 +523,7 @@ CMakeFiles/bohapp.dir/src/app/Views/Playthroughs/PlaythroughsDialog.cpp.o: \
  /usr/include/x86_64-linux-gnu/qt6/QtCore/qfileinfo.h \
  /usr/include/x86_64-linux-gnu/qt6/QtCore/qtimezone.h \
  /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qdialog.h \
+ /home/rich/BoH-Catalogue-Assistant/qt/src/app/Views/Shared/FormA11y.h \
  /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QFormLayout \
  /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qformlayout.h \
  /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QLayout \

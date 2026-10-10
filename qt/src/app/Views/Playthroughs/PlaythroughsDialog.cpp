@@ -7,6 +7,7 @@
 #include <QComboBox>
 #include <QDialogButtonBox>
 #include <QFileDialog>
+#include "Shared/FormA11y.h"
 #include <QFormLayout>
 #include <QHBoxLayout>
 #include <QLabel>
@@ -58,6 +59,7 @@ NewPlaythroughDialog::NewPlaythroughDialog(int existingCount, QWidget* parent)
     m_notes = new QLineEdit(this);
     m_notes->setPlaceholderText(QStringLiteral("optional"));
     form->addRow(QStringLiteral("Notes"), m_notes);
+    attachFormBuddies(form);
     layout->addLayout(form);
     auto* buttons = new QHBoxLayout();
     auto* cancel = new QPushButton(QStringLiteral("Cancel"), this);
@@ -235,6 +237,7 @@ ImportFromSaveDialog::ImportFromSaveDialog(AppController* controller, QWidget* p
     destinationForm->addRow(QStringLiteral("Import into"), m_destination);
     m_newName = new QLineEdit(this);
     destinationForm->addRow(QStringLiteral("New playthrough name"), m_newName);
+    attachFormBuddies(destinationForm);
     layout->addLayout(destinationForm);
 
     m_report = new QLabel(this);

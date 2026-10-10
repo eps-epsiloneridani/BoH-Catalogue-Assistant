@@ -344,6 +344,12 @@
 			null
 		],
 		[
+			"/home/rich/BoH-Catalogue-Assistant/qt/src/app/Views/Shared/FormA11y.h",
+			"Mu",
+			"P2LIO7MJ6I/moc_FormA11y.cpp",
+			null
+		],
+		[
 			"/home/rich/BoH-Catalogue-Assistant/qt/src/app/Views/Sidebar.h",
 			"Mu",
 			"KZ2CQRJLRB/moc_Sidebar.cpp",
@@ -501,6 +507,11 @@
 		],
 		[
 			"/home/rich/BoH-Catalogue-Assistant/qt/src/app/Views/Shared/BookRowDelegate.cpp",
+			"Mu",
+			null
+		],
+		[
+			"/home/rich/BoH-Catalogue-Assistant/qt/src/app/Views/Shared/FormA11y.cpp",
 			"Mu",
 			null
 		],

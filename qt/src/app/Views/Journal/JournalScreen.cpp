@@ -1,6 +1,7 @@
 #include "JournalScreen.h"
 
 #include <QComboBox>
+#include "Shared/FormA11y.h"
 #include <QFormLayout>
 #include <QHBoxLayout>
 #include <QLabel>
@@ -275,6 +276,7 @@ void JournalScreen::editEntry(const JournalEntry& entry)
     form->addRow(QStringLiteral("Skill"), skill);
     auto* entryEdit = new QLineEdit(entry.entry, &dialog);
     form->addRow(QStringLiteral("Entry"), entryEdit);
+    attachFormBuddies(form);
     layout->addLayout(form);
     auto* buttons = new QHBoxLayout();
     auto* cancel = new QPushButton(QStringLiteral("Cancel"), &dialog);

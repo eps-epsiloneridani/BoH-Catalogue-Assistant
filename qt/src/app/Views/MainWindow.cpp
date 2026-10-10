@@ -153,6 +153,7 @@ void MainWindow::buildBody()
     m_footerRight = new QLabel(this);
     statusBar()->addWidget(m_footerLeft);
     statusBar()->addPermanentWidget(m_footerRight);
+    m_footerRight->setAccessibleName(QStringLiteral("Schema version and record counts"));
 
     connect(m_sidebar, &Sidebar::sectionSelected, this, &MainWindow::selectSection);
     connect(m_sidebar, &Sidebar::playthroughSelected, this, [this](int index) {

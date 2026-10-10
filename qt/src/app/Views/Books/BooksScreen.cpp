@@ -3,6 +3,7 @@
 #include "AppController.h"
 #include "RecordReadDialog.h"
 #include "Shared/Badges.h"
+#include "Shared/FormA11y.h"
 #include "Shared/BookRowDelegate.h"
 
 #include <QComboBox>
@@ -389,6 +390,7 @@ void BookDetailView::showBook(const Book& book)
     if (!lessons.isEmpty())
         form->addRow(QStringLiteral("Lessons teach"),
                      new QLabel(lessons.join(QStringLiteral(", ")), this));
+    attachFormBuddies(form);
     m_layout->addLayout(form);
 
     auto* readingTitle = new QLabel(QStringLiteral("Reading"), this);
@@ -421,6 +423,7 @@ void BookDetailView::showBook(const Book& book)
     readingForm->addRow(QStringLiteral("Lessons granted"),
                         new QLabel(book.lessons ? QString::number(*book.lessons) : QStringLiteral("—"),
                                    this));
+    attachFormBuddies(readingForm);
     m_layout->addLayout(readingForm);
 
     // Yields (spoiler posture: the yield name is only revealed by mastery).
@@ -437,6 +440,8 @@ void BookDetailView::showBook(const Book& book)
             link->setTextFormat(Qt::RichText);
             link->setTextInteractionFlags(Qt::LinksAccessibleByKeyboard | Qt::LinksAccessibleByMouse);
             link->setOpenExternalLinks(false);
+            link->setAccessibleName(QStringLiteral("Yielded memory: %1 — open").arg(name));
+            link->setToolTip(QStringLiteral("Open the memory this book yields"));
             connect(link, &QLabel::linkActivated, this,
                     [this](const QString&) { emit showMemoryRequested(*m_book->yieldedMemoryID); });
             auto* row = new QHBoxLayout();
