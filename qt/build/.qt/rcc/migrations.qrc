@@ -1,0 +1,14 @@
+<RCC>
+  <qresource prefix="/migrations">
+    <file alias="001_initial_schema.sql">/home/rich/BoH-Catalogue-Assistant/qt/../db/migrations/001_initial_schema.sql</file>
+    <file alias="002_seed_principles.sql">/home/rich/BoH-Catalogue-Assistant/qt/../db/migrations/002_seed_principles.sql</file>
+    <file alias="003_seed_languages.sql">/home/rich/BoH-Catalogue-Assistant/qt/../db/migrations/003_seed_languages.sql</file>
+    <file alias="004_rename_difficulty.sql">/home/rich/BoH-Catalogue-Assistant/qt/../db/migrations/004_rename_difficulty.sql</file>
+    <file alias="005_playthroughs.sql">/home/rich/BoH-Catalogue-Assistant/qt/../db/migrations/005_playthroughs.sql</file>
+    <file alias="006_per_playthrough_unique_names.sql">/home/rich/BoH-Catalogue-Assistant/qt/../db/migrations/006_per_playthrough_unique_names.sql</file>
+    <file alias="007_fix_imported_book_kinds.sql">/home/rich/BoH-Catalogue-Assistant/qt/../db/migrations/007_fix_imported_book_kinds.sql</file>
+    <file alias="008_humanize_transit_locations.sql">/home/rich/BoH-Catalogue-Assistant/qt/../db/migrations/008_humanize_transit_locations.sql</file>
+    <file alias="009_remove_unacquired_auction_books.sql">/home/rich/BoH-Catalogue-Assistant/qt/../db/migrations/009_remove_unacquired_auction_books.sql</file>
+  </qresource>
+</RCC>
+
