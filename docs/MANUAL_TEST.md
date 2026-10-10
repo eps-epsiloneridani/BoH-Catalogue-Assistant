@@ -203,3 +203,18 @@ from the repo root — but the cleaner path is the Application Support one.
 
 Anything noticed while testing (oddities, papercuts, ideas):
 <!-- e.g. 2026-10-05: record-read sheet should probably remember the last used game day… -->
+
+## Linux (Qt port — `qt/`)
+
+Outstanding hands-on checks (headless CI can't click):
+
+- [ ] First run on a clean home: db created at `~/.local/share/BoH Librarian/Boh.db`, dir 700 / file 600, footer shows schema v9.
+- [ ] Books: add (title + mystery only), search, filter/sort menus, detail fields, read-status combo persists, notes Save/Revert, Edit dialog round-trip, Delete confirm.
+- [ ] Record read: mastering default-ON; quick-add a colliding name reuses the imported hidden yield; journal entry written; counter + first/last stamps.
+- [ ] Memories: earned-only list; detail badges/sources/backlinks; edit form aspects + source rows (values survive row removal) + yielding check-list; mastered backlink navigates to Books.
+- [ ] Reading Helper: picker auto-selects; requirement + reach lines; candidate button opens record-read preselected; mastered book shows Always-yields backlink.
+- [ ] Skills: level stepper persists per change; commitment editor shows Save/Revert on edit and persists; notes.
+- [ ] Journal: quick capture works on the EMPTY journal; Ctrl+Shift+J jumps + focuses; chips navigate (memory chip disabled for unrevealed); edit dialog round-trip.
+- [ ] Playthroughs: create/rename (click OK without Return — rename must persist)/switch/delete-guarded; import sheet lists the real saves (native unity3d path); import into new playthrough; "Choose folder…" works.
+- [ ] Accessibility: keyboard-only walk of every flow; screen reader announces composite rows as one element; dark mode badge contrast.
+- [ ] AppImage: clean-home first run from the packaged image.

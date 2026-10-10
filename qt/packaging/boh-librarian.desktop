@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Name=BoH Librarian
+GenericName=Book of Hours catalogue
+Comment=Record findings while playing Book of Hours — books, memories, skills, journal
+Exec=boh-librarian
+Icon=boh-librarian
+Categories=Game;Utility;
+Keywords=Book of Hours;Hush House;catalogue;journal;
+Terminal=false
+StartupWMClass=boh-librarian

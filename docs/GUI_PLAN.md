@@ -143,3 +143,27 @@ moment to revisit (D2/D4).
 See `docs/ROADMAP.md`. Phase 1 = package scaffold + DB layer + migrator + tests (no UI
 beyond an empty window). UI screens land Books-first (Phase 2), because book↔memory
 capture is the core loop; the Reading Helper follows once both entities exist (Phase 4).
+
+## Linux (Qt port — as built in `qt/`)
+
+Native Linux desktop app, C++20 + Qt 6 Widgets, CMake. Same product, same
+schema. Layout mirrors the Swift split:
+
+```
+qt/src/core/            # 1:1 port of BoHLibrarianCore (SQLiteDatabase wrapper,
+                        #  Migrator (migrations embedded via qt_add_resources),
+                        #  Models/queries/math, SaveImport, Repositories)
+qt/src/app/             # AppController (bootstrap + the single reloadAll choke
+                        #  point), Stores/ (5 QObjects), Views/ (Books, Memories,
+                        #  ReadingHelper, Skills, Journal, Playthroughs, Shared)
+qt/tests/               # the Swift suite carried over 1:1 (Qt Test), 13 exes
+qt/packaging/           # .desktop + make-appimage.sh (linuxdeploy)
+```
+
+Build/test: `cmake -S qt -B qt/build && cmake --build qt/build && ctest --test-dir
+qt/build`. Run: `qt/build/boh-librarian`. DB path: `BOH_DB_PATH` → `./Boh.db` →
+`../Boh.db` → `$XDG_DATA_HOME/BoH Librarian/Boh.db` (700/600). Migrations resolve
+`BOH_MIGRATIONS` → `./db/migrations` → `../db/migrations` → embedded copy.
+Save-import discovery is Linux-native first (see DECISIONS.md D14). Port plan:
+`docs/superpowers/plans/2026-10-09-linux-qt-port.md` (19 tasks, all complete);
+the 111-test suite is the behavioral contract and caught two real bugs in transit.
