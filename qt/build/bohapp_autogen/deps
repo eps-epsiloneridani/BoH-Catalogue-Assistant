@@ -25,6 +25,8 @@ bohapp_autogen/timestamp: \
 	/home/rich/BoH-Catalogue-Assistant/qt/src/app/Views/MainWindow.h \
 	/home/rich/BoH-Catalogue-Assistant/qt/src/app/Views/Memories/MemoriesScreen.cpp \
 	/home/rich/BoH-Catalogue-Assistant/qt/src/app/Views/Memories/MemoriesScreen.h \
+	/home/rich/BoH-Catalogue-Assistant/qt/src/app/Views/Playthroughs/PlaythroughsDialog.cpp \
+	/home/rich/BoH-Catalogue-Assistant/qt/src/app/Views/Playthroughs/PlaythroughsDialog.h \
 	/home/rich/BoH-Catalogue-Assistant/qt/src/app/Views/ReadingHelper/ReadingHelperScreen.cpp \
 	/home/rich/BoH-Catalogue-Assistant/qt/src/app/Views/ReadingHelper/ReadingHelperScreen.h \
 	/home/rich/BoH-Catalogue-Assistant/qt/src/app/Views/Shared/AspectEditor.cpp \
@@ -48,6 +50,7 @@ bohapp_autogen/timestamp: \
 	/home/rich/BoH-Catalogue-Assistant/qt/src/core/Repositories/SkillRepository.h \
 	/home/rich/BoH-Catalogue-Assistant/qt/src/core/SQLiteDatabase.h \
 	/home/rich/BoH-Catalogue-Assistant/qt/src/core/SQLiteValue.h \
+	/home/rich/BoH-Catalogue-Assistant/qt/src/core/SaveImport.h \
 	/home/rich/BoH-Catalogue-Assistant/qt/src/core/SkillQuery.h \
 	/usr/include/alloca.h \
 	/usr/include/asm-generic/bitsperlong.h \
@@ -360,7 +363,9 @@ bohapp_autogen/timestamp: \
 	/usr/include/x86_64-linux-gnu/gnu/stubs-64.h \
 	/usr/include/x86_64-linux-gnu/gnu/stubs.h \
 	/usr/include/x86_64-linux-gnu/qt6/QtCore/QByteArray \
+	/usr/include/x86_64-linux-gnu/qt6/QtCore/QDateTime \
 	/usr/include/x86_64-linux-gnu/qt6/QtCore/QHash \
+	/usr/include/x86_64-linux-gnu/qt6/QtCore/QJsonObject \
 	/usr/include/x86_64-linux-gnu/qt6/QtCore/QList \
 	/usr/include/x86_64-linux-gnu/qt6/QtCore/QObject \
 	/usr/include/x86_64-linux-gnu/qt6/QtCore/QRect \
@@ -390,6 +395,9 @@ bohapp_autogen/timestamp: \
 	/usr/include/x86_64-linux-gnu/qt6/QtCore/qbytearrayalgorithms.h \
 	/usr/include/x86_64-linux-gnu/qt6/QtCore/qbytearraylist.h \
 	/usr/include/x86_64-linux-gnu/qt6/QtCore/qbytearrayview.h \
+	/usr/include/x86_64-linux-gnu/qt6/QtCore/qcalendar.h \
+	/usr/include/x86_64-linux-gnu/qt6/QtCore/qcborcommon.h \
+	/usr/include/x86_64-linux-gnu/qt6/QtCore/qcborvalue.h \
 	/usr/include/x86_64-linux-gnu/qt6/QtCore/qchar.h \
 	/usr/include/x86_64-linux-gnu/qt6/QtCore/qcompare.h \
 	/usr/include/x86_64-linux-gnu/qt6/QtCore/qcompare_impl.h \
@@ -406,6 +414,7 @@ bohapp_autogen/timestamp: \
 	/usr/include/x86_64-linux-gnu/qt6/QtCore/qcoreevent.h \
 	/usr/include/x86_64-linux-gnu/qt6/QtCore/qdarwinhelpers.h \
 	/usr/include/x86_64-linux-gnu/qt6/QtCore/qdatastream.h \
+	/usr/include/x86_64-linux-gnu/qt6/QtCore/qdatetime.h \
 	/usr/include/x86_64-linux-gnu/qt6/QtCore/qdeadlinetimer.h \
 	/usr/include/x86_64-linux-gnu/qt6/QtCore/qdebug.h \
 	/usr/include/x86_64-linux-gnu/qt6/QtCore/qelapsedtimer.h \
@@ -427,6 +436,8 @@ bohapp_autogen/timestamp: \
 	/usr/include/x86_64-linux-gnu/qt6/QtCore/qitemselectionmodel.h \
 	/usr/include/x86_64-linux-gnu/qt6/QtCore/qiterable.h \
 	/usr/include/x86_64-linux-gnu/qt6/QtCore/qiterator.h \
+	/usr/include/x86_64-linux-gnu/qt6/QtCore/qjsonobject.h \
+	/usr/include/x86_64-linux-gnu/qt6/QtCore/qjsonvalue.h \
 	/usr/include/x86_64-linux-gnu/qt6/QtCore/qlatin1stringview.h \
 	/usr/include/x86_64-linux-gnu/qt6/QtCore/qline.h \
 	/usr/include/x86_64-linux-gnu/qt6/QtCore/qlist.h \
@@ -498,6 +509,7 @@ bohapp_autogen/timestamp: \
 	/usr/include/x86_64-linux-gnu/qt6/QtCore/qtypes.h \
 	/usr/include/x86_64-linux-gnu/qt6/QtCore/qurl.h \
 	/usr/include/x86_64-linux-gnu/qt6/QtCore/qutf8stringview.h \
+	/usr/include/x86_64-linux-gnu/qt6/QtCore/quuid.h \
 	/usr/include/x86_64-linux-gnu/qt6/QtCore/qvariant.h \
 	/usr/include/x86_64-linux-gnu/qt6/QtCore/qvarlengtharray.h \
 	/usr/include/x86_64-linux-gnu/qt6/QtCore/qversiontagging.h \

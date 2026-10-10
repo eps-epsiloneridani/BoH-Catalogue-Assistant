@@ -314,6 +314,12 @@
 			null
 		],
 		[
+			"/home/rich/BoH-Catalogue-Assistant/qt/src/app/Views/Playthroughs/PlaythroughsDialog.h",
+			"Mu",
+			"FFZIDPWWEO/moc_PlaythroughsDialog.cpp",
+			null
+		],
+		[
 			"/home/rich/BoH-Catalogue-Assistant/qt/src/app/Views/ReadingHelper/ReadingHelperScreen.h",
 			"Mu",
 			"BKM2U3M7R5/moc_ReadingHelperScreen.cpp",
@@ -470,6 +476,11 @@
 		],
 		[
 			"/home/rich/BoH-Catalogue-Assistant/qt/src/app/Views/Memories/MemoriesScreen.cpp",
+			"Mu",
+			null
+		],
+		[
+			"/home/rich/BoH-Catalogue-Assistant/qt/src/app/Views/Playthroughs/PlaythroughsDialog.cpp",
 			"Mu",
 			null
 		],

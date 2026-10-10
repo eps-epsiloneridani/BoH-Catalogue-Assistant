@@ -9,6 +9,8 @@
 #include "Repositories/LookupRepositories.h"
 #include "Repositories/PlaythroughRepository.h"
 #include "SQLiteDatabase.h"
+
+#include <QString>
 #include "Stores/BooksStore.h"
 #include "Stores/JournalStore.h"
 #include "Stores/MemoriesStore.h"
@@ -69,6 +71,13 @@ public:
 
     /// Load another playthrough; remounts everything scoped to it.
     bool switchPlaythrough(qint64 id);
+    /// Create a fresh playthrough and load it; empty names get a sensible default.
+    bool createPlaythrough(const QString& name, const QString& notes);
+    bool renamePlaythrough(const Playthrough& playthrough, const QString& name);
+    /// Guarded by the caller's UI: never the active one, never the last one.
+    bool deletePlaythrough(const Playthrough& playthrough);
+    QString lastError() const { return m_lastError; }
+    void clearError() { m_lastError.clear(); }
 
     /// THE choke point: call after every write and on window activation.
     void reloadAll();
@@ -92,6 +101,7 @@ private:
     std::optional<Playthrough> m_activePlaythrough;
     Counts m_counts;
     QString m_currentGameDay;
+    QString m_lastError;
     std::unique_ptr<BooksStore> m_booksStore;
     std::unique_ptr<MemoriesStore> m_memoriesStore;
     std::unique_ptr<ReadingHelperStore> m_helperStore;

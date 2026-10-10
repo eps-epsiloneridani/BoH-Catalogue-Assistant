@@ -26,6 +26,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/bohapp.dir/src/app/Views/MainWindow.cpp.o.d"
   "CMakeFiles/bohapp.dir/src/app/Views/Memories/MemoriesScreen.cpp.o"
   "CMakeFiles/bohapp.dir/src/app/Views/Memories/MemoriesScreen.cpp.o.d"
+  "CMakeFiles/bohapp.dir/src/app/Views/Playthroughs/PlaythroughsDialog.cpp.o"
+  "CMakeFiles/bohapp.dir/src/app/Views/Playthroughs/PlaythroughsDialog.cpp.o.d"
   "CMakeFiles/bohapp.dir/src/app/Views/ReadingHelper/ReadingHelperScreen.cpp.o"
   "CMakeFiles/bohapp.dir/src/app/Views/ReadingHelper/ReadingHelperScreen.cpp.o.d"
   "CMakeFiles/bohapp.dir/src/app/Views/Shared/AspectEditor.cpp.o"

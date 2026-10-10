@@ -2,6 +2,7 @@
 #include "Books/BooksScreen.h"
 #include "Memories/MemoriesScreen.h"
 #include "Journal/JournalScreen.h"
+#include "Playthroughs/PlaythroughsDialog.h"
 #include "ReadingHelper/ReadingHelperScreen.h"
 #include "Skills/SkillsScreen.h"
 #include "Sidebar.h"
@@ -163,6 +164,24 @@ void MainWindow::buildBody()
 
 void MainWindow::buildMenus()
 {
+    QMenu* playthroughsMenu = menuBar()->addMenu(QStringLiteral("&Playthroughs"));
+    QAction* newPlaythrough = playthroughsMenu->addAction(QStringLiteral("New Playthrough…"));
+    connect(newPlaythrough, &QAction::triggered, this, [this] {
+        NewPlaythroughDialog dialog(int(m_controller.playthroughs().size()), this);
+        if (dialog.exec() == QDialog::Accepted)
+            m_controller.createPlaythrough(dialog.playthroughName(), dialog.notes());
+    });
+    QAction* manage = playthroughsMenu->addAction(QStringLiteral("Manage Playthroughs…"));
+    connect(manage, &QAction::triggered, this, [this] {
+        ManagePlaythroughsDialog dialog(&m_controller, this);
+        dialog.exec();
+    });
+    QAction* importAction = playthroughsMenu->addAction(QStringLiteral("Import from Save…"));
+    connect(importAction, &QAction::triggered, this, [this] {
+        ImportFromSaveDialog dialog(&m_controller, this);
+        dialog.exec();
+    });
+
     QMenu* goMenu = menuBar()->addMenu(QStringLiteral("&Go"));
     const QStringList keys = {QStringLiteral("1"), QStringLiteral("2"), QStringLiteral("3"),
                               QStringLiteral("4"), QStringLiteral("5")};

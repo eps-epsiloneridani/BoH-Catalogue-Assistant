@@ -10,6 +10,7 @@
 #include "AUW4TPWUAB/moc_JournalScreen.cpp"
 #include "KZ2CQRJLRB/moc_MainWindow.cpp"
 #include "D24MOPL25K/moc_MemoriesScreen.cpp"
+#include "FFZIDPWWEO/moc_PlaythroughsDialog.cpp"
 #include "BKM2U3M7R5/moc_ReadingHelperScreen.cpp"
 #include "P2LIO7MJ6I/moc_AspectEditor.cpp"
 #include "P2LIO7MJ6I/moc_BookRowDelegate.cpp"

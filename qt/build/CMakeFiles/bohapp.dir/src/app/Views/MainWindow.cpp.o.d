@@ -484,6 +484,21 @@ CMakeFiles/bohapp.dir/src/app/Views/MainWindow.cpp.o: \
  /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qwidget.h \
  /home/rich/BoH-Catalogue-Assistant/qt/src/app/Views/Memories/MemoriesScreen.h \
  /home/rich/BoH-Catalogue-Assistant/qt/src/app/Views/Journal/JournalScreen.h \
+ /home/rich/BoH-Catalogue-Assistant/qt/src/app/Views/Playthroughs/PlaythroughsDialog.h \
+ /home/rich/BoH-Catalogue-Assistant/qt/src/core/SaveImport.h \
+ /usr/include/x86_64-linux-gnu/qt6/QtCore/QDateTime \
+ /usr/include/x86_64-linux-gnu/qt6/QtCore/qdatetime.h \
+ /usr/include/x86_64-linux-gnu/qt6/QtCore/qcalendar.h \
+ /usr/include/x86_64-linux-gnu/qt6/QtCore/qlocale.h \
+ /usr/include/x86_64-linux-gnu/qt6/QtCore/QJsonObject \
+ /usr/include/x86_64-linux-gnu/qt6/QtCore/qjsonobject.h \
+ /usr/include/x86_64-linux-gnu/qt6/QtCore/qjsonvalue.h \
+ /usr/include/x86_64-linux-gnu/qt6/QtCore/qcborvalue.h \
+ /usr/include/x86_64-linux-gnu/qt6/QtCore/qcborcommon.h \
+ /usr/include/x86_64-linux-gnu/qt6/QtCore/qdatetime.h \
+ /usr/include/x86_64-linux-gnu/qt6/QtCore/qregularexpression.h \
+ /usr/include/x86_64-linux-gnu/qt6/QtCore/qurl.h \
+ /usr/include/x86_64-linux-gnu/qt6/QtCore/quuid.h \
  /home/rich/BoH-Catalogue-Assistant/qt/src/app/Views/ReadingHelper/ReadingHelperScreen.h \
  /home/rich/BoH-Catalogue-Assistant/qt/src/app/Views/Skills/SkillsScreen.h \
  /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QCheckBox \
@@ -493,10 +508,8 @@ CMakeFiles/bohapp.dir/src/app/Views/MainWindow.cpp.o: \
  /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qcombobox.h \
  /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qabstractitemdelegate.h \
  /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qstyleoption.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qlocale.h \
  /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qabstractspinbox.h \
  /usr/include/x86_64-linux-gnu/qt6/QtGui/qvalidator.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qregularexpression.h \
  /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qslider.h \
  /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qabstractslider.h \
  /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qstyle.h \
@@ -507,7 +520,6 @@ CMakeFiles/bohapp.dir/src/app/Views/MainWindow.cpp.o: \
  /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qlineedit.h \
  /usr/include/x86_64-linux-gnu/qt6/QtGui/qtextcursor.h \
  /usr/include/x86_64-linux-gnu/qt6/QtGui/qtextdocument.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qurl.h \
  /usr/include/x86_64-linux-gnu/qt6/QtGui/qtextformat.h \
  /usr/include/x86_64-linux-gnu/qt6/QtGui/qpen.h \
  /usr/include/x86_64-linux-gnu/qt6/QtGui/qtextoption.h \
