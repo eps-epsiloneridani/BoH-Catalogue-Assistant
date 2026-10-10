@@ -62,7 +62,7 @@ cat > "$APP/Contents/Info.plist" <<PLIST
     <key>CFBundleIconFile</key><string>AppIcon</string>
     <key>NSPrincipalClass</key><string>NSApplication</string>
     <key>LSApplicationCategoryType</key><string>public.app-category.productivity</string>
-    <key>NSHumanReadableCopyright</key><string>Personal-use companion tool for Book of Hours (Weather Factory). Not affiliated.</string>
+    <key>NSHumanReadableCopyright</key><string>100% vibe coded assistant tool for Book of Hours by Weather Factory. Strictly a fan project!</string>
 </dict>
 </plist>
 PLIST
