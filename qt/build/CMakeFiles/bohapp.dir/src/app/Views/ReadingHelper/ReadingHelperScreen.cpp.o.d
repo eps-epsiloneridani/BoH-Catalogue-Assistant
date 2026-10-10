@@ -1,8 +1,9 @@
-CMakeFiles/bohapp.dir/bohapp_autogen/mocs_compilation.cpp.o: \
- /home/rich/BoH-Catalogue-Assistant/qt/build/bohapp_autogen/mocs_compilation.cpp \
+CMakeFiles/bohapp.dir/src/app/Views/ReadingHelper/ReadingHelperScreen.cpp.o: \
+ /home/rich/BoH-Catalogue-Assistant/qt/src/app/Views/ReadingHelper/ReadingHelperScreen.cpp \
  /usr/include/stdc-predef.h \
- /home/rich/BoH-Catalogue-Assistant/qt/build/bohapp_autogen/ISMKEKEPX5/moc_AppController.cpp \
- /home/rich/BoH-Catalogue-Assistant/qt/build/bohapp_autogen/ISMKEKEPX5/../../../src/app/AppController.h \
+ /home/rich/BoH-Catalogue-Assistant/qt/src/app/Views/ReadingHelper/ReadingHelperScreen.h \
+ /home/rich/BoH-Catalogue-Assistant/qt/src/app/Stores/ReadingHelperStore.h \
+ /home/rich/BoH-Catalogue-Assistant/qt/src/core/BookQuery.h \
  /home/rich/BoH-Catalogue-Assistant/qt/src/core/Models.h \
  /usr/include/x86_64-linux-gnu/qt6/QtCore/QString \
  /usr/include/x86_64-linux-gnu/qt6/QtCore/qstring.h \
@@ -338,11 +339,6 @@ CMakeFiles/bohapp.dir/bohapp_autogen/mocs_compilation.cpp.o: \
  /usr/include/x86_64-linux-gnu/qt6/QtCore/qstringconverter_base.h \
  /usr/include/x86_64-linux-gnu/qt6/QtCore/QtGlobal \
  /usr/include/x86_64-linux-gnu/qt6/QtCore/qglobal.h \
- /home/rich/BoH-Catalogue-Assistant/qt/src/core/Repositories/LookupRepositories.h \
- /home/rich/BoH-Catalogue-Assistant/qt/src/core/SQLiteDatabase.h \
- /home/rich/BoH-Catalogue-Assistant/qt/src/core/SQLiteValue.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/QByteArray \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qbytearray.h \
  /usr/include/x86_64-linux-gnu/qt6/QtCore/QHash \
  /usr/include/x86_64-linux-gnu/qt6/QtCore/qhash.h \
  /usr/include/x86_64-linux-gnu/qt6/QtCore/qalgorithms.h \
@@ -354,14 +350,14 @@ CMakeFiles/bohapp.dir/bohapp_autogen/mocs_compilation.cpp.o: \
  /usr/include/x86_64-linux-gnu/qt6/QtCore/qbytearraylist.h \
  /usr/include/x86_64-linux-gnu/qt6/QtCore/qstringlist.h \
  /usr/include/x86_64-linux-gnu/qt6/QtCore/qstringmatcher.h \
- /usr/include/sqlite3.h \
- /home/rich/BoH-Catalogue-Assistant/qt/src/core/Repositories/PlaythroughRepository.h \
- /home/rich/BoH-Catalogue-Assistant/qt/build/bohapp_autogen/ISMKEKEPX5/../../../src/app/Stores/BooksStore.h \
- /home/rich/BoH-Catalogue-Assistant/qt/src/core/BookQuery.h \
  /home/rich/BoH-Catalogue-Assistant/qt/src/core/Repositories/BookRepository.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/QList \
+ /home/rich/BoH-Catalogue-Assistant/qt/src/core/SQLiteDatabase.h \
+ /home/rich/BoH-Catalogue-Assistant/qt/src/core/SQLiteValue.h \
+ /usr/include/x86_64-linux-gnu/qt6/QtCore/QByteArray \
+ /usr/include/x86_64-linux-gnu/qt6/QtCore/qbytearray.h \
+ /usr/include/sqlite3.h /usr/include/x86_64-linux-gnu/qt6/QtCore/QList \
  /usr/include/x86_64-linux-gnu/qt6/QtCore/qlist.h \
- /home/rich/BoH-Catalogue-Assistant/qt/src/core/Repositories/JournalRepository.h \
+ /home/rich/BoH-Catalogue-Assistant/qt/src/core/Repositories/LookupRepositories.h \
  /home/rich/BoH-Catalogue-Assistant/qt/src/core/Repositories/MemoryRepository.h \
  /home/rich/BoH-Catalogue-Assistant/qt/src/core/Repositories/SkillRepository.h \
  /usr/include/x86_64-linux-gnu/qt6/QtCore/QObject \
@@ -406,31 +402,14 @@ CMakeFiles/bohapp.dir/bohapp_autogen/mocs_compilation.cpp.o: \
  /usr/include/x86_64-linux-gnu/qt6/QtCore/QSet \
  /usr/include/x86_64-linux-gnu/qt6/QtCore/qset.h \
  /usr/include/x86_64-linux-gnu/qt6/QtCore/qhash.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/QStringList \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qstringlist.h \
- /home/rich/BoH-Catalogue-Assistant/qt/build/bohapp_autogen/ISMKEKEPX5/../../../src/app/Stores/JournalStore.h \
- /home/rich/BoH-Catalogue-Assistant/qt/build/bohapp_autogen/ISMKEKEPX5/../../../src/app/Stores/MemoriesStore.h \
- /home/rich/BoH-Catalogue-Assistant/qt/src/core/MemoryQuery.h \
- /home/rich/BoH-Catalogue-Assistant/qt/build/bohapp_autogen/ISMKEKEPX5/../../../src/app/Stores/ReadingHelperStore.h \
- /home/rich/BoH-Catalogue-Assistant/qt/build/bohapp_autogen/ISMKEKEPX5/../../../src/app/Stores/SkillsStore.h \
- /home/rich/BoH-Catalogue-Assistant/qt/src/core/SkillQuery.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qtmochelpers.h \
- /home/rich/BoH-Catalogue-Assistant/qt/build/bohapp_autogen/QLRDJBIM37/moc_BooksStore.cpp \
- /home/rich/BoH-Catalogue-Assistant/qt/build/bohapp_autogen/QLRDJBIM37/moc_JournalStore.cpp \
- /home/rich/BoH-Catalogue-Assistant/qt/build/bohapp_autogen/QLRDJBIM37/moc_MemoriesStore.cpp \
- /home/rich/BoH-Catalogue-Assistant/qt/build/bohapp_autogen/QLRDJBIM37/moc_ReadingHelperStore.cpp \
- /home/rich/BoH-Catalogue-Assistant/qt/build/bohapp_autogen/QLRDJBIM37/moc_SkillsStore.cpp \
- /home/rich/BoH-Catalogue-Assistant/qt/build/bohapp_autogen/NFBRDKPPNV/moc_BooksScreen.cpp \
- /home/rich/BoH-Catalogue-Assistant/qt/build/bohapp_autogen/NFBRDKPPNV/../../../src/app/Views/Books/BooksScreen.h \
- /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QDialog \
- /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qdialog.h \
+ /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QWidget \
+ /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qwidget.h \
  /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qtwidgetsglobal.h \
  /usr/include/x86_64-linux-gnu/qt6/QtGui/qtguiglobal.h \
  /usr/include/x86_64-linux-gnu/qt6/QtGui/qtgui-config.h \
  /usr/include/x86_64-linux-gnu/qt6/QtGui/qtguiexports.h \
  /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qtwidgets-config.h \
  /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qtwidgetsexports.h \
- /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qwidget.h \
  /usr/include/x86_64-linux-gnu/qt6/QtGui/qwindowdefs.h \
  /usr/include/x86_64-linux-gnu/qt6/QtCore/qobject.h \
  /usr/include/x86_64-linux-gnu/qt6/QtCore/qmargins.h \
@@ -475,34 +454,53 @@ CMakeFiles/bohapp.dir/bohapp_autogen/mocs_compilation.cpp.o: \
  /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qsizepolicy.h \
  /usr/include/x86_64-linux-gnu/qt6/QtGui/qcursor.h \
  /usr/include/x86_64-linux-gnu/qt6/QtGui/qbitmap.h \
- /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QVBoxLayout \
+ /home/rich/BoH-Catalogue-Assistant/qt/src/app/AppController.h \
+ /home/rich/BoH-Catalogue-Assistant/qt/src/core/Repositories/PlaythroughRepository.h \
+ /home/rich/BoH-Catalogue-Assistant/qt/src/app/Stores/BooksStore.h \
+ /home/rich/BoH-Catalogue-Assistant/qt/src/core/Repositories/JournalRepository.h \
+ /usr/include/x86_64-linux-gnu/qt6/QtCore/QStringList \
+ /usr/include/x86_64-linux-gnu/qt6/QtCore/qstringlist.h \
+ /home/rich/BoH-Catalogue-Assistant/qt/src/app/Stores/JournalStore.h \
+ /home/rich/BoH-Catalogue-Assistant/qt/src/app/Stores/MemoriesStore.h \
+ /home/rich/BoH-Catalogue-Assistant/qt/src/core/MemoryQuery.h \
+ /home/rich/BoH-Catalogue-Assistant/qt/src/app/Stores/SkillsStore.h \
+ /home/rich/BoH-Catalogue-Assistant/qt/src/core/SkillQuery.h \
+ /home/rich/BoH-Catalogue-Assistant/qt/src/core/ReadingMath.h \
+ /home/rich/BoH-Catalogue-Assistant/qt/src/app/Views/Books/RecordReadDialog.h \
+ /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QDialog \
+ /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qdialog.h \
+ /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qwidget.h \
+ /home/rich/BoH-Catalogue-Assistant/qt/src/app/Views/Shared/Badges.h \
+ /usr/include/x86_64-linux-gnu/qt6/QtGui/QPainter \
+ /usr/include/x86_64-linux-gnu/qt6/QtGui/qpainter.h \
+ /usr/include/x86_64-linux-gnu/qt6/QtGui/qtextoption.h \
+ /usr/include/x86_64-linux-gnu/qt6/QtGui/qpen.h \
+ /usr/include/x86_64-linux-gnu/qt6/QtGui/QFontMetrics \
+ /usr/include/x86_64-linux-gnu/qt6/QtGui/qfontmetrics.h \
+ /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QHBoxLayout \
  /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qboxlayout.h \
  /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qlayout.h \
  /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qlayoutitem.h \
  /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qboxlayout.h \
  /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qgridlayout.h \
- /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QWidget \
- /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qwidget.h \
- /home/rich/BoH-Catalogue-Assistant/qt/build/bohapp_autogen/NFBRDKPPNV/moc_RecordReadDialog.cpp \
- /home/rich/BoH-Catalogue-Assistant/qt/build/bohapp_autogen/NFBRDKPPNV/../../../src/app/Views/Books/RecordReadDialog.h \
- /home/rich/BoH-Catalogue-Assistant/qt/build/bohapp_autogen/KZ2CQRJLRB/moc_MainWindow.cpp \
- /home/rich/BoH-Catalogue-Assistant/qt/build/bohapp_autogen/KZ2CQRJLRB/../../../src/app/Views/MainWindow.h \
- /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QMainWindow \
- /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qmainwindow.h \
- /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qtabwidget.h \
- /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QStackedWidget \
- /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qstackedwidget.h \
+ /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QLabel \
+ /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qlabel.h \
  /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qframe.h \
- /home/rich/BoH-Catalogue-Assistant/qt/build/bohapp_autogen/D24MOPL25K/moc_MemoriesScreen.cpp \
- /home/rich/BoH-Catalogue-Assistant/qt/build/bohapp_autogen/D24MOPL25K/../../../src/app/Views/Memories/MemoriesScreen.h \
- /home/rich/BoH-Catalogue-Assistant/qt/build/bohapp_autogen/BKM2U3M7R5/moc_ReadingHelperScreen.cpp \
- /home/rich/BoH-Catalogue-Assistant/qt/build/bohapp_autogen/BKM2U3M7R5/../../../src/app/Views/ReadingHelper/ReadingHelperScreen.h \
- /home/rich/BoH-Catalogue-Assistant/qt/build/bohapp_autogen/P2LIO7MJ6I/moc_AspectEditor.cpp \
- /home/rich/BoH-Catalogue-Assistant/qt/build/bohapp_autogen/P2LIO7MJ6I/../../../src/app/Views/Shared/AspectEditor.h \
- /home/rich/BoH-Catalogue-Assistant/qt/build/bohapp_autogen/P2LIO7MJ6I/moc_BookRowDelegate.cpp \
- /home/rich/BoH-Catalogue-Assistant/qt/build/bohapp_autogen/P2LIO7MJ6I/../../../src/app/Views/Shared/BookRowDelegate.h \
- /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QStyledItemDelegate \
- /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qstyleditemdelegate.h \
+ /usr/include/x86_64-linux-gnu/qt6/QtGui/qpicture.h \
+ /usr/include/x86_64-linux-gnu/qt6/QtCore/qiodevice.h \
+ /usr/include/x86_64-linux-gnu/qt6/QtGui/qtextdocument.h \
+ /usr/include/x86_64-linux-gnu/qt6/QtCore/qurl.h \
+ /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QLineEdit \
+ /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qlineedit.h \
+ /usr/include/x86_64-linux-gnu/qt6/QtGui/qtextcursor.h \
+ /usr/include/x86_64-linux-gnu/qt6/QtGui/qtextformat.h \
+ /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QListWidget \
+ /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qlistwidget.h \
+ /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qlistview.h \
+ /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qabstractitemview.h \
+ /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qabstractscrollarea.h \
+ /usr/include/x86_64-linux-gnu/qt6/QtCore/qabstractitemmodel.h \
+ /usr/include/x86_64-linux-gnu/qt6/QtCore/qitemselectionmodel.h \
  /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qabstractitemdelegate.h \
  /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qstyleoption.h \
  /usr/include/x86_64-linux-gnu/qt6/QtCore/qlocale.h \
@@ -513,13 +511,15 @@ CMakeFiles/bohapp.dir/bohapp_autogen/mocs_compilation.cpp.o: \
  /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qabstractslider.h \
  /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qstyle.h \
  /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qtabbar.h \
+ /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qtabwidget.h \
  /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qrubberband.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qabstractitemmodel.h \
- /home/rich/BoH-Catalogue-Assistant/qt/build/bohapp_autogen/KZ2CQRJLRB/moc_Sidebar.cpp \
- /home/rich/BoH-Catalogue-Assistant/qt/build/bohapp_autogen/KZ2CQRJLRB/../../../src/app/Views/Sidebar.h \
- /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QListWidget \
- /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qlistwidget.h \
- /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qlistview.h \
- /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qabstractitemview.h \
- /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qabstractscrollarea.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qitemselectionmodel.h
+ /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QMenu \
+ /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qmenu.h \
+ /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QPushButton \
+ /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qpushbutton.h \
+ /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qabstractbutton.h \
+ /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QSplitter \
+ /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qsplitter.h \
+ /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QToolButton \
+ /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qtoolbutton.h \
+ /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QVBoxLayout
