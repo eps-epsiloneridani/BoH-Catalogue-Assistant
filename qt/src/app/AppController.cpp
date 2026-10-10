@@ -49,7 +49,22 @@ void AppController::bootstrap()
 
 void AppController::remountPlaythroughState()
 {
-    // Stores (Task 10) are rebuilt here for the active playthrough.
+    // Stores are rebuilt for the active playthrough; old data stays in the db —
+    // switching back is one click.
+    if (m_db && m_activePlaythrough) {
+        const qint64 pid = m_activePlaythrough->id;
+        m_booksStore = std::make_unique<BooksStore>(*m_db, pid);
+        m_memoriesStore = std::make_unique<MemoriesStore>(*m_db, pid);
+        m_helperStore = std::make_unique<ReadingHelperStore>(*m_db, pid);
+        m_skillsStore = std::make_unique<SkillsStore>(*m_db, pid);
+        m_journalStore = std::make_unique<JournalStore>(*m_db, pid);
+    } else {
+        m_booksStore.reset();
+        m_memoriesStore.reset();
+        m_helperStore.reset();
+        m_skillsStore.reset();
+        m_journalStore.reset();
+    }
     refreshCounts();
     emit playthroughsChanged();
     emit changed();
@@ -89,6 +104,18 @@ void AppController::reloadAll()
 {
     if (m_phase != Phase::Ready)
         return;
+    // The choke point: every store refills ALL of its caches (the structural
+    // fix for the empty-state/stale-snapshot bug family), then views refresh.
+    if (m_booksStore)
+        m_booksStore->reload();
+    if (m_memoriesStore)
+        m_memoriesStore->reload();
+    if (m_helperStore)
+        m_helperStore->reload();
+    if (m_skillsStore)
+        m_skillsStore->reload();
+    if (m_journalStore)
+        m_journalStore->reload();
     refreshCounts();
     emit changed();
 }

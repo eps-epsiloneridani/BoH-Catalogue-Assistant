@@ -9,6 +9,11 @@
 #include "Repositories/LookupRepositories.h"
 #include "Repositories/PlaythroughRepository.h"
 #include "SQLiteDatabase.h"
+#include "Stores/BooksStore.h"
+#include "Stores/JournalStore.h"
+#include "Stores/MemoriesStore.h"
+#include "Stores/ReadingHelperStore.h"
+#include "Stores/SkillsStore.h"
 
 #include <QObject>
 #include <QString>
@@ -50,6 +55,13 @@ public:
     std::optional<Playthrough> activePlaythrough() const { return m_activePlaythrough; }
     Counts counts() const { return m_counts; }
 
+    // Screen stores (rebuilt when the active playthrough changes).
+    BooksStore* booksStore() const { return m_booksStore.get(); }
+    MemoriesStore* memoriesStore() const { return m_memoriesStore.get(); }
+    ReadingHelperStore* helperStore() const { return m_helperStore.get(); }
+    SkillsStore* skillsStore() const { return m_skillsStore.get(); }
+    JournalStore* journalStore() const { return m_journalStore.get(); }
+
     /// Load another playthrough; remounts everything scoped to it.
     bool switchPlaythrough(qint64 id);
 
@@ -74,6 +86,11 @@ private:
     std::vector<Playthrough> m_playthroughs;
     std::optional<Playthrough> m_activePlaythrough;
     Counts m_counts;
+    std::unique_ptr<BooksStore> m_booksStore;
+    std::unique_ptr<MemoriesStore> m_memoriesStore;
+    std::unique_ptr<ReadingHelperStore> m_helperStore;
+    std::unique_ptr<SkillsStore> m_skillsStore;
+    std::unique_ptr<JournalStore> m_journalStore;
 };
 
 } // namespace boh

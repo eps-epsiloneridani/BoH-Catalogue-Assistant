@@ -254,6 +254,36 @@
 			null
 		],
 		[
+			"/home/rich/BoH-Catalogue-Assistant/qt/src/app/Stores/BooksStore.h",
+			"Mu",
+			"QLRDJBIM37/moc_BooksStore.cpp",
+			null
+		],
+		[
+			"/home/rich/BoH-Catalogue-Assistant/qt/src/app/Stores/JournalStore.h",
+			"Mu",
+			"QLRDJBIM37/moc_JournalStore.cpp",
+			null
+		],
+		[
+			"/home/rich/BoH-Catalogue-Assistant/qt/src/app/Stores/MemoriesStore.h",
+			"Mu",
+			"QLRDJBIM37/moc_MemoriesStore.cpp",
+			null
+		],
+		[
+			"/home/rich/BoH-Catalogue-Assistant/qt/src/app/Stores/ReadingHelperStore.h",
+			"Mu",
+			"QLRDJBIM37/moc_ReadingHelperStore.cpp",
+			null
+		],
+		[
+			"/home/rich/BoH-Catalogue-Assistant/qt/src/app/Stores/SkillsStore.h",
+			"Mu",
+			"QLRDJBIM37/moc_SkillsStore.cpp",
+			null
+		],
+		[
 			"/home/rich/BoH-Catalogue-Assistant/qt/src/app/Views/MainWindow.h",
 			"Mu",
 			"KZ2CQRJLRB/moc_MainWindow.cpp",
@@ -335,6 +365,31 @@
 	[
 		[
 			"/home/rich/BoH-Catalogue-Assistant/qt/src/app/AppController.cpp",
+			"Mu",
+			null
+		],
+		[
+			"/home/rich/BoH-Catalogue-Assistant/qt/src/app/Stores/BooksStore.cpp",
+			"Mu",
+			null
+		],
+		[
+			"/home/rich/BoH-Catalogue-Assistant/qt/src/app/Stores/JournalStore.cpp",
+			"Mu",
+			null
+		],
+		[
+			"/home/rich/BoH-Catalogue-Assistant/qt/src/app/Stores/MemoriesStore.cpp",
+			"Mu",
+			null
+		],
+		[
+			"/home/rich/BoH-Catalogue-Assistant/qt/src/app/Stores/ReadingHelperStore.cpp",
+			"Mu",
+			null
+		],
+		[
+			"/home/rich/BoH-Catalogue-Assistant/qt/src/app/Stores/SkillsStore.cpp",
 			"Mu",
 			null
 		],

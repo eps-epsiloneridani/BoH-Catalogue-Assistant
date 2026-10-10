@@ -64,6 +64,11 @@ target_link_libraries(bohcore PUBLIC Qt6::Core SQLite::SQLite3)
 # App layer: controller + views (QObject classes; AUTOMOC handles them).
 add_library(bohapp STATIC
   src/app/AppController.h src/app/AppController.cpp
+  src/app/Stores/BooksStore.h src/app/Stores/BooksStore.cpp
+  src/app/Stores/JournalStore.h src/app/Stores/JournalStore.cpp
+  src/app/Stores/MemoriesStore.h src/app/Stores/MemoriesStore.cpp
+  src/app/Stores/ReadingHelperStore.h src/app/Stores/ReadingHelperStore.cpp
+  src/app/Stores/SkillsStore.h src/app/Stores/SkillsStore.cpp
   src/app/Views/MainWindow.h src/app/Views/MainWindow.cpp
   src/app/Views/Sidebar.h src/app/Views/Sidebar.cpp
 )

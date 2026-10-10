@@ -1,13 +1,24 @@
 /home/rich/BoH-Catalogue-Assistant/qt/build/test_AppController_autogen/include/test_AppController.moc: /home/rich/BoH-Catalogue-Assistant/qt/tests/test_AppController.cpp \
   /home/rich/BoH-Catalogue-Assistant/qt/build/test_AppController_autogen/moc_predefs.h \
   /home/rich/BoH-Catalogue-Assistant/qt/src/app/AppController.h \
+  /home/rich/BoH-Catalogue-Assistant/qt/src/app/Stores/BooksStore.h \
+  /home/rich/BoH-Catalogue-Assistant/qt/src/app/Stores/JournalStore.h \
+  /home/rich/BoH-Catalogue-Assistant/qt/src/app/Stores/MemoriesStore.h \
+  /home/rich/BoH-Catalogue-Assistant/qt/src/app/Stores/ReadingHelperStore.h \
+  /home/rich/BoH-Catalogue-Assistant/qt/src/app/Stores/SkillsStore.h \
+  /home/rich/BoH-Catalogue-Assistant/qt/src/core/BookQuery.h \
+  /home/rich/BoH-Catalogue-Assistant/qt/src/core/MemoryQuery.h \
   /home/rich/BoH-Catalogue-Assistant/qt/src/core/Migrator.h \
   /home/rich/BoH-Catalogue-Assistant/qt/src/core/Models.h \
   /home/rich/BoH-Catalogue-Assistant/qt/src/core/Repositories/BookRepository.h \
+  /home/rich/BoH-Catalogue-Assistant/qt/src/core/Repositories/JournalRepository.h \
   /home/rich/BoH-Catalogue-Assistant/qt/src/core/Repositories/LookupRepositories.h \
+  /home/rich/BoH-Catalogue-Assistant/qt/src/core/Repositories/MemoryRepository.h \
   /home/rich/BoH-Catalogue-Assistant/qt/src/core/Repositories/PlaythroughRepository.h \
+  /home/rich/BoH-Catalogue-Assistant/qt/src/core/Repositories/SkillRepository.h \
   /home/rich/BoH-Catalogue-Assistant/qt/src/core/SQLiteDatabase.h \
   /home/rich/BoH-Catalogue-Assistant/qt/src/core/SQLiteValue.h \
+  /home/rich/BoH-Catalogue-Assistant/qt/src/core/SkillQuery.h \
   /usr/include/alloca.h \
   /usr/include/asm-generic/bitsperlong.h \
   /usr/include/asm-generic/errno-base.h \
@@ -357,6 +368,7 @@
   /usr/include/x86_64-linux-gnu/qt6/QtCore/QMutex \
   /usr/include/x86_64-linux-gnu/qt6/QtCore/QObject \
   /usr/include/x86_64-linux-gnu/qt6/QtCore/QRect \
+  /usr/include/x86_64-linux-gnu/qt6/QtCore/QSet \
   /usr/include/x86_64-linux-gnu/qt6/QtCore/QSize \
   /usr/include/x86_64-linux-gnu/qt6/QtCore/QSizeF \
   /usr/include/x86_64-linux-gnu/qt6/QtCore/QString \
