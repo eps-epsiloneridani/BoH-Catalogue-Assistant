@@ -235,6 +235,11 @@ immediate. ⌘⇧J jumps to the journal and focuses quick-add.
 
 ## Later / optional (only on request)
 
+- **Linux port (planned, not started).** Full plan at
+  `docs/superpowers/plans/2026-10-09-linux-qt-port.md`: C++20 + Qt 6 Widgets in
+  `qt/`, Core ported 1:1 with the test suite as the gate, shared
+  `db/migrations/`, XDG paths, Proton save discovery, AppImage. Awaiting the
+  user's go-ahead before Task 1.
 - **File picker for save import.** The importer reads the standard save path only;
   choosing an arbitrary save file (e.g. from another machine or a Steam Cloud
   restore) needs an NSOpenPanel step in `ImportFromSaveSheet` (acknowledged and

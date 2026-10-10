@@ -536,6 +536,13 @@ Two goals, in priority order:
   pending item closed; smoke launch verified (the user's open instance quit with
   it - relaunch from the fresh dist). Note: the review’s bundle name was wrong
   (BoHLibrarianCore_* vs the actual BoHLibrarian_*); corrected before applying.
+- 2026-10-09 (Linux port plan, user request): full repo review + port plan written
+  to docs/superpowers/plans/2026-10-09-linux-qt-port.md — C++20 + Qt 6 Widgets in
+  a new top-level qt/ dir, Core ported 1:1 with the 111-test suite as the gate,
+  migrations embedded from db/migrations via qrc (no sync copy), XDG data path,
+  Proton save discovery via libraryfolders.vdf (appid 1028310, recorded in
+  SAVE_IMPORT.md's userdata path), AppImage packaging, 19 tasks, nothing
+  Linux-locked. macOS app untouched; no code changed this session.
 
 ## Repository layout
 
