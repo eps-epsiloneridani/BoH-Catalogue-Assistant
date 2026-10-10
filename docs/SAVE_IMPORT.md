@@ -24,6 +24,19 @@ formats and the design rules the implementation follows.
 | Game definitions | `…/Steam/steamapps/common/Book of Hours/OSX.app/Contents/Resources/Data/StreamingAssets/bhcontent/core/elements/*.json` | 2,035 element definitions across ~60 files |
 | Modding reference | `StreamingAssets/MODDING_README.txt` | official: mods are the same JSON — the format is meant to be read |
 
+### Moving your library (mac → Linux)
+
+1. Quit the macOS app (so the db isn't mid-write).
+2. Copy `~/Library/Application Support/BoH Librarian/Boh.db` to the Linux box, to
+   `~/.local/share/BoH Librarian/Boh.db` (create the folder first).
+3. Launch the Linux app — it applies any pending migrations forward-only and
+   shows the schema version in the footer.
+4. Sanity checks: footer version = the latest (9 as of 2026-10); record counts
+   match the mac footer; `PRAGMA integrity_check` returns `ok`.
+
+The SQLite file is byte-portable; no conversion happens. Verified end-to-end on
+the Linux side with a db carrying the real save's import (67 books).
+
 ### Linux (verified on a real install, 2026-10-10)
 
 The game ships a **native Linux build** (`bh.x86_64`, `bh_Data` — no Proton
