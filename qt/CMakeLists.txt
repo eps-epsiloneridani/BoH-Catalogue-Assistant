@@ -19,6 +19,7 @@ add_library(bohcore STATIC
   src/core/Models.cpp
   src/core/ReadingMath.cpp
   src/core/ColorMath.cpp
+  src/core/SaveImport.cpp
   src/core/BookQuery.cpp
   src/core/MemoryQuery.cpp
   src/core/SkillQuery.cpp
@@ -105,3 +106,7 @@ add_test(NAME Repositories COMMAND test_Repositories)
 add_executable(test_PlaythroughRepository tests/test_PlaythroughRepository.cpp)
 target_link_libraries(test_PlaythroughRepository PRIVATE bohcore Qt6::Core Qt6::Test)
 add_test(NAME PlaythroughRepository COMMAND test_PlaythroughRepository)
+
+add_executable(test_SaveImport tests/test_SaveImport.cpp)
+target_link_libraries(test_SaveImport PRIVATE bohcore Qt6::Core Qt6::Test)
+add_test(NAME SaveImport COMMAND test_SaveImport)
