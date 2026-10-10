@@ -408,16 +408,31 @@ private slots:
         QCOMPARE(candidates.front(),
                  QStringLiteral("/mnt/games/SteamLibrary/steamapps/compatdata/1028310/pfx/drive_c/"
                                 "users/steamuser/AppData/LocalLow/Weather Factory/Book of Hours"));
+    }
+
+    /// The native Linux build (verified on a real install): Unity saves in
+    /// ~/.config/unity3d, StreamingAssets under bh_Data — both BEFORE the
+    /// Proton layouts in the candidate lists.
+    void nativeBuildCandidatesComeFirst()
+    {
+        QCOMPARE(BoHPaths::nativeSaveDirectoryCandidates().front(),
+                 QDir::homePath() + QStringLiteral("/.config/unity3d/Weather Factory/Book of Hours"));
         const QStringList elements =
-            BoHPaths::gameElementsDirectoryCandidates(libraries);
-        QCOMPARE(elements.front(),
+            BoHPaths::gameElementsDirectoryCandidates({QStringLiteral("/mnt/games/SteamLibrary")});
+        QCOMPARE((int) elements.size(), 2);
+        QCOMPARE(elements[0],
+                 QStringLiteral("/mnt/games/SteamLibrary/steamapps/common/Book of Hours/"
+                                "bh_Data/StreamingAssets/bhcontent/core/elements"));
+        QCOMPARE(elements[1],
                  QStringLiteral("/mnt/games/SteamLibrary/steamapps/common/Book of Hours/"
                                 "Book of Hours_Data/StreamingAssets/bhcontent/core/elements"));
     }
 
     void firstExistingPicksTheRealInstall()
     {
-        // A synthetic library tree: library A lacks the prefix, library B has it.
+        // A synthetic tree: library A lacks the prefix, library B has it.
+        // (Proton-only candidates — the native unity3d candidate is covered by
+        // nativeBuildCandidatesComeFirst and the live test below.)
         const QString libB = m_work->path() + QStringLiteral("/libB");
         const QString saves = libB
                               + QStringLiteral("/steamapps/compatdata/1028310/pfx/drive_c/users/"
@@ -426,6 +441,20 @@ private slots:
         const QStringList candidates = BoHPaths::saveDirectoryCandidates(
             {m_work->path() + QStringLiteral("/libA"), libB});
         QCOMPARE(*BoHPaths::firstExisting(candidates), saves);
+    }
+
+    /// Live acceptance: on a machine with the game installed, discovery must
+    /// find the real elements directory and the real saves (skips otherwise).
+    void discoveryFindsTheRealInstallWhenPresent()
+    {
+        const auto elements = BoHPaths::gameElementsDirectory();
+        const auto saves = BoHPaths::saveDirectory();
+        if (!elements || !QDir(*elements).exists() || !saves || !QDir(*saves).exists())
+            QSKIP("game not installed on this machine");
+        QVERIFY2(elements->endsWith(QStringLiteral("bhcontent/core/elements")),
+                 qPrintable(*elements));
+        QVERIFY2(saves->contains(QStringLiteral("Book of Hours")), qPrintable(*saves));
+        QVERIFY(!SaveScanner::availableSaves().empty());
     }
 
     // MARK: - Real game (skips when not installed)
