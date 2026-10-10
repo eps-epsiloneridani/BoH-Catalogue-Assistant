@@ -16,6 +16,9 @@ add_library(bohcore STATIC
   src/core/SQLiteValue.cpp
   src/core/SQLiteDatabase.cpp
   src/core/Migrator.cpp
+  src/core/Models.cpp
+  src/core/ReadingMath.cpp
+  src/core/ColorMath.cpp
 )
 # db/migrations embedded verbatim — single schema source, no sync copy (plan
 # Task 3). qt_add_resources (not a checked-in .qrc): rcc's relative-path rules
@@ -63,3 +66,11 @@ add_test(NAME SQLiteDatabase COMMAND test_SQLiteDatabase)
 add_executable(test_Migrator tests/test_Migrator.cpp)
 target_link_libraries(test_Migrator PRIVATE bohcore Qt6::Core Qt6::Test)
 add_test(NAME Migrator COMMAND test_Migrator)
+
+add_executable(test_ColorMath tests/test_ColorMath.cpp)
+target_link_libraries(test_ColorMath PRIVATE bohcore Qt6::Core Qt6::Test)
+add_test(NAME ColorMath COMMAND test_ColorMath)
+
+add_executable(test_ReadingMath tests/test_ReadingMath.cpp)
+target_link_libraries(test_ReadingMath PRIVATE bohcore Qt6::Core Qt6::Test)
+add_test(NAME ReadingMath COMMAND test_ReadingMath)
