@@ -19,6 +19,9 @@ add_library(bohcore STATIC
   src/core/Models.cpp
   src/core/ReadingMath.cpp
   src/core/ColorMath.cpp
+  src/core/BookQuery.cpp
+  src/core/MemoryQuery.cpp
+  src/core/SkillQuery.cpp
 )
 # db/migrations embedded verbatim — single schema source, no sync copy (plan
 # Task 3). qt_add_resources (not a checked-in .qrc): rcc's relative-path rules
@@ -74,3 +77,15 @@ add_test(NAME ColorMath COMMAND test_ColorMath)
 add_executable(test_ReadingMath tests/test_ReadingMath.cpp)
 target_link_libraries(test_ReadingMath PRIVATE bohcore Qt6::Core Qt6::Test)
 add_test(NAME ReadingMath COMMAND test_ReadingMath)
+
+add_executable(test_BookQuery tests/test_BookQuery.cpp)
+target_link_libraries(test_BookQuery PRIVATE bohcore Qt6::Core Qt6::Test)
+add_test(NAME BookQuery COMMAND test_BookQuery)
+
+add_executable(test_MemoryQuery tests/test_MemoryQuery.cpp)
+target_link_libraries(test_MemoryQuery PRIVATE bohcore Qt6::Core Qt6::Test)
+add_test(NAME MemoryQuery COMMAND test_MemoryQuery)
+
+add_executable(test_SkillQuery tests/test_SkillQuery.cpp)
+target_link_libraries(test_SkillQuery PRIVATE bohcore Qt6::Core Qt6::Test)
+add_test(NAME SkillQuery COMMAND test_SkillQuery)
