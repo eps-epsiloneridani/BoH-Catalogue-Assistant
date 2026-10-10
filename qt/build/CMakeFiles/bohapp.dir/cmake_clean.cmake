@@ -20,6 +20,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/bohapp.dir/src/app/Views/Books/BooksScreen.cpp.o.d"
   "CMakeFiles/bohapp.dir/src/app/Views/Books/RecordReadDialog.cpp.o"
   "CMakeFiles/bohapp.dir/src/app/Views/Books/RecordReadDialog.cpp.o.d"
+  "CMakeFiles/bohapp.dir/src/app/Views/Journal/JournalScreen.cpp.o"
+  "CMakeFiles/bohapp.dir/src/app/Views/Journal/JournalScreen.cpp.o.d"
   "CMakeFiles/bohapp.dir/src/app/Views/MainWindow.cpp.o"
   "CMakeFiles/bohapp.dir/src/app/Views/MainWindow.cpp.o.d"
   "CMakeFiles/bohapp.dir/src/app/Views/Memories/MemoriesScreen.cpp.o"
@@ -34,6 +36,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/bohapp.dir/src/app/Views/Shared/BookRowDelegate.cpp.o.d"
   "CMakeFiles/bohapp.dir/src/app/Views/Sidebar.cpp.o"
   "CMakeFiles/bohapp.dir/src/app/Views/Sidebar.cpp.o.d"
+  "CMakeFiles/bohapp.dir/src/app/Views/Skills/SkillsScreen.cpp.o"
+  "CMakeFiles/bohapp.dir/src/app/Views/Skills/SkillsScreen.cpp.o.d"
   "libbohapp.a"
   "libbohapp.pdb"
 )

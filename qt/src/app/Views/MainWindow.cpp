@@ -1,7 +1,9 @@
 #include "MainWindow.h"
 #include "Books/BooksScreen.h"
 #include "Memories/MemoriesScreen.h"
+#include "Journal/JournalScreen.h"
 #include "ReadingHelper/ReadingHelperScreen.h"
+#include "Skills/SkillsScreen.h"
 #include "Sidebar.h"
 
 #include <QAction>
@@ -99,9 +101,36 @@ void MainWindow::buildBody()
         selectSection(0);
         m_booksScreen->selectBook(bookID);
     });
+    // Skills (Task 15) + Journal (Task 15) replace their placeholders.
+    m_skillsScreen = new SkillsScreen(m_controller.skillsStore(), m_controller.principles(), central);
+    m_journalScreen = new JournalScreen(m_controller.journalStore(), central);
+    connect(m_journalScreen, &JournalScreen::showBookRequested, this, [this](qint64 bookID) {
+        selectSection(0);
+        m_booksScreen->selectBook(bookID);
+    });
+    connect(m_journalScreen, &JournalScreen::showMemoryRequested, this, [this](qint64 memoryID) {
+        selectSection(1);
+        m_memoriesScreen->selectMemory(memoryID);
+    });
+    connect(m_journalScreen, &JournalScreen::showSkillRequested, this, [this](qint64 skillID) {
+        selectSection(2);
+        m_skillsScreen->selectSkill(skillID);
+    });
+    m_sections->insertWidget(2, m_skillsScreen);
+    if (QWidget* oldSkills = m_sections->widget(3)) {
+        m_sections->removeWidget(oldSkills);
+        oldSkills->deleteLater();
+    }
+    m_sections->insertWidget(3, m_journalScreen);
+    if (QWidget* oldJournal = m_sections->widget(4)) {
+        m_sections->removeWidget(oldJournal);
+        oldJournal->deleteLater();
+    }
     connect(&m_controller, &AppController::playthroughsChanged, this, [this] {
         m_memoriesScreen->setStore(m_controller.memoriesStore());
         m_helperScreen->setStore(m_controller.helperStore());
+        m_skillsScreen->setStore(m_controller.skillsStore());
+        m_journalScreen->setStore(m_controller.journalStore());
     });
     connect(m_booksScreen, &BooksScreen::showMemoryRequested, this, [this](qint64 memoryID) {
         // The Memories screen lands in Task 13; remember the target then.
@@ -150,7 +179,9 @@ void MainWindow::buildMenus()
     QAction* quickJournal = goMenu->addAction(QStringLiteral("Quick journal entry"));
     quickJournal->setShortcut(QKeySequence::fromString(QStringLiteral("Ctrl+Shift+J")));
     connect(quickJournal, &QAction::triggered, this, [this] {
-        selectSection(3); // the quick-capture field focuses from Task 15
+        selectSection(3);
+        if (m_journalScreen)
+            m_journalScreen->focusQuickAdd();
     });
 
     QAction* newAction = goMenu->addAction(QStringLiteral("New in current section"));
@@ -162,6 +193,14 @@ void MainWindow::buildMenus()
         }
         if (m_currentSection == 1 && m_memoriesScreen) {
             m_memoriesScreen->addNew();
+            return;
+        }
+        if (m_currentSection == 2 && m_skillsScreen) {
+            m_skillsScreen->addNew();
+            return;
+        }
+        if (m_currentSection == 3 && m_journalScreen) {
+            m_journalScreen->focusQuickAdd();
             return;
         }
         statusBar()->showMessage(QStringLiteral("New “%1” arrives with its screen.")
@@ -178,6 +217,14 @@ void MainWindow::buildMenus()
         }
         if (m_currentSection == 1 && m_memoriesScreen) {
             m_memoriesScreen->focusSearch();
+            return;
+        }
+        if ((m_currentSection == 2) && m_skillsScreen) {
+            m_skillsScreen->focusSearch();
+            return;
+        }
+        if (m_currentSection == 3 && m_journalScreen) {
+            m_journalScreen->focusQuickAdd();
             return;
         }
         if (m_currentSection == 4 && m_helperScreen) {

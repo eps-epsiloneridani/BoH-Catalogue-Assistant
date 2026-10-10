@@ -296,6 +296,12 @@
 			null
 		],
 		[
+			"/home/rich/BoH-Catalogue-Assistant/qt/src/app/Views/Journal/JournalScreen.h",
+			"Mu",
+			"AUW4TPWUAB/moc_JournalScreen.cpp",
+			null
+		],
+		[
 			"/home/rich/BoH-Catalogue-Assistant/qt/src/app/Views/MainWindow.h",
 			"Mu",
 			"KZ2CQRJLRB/moc_MainWindow.cpp",
@@ -335,6 +341,12 @@
 			"/home/rich/BoH-Catalogue-Assistant/qt/src/app/Views/Sidebar.h",
 			"Mu",
 			"KZ2CQRJLRB/moc_Sidebar.cpp",
+			null
+		],
+		[
+			"/home/rich/BoH-Catalogue-Assistant/qt/src/app/Views/Skills/SkillsScreen.h",
+			"Mu",
+			"CLSSTP3E6N/moc_SkillsScreen.cpp",
 			null
 		]
 	],
@@ -447,6 +459,11 @@
 			null
 		],
 		[
+			"/home/rich/BoH-Catalogue-Assistant/qt/src/app/Views/Journal/JournalScreen.cpp",
+			"Mu",
+			null
+		],
+		[
 			"/home/rich/BoH-Catalogue-Assistant/qt/src/app/Views/MainWindow.cpp",
 			"Mu",
 			null
@@ -478,6 +495,11 @@
 		],
 		[
 			"/home/rich/BoH-Catalogue-Assistant/qt/src/app/Views/Sidebar.cpp",
+			"Mu",
+			null
+		],
+		[
+			"/home/rich/BoH-Catalogue-Assistant/qt/src/app/Views/Skills/SkillsScreen.cpp",
 			"Mu",
 			null
 		]

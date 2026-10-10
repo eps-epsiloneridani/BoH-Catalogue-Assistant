@@ -26,6 +26,7 @@ public:
     void reload();
     bool perform(const QString& label, const std::function<void()>& operation);
     QString lastError() const { return m_lastError; }
+    void clearError() { m_lastError.clear(); }
 
     std::vector<Skill> displayed() const;
     std::optional<Skill> selectedSkill() const;
