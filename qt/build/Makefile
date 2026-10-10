@@ -1040,6 +1040,30 @@ src/app/Stores/SkillsStore.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/bohapp.dir/build.make CMakeFiles/bohapp.dir/src/app/Stores/SkillsStore.cpp.s
 .PHONY : src/app/Stores/SkillsStore.cpp.s
 
+src/app/Views/Books/BooksScreen.o: src/app/Views/Books/BooksScreen.cpp.o
+.PHONY : src/app/Views/Books/BooksScreen.o
+
+# target to build an object file
+src/app/Views/Books/BooksScreen.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bohapp.dir/build.make CMakeFiles/bohapp.dir/src/app/Views/Books/BooksScreen.cpp.o
+.PHONY : src/app/Views/Books/BooksScreen.cpp.o
+
+src/app/Views/Books/BooksScreen.i: src/app/Views/Books/BooksScreen.cpp.i
+.PHONY : src/app/Views/Books/BooksScreen.i
+
+# target to preprocess a source file
+src/app/Views/Books/BooksScreen.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bohapp.dir/build.make CMakeFiles/bohapp.dir/src/app/Views/Books/BooksScreen.cpp.i
+.PHONY : src/app/Views/Books/BooksScreen.cpp.i
+
+src/app/Views/Books/BooksScreen.s: src/app/Views/Books/BooksScreen.cpp.s
+.PHONY : src/app/Views/Books/BooksScreen.s
+
+# target to generate assembly for a file
+src/app/Views/Books/BooksScreen.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bohapp.dir/build.make CMakeFiles/bohapp.dir/src/app/Views/Books/BooksScreen.cpp.s
+.PHONY : src/app/Views/Books/BooksScreen.cpp.s
+
 src/app/Views/MainWindow.o: src/app/Views/MainWindow.cpp.o
 .PHONY : src/app/Views/MainWindow.o
 
@@ -1063,6 +1087,54 @@ src/app/Views/MainWindow.s: src/app/Views/MainWindow.cpp.s
 src/app/Views/MainWindow.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/bohapp.dir/build.make CMakeFiles/bohapp.dir/src/app/Views/MainWindow.cpp.s
 .PHONY : src/app/Views/MainWindow.cpp.s
+
+src/app/Views/Shared/Badges.o: src/app/Views/Shared/Badges.cpp.o
+.PHONY : src/app/Views/Shared/Badges.o
+
+# target to build an object file
+src/app/Views/Shared/Badges.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bohapp.dir/build.make CMakeFiles/bohapp.dir/src/app/Views/Shared/Badges.cpp.o
+.PHONY : src/app/Views/Shared/Badges.cpp.o
+
+src/app/Views/Shared/Badges.i: src/app/Views/Shared/Badges.cpp.i
+.PHONY : src/app/Views/Shared/Badges.i
+
+# target to preprocess a source file
+src/app/Views/Shared/Badges.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bohapp.dir/build.make CMakeFiles/bohapp.dir/src/app/Views/Shared/Badges.cpp.i
+.PHONY : src/app/Views/Shared/Badges.cpp.i
+
+src/app/Views/Shared/Badges.s: src/app/Views/Shared/Badges.cpp.s
+.PHONY : src/app/Views/Shared/Badges.s
+
+# target to generate assembly for a file
+src/app/Views/Shared/Badges.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bohapp.dir/build.make CMakeFiles/bohapp.dir/src/app/Views/Shared/Badges.cpp.s
+.PHONY : src/app/Views/Shared/Badges.cpp.s
+
+src/app/Views/Shared/BookRowDelegate.o: src/app/Views/Shared/BookRowDelegate.cpp.o
+.PHONY : src/app/Views/Shared/BookRowDelegate.o
+
+# target to build an object file
+src/app/Views/Shared/BookRowDelegate.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bohapp.dir/build.make CMakeFiles/bohapp.dir/src/app/Views/Shared/BookRowDelegate.cpp.o
+.PHONY : src/app/Views/Shared/BookRowDelegate.cpp.o
+
+src/app/Views/Shared/BookRowDelegate.i: src/app/Views/Shared/BookRowDelegate.cpp.i
+.PHONY : src/app/Views/Shared/BookRowDelegate.i
+
+# target to preprocess a source file
+src/app/Views/Shared/BookRowDelegate.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bohapp.dir/build.make CMakeFiles/bohapp.dir/src/app/Views/Shared/BookRowDelegate.cpp.i
+.PHONY : src/app/Views/Shared/BookRowDelegate.cpp.i
+
+src/app/Views/Shared/BookRowDelegate.s: src/app/Views/Shared/BookRowDelegate.cpp.s
+.PHONY : src/app/Views/Shared/BookRowDelegate.s
+
+# target to generate assembly for a file
+src/app/Views/Shared/BookRowDelegate.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bohapp.dir/build.make CMakeFiles/bohapp.dir/src/app/Views/Shared/BookRowDelegate.cpp.s
+.PHONY : src/app/Views/Shared/BookRowDelegate.cpp.s
 
 src/app/Views/Sidebar.o: src/app/Views/Sidebar.cpp.o
 .PHONY : src/app/Views/Sidebar.o
@@ -2236,9 +2308,18 @@ help:
 	@echo "... src/app/Stores/SkillsStore.o"
 	@echo "... src/app/Stores/SkillsStore.i"
 	@echo "... src/app/Stores/SkillsStore.s"
+	@echo "... src/app/Views/Books/BooksScreen.o"
+	@echo "... src/app/Views/Books/BooksScreen.i"
+	@echo "... src/app/Views/Books/BooksScreen.s"
 	@echo "... src/app/Views/MainWindow.o"
 	@echo "... src/app/Views/MainWindow.i"
 	@echo "... src/app/Views/MainWindow.s"
+	@echo "... src/app/Views/Shared/Badges.o"
+	@echo "... src/app/Views/Shared/Badges.i"
+	@echo "... src/app/Views/Shared/Badges.s"
+	@echo "... src/app/Views/Shared/BookRowDelegate.o"
+	@echo "... src/app/Views/Shared/BookRowDelegate.i"
+	@echo "... src/app/Views/Shared/BookRowDelegate.s"
 	@echo "... src/app/Views/Sidebar.o"
 	@echo "... src/app/Views/Sidebar.i"
 	@echo "... src/app/Views/Sidebar.s"

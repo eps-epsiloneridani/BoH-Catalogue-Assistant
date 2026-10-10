@@ -284,9 +284,27 @@
 			null
 		],
 		[
+			"/home/rich/BoH-Catalogue-Assistant/qt/src/app/Views/Books/BooksScreen.h",
+			"Mu",
+			"NFBRDKPPNV/moc_BooksScreen.cpp",
+			null
+		],
+		[
 			"/home/rich/BoH-Catalogue-Assistant/qt/src/app/Views/MainWindow.h",
 			"Mu",
 			"KZ2CQRJLRB/moc_MainWindow.cpp",
+			null
+		],
+		[
+			"/home/rich/BoH-Catalogue-Assistant/qt/src/app/Views/Shared/Badges.h",
+			"Mu",
+			"P2LIO7MJ6I/moc_Badges.cpp",
+			null
+		],
+		[
+			"/home/rich/BoH-Catalogue-Assistant/qt/src/app/Views/Shared/BookRowDelegate.h",
+			"Mu",
+			"P2LIO7MJ6I/moc_BookRowDelegate.cpp",
 			null
 		],
 		[
@@ -310,6 +328,7 @@
 	"MOC_INCLUDES" : 
 	[
 		"/home/rich/BoH-Catalogue-Assistant/qt/src/app",
+		"/home/rich/BoH-Catalogue-Assistant/qt/src/app/Views",
 		"/home/rich/BoH-Catalogue-Assistant/qt/src/core",
 		"/home/rich/BoH-Catalogue-Assistant/qt/src/core/Repositories",
 		"/usr/include/x86_64-linux-gnu/qt6/QtCore",
@@ -394,7 +413,22 @@
 			null
 		],
 		[
+			"/home/rich/BoH-Catalogue-Assistant/qt/src/app/Views/Books/BooksScreen.cpp",
+			"Mu",
+			null
+		],
+		[
 			"/home/rich/BoH-Catalogue-Assistant/qt/src/app/Views/MainWindow.cpp",
+			"Mu",
+			null
+		],
+		[
+			"/home/rich/BoH-Catalogue-Assistant/qt/src/app/Views/Shared/Badges.cpp",
+			"Mu",
+			null
+		],
+		[
+			"/home/rich/BoH-Catalogue-Assistant/qt/src/app/Views/Shared/BookRowDelegate.cpp",
 			"Mu",
 			null
 		],

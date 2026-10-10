@@ -198,6 +198,48 @@ CMakeFiles/bohapp.dir/src/app/Views/Sidebar.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/bohapp.dir/src/app/Views/Sidebar.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/rich/BoH-Catalogue-Assistant/qt/src/app/Views/Sidebar.cpp -o CMakeFiles/bohapp.dir/src/app/Views/Sidebar.cpp.s
 
+CMakeFiles/bohapp.dir/src/app/Views/Books/BooksScreen.cpp.o: CMakeFiles/bohapp.dir/flags.make
+CMakeFiles/bohapp.dir/src/app/Views/Books/BooksScreen.cpp.o: /home/rich/BoH-Catalogue-Assistant/qt/src/app/Views/Books/BooksScreen.cpp
+CMakeFiles/bohapp.dir/src/app/Views/Books/BooksScreen.cpp.o: CMakeFiles/bohapp.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/rich/BoH-Catalogue-Assistant/qt/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/bohapp.dir/src/app/Views/Books/BooksScreen.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/bohapp.dir/src/app/Views/Books/BooksScreen.cpp.o -MF CMakeFiles/bohapp.dir/src/app/Views/Books/BooksScreen.cpp.o.d -o CMakeFiles/bohapp.dir/src/app/Views/Books/BooksScreen.cpp.o -c /home/rich/BoH-Catalogue-Assistant/qt/src/app/Views/Books/BooksScreen.cpp
+
+CMakeFiles/bohapp.dir/src/app/Views/Books/BooksScreen.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/bohapp.dir/src/app/Views/Books/BooksScreen.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/rich/BoH-Catalogue-Assistant/qt/src/app/Views/Books/BooksScreen.cpp > CMakeFiles/bohapp.dir/src/app/Views/Books/BooksScreen.cpp.i
+
+CMakeFiles/bohapp.dir/src/app/Views/Books/BooksScreen.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/bohapp.dir/src/app/Views/Books/BooksScreen.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/rich/BoH-Catalogue-Assistant/qt/src/app/Views/Books/BooksScreen.cpp -o CMakeFiles/bohapp.dir/src/app/Views/Books/BooksScreen.cpp.s
+
+CMakeFiles/bohapp.dir/src/app/Views/Shared/Badges.cpp.o: CMakeFiles/bohapp.dir/flags.make
+CMakeFiles/bohapp.dir/src/app/Views/Shared/Badges.cpp.o: /home/rich/BoH-Catalogue-Assistant/qt/src/app/Views/Shared/Badges.cpp
+CMakeFiles/bohapp.dir/src/app/Views/Shared/Badges.cpp.o: CMakeFiles/bohapp.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/rich/BoH-Catalogue-Assistant/qt/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/bohapp.dir/src/app/Views/Shared/Badges.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/bohapp.dir/src/app/Views/Shared/Badges.cpp.o -MF CMakeFiles/bohapp.dir/src/app/Views/Shared/Badges.cpp.o.d -o CMakeFiles/bohapp.dir/src/app/Views/Shared/Badges.cpp.o -c /home/rich/BoH-Catalogue-Assistant/qt/src/app/Views/Shared/Badges.cpp
+
+CMakeFiles/bohapp.dir/src/app/Views/Shared/Badges.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/bohapp.dir/src/app/Views/Shared/Badges.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/rich/BoH-Catalogue-Assistant/qt/src/app/Views/Shared/Badges.cpp > CMakeFiles/bohapp.dir/src/app/Views/Shared/Badges.cpp.i
+
+CMakeFiles/bohapp.dir/src/app/Views/Shared/Badges.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/bohapp.dir/src/app/Views/Shared/Badges.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/rich/BoH-Catalogue-Assistant/qt/src/app/Views/Shared/Badges.cpp -o CMakeFiles/bohapp.dir/src/app/Views/Shared/Badges.cpp.s
+
+CMakeFiles/bohapp.dir/src/app/Views/Shared/BookRowDelegate.cpp.o: CMakeFiles/bohapp.dir/flags.make
+CMakeFiles/bohapp.dir/src/app/Views/Shared/BookRowDelegate.cpp.o: /home/rich/BoH-Catalogue-Assistant/qt/src/app/Views/Shared/BookRowDelegate.cpp
+CMakeFiles/bohapp.dir/src/app/Views/Shared/BookRowDelegate.cpp.o: CMakeFiles/bohapp.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/rich/BoH-Catalogue-Assistant/qt/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object CMakeFiles/bohapp.dir/src/app/Views/Shared/BookRowDelegate.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/bohapp.dir/src/app/Views/Shared/BookRowDelegate.cpp.o -MF CMakeFiles/bohapp.dir/src/app/Views/Shared/BookRowDelegate.cpp.o.d -o CMakeFiles/bohapp.dir/src/app/Views/Shared/BookRowDelegate.cpp.o -c /home/rich/BoH-Catalogue-Assistant/qt/src/app/Views/Shared/BookRowDelegate.cpp
+
+CMakeFiles/bohapp.dir/src/app/Views/Shared/BookRowDelegate.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/bohapp.dir/src/app/Views/Shared/BookRowDelegate.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/rich/BoH-Catalogue-Assistant/qt/src/app/Views/Shared/BookRowDelegate.cpp > CMakeFiles/bohapp.dir/src/app/Views/Shared/BookRowDelegate.cpp.i
+
+CMakeFiles/bohapp.dir/src/app/Views/Shared/BookRowDelegate.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/bohapp.dir/src/app/Views/Shared/BookRowDelegate.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/rich/BoH-Catalogue-Assistant/qt/src/app/Views/Shared/BookRowDelegate.cpp -o CMakeFiles/bohapp.dir/src/app/Views/Shared/BookRowDelegate.cpp.s
+
 # Object files for target bohapp
 bohapp_OBJECTS = \
 "CMakeFiles/bohapp.dir/bohapp_autogen/mocs_compilation.cpp.o" \
@@ -208,7 +250,10 @@ bohapp_OBJECTS = \
 "CMakeFiles/bohapp.dir/src/app/Stores/ReadingHelperStore.cpp.o" \
 "CMakeFiles/bohapp.dir/src/app/Stores/SkillsStore.cpp.o" \
 "CMakeFiles/bohapp.dir/src/app/Views/MainWindow.cpp.o" \
-"CMakeFiles/bohapp.dir/src/app/Views/Sidebar.cpp.o"
+"CMakeFiles/bohapp.dir/src/app/Views/Sidebar.cpp.o" \
+"CMakeFiles/bohapp.dir/src/app/Views/Books/BooksScreen.cpp.o" \
+"CMakeFiles/bohapp.dir/src/app/Views/Shared/Badges.cpp.o" \
+"CMakeFiles/bohapp.dir/src/app/Views/Shared/BookRowDelegate.cpp.o"
 
 # External object files for target bohapp
 bohapp_EXTERNAL_OBJECTS =
@@ -222,9 +267,12 @@ libbohapp.a: CMakeFiles/bohapp.dir/src/app/Stores/ReadingHelperStore.cpp.o
 libbohapp.a: CMakeFiles/bohapp.dir/src/app/Stores/SkillsStore.cpp.o
 libbohapp.a: CMakeFiles/bohapp.dir/src/app/Views/MainWindow.cpp.o
 libbohapp.a: CMakeFiles/bohapp.dir/src/app/Views/Sidebar.cpp.o
+libbohapp.a: CMakeFiles/bohapp.dir/src/app/Views/Books/BooksScreen.cpp.o
+libbohapp.a: CMakeFiles/bohapp.dir/src/app/Views/Shared/Badges.cpp.o
+libbohapp.a: CMakeFiles/bohapp.dir/src/app/Views/Shared/BookRowDelegate.cpp.o
 libbohapp.a: CMakeFiles/bohapp.dir/build.make
 libbohapp.a: CMakeFiles/bohapp.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/rich/BoH-Catalogue-Assistant/qt/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Linking CXX static library libbohapp.a"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/rich/BoH-Catalogue-Assistant/qt/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Linking CXX static library libbohapp.a"
 	$(CMAKE_COMMAND) -P CMakeFiles/bohapp.dir/cmake_clean_target.cmake
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/bohapp.dir/link.txt --verbose=$(VERBOSE)
 

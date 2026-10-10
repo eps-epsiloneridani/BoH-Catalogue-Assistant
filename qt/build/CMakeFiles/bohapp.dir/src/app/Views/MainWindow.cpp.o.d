@@ -471,6 +471,17 @@ CMakeFiles/bohapp.dir/src/app/Views/MainWindow.cpp.o: \
  /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QStackedWidget \
  /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qstackedwidget.h \
  /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qframe.h \
+ /home/rich/BoH-Catalogue-Assistant/qt/src/app/Views/Books/BooksScreen.h \
+ /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QDialog \
+ /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qdialog.h \
+ /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QVBoxLayout \
+ /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qboxlayout.h \
+ /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qlayout.h \
+ /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qlayoutitem.h \
+ /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qboxlayout.h \
+ /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qgridlayout.h \
+ /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QWidget \
+ /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qwidget.h \
  /home/rich/BoH-Catalogue-Assistant/qt/src/app/Views/Sidebar.h \
  /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QListWidget \
  /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qlistwidget.h \
@@ -490,8 +501,6 @@ CMakeFiles/bohapp.dir/src/app/Views/MainWindow.cpp.o: \
  /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qstyle.h \
  /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qtabbar.h \
  /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qrubberband.h \
- /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QWidget \
- /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qwidget.h \
  /usr/include/x86_64-linux-gnu/qt6/QtGui/QAction \
  /usr/include/x86_64-linux-gnu/qt6/QtGui/qaction.h \
  /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QComboBox \
@@ -512,10 +521,4 @@ CMakeFiles/bohapp.dir/src/app/Views/MainWindow.cpp.o: \
  /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qdialog.h \
  /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qdialogbuttonbox.h \
  /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QStatusBar \
- /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qstatusbar.h \
- /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QVBoxLayout \
- /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qboxlayout.h \
- /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qlayout.h \
- /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qlayoutitem.h \
- /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qboxlayout.h \
- /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qgridlayout.h
+ /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qstatusbar.h

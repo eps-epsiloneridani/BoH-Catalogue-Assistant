@@ -1,4 +1,5 @@
 #include "MainWindow.h"
+#include "Books/BooksScreen.h"
 #include "Sidebar.h"
 
 #include <QAction>
@@ -41,6 +42,11 @@ MainWindow::MainWindow(AppController& controller, QWidget* parent)
         refreshPlaythroughs();
         refreshFooter();
     });
+    // Playthrough switches rebuild the stores — the Books screen must point at
+    // the NEW store instance.
+    connect(&m_controller, &AppController::playthroughsChanged, this, [this] {
+        m_booksScreen->setStore(m_controller.booksStore());
+    });
     selectSection(0);
 }
 
@@ -58,12 +64,27 @@ void MainWindow::buildBody()
     m_sections = new QStackedWidget(central);
     for (int i = 0; i < kSectionCount; ++i) {
         auto* placeholder = new QLabel(
-            QStringLiteral("%1 — arrives with its screen (plan Tasks 11–16).")
+            QStringLiteral("%1 — arrives with its screen (plan Tasks 12–16).")
                 .arg(sectionTitle(i)),
             m_sections);
         placeholder->setAlignment(Qt::AlignCenter);
         placeholder->setAccessibleName(sectionTitle(i));
         m_sections->addWidget(placeholder);
+    }
+    // The Books screen (Task 11) replaces its placeholder.
+    m_booksScreen = new BooksScreen(m_controller.booksStore(), m_controller.principles(),
+                                    m_controller.languages(), central);
+    connect(m_booksScreen, &BooksScreen::showMemoryRequested, this, [this](qint64 memoryID) {
+        // The Memories screen lands in Task 13; remember the target then.
+        statusBar()->showMessage(QStringLiteral("Opening memory #%1 (Memories screen arrives "
+                                                "with Task 13).")
+                                     .arg(memoryID),
+                                 4000);
+    });
+    m_sections->insertWidget(0, m_booksScreen);
+    if (QWidget* oldPlaceholder = m_sections->widget(1)) {
+        m_sections->removeWidget(oldPlaceholder);
+        oldPlaceholder->deleteLater();
     }
     layout->addWidget(m_sections, 1);
     setCentralWidget(central);
@@ -106,7 +127,10 @@ void MainWindow::buildMenus()
     QAction* newAction = goMenu->addAction(QStringLiteral("New in current section"));
     newAction->setShortcut(QKeySequence::fromString(QStringLiteral("Ctrl+N")));
     connect(newAction, &QAction::triggered, this, [this] {
-        // Screens wire their add-dialogs to this from Tasks 11–15.
+        if (m_currentSection == 0 && m_booksScreen) {
+            m_booksScreen->addNew();
+            return;
+        }
         statusBar()->showMessage(QStringLiteral("New “%1” arrives with its screen.")
                                      .arg(sectionTitle(m_currentSection)),
                                  4000);
@@ -114,7 +138,13 @@ void MainWindow::buildMenus()
 
     QAction* find = goMenu->addAction(QStringLiteral("Focus search"));
     find->setShortcut(QKeySequence::fromString(QStringLiteral("Ctrl+F")));
-    connect(find, &QAction::triggered, this, [this] { focusSearch(); });
+    connect(find, &QAction::triggered, this, [this] {
+        if (m_currentSection == 0 && m_booksScreen) {
+            m_booksScreen->focusSearch();
+            return;
+        }
+        focusSearch();
+    });
 }
 
 void MainWindow::selectSection(int index)

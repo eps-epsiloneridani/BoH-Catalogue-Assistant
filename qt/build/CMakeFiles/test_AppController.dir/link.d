@@ -41,7 +41,6 @@ test_AppController: \
   /usr/lib/gcc/x86_64-linux-gnu/14/crtendS.o \
   /usr/lib/gcc/x86_64-linux-gnu/14/../../../x86_64-linux-gnu/crtn.o \
   /lib64/ld-linux-x86-64.so.2 \
-  /lib/x86_64-linux-gnu/libm.so.6 \
   /lib/i386-linux-gnu/libEGL.so.1 \
   /usr/lib/i386-linux-gnu/libEGL.so.1 \
   /lib/x86_64-linux-gnu/libEGL.so.1 \
@@ -211,8 +210,6 @@ libbohcore.a:
 /usr/lib/gcc/x86_64-linux-gnu/14/../../../x86_64-linux-gnu/crtn.o:
 
 /lib64/ld-linux-x86-64.so.2:
-
-/lib/x86_64-linux-gnu/libm.so.6:
 
 /lib/i386-linux-gnu/libEGL.so.1:
 

@@ -6,12 +6,24 @@ CMakeFiles/boh-librarian.dir/boh-librarian_autogen/mocs_compilation.cpp.o: boh-l
 
 CMakeFiles/boh-librarian.dir/src/app/main.cpp.o: /home/rich/BoH-Catalogue-Assistant/qt/src/app/main.cpp \
   /home/rich/BoH-Catalogue-Assistant/qt/src/app/AppController.h \
+  /home/rich/BoH-Catalogue-Assistant/qt/src/app/Stores/BooksStore.h \
+  /home/rich/BoH-Catalogue-Assistant/qt/src/app/Stores/JournalStore.h \
+  /home/rich/BoH-Catalogue-Assistant/qt/src/app/Stores/MemoriesStore.h \
+  /home/rich/BoH-Catalogue-Assistant/qt/src/app/Stores/ReadingHelperStore.h \
+  /home/rich/BoH-Catalogue-Assistant/qt/src/app/Stores/SkillsStore.h \
   /home/rich/BoH-Catalogue-Assistant/qt/src/app/Views/MainWindow.h \
+  /home/rich/BoH-Catalogue-Assistant/qt/src/core/BookQuery.h \
+  /home/rich/BoH-Catalogue-Assistant/qt/src/core/MemoryQuery.h \
   /home/rich/BoH-Catalogue-Assistant/qt/src/core/Models.h \
+  /home/rich/BoH-Catalogue-Assistant/qt/src/core/Repositories/BookRepository.h \
+  /home/rich/BoH-Catalogue-Assistant/qt/src/core/Repositories/JournalRepository.h \
   /home/rich/BoH-Catalogue-Assistant/qt/src/core/Repositories/LookupRepositories.h \
+  /home/rich/BoH-Catalogue-Assistant/qt/src/core/Repositories/MemoryRepository.h \
   /home/rich/BoH-Catalogue-Assistant/qt/src/core/Repositories/PlaythroughRepository.h \
+  /home/rich/BoH-Catalogue-Assistant/qt/src/core/Repositories/SkillRepository.h \
   /home/rich/BoH-Catalogue-Assistant/qt/src/core/SQLiteDatabase.h \
   /home/rich/BoH-Catalogue-Assistant/qt/src/core/SQLiteValue.h \
+  /home/rich/BoH-Catalogue-Assistant/qt/src/core/SkillQuery.h \
   /usr/include/alloca.h \
   /usr/include/asm-generic/bitsperlong.h \
   /usr/include/asm-generic/errno-base.h \
@@ -346,8 +358,11 @@ CMakeFiles/boh-librarian.dir/src/app/main.cpp.o: /home/rich/BoH-Catalogue-Assist
   /usr/include/x86_64-linux-gnu/gnu/stubs.h \
   /usr/include/x86_64-linux-gnu/qt6/QtCore/QByteArray \
   /usr/include/x86_64-linux-gnu/qt6/QtCore/QHash \
+  /usr/include/x86_64-linux-gnu/qt6/QtCore/QList \
   /usr/include/x86_64-linux-gnu/qt6/QtCore/QObject \
+  /usr/include/x86_64-linux-gnu/qt6/QtCore/QSet \
   /usr/include/x86_64-linux-gnu/qt6/QtCore/QString \
+  /usr/include/x86_64-linux-gnu/qt6/QtCore/QStringList \
   /usr/include/x86_64-linux-gnu/qt6/QtCore/QtGlobal \
   /usr/include/x86_64-linux-gnu/qt6/QtCore/q20functional.h \
   /usr/include/x86_64-linux-gnu/qt6/QtCore/q20iterator.h \
@@ -778,11 +793,25 @@ CMakeFiles/boh-librarian.dir/boh-librarian_autogen/mocs_compilation.cpp.o:
 
 /lib/i386-linux-gnu/libbrotlicommon.so.1:
 
-/usr/include/x86_64-linux-gnu/bits/getopt_core.h:
+/lib/i386-linux-gnu/libXau.so.6:
 
 /usr/lib/linux/uapi/x86/asm/unistd.h:
 
-/usr/include/x86_64-linux-gnu/bits/fp-logb.h:
+/usr/lib/i386-linux-gnu/libxcb.so.1:
+
+/lib/x86_64-linux-gnu/libfontconfig.so.1:
+
+/usr/lib/linux/uapi/x86/asm/posix_types_64.h:
+
+/usr/lib/linux/uapi/x86/asm/posix_types.h:
+
+/usr/lib/linux/uapi/x86/asm/errno.h:
+
+/usr/lib/gcc/x86_64-linux-gnu/14/include/syslimits.h:
+
+/usr/lib/gcc/x86_64-linux-gnu/14/include/stdint.h:
+
+/usr/lib/gcc/x86_64-linux-gnu/14/include/stddef.h:
 
 /usr/include/x86_64-linux-gnu/bits/atomic_wide_counter.h:
 
@@ -792,9 +821,9 @@ CMakeFiles/boh-librarian.dir/boh-librarian_autogen/mocs_compilation.cpp.o:
 
 /usr/include/x86_64-linux-gnu/bits/getopt_posix.h:
 
-/usr/include/c++/14/bits/atomic_base.h:
-
 /usr/include/c++/14/optional:
+
+/usr/include/c++/14/bits/atomic_base.h:
 
 /usr/include/wctype.h:
 
@@ -804,8 +833,6 @@ CMakeFiles/boh-librarian.dir/boh-librarian_autogen/mocs_compilation.cpp.o:
 
 /usr/include/linux/types.h:
 
-/usr/include/x86_64-linux-gnu/qt6/QtCore/qobjectdefs.h:
-
 /usr/include/x86_64-linux-gnu/qt6/QtCore/qtcore-config.h:
 
 /usr/include/linux/errno.h:
@@ -813,6 +840,10 @@ CMakeFiles/boh-librarian.dir/boh-librarian_autogen/mocs_compilation.cpp.o:
 /lib/i386-linux-gnu/libharfbuzz.so.0:
 
 /usr/include/linux/close_range.h:
+
+/usr/lib/linux/uapi/x86/asm/types.h:
+
+/usr/include/ctype.h:
 
 /usr/include/c++/14/pstl/execution_defs.h:
 
@@ -837,10 +868,6 @@ CMakeFiles/boh-librarian.dir/boh-librarian_autogen/mocs_compilation.cpp.o:
 /usr/include/c++/14/bits/move.h:
 
 /usr/include/c++/14/sstream:
-
-/usr/include/x86_64-linux-gnu/qt6/QtGui/qbitmap.h:
-
-/usr/include/c++/14/cmath:
 
 /usr/include/c++/14/bits/stl_algo.h:
 
@@ -914,19 +941,11 @@ CMakeFiles/boh-librarian.dir/boh-librarian_autogen/mocs_compilation.cpp.o:
 
 /usr/include/x86_64-linux-gnu/qt6/QtCore/qstringview.h:
 
-/usr/include/c++/14/cstdio:
-
-/usr/include/c++/14/bits/utility.h:
-
 /usr/include/c++/14/cstdint:
 
 /usr/lib/x86_64-linux-gnu/libc_nonshared.a:
 
 /usr/include/c++/14/cstddef:
-
-/usr/include/x86_64-linux-gnu/qt6/QtCore/qnativeinterface.h:
-
-/usr/include/c++/14/ostream:
 
 /usr/include/c++/14/cerrno:
 
@@ -944,7 +963,9 @@ CMakeFiles/boh-librarian.dir/boh-librarian_autogen/mocs_compilation.cpp.o:
 
 /usr/include/x86_64-linux-gnu/bits/unistd_ext.h:
 
-/usr/lib/gcc/x86_64-linux-gnu/14/include/stddef.h:
+/usr/include/c++/14/bits/utility.h:
+
+/usr/include/c++/14/cstdio:
 
 /usr/include/c++/14/bits/uses_allocator_args.h:
 
@@ -952,43 +973,35 @@ CMakeFiles/boh-librarian.dir/boh-librarian_autogen/mocs_compilation.cpp.o:
 
 /usr/include/x86_64-linux-gnu/qt6/QtCore/qshareddata_impl.h:
 
-/usr/include/c++/14/iterator:
+/usr/lib/i386-linux-gnu/libfontconfig.so.1:
 
-/usr/include/sqlite3.h:
+/usr/include/c++/14/map:
 
-/usr/include/c++/14/bits/istream.tcc:
+/usr/include/c++/14/bits/unicode.h:
 
-/usr/include/c++/14/variant:
+/usr/include/c++/14/bits/stl_function.h:
 
-/usr/include/c++/14/bits/codecvt.h:
+/usr/include/x86_64-linux-gnu/qt6/QtCore/qhash.h:
 
-/usr/include/c++/14/bits/invoke.h:
+/usr/include/c++/14/bits/stringfwd.h:
 
-/usr/include/x86_64-linux-gnu/bits/confname.h:
+/usr/include/c++/14/streambuf:
 
-/usr/lib/i386-linux-gnu/libz.so.1:
+/home/rich/BoH-Catalogue-Assistant/qt/src/app/Stores/BooksStore.h:
 
-/usr/include/pthread.h:
+/usr/include/c++/14/bits/string_view.tcc:
 
-/usr/include/c++/14/bits/functexcept.h:
+/usr/include/c++/14/bits/ranges_cmp.h:
 
-/usr/include/x86_64-linux-gnu/qt6/QtGui/qcolor.h:
+/usr/include/c++/14/bits/stream_iterator.h:
 
-/usr/include/c++/14/tr1/legendre_function.tcc:
+/usr/include/x86_64-linux-gnu/qt6/QtCore/qtversion.h:
 
-/usr/include/c++/14/tr1/gamma.tcc:
+/usr/include/c++/14/bits/stl_tree.h:
 
-/lib/i386-linux-gnu/libGLdispatch.so.0:
+/usr/include/linux/stddef.h:
 
-/usr/include/x86_64-linux-gnu/qt6/QtCore/qiterator.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/14/include/stdarg.h:
-
-/home/rich/BoH-Catalogue-Assistant/qt/src/core/Models.h:
-
-/usr/include/c++/14/bits/allocator.h:
-
-/usr/include/string.h:
+/usr/include/x86_64-linux-gnu/qt6/QtCore/qdatastream.h:
 
 /lib/i386-linux-gnu/libz.so.1:
 
@@ -1004,17 +1017,25 @@ CMakeFiles/boh-librarian.dir/boh-librarian_autogen/mocs_compilation.cpp.o:
 
 /usr/include/c++/14/bits/cxxabi_init_exception.h:
 
-/usr/include/c++/14/bits/align.h:
+/usr/include/c++/14/bits/cpp_type_traits.h:
 
-/usr/include/c++/14/ext/aligned_buffer.h:
+/usr/include/c++/14/bits/align.h:
 
 /lib/x86_64-linux-gnu/libsystemd.so.0:
 
 /usr/include/c++/14/bits/ostream.tcc:
 
-/usr/include/c++/14/bits/cpp_type_traits.h:
+/usr/lib/i386-linux-gnu/libz.so.1:
 
-/usr/include/x86_64-linux-gnu/qt6/QtCore/qcoreevent.h:
+/usr/include/pthread.h:
+
+/usr/include/c++/14/bits/functexcept.h:
+
+/usr/include/x86_64-linux-gnu/qt6/QtGui/qcolor.h:
+
+/usr/include/x86_64-linux-gnu/qt6/QtCore/qnativeinterface.h:
+
+/usr/include/c++/14/ostream:
 
 /usr/include/x86_64-linux-gnu/c++/14/bits/ctype_inline.h:
 
@@ -1030,6 +1051,142 @@ CMakeFiles/boh-librarian.dir/boh-librarian_autogen/mocs_compilation.cpp.o:
 
 /usr/include/c++/14/bits/stl_raw_storage_iter.h:
 
+/usr/include/c++/14/variant:
+
+/usr/include/c++/14/bits/codecvt.h:
+
+/usr/include/sqlite3.h:
+
+/usr/include/c++/14/bits/istream.tcc:
+
+/usr/include/c++/14/bits/allocated_ptr.h:
+
+/usr/include/x86_64-linux-gnu/bits/mathcalls-narrow.h:
+
+/usr/include/x86_64-linux-gnu/qt6/QtCore/qelapsedtimer.h:
+
+/usr/include/x86_64-linux-gnu/qt6/QtCore/qmath.h:
+
+/usr/include/c++/14/bits/alloc_traits.h:
+
+/usr/include/stdint.h:
+
+/usr/include/endian.h:
+
+/usr/include/linux/limits.h:
+
+/usr/include/c++/14/bits/cxxabi_forced.h:
+
+/home/rich/BoH-Catalogue-Assistant/qt/src/core/SQLiteDatabase.h:
+
+/usr/include/c++/14/bits/chrono_io.h:
+
+/usr/include/c++/14/bits/range_access.h:
+
+/usr/include/c++/14/backward/binders.h:
+
+/usr/include/x86_64-linux-gnu/qt6/QtCore/qatomic.h:
+
+/lib/i386-linux-gnu/libbrotlidec.so.1:
+
+/usr/include/c++/14/system_error:
+
+/lib/x86_64-linux-gnu/libatomic.so.1:
+
+/usr/include/c++/14/cstdlib:
+
+boh-librarian_autogen/mocs_compilation.cpp:
+
+/usr/include/x86_64-linux-gnu/bits/types/mbstate_t.h:
+
+/usr/include/c++/14/bits/shared_ptr.h:
+
+/usr/lib/i386-linux-gnu/libXdmcp.so.6:
+
+/usr/include/x86_64-linux-gnu/qt6/QtGui/qtgui-config.h:
+
+/usr/include/c++/14/array:
+
+/usr/include/x86_64-linux-gnu/qt6/QtCore/qassert.h:
+
+/usr/include/stdlib.h:
+
+/usr/include/c++/14/istream:
+
+/usr/include/x86_64-linux-gnu/bits/pthreadtypes.h:
+
+/usr/include/x86_64-linux-gnu/qt6/QtCore/qscopeguard.h:
+
+/usr/include/assert.h:
+
+/usr/include/x86_64-linux-gnu/qt6/QtCore/qbytearraylist.h:
+
+/usr/include/c++/14/bits/stl_iterator_base_funcs.h:
+
+/usr/include/asm-generic/int-ll64.h:
+
+/usr/include/c++/14/ios:
+
+/usr/include/x86_64-linux-gnu/qt6/QtCore/qobjectdefs.h:
+
+/home/rich/BoH-Catalogue-Assistant/qt/src/core/MemoryQuery.h:
+
+/usr/include/x86_64-linux-gnu/qt6/QtGui/qpalette.h:
+
+/usr/include/x86_64-linux-gnu/bits/types/__sigset_t.h:
+
+/home/rich/BoH-Catalogue-Assistant/qt/src/app/Stores/SkillsStore.h:
+
+/usr/include/x86_64-linux-gnu/c++/14/bits/c++allocator.h:
+
+/home/rich/BoH-Catalogue-Assistant/qt/src/core/Repositories/MemoryRepository.h:
+
+/usr/include/x86_64-linux-gnu/qt6/QtCore/qbasicatomic.h:
+
+/usr/include/c++/14/bits/ios_base.h:
+
+/usr/include/x86_64-linux-gnu/bits/posix2_lim.h:
+
+/usr/include/x86_64-linux-gnu/qt6/QtCore/qcoreapplication_platform.h:
+
+/usr/include/c++/14/bits/memoryfwd.h:
+
+/usr/include/c++/14/bits/node_handle.h:
+
+/usr/include/features.h:
+
+/usr/include/c++/14/bits/allocator.h:
+
+/usr/lib/gcc/x86_64-linux-gnu/14/include/stdarg.h:
+
+/home/rich/BoH-Catalogue-Assistant/qt/src/core/Models.h:
+
+/usr/include/string.h:
+
+/home/rich/BoH-Catalogue-Assistant/qt/src/core/Repositories/JournalRepository.h:
+
+/usr/include/x86_64-linux-gnu/bits/xopen_lim.h:
+
+/usr/include/x86_64-linux-gnu/bits/floatn-common.h:
+
+/usr/include/linux/sched/types.h:
+
+/home/rich/BoH-Catalogue-Assistant/qt/src/core/Repositories/BookRepository.h:
+
+/usr/include/x86_64-linux-gnu/bits/confname.h:
+
+/usr/include/c++/14/bits/invoke.h:
+
+/usr/include/c++/14/tr1/riemann_zeta.tcc:
+
+/usr/include/c++/14/bits/basic_string.h:
+
+/usr/lib/x86_64-linux-gnu/crti.o:
+
+/usr/include/x86_64-linux-gnu/qt6/QtCore/qbytearrayalgorithms.h:
+
+/usr/include/c++/14/bits/locale_facets.h:
+
 /usr/include/c++/14/stdlib.h:
 
 /usr/include/x86_64-linux-gnu/bits/long-double.h:
@@ -1044,55 +1201,13 @@ CMakeFiles/boh-librarian.dir/boh-librarian_autogen/mocs_compilation.cpp.o:
 
 /usr/include/c++/14/bits/iterator_concepts.h:
 
-/usr/include/x86_64-linux-gnu/qt6/QtCore/qgenericatomic.h:
-
-/usr/include/c++/14/tr1/riemann_zeta.tcc:
-
-/usr/include/c++/14/bits/basic_string.h:
-
-/usr/include/x86_64-linux-gnu/bits/floatn-common.h:
-
-/usr/include/linux/sched/types.h:
-
-/usr/include/linux/limits.h:
+/usr/include/libintl.h:
 
 /usr/include/x86_64-linux-gnu/bits/thread-shared-types.h:
 
-/usr/include/libintl.h:
+/usr/include/x86_64-linux-gnu/qt6/QtCore/QSet:
 
-/usr/include/x86_64-linux-gnu/qt6/QtCore/qtversion.h:
-
-/usr/include/stdlib.h:
-
-/usr/include/c++/14/istream:
-
-/usr/include/x86_64-linux-gnu/bits/pthreadtypes.h:
-
-/usr/include/x86_64-linux-gnu/qt6/QtCore/qscopeguard.h:
-
-/home/rich/BoH-Catalogue-Assistant/qt/src/core/SQLiteValue.h:
-
-/usr/include/x86_64-linux-gnu/c++/14/bits/time_members.h:
-
-/usr/include/c++/14/cwchar:
-
-/home/rich/BoH-Catalogue-Assistant/qt/src/core/SQLiteDatabase.h:
-
-/lib/i386-linux-gnu/libbrotlidec.so.1:
-
-/usr/include/c++/14/system_error:
-
-/lib/x86_64-linux-gnu/libatomic.so.1:
-
-/usr/include/c++/14/cstdlib:
-
-boh-librarian_autogen/mocs_compilation.cpp:
-
-/usr/include/x86_64-linux-gnu/bits/types/mbstate_t.h:
-
-/usr/include/c++/14/backward/binders.h:
-
-/usr/include/x86_64-linux-gnu/qt6/QtCore/qatomic.h:
+/usr/include/x86_64-linux-gnu/qt6/QtCore/qgenericatomic.h:
 
 /usr/include/c++/14/bits/ostream_insert.h:
 
@@ -1100,17 +1215,91 @@ boh-librarian_autogen/mocs_compilation.cpp:
 
 /usr/include/c++/14/bits/stl_pair.h:
 
-/usr/include/x86_64-linux-gnu/bits/fp-fast.h:
+/usr/include/c++/14/tr1/legendre_function.tcc:
 
-/usr/include/x86_64-linux-gnu/bits/errno.h:
+/lib/i386-linux-gnu/libX11.so.6:
 
-/usr/include/c++/14/bits/hashtable.h:
+/usr/include/c++/14/bits/exception_defines.h:
 
-/usr/include/c++/14/bits/char_traits.h:
+/lib/i386-linux-gnu/libGLdispatch.so.0:
+
+/usr/include/c++/14/tr1/gamma.tcc:
+
+/usr/include/x86_64-linux-gnu/qt6/QtCore/qiterator.h:
+
+/usr/include/c++/14/ratio:
+
+/usr/include/x86_64-linux-gnu/bits/libm-simd-decl-stubs.h:
+
+/home/rich/BoH-Catalogue-Assistant/qt/src/core/Repositories/PlaythroughRepository.h:
+
+/home/rich/BoH-Catalogue-Assistant/qt/src/core/Repositories/SkillRepository.h:
+
+/home/rich/BoH-Catalogue-Assistant/qt/src/core/SQLiteValue.h:
+
+/usr/include/x86_64-linux-gnu/c++/14/bits/time_members.h:
+
+/usr/include/c++/14/cwchar:
+
+/home/rich/BoH-Catalogue-Assistant/qt/src/app/Stores/MemoriesStore.h:
+
+/usr/include/x86_64-linux-gnu/bits/sched.h:
+
+/usr/include/x86_64-linux-gnu/qt6/QtGui/qguiapplication.h:
+
+/lib/i386-linux-gnu/libxkbcommon.so.0:
+
+/usr/include/alloca.h:
+
+/usr/include/c++/14/bits/algorithmfwd.h:
+
+/usr/include/c++/14/bits/ptr_traits.h:
+
+/usr/include/c++/14/bits/locale_facets_nonio.tcc:
+
+/usr/include/x86_64-linux-gnu/qt6/QtCore/qobjectdefs_impl.h:
 
 /lib/i386-linux-gnu/libdbus-1.so.3:
 
 /usr/include/c++/14/list:
+
+/usr/include/c++/14/bits/char_traits.h:
+
+/usr/lib/i386-linux-gnu/libcap.so.2:
+
+/usr/lib/linux/uapi/x86/asm/unistd_64.h:
+
+/usr/include/c++/14/bits/unique_ptr.h:
+
+/usr/include/c++/14/iterator:
+
+/usr/include/c++/14/bit:
+
+/usr/include/c++/14/bits/locale_facets.tcc:
+
+/usr/include/c++/14/bits/chrono.h:
+
+/usr/include/c++/14/numeric:
+
+/usr/include/c++/14/tr1/bessel_function.tcc:
+
+/usr/include/x86_64-linux-gnu/qt6/QtCore/qprocessordetection.h:
+
+/usr/include/stdc-predef.h:
+
+/usr/include/asm-generic/posix_types.h:
+
+/usr/include/c++/14/cctype:
+
+/usr/include/c++/14/bits/exception.h:
+
+/usr/include/c++/14/bits/exception_ptr.h:
+
+/usr/include/x86_64-linux-gnu/qt6/QtCore/qcompilerdetection.h:
+
+/usr/include/x86_64-linux-gnu/qt6/QtCore/qsharedpointer_impl.h:
+
+/usr/include/stdio.h:
 
 /usr/include/c++/14/bits/hash_bytes.h:
 
@@ -1125,128 +1314,6 @@ boh-librarian_autogen/mocs_compilation.cpp:
 /usr/include/x86_64-linux-gnu/bits/types/struct_FILE.h:
 
 /usr/include/c++/14/bits/ranges_uninitialized.h:
-
-/usr/include/c++/14/array:
-
-/usr/include/x86_64-linux-gnu/qt6/QtCore/qassert.h:
-
-/lib/i386-linux-gnu/libxkbcommon.so.0:
-
-/usr/include/alloca.h:
-
-/usr/include/c++/14/bits/algorithmfwd.h:
-
-/usr/include/c++/14/bits/ptr_traits.h:
-
-/usr/include/c++/14/bits/locale_facets_nonio.tcc:
-
-/usr/include/x86_64-linux-gnu/qt6/QtCore/qobjectdefs_impl.h:
-
-/usr/include/stdint.h:
-
-/usr/include/endian.h:
-
-/usr/include/c++/14/bits/cxxabi_forced.h:
-
-/usr/include/asm-generic/int-ll64.h:
-
-/usr/include/c++/14/ios:
-
-/usr/include/c++/14/bits/ios_base.h:
-
-/usr/include/x86_64-linux-gnu/bits/posix2_lim.h:
-
-/usr/include/c++/14/ratio:
-
-/usr/include/x86_64-linux-gnu/bits/libm-simd-decl-stubs.h:
-
-/home/rich/BoH-Catalogue-Assistant/qt/src/core/Repositories/PlaythroughRepository.h:
-
-/usr/include/c++/14/bits/ranges_cmp.h:
-
-/usr/include/c++/14/tr1/bessel_function.tcc:
-
-/usr/include/x86_64-linux-gnu/qt6/QtCore/qprocessordetection.h:
-
-/usr/include/stdc-predef.h:
-
-/usr/include/asm-generic/posix_types.h:
-
-/usr/include/c++/14/cctype:
-
-/usr/include/c++/14/bits/exception.h:
-
-/usr/include/assert.h:
-
-/usr/include/x86_64-linux-gnu/qt6/QtCore/qbytearraylist.h:
-
-/usr/include/c++/14/bits/stl_iterator_base_funcs.h:
-
-/usr/lib/x86_64-linux-gnu/crti.o:
-
-/usr/include/c++/14/bits/locale_facets.h:
-
-/usr/include/x86_64-linux-gnu/qt6/QtCore/qbytearrayalgorithms.h:
-
-/usr/include/c++/14/bits/shared_ptr.h:
-
-/usr/lib/i386-linux-gnu/libXdmcp.so.6:
-
-/usr/include/x86_64-linux-gnu/qt6/QtGui/qtgui-config.h:
-
-/usr/include/c++/14/bits/chrono_io.h:
-
-/usr/include/c++/14/bits/range_access.h:
-
-/usr/lib/i386-linux-gnu/libfontconfig.so.1:
-
-/usr/include/c++/14/map:
-
-/usr/include/c++/14/bits/unicode.h:
-
-/usr/include/c++/14/bits/stl_function.h:
-
-/usr/include/x86_64-linux-gnu/qt6/QtCore/qhash.h:
-
-/usr/include/c++/14/numeric:
-
-/usr/include/c++/14/streambuf:
-
-/usr/include/c++/14/bits/string_view.tcc:
-
-/usr/include/c++/14/bit:
-
-/usr/include/c++/14/bits/locale_facets.tcc:
-
-/usr/include/c++/14/bits/chrono.h:
-
-/usr/include/c++/14/bits/stl_tree.h:
-
-/usr/include/c++/14/bits/exception_ptr.h:
-
-/usr/include/x86_64-linux-gnu/qt6/QtCore/qcompilerdetection.h:
-
-/usr/include/x86_64-linux-gnu/qt6/QtCore/qsharedpointer_impl.h:
-
-/usr/include/stdio.h:
-
-/usr/lib/linux/uapi/x86/asm/errno.h:
-
-/usr/include/c++/14/bits/stringfwd.h:
-
-/usr/include/x86_64-linux-gnu/qt6/QtCore/qmath.h:
-
-/usr/include/c++/14/bits/alloc_traits.h:
-
-/usr/include/c++/14/bits/allocated_ptr.h:
-
-/usr/include/x86_64-linux-gnu/bits/mathcalls-narrow.h:
-
-/usr/include/x86_64-linux-gnu/qt6/QtCore/qelapsedtimer.h:
-
-/usr/include/x86_64-linux-gnu/bits/flt-eval-method.h:
-
-/usr/include/x86_64-linux-gnu/qt6/QtWidgets/qframe.h:
 
 /usr/include/x86_64-linux-gnu/qt6/QtCore/qobject.h:
 
@@ -1266,15 +1333,13 @@ boh-librarian_autogen/mocs_compilation.cpp:
 
 /usr/include/x86_64-linux-gnu/bits/byteswap.h:
 
-/usr/lib/i386-linux-gnu/libxcb.so.1:
+/usr/include/c++/14/ext/aligned_buffer.h:
 
-/lib/x86_64-linux-gnu/libfontconfig.so.1:
+/home/rich/BoH-Catalogue-Assistant/qt/src/core/BookQuery.h:
 
-/usr/lib/linux/uapi/x86/asm/posix_types_64.h:
+/usr/include/x86_64-linux-gnu/c++/14/bits/os_defines.h:
 
-/usr/include/x86_64-linux-gnu/qt6/QtCore/qpoint.h:
-
-/usr/include/c++/14/bits/streambuf.tcc:
+/usr/include/x86_64-linux-gnu/qt6/QtCore/qstringmatcher.h:
 
 /usr/include/c++/14/bits/locale_facets_nonio.h:
 
@@ -1296,21 +1361,15 @@ boh-librarian_autogen/mocs_compilation.cpp:
 
 /usr/include/c++/14/bits/sstream.tcc:
 
-/usr/include/linux/stddef.h:
+/usr/include/c++/14/bits/stl_list.h:
 
-/usr/include/x86_64-linux-gnu/qt6/QtCore/qdatastream.h:
+/usr/include/c++/14/new:
 
 /usr/include/c++/14/climits:
 
 /usr/include/x86_64-linux-gnu/qt6/QtCore/qchar.h:
 
-/usr/include/x86_64-linux-gnu/qt6/QtCore/qcoreapplication_platform.h:
-
-/usr/include/c++/14/bits/memoryfwd.h:
-
-/usr/include/c++/14/bits/node_handle.h:
-
-/usr/include/features.h:
+/usr/include/x86_64-linux-gnu/qt6/QtCore/QStringList:
 
 /home/rich/BoH-Catalogue-Assistant/qt/src/app/main.cpp:
 
@@ -1332,6 +1391,14 @@ boh-librarian_autogen/mocs_compilation.cpp:
 
 /usr/include/c++/14/bits/new_allocator.h:
 
+/usr/include/c++/14/tr1/beta_function.tcc:
+
+/usr/include/x86_64-linux-gnu/qt6/QtGui/qrgba64.h:
+
+/usr/include/x86_64-linux-gnu/bits/wctype-wchar.h:
+
+/usr/include/c++/14/bits/shared_ptr_base.h:
+
 /usr/include/x86_64-linux-gnu/qt6/QtCore/qttypetraits.h:
 
 /usr/include/c++/14/bits/stl_numeric.h:
@@ -1339,6 +1406,8 @@ boh-librarian_autogen/mocs_compilation.cpp:
 /usr/include/syscall.h:
 
 /usr/include/c++/14/bits/parse_numbers.h:
+
+/home/rich/BoH-Catalogue-Assistant/qt/src/app/Stores/JournalStore.h:
 
 /usr/include/asm-generic/errno.h:
 
@@ -1372,10 +1441,6 @@ libbohapp.a:
 
 /usr/include/x86_64-linux-gnu/c++/14/bits/atomic_word.h:
 
-/usr/include/ctype.h:
-
-/usr/lib/linux/uapi/x86/asm/types.h:
-
 /usr/include/c++/14/bits/ranges_base.h:
 
 /usr/include/x86_64-linux-gnu/bits/stdlib-float.h:
@@ -1402,6 +1467,22 @@ libbohapp.a:
 
 /usr/include/c++/14/bits/shared_ptr_atomic.h:
 
+/usr/include/c++/14/vector:
+
+/usr/include/x86_64-linux-gnu/bits/types/__fpos_t.h:
+
+/usr/include/c++/14/bits/uniform_int_dist.h:
+
+/usr/lib/i386-linux-gnu/libpcre2-8.so.0:
+
+/usr/include/c++/14/bits/postypes.h:
+
+/usr/include/x86_64-linux-gnu/bits/stdint-uintn.h:
+
+/lib/i386-linux-gnu/libxcb.so.1:
+
+/usr/include/x86_64-linux-gnu/bits/types/struct_timespec.h:
+
 /usr/include/c++/14/pstl/pstl_config.h:
 
 /usr/include/x86_64-linux-gnu/qt6/QtCore/qset.h:
@@ -1424,35 +1505,21 @@ libbohapp.a:
 
 /usr/include/x86_64-linux-gnu/bits/types/__fpos64_t.h:
 
-/usr/include/c++/14/bits/hashtable_policy.h:
-
-/usr/include/asm-generic/errno-base.h:
-
 /usr/lib/x86_64-linux-gnu/libGLX.so:
 
 /usr/include/c++/14/bits/stl_algobase.h:
+
+/usr/include/c++/14/bits/hashtable_policy.h:
+
+/usr/include/asm-generic/errno-base.h:
 
 /usr/include/c++/14/bits/stl_iterator.h:
 
 /usr/include/c++/14/bits/stl_iterator_base_types.h:
 
-/usr/include/c++/14/new:
-
-/usr/include/c++/14/bits/stl_list.h:
-
 /usr/include/c++/14/bits/stl_relops.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/struct_timeval.h:
-
-/usr/include/c++/14/bits/stream_iterator.h:
-
-/usr/include/c++/14/tr1/beta_function.tcc:
-
-/usr/include/x86_64-linux-gnu/bits/wctype-wchar.h:
-
-/usr/include/x86_64-linux-gnu/qt6/QtGui/qrgba64.h:
-
-/usr/include/c++/14/bits/shared_ptr_base.h:
 
 /usr/include/x86_64-linux-gnu/bits/cpu-set.h:
 
@@ -1460,29 +1527,45 @@ libbohapp.a:
 
 /usr/include/x86_64-linux-gnu/qt6/QtGui/qbrush.h:
 
-/usr/include/c++/14/vector:
+/usr/include/x86_64-linux-gnu/qt6/QtCore/qcoreevent.h:
 
-/usr/include/x86_64-linux-gnu/bits/types/__fpos_t.h:
+/usr/include/c++/14/bits/streambuf.tcc:
 
-/usr/include/c++/14/bits/uniform_int_dist.h:
+/usr/include/x86_64-linux-gnu/qt6/QtCore/qpoint.h:
 
-/usr/lib/i386-linux-gnu/libpcre2-8.so.0:
+/usr/include/c++/14/bits/hashtable.h:
 
-/usr/include/c++/14/bits/postypes.h:
+/usr/include/x86_64-linux-gnu/bits/errno.h:
 
-/usr/include/x86_64-linux-gnu/bits/stdint-uintn.h:
+/usr/include/c++/14/cmath:
 
-/lib/i386-linux-gnu/libxcb.so.1:
+/usr/include/x86_64-linux-gnu/qt6/QtGui/qbitmap.h:
 
-/usr/include/x86_64-linux-gnu/bits/types/struct_timespec.h:
+/usr/include/x86_64-linux-gnu/bits/flt-eval-method.h:
+
+/usr/include/x86_64-linux-gnu/qt6/QtWidgets/qframe.h:
+
+/usr/include/x86_64-linux-gnu/bits/fp-fast.h:
+
+/usr/include/x86_64-linux-gnu/bits/fp-logb.h:
+
+/usr/include/x86_64-linux-gnu/bits/getopt_core.h:
 
 /usr/include/x86_64-linux-gnu/bits/libc-header-start.h:
+
+/usr/lib/linux/uapi/x86/asm/bitsperlong.h:
+
+/usr/include/c++/14/bits/uses_allocator.h:
+
+/usr/include/x86_64-linux-gnu/bits/local_lim.h:
 
 /usr/include/c++/14/concepts:
 
 /usr/include/x86_64-linux-gnu/bits/math-vector.h:
 
 /usr/include/x86_64-linux-gnu/qt6/QtCore/qxptype_traits.h:
+
+/home/rich/BoH-Catalogue-Assistant/qt/src/core/SkillQuery.h:
 
 /usr/include/x86_64-linux-gnu/bits/mathcalls-macros.h:
 
@@ -1495,6 +1578,8 @@ libbohapp.a:
 /usr/include/x86_64-linux-gnu/bits/posix1_lim.h:
 
 /lib/i386-linux-gnu/libpng16.so.16:
+
+/home/rich/BoH-Catalogue-Assistant/qt/src/app/Stores/ReadingHelperStore.h:
 
 /usr/include/x86_64-linux-gnu/bits/pthread_stack_min-dynamic.h:
 
@@ -1546,10 +1631,6 @@ libbohapp.a:
 
 /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QMainWindow:
 
-/usr/include/x86_64-linux-gnu/qt6/QtGui/qpalette.h:
-
-/usr/include/x86_64-linux-gnu/bits/types/__sigset_t.h:
-
 /usr/include/c++/14/debug/debug.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/clock_t.h:
@@ -1598,10 +1679,6 @@ libbohapp.a:
 
 /usr/include/x86_64-linux-gnu/bits/wchar.h:
 
-/usr/include/x86_64-linux-gnu/bits/xopen_lim.h:
-
-/usr/include/x86_64-linux-gnu/c++/14/bits/c++allocator.h:
-
 /usr/include/c++/14/bits/stl_heap.h:
 
 /usr/include/x86_64-linux-gnu/c++/14/bits/c++locale.h:
@@ -1622,15 +1699,11 @@ libbohcore.a:
 
 /usr/include/x86_64-linux-gnu/sys/cdefs.h:
 
-/usr/include/x86_64-linux-gnu/c++/14/bits/os_defines.h:
-
-/usr/include/x86_64-linux-gnu/qt6/QtCore/qstringmatcher.h:
-
 /usr/include/x86_64-linux-gnu/gnu/stubs-64.h:
 
-/usr/lib/gcc/x86_64-linux-gnu/14/include/stdint.h:
-
 /usr/include/x86_64-linux-gnu/qt6/QtCore/QByteArray:
+
+/usr/include/x86_64-linux-gnu/qt6/QtCore/QList:
 
 /usr/include/linux/posix_types.h:
 
@@ -1654,9 +1727,9 @@ libbohcore.a:
 
 /usr/include/x86_64-linux-gnu/qt6/QtCore/qarraydata.h:
 
-/usr/include/x86_64-linux-gnu/bits/endianness.h:
-
 /usr/include/c++/14/bits/stl_bvector.h:
+
+/usr/include/x86_64-linux-gnu/bits/endianness.h:
 
 /usr/include/x86_64-linux-gnu/qt6/QtCore/qarraydataops.h:
 
@@ -1669,8 +1742,6 @@ libbohcore.a:
 /usr/include/c++/14/clocale:
 
 /usr/include/x86_64-linux-gnu/qt6/QtCore/qatomic_cxx11.h:
-
-/usr/include/x86_64-linux-gnu/qt6/QtCore/qbasicatomic.h:
 
 /usr/include/x86_64-linux-gnu/qt6/QtCore/qbindingstorage.h:
 
@@ -1772,9 +1843,9 @@ libbohcore.a:
 
 /usr/include/x86_64-linux-gnu/qt6/QtCore/qrefcount.h:
 
-/usr/include/c++/14/bits/ranges_algobase.h:
-
 /usr/include/c++/14/bits/stl_tempbuf.h:
+
+/usr/include/c++/14/bits/ranges_algobase.h:
 
 /usr/include/x86_64-linux-gnu/qt6/QtCore/qsize.h:
 
@@ -1858,10 +1929,6 @@ libbohcore.a:
 
 /usr/include/x86_64-linux-gnu/qt6/QtGui/qkeysequence.h:
 
-/usr/include/x86_64-linux-gnu/bits/sched.h:
-
-/usr/include/x86_64-linux-gnu/qt6/QtGui/qguiapplication.h:
-
 /usr/include/x86_64-linux-gnu/qt6/QtGui/qicon.h:
 
 /usr/include/x86_64-linux-gnu/qt6/QtGui/qinputmethod.h:
@@ -1921,25 +1988,3 @@ libbohcore.a:
 /usr/include/x86_64-linux-gnu/sys/types.h:
 
 /usr/lib/gcc/x86_64-linux-gnu/14/include/limits.h:
-
-/lib/i386-linux-gnu/libXau.so.6:
-
-/usr/lib/gcc/x86_64-linux-gnu/14/include/syslimits.h:
-
-/usr/include/c++/14/bits/uses_allocator.h:
-
-/usr/include/x86_64-linux-gnu/bits/local_lim.h:
-
-/usr/lib/linux/uapi/x86/asm/bitsperlong.h:
-
-/usr/lib/linux/uapi/x86/asm/posix_types.h:
-
-/usr/lib/i386-linux-gnu/libcap.so.2:
-
-/usr/include/c++/14/bits/unique_ptr.h:
-
-/usr/lib/linux/uapi/x86/asm/unistd_64.h:
-
-/usr/include/c++/14/bits/exception_defines.h:
-
-/lib/i386-linux-gnu/libX11.so.6:
