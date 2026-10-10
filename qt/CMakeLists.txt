@@ -22,7 +22,15 @@ add_library(bohcore STATIC
   src/core/BookQuery.cpp
   src/core/MemoryQuery.cpp
   src/core/SkillQuery.cpp
+  src/core/Repositories/PlaythroughRepository.cpp
+  src/core/Repositories/LookupRepositories.cpp
+  src/core/Repositories/BookRepository.cpp
+  src/core/Repositories/MemoryRepository.cpp
+  src/core/Repositories/SkillRepository.cpp
+  src/core/Repositories/JournalRepository.cpp
 )
+target_include_directories(bohcore PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/src/core
+                                          ${CMAKE_CURRENT_SOURCE_DIR}/src/core/Repositories)
 # db/migrations embedded verbatim — single schema source, no sync copy (plan
 # Task 3). qt_add_resources (not a checked-in .qrc): rcc's relative-path rules
 # don't reach outside the target tree, CMake resolves these paths itself.
@@ -89,3 +97,11 @@ add_test(NAME MemoryQuery COMMAND test_MemoryQuery)
 add_executable(test_SkillQuery tests/test_SkillQuery.cpp)
 target_link_libraries(test_SkillQuery PRIVATE bohcore Qt6::Core Qt6::Test)
 add_test(NAME SkillQuery COMMAND test_SkillQuery)
+
+add_executable(test_Repositories tests/test_Repositories.cpp)
+target_link_libraries(test_Repositories PRIVATE bohcore Qt6::Core Qt6::Test)
+add_test(NAME Repositories COMMAND test_Repositories)
+
+add_executable(test_PlaythroughRepository tests/test_PlaythroughRepository.cpp)
+target_link_libraries(test_PlaythroughRepository PRIVATE bohcore Qt6::Core Qt6::Test)
+add_test(NAME PlaythroughRepository COMMAND test_PlaythroughRepository)
