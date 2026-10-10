@@ -1280,6 +1280,30 @@ src/app/Views/Shared/BookRowDelegate.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/bohapp.dir/build.make CMakeFiles/bohapp.dir/src/app/Views/Shared/BookRowDelegate.cpp.s
 .PHONY : src/app/Views/Shared/BookRowDelegate.cpp.s
 
+src/app/Views/Shared/FormA11y.o: src/app/Views/Shared/FormA11y.cpp.o
+.PHONY : src/app/Views/Shared/FormA11y.o
+
+# target to build an object file
+src/app/Views/Shared/FormA11y.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bohapp.dir/build.make CMakeFiles/bohapp.dir/src/app/Views/Shared/FormA11y.cpp.o
+.PHONY : src/app/Views/Shared/FormA11y.cpp.o
+
+src/app/Views/Shared/FormA11y.i: src/app/Views/Shared/FormA11y.cpp.i
+.PHONY : src/app/Views/Shared/FormA11y.i
+
+# target to preprocess a source file
+src/app/Views/Shared/FormA11y.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bohapp.dir/build.make CMakeFiles/bohapp.dir/src/app/Views/Shared/FormA11y.cpp.i
+.PHONY : src/app/Views/Shared/FormA11y.cpp.i
+
+src/app/Views/Shared/FormA11y.s: src/app/Views/Shared/FormA11y.cpp.s
+.PHONY : src/app/Views/Shared/FormA11y.s
+
+# target to generate assembly for a file
+src/app/Views/Shared/FormA11y.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bohapp.dir/build.make CMakeFiles/bohapp.dir/src/app/Views/Shared/FormA11y.cpp.s
+.PHONY : src/app/Views/Shared/FormA11y.cpp.s
+
 src/app/Views/Sidebar.o: src/app/Views/Sidebar.cpp.o
 .PHONY : src/app/Views/Sidebar.o
 
@@ -2506,6 +2530,9 @@ help:
 	@echo "... src/app/Views/Shared/BookRowDelegate.o"
 	@echo "... src/app/Views/Shared/BookRowDelegate.i"
 	@echo "... src/app/Views/Shared/BookRowDelegate.s"
+	@echo "... src/app/Views/Shared/FormA11y.o"
+	@echo "... src/app/Views/Shared/FormA11y.i"
+	@echo "... src/app/Views/Shared/FormA11y.s"
 	@echo "... src/app/Views/Sidebar.o"
 	@echo "... src/app/Views/Sidebar.i"
 	@echo "... src/app/Views/Sidebar.s"

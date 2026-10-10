@@ -2,6 +2,7 @@
 
 #include "ColorMath.h"
 #include "Shared/Badges.h"
+#include "Shared/FormA11y.h"
 
 #include <QCheckBox>
 #include <QComboBox>
@@ -537,6 +538,7 @@ void SkillFormView::build()
     m_element = new QLineEdit(this);
     m_element->setPlaceholderText(QStringLiteral("Element of the Soul gained"));
     form->addRow(QStringLiteral("Element"), m_element);
+    attachFormBuddies(form);
     layout->addLayout(form);
 
     layout->addWidget(new QLabel(QStringLiteral("Notes"), this));

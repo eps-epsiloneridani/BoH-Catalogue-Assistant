@@ -35,6 +35,8 @@ bohapp_autogen/timestamp: \
 	/home/rich/BoH-Catalogue-Assistant/qt/src/app/Views/Shared/Badges.h \
 	/home/rich/BoH-Catalogue-Assistant/qt/src/app/Views/Shared/BookRowDelegate.cpp \
 	/home/rich/BoH-Catalogue-Assistant/qt/src/app/Views/Shared/BookRowDelegate.h \
+	/home/rich/BoH-Catalogue-Assistant/qt/src/app/Views/Shared/FormA11y.cpp \
+	/home/rich/BoH-Catalogue-Assistant/qt/src/app/Views/Shared/FormA11y.h \
 	/home/rich/BoH-Catalogue-Assistant/qt/src/app/Views/Sidebar.cpp \
 	/home/rich/BoH-Catalogue-Assistant/qt/src/app/Views/Sidebar.h \
 	/home/rich/BoH-Catalogue-Assistant/qt/src/app/Views/Skills/SkillsScreen.cpp \

@@ -36,6 +36,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/bohapp.dir/src/app/Views/Shared/Badges.cpp.o.d"
   "CMakeFiles/bohapp.dir/src/app/Views/Shared/BookRowDelegate.cpp.o"
   "CMakeFiles/bohapp.dir/src/app/Views/Shared/BookRowDelegate.cpp.o.d"
+  "CMakeFiles/bohapp.dir/src/app/Views/Shared/FormA11y.cpp.o"
+  "CMakeFiles/bohapp.dir/src/app/Views/Shared/FormA11y.cpp.o.d"
   "CMakeFiles/bohapp.dir/src/app/Views/Sidebar.cpp.o"
   "CMakeFiles/bohapp.dir/src/app/Views/Sidebar.cpp.o.d"
   "CMakeFiles/bohapp.dir/src/app/Views/Skills/SkillsScreen.cpp.o"

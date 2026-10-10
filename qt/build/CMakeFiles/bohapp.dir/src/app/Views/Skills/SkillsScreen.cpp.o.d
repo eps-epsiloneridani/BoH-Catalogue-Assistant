@@ -523,6 +523,7 @@ CMakeFiles/bohapp.dir/src/app/Views/Skills/SkillsScreen.cpp.o: \
  /home/rich/BoH-Catalogue-Assistant/qt/src/app/Views/Shared/Badges.h \
  /usr/include/x86_64-linux-gnu/qt6/QtGui/QPainter \
  /usr/include/x86_64-linux-gnu/qt6/QtGui/qpainter.h \
+ /home/rich/BoH-Catalogue-Assistant/qt/src/app/Views/Shared/FormA11y.h \
  /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QFormLayout \
  /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qformlayout.h \
  /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QLayout \

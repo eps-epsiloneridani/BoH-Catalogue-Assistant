@@ -480,6 +480,7 @@ CMakeFiles/bohapp.dir/src/app/Views/Books/BooksScreen.cpp.o: \
  /usr/include/x86_64-linux-gnu/qt6/QtGui/qpainter.h \
  /usr/include/x86_64-linux-gnu/qt6/QtGui/qtextoption.h \
  /usr/include/x86_64-linux-gnu/qt6/QtGui/qpen.h \
+ /home/rich/BoH-Catalogue-Assistant/qt/src/app/Views/Shared/FormA11y.h \
  /home/rich/BoH-Catalogue-Assistant/qt/src/app/Views/Shared/BookRowDelegate.h \
  /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QStyledItemDelegate \
  /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qstyleditemdelegate.h \

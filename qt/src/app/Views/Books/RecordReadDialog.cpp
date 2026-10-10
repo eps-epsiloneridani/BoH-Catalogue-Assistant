@@ -2,6 +2,7 @@
 
 #include "AppController.h"
 #include "Shared/AspectEditor.h"
+#include "Shared/FormA11y.h"
 
 #include <QCheckBox>
 #include <QComboBox>
@@ -57,6 +58,7 @@ RecordReadDialog::RecordReadDialog(const Book& book, BooksStore* store, AppContr
     for (const Memory& memory : m_earnedMemories)
         m_usedMemory->addItem(memoryLabel(memory), qint64(memory.id));
     form->addRow(QStringLiteral("Memory used"), m_usedMemory);
+    attachFormBuddies(form);
     layout->addLayout(form);
 
     layout->addWidget(new QLabel(QStringLiteral("What did you gain?"), this));

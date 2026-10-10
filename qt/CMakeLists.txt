@@ -80,6 +80,7 @@ add_library(bohapp STATIC
   src/app/Views/Skills/SkillsScreen.h src/app/Views/Skills/SkillsScreen.cpp
   src/app/Views/Shared/AspectEditor.h src/app/Views/Shared/AspectEditor.cpp
   src/app/Views/Shared/Badges.h src/app/Views/Shared/Badges.cpp
+  src/app/Views/Shared/FormA11y.h src/app/Views/Shared/FormA11y.cpp
   src/app/Views/Shared/BookRowDelegate.h src/app/Views/Shared/BookRowDelegate.cpp
 )
 target_include_directories(bohapp PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/src/app
