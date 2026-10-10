@@ -19,3 +19,7 @@ xcuserdata/
 # Packaged app output (scripts/make-app.sh)
 dist/
 Boh.db
+
+# Qt build output (qt/) — never commit
+qt/build/
+qt/build-appimage/
