@@ -33,7 +33,16 @@ Two goals, in priority order:
 
 ## Status snapshot (update every session)
 
-- **2026-10-08 — PARKED (Phases 0–5 + packaging); security, accessibility and spoiler-posture passes shipped; remediation run complete this session.**
+- **2026-10-10 — Linux port COMPLETE (19/19 plan tasks + review fix); macOS app untouched.**
+  The Qt port lives in `qt/` (C++20 + Qt 6 Widgets): Core ported 1:1 with the
+  111-test suite carried over (13 Qt Test exes green), all five screens +
+  playthroughs/import, real-save acceptance on the user's Linux install (67
+  books), native-build path discovery, AppImage + CI release job. Review fix:
+  1,481 stray build files untracked (qt/build* now gitignored). Hands-on
+  checks live in MANUAL_TEST §Linux; data migration doc in SAVE_IMPORT.md.
+  Crash note: unbounded -j OOM'd the 6.6 GB box once (see SDD ledger) — builds
+  now default to 2 jobs in make-appimage.sh.
+- **Previous snapshot (macOS): 2026-10-08 — PARKED (Phases 0–5 + packaging); security, accessibility and spoiler-posture passes shipped; remediation run complete this session.**
   Build + 108 tests pass from a clean checkout; `Boh.db` at schema v7 with an empty
   "First playthrough" loaded; tree clean. All roadmap screens live (Books, Memories,
   Reading Helper, Skills, Journal) plus **playthroughs**, **difficulty**, **save
@@ -536,6 +545,18 @@ Two goals, in priority order:
   pending item closed; smoke launch verified (the user's open instance quit with
   it - relaunch from the fresh dist). Note: the review’s bundle name was wrong
   (BoHLibrarianCore_* vs the actual BoHLibrarian_*); corrected before applying.
+- 2026-10-10 (Linux port EXECUTED, 19/19 tasks + review): plan executed inline
+  (SDD ledger at .superpowers/sdd/2026-10-09-linux-qt-port/progress.md holds
+  every ruling + the per-task test evidence). Core 1:1 (wrapper/migrator/models/
+  queries/repos/save-import) with all 111 tests as twins; app shell + 5 screens +
+  playthroughs/import; single reloadAll choke point; a11y sweep (form buddies);
+  AppImage + .desktop + CI linux-release; data-migration doc + end-to-end verify
+  (67-book real-save db through the Qt app). Real install corrected the plan
+  (native Linux build: unity3d saves, bh_Data elements) and the ported suite
+  caught two real bugs (FK-0 principle lookup; const char*→bool binding).
+  Review fix: qt/build* was never gitignored — 1,481 stray build files untracked.
+  Crash note: make-appimage -j$(nproc) OOM'd the box once; now 2-job default.
+  Outstanding: MANUAL_TEST §Linux hands-on (user), push, tag a Linux release.
 - 2026-10-09 (Linux port plan, user request): full repo review + port plan written
   to docs/superpowers/plans/2026-10-09-linux-qt-port.md — C++20 + Qt 6 Widgets in
   a new top-level qt/ dir, Core ported 1:1 with the 111-test suite as the gate,
