@@ -57,9 +57,10 @@ if [ ! -x "$LINUXDEPLOY" ]; then
   fi
 fi
 
-"$LINUXDEPLOY" --appimage-extract-and-run --appdir "$APPDIR" --output appimage
-
-# Wrap AppRun: point QT_PLUGIN_PATH at the bundled plugins.
+# Wrap AppRun BEFORE deployment — linuxdeploy preserves an existing AppRun.
+# (The first attempt wrote it after --output appimage: the packed image shipped
+# linuxdeploy's default AppRun with no QT_PLUGIN_PATH, so the bundled plugins
+# were never found on clean systems.)
 cat > "$APPDIR/AppRun" <<'APPRUN'
 #!/bin/sh
 HERE="$(dirname "$(readlink -f "$0")")"
@@ -67,6 +68,9 @@ export QT_PLUGIN_PATH="$HERE/usr/plugins"
 exec "$HERE/usr/bin/boh-librarian" "$@"
 APPRUN
 chmod +x "$APPDIR/AppRun"
+
+"$LINUXDEPLOY" --appimage-extract-and-run --appdir "$APPDIR" --output appimage
+
 mkdir -p dist
 mv "BoH Librarian-${ARCH}.AppImage" dist/ 2>/dev/null || \
   mv ./*.AppImage dist/ 2>/dev/null || true
