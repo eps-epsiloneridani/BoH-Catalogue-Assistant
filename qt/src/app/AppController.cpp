@@ -120,4 +120,75 @@ void AppController::reloadAll()
     emit changed();
 }
 
+
+bool AppController::createPlaythrough(const QString& name, const QString& notes)
+{
+    if (!m_db)
+        return false;
+    try {
+        PlaythroughRepository repo(*m_db);
+        const QString trimmed = name.trimmed();
+        const QString finalName =
+            trimmed.isEmpty() ? QStringLiteral("Playthrough %1").arg(m_playthroughs.size() + 1)
+                              : trimmed;
+        const QString trimmedNotes = notes.trimmed();
+        const Playthrough created =
+            repo.insert(finalName, trimmedNotes.isEmpty() ? std::nullopt
+                                                          : std::optional<QString>(trimmedNotes));
+        repo.setActiveID(created.id);
+        m_activePlaythrough = created;
+        m_playthroughs = repo.all();
+        remountPlaythroughState();
+        return true;
+    } catch (const std::exception& e) {
+        m_lastError = QStringLiteral("Creating playthrough failed: %1").arg(e.what());
+        return false;
+    }
+}
+
+bool AppController::renamePlaythrough(const Playthrough& playthrough, const QString& name)
+{
+    if (!m_db)
+        return false;
+    const QString trimmed = name.trimmed();
+    if (trimmed.isEmpty())
+        return false;
+    try {
+        PlaythroughRepository repo(*m_db);
+        Playthrough edited = playthrough;
+        edited.name = trimmed;
+        repo.update(edited);
+        if (m_activePlaythrough && playthrough.id == m_activePlaythrough->id)
+            m_activePlaythrough = repo.get(playthrough.id);
+        m_playthroughs = repo.all();
+        emit playthroughsChanged();
+        emit changed();
+        return true;
+    } catch (const std::exception& e) {
+        m_lastError = QStringLiteral("Renaming playthrough failed: %1").arg(e.what());
+        return false;
+    }
+}
+
+bool AppController::deletePlaythrough(const Playthrough& playthrough)
+{
+    if (!m_db || !m_activePlaythrough)
+        return false;
+    if (playthrough.id == m_activePlaythrough->id)
+        return false; // the UI gates this; double-checked here
+    if (m_playthroughs.size() <= 1)
+        return false; // never the last one
+    try {
+        PlaythroughRepository repo(*m_db);
+        repo.remove(playthrough.id);
+        m_playthroughs = repo.all();
+        emit playthroughsChanged();
+        emit changed();
+        return true;
+    } catch (const std::exception& e) {
+        m_lastError = QStringLiteral("Deleting playthrough failed: %1").arg(e.what());
+        return false;
+    }
+}
+
 } // namespace boh

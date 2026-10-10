@@ -75,6 +75,7 @@ add_library(bohapp STATIC
   src/app/Views/Books/RecordReadDialog.h src/app/Views/Books/RecordReadDialog.cpp
   src/app/Views/Memories/MemoriesScreen.h src/app/Views/Memories/MemoriesScreen.cpp
   src/app/Views/Journal/JournalScreen.h src/app/Views/Journal/JournalScreen.cpp
+  src/app/Views/Playthroughs/PlaythroughsDialog.h src/app/Views/Playthroughs/PlaythroughsDialog.cpp
   src/app/Views/ReadingHelper/ReadingHelperScreen.h src/app/Views/ReadingHelper/ReadingHelperScreen.cpp
   src/app/Views/Skills/SkillsScreen.h src/app/Views/Skills/SkillsScreen.cpp
   src/app/Views/Shared/AspectEditor.h src/app/Views/Shared/AspectEditor.cpp

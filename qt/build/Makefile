@@ -1160,6 +1160,30 @@ src/app/Views/Memories/MemoriesScreen.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/bohapp.dir/build.make CMakeFiles/bohapp.dir/src/app/Views/Memories/MemoriesScreen.cpp.s
 .PHONY : src/app/Views/Memories/MemoriesScreen.cpp.s
 
+src/app/Views/Playthroughs/PlaythroughsDialog.o: src/app/Views/Playthroughs/PlaythroughsDialog.cpp.o
+.PHONY : src/app/Views/Playthroughs/PlaythroughsDialog.o
+
+# target to build an object file
+src/app/Views/Playthroughs/PlaythroughsDialog.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bohapp.dir/build.make CMakeFiles/bohapp.dir/src/app/Views/Playthroughs/PlaythroughsDialog.cpp.o
+.PHONY : src/app/Views/Playthroughs/PlaythroughsDialog.cpp.o
+
+src/app/Views/Playthroughs/PlaythroughsDialog.i: src/app/Views/Playthroughs/PlaythroughsDialog.cpp.i
+.PHONY : src/app/Views/Playthroughs/PlaythroughsDialog.i
+
+# target to preprocess a source file
+src/app/Views/Playthroughs/PlaythroughsDialog.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bohapp.dir/build.make CMakeFiles/bohapp.dir/src/app/Views/Playthroughs/PlaythroughsDialog.cpp.i
+.PHONY : src/app/Views/Playthroughs/PlaythroughsDialog.cpp.i
+
+src/app/Views/Playthroughs/PlaythroughsDialog.s: src/app/Views/Playthroughs/PlaythroughsDialog.cpp.s
+.PHONY : src/app/Views/Playthroughs/PlaythroughsDialog.s
+
+# target to generate assembly for a file
+src/app/Views/Playthroughs/PlaythroughsDialog.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bohapp.dir/build.make CMakeFiles/bohapp.dir/src/app/Views/Playthroughs/PlaythroughsDialog.cpp.s
+.PHONY : src/app/Views/Playthroughs/PlaythroughsDialog.cpp.s
+
 src/app/Views/ReadingHelper/ReadingHelperScreen.o: src/app/Views/ReadingHelper/ReadingHelperScreen.cpp.o
 .PHONY : src/app/Views/ReadingHelper/ReadingHelperScreen.o
 
@@ -2467,6 +2491,9 @@ help:
 	@echo "... src/app/Views/Memories/MemoriesScreen.o"
 	@echo "... src/app/Views/Memories/MemoriesScreen.i"
 	@echo "... src/app/Views/Memories/MemoriesScreen.s"
+	@echo "... src/app/Views/Playthroughs/PlaythroughsDialog.o"
+	@echo "... src/app/Views/Playthroughs/PlaythroughsDialog.i"
+	@echo "... src/app/Views/Playthroughs/PlaythroughsDialog.s"
 	@echo "... src/app/Views/ReadingHelper/ReadingHelperScreen.o"
 	@echo "... src/app/Views/ReadingHelper/ReadingHelperScreen.i"
 	@echo "... src/app/Views/ReadingHelper/ReadingHelperScreen.s"
