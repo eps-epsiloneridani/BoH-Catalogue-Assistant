@@ -68,6 +68,28 @@ void AspectEditor::removeRow(QWidget* row)
         addRow();
 }
 
+void AspectEditor::setAspects(const std::vector<AspectDraft>& aspects)
+{
+    QLayoutItem* child;
+    while ((child = m_rows->takeAt(0)) != nullptr) {
+        if (auto* widget = child->widget())
+            widget->deleteLater();
+        delete child;
+    }
+    for (const AspectDraft& aspect : aspects) {
+        addRow();
+        auto* row = m_rows->itemAt(m_rows->count() - 1)->widget();
+        auto* principle = row->property("principleCombo").value<QComboBox*>();
+        auto* level = row->property("levelSpin").value<QSpinBox*>();
+        if (!principle || !level)
+            continue;
+        principle->setCurrentIndex(principle->findData(aspect.principleID));
+        level->setValue(aspect.level);
+    }
+    if (m_rows->count() == 0)
+        addRow();
+}
+
 std::vector<AspectDraft> AspectEditor::aspects() const
 {
     std::vector<AspectDraft> out;

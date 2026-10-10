@@ -1,10 +1,10 @@
-Start testing: Oct 10 18:29 BST
+Start testing: Oct 10 18:38 BST
 ----------------------------------------------------------
 1/13 Testing: smoke
 1/13 Test: smoke
 Command: "/home/rich/BoH-Catalogue-Assistant/qt/build/test_smoke"
 Directory: /home/rich/BoH-Catalogue-Assistant/qt/build
-"smoke" start time: Oct 10 18:29 BST
+"smoke" start time: Oct 10 18:38 BST
 Output:
 ----------------------------------------------------------
 ********* Start testing of SmokeTest *********
@@ -18,7 +18,7 @@ Totals: 3 passed, 0 failed, 0 skipped, 0 blacklisted, 1ms
 Test time =   0.01 sec
 ----------------------------------------------------------
 Test Passed.
-"smoke" end time: Oct 10 18:29 BST
+"smoke" end time: Oct 10 18:38 BST
 "smoke" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -26,7 +26,7 @@ Test Passed.
 2/13 Test: SQLiteDatabase
 Command: "/home/rich/BoH-Catalogue-Assistant/qt/build/test_SQLiteDatabase"
 Directory: /home/rich/BoH-Catalogue-Assistant/qt/build
-"SQLiteDatabase" start time: Oct 10 18:29 BST
+"SQLiteDatabase" start time: Oct 10 18:38 BST
 Output:
 ----------------------------------------------------------
 ********* Start testing of SQLiteDatabaseTests *********
@@ -53,7 +53,7 @@ Totals: 16 passed, 0 failed, 0 skipped, 0 blacklisted, 5ms
 Test time =   0.02 sec
 ----------------------------------------------------------
 Test Passed.
-"SQLiteDatabase" end time: Oct 10 18:29 BST
+"SQLiteDatabase" end time: Oct 10 18:38 BST
 "SQLiteDatabase" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -61,7 +61,7 @@ Test Passed.
 3/13 Test: Migrator
 Command: "/home/rich/BoH-Catalogue-Assistant/qt/build/test_Migrator"
 Directory: /home/rich/BoH-Catalogue-Assistant/qt/build
-"Migrator" start time: Oct 10 18:29 BST
+"Migrator" start time: Oct 10 18:38 BST
 Output:
 ----------------------------------------------------------
 ********* Start testing of MigratorTests *********
@@ -84,13 +84,13 @@ PASS   : MigratorTests::mainResourceMigrationsAreLoaded()
 PASS   : MigratorTests::bundledMigrationsMatchRepoDirectory()
 PASS   : MigratorTests::resolveUsesEnvVariableWhenSet()
 PASS   : MigratorTests::cleanupTestCase()
-Totals: 18 passed, 0 failed, 0 skipped, 0 blacklisted, 47ms
+Totals: 18 passed, 0 failed, 0 skipped, 0 blacklisted, 56ms
 ********* Finished testing of MigratorTests *********
 <end of output>
-Test time =   0.06 sec
+Test time =   0.07 sec
 ----------------------------------------------------------
 Test Passed.
-"Migrator" end time: Oct 10 18:29 BST
+"Migrator" end time: Oct 10 18:38 BST
 "Migrator" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -98,7 +98,7 @@ Test Passed.
 4/13 Test: ColorMath
 Command: "/home/rich/BoH-Catalogue-Assistant/qt/build/test_ColorMath"
 Directory: /home/rich/BoH-Catalogue-Assistant/qt/build
-"ColorMath" start time: Oct 10 18:29 BST
+"ColorMath" start time: Oct 10 18:38 BST
 Output:
 ----------------------------------------------------------
 ********* Start testing of ColorMathTests *********
@@ -110,13 +110,13 @@ PASS   : ColorMathTests::blending()
 PASS   : ColorMathTests::readableTextMeetsAAForEverySeededPrincipleInBothModes()
 PASS   : ColorMathTests::readableTextKeepsAlreadyReadableTintsUntouched()
 PASS   : ColorMathTests::cleanupTestCase()
-Totals: 7 passed, 0 failed, 0 skipped, 0 blacklisted, 1ms
+Totals: 7 passed, 0 failed, 0 skipped, 0 blacklisted, 2ms
 ********* Finished testing of ColorMathTests *********
 <end of output>
 Test time =   0.01 sec
 ----------------------------------------------------------
 Test Passed.
-"ColorMath" end time: Oct 10 18:29 BST
+"ColorMath" end time: Oct 10 18:38 BST
 "ColorMath" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -124,7 +124,7 @@ Test Passed.
 5/13 Test: ReadingMath
 Command: "/home/rich/BoH-Catalogue-Assistant/qt/build/test_ReadingMath"
 Directory: /home/rich/BoH-Catalogue-Assistant/qt/build
-"ReadingMath" start time: Oct 10 18:29 BST
+"ReadingMath" start time: Oct 10 18:38 BST
 Output:
 ----------------------------------------------------------
 ********* Start testing of ReadingMathTests *********
@@ -146,7 +146,7 @@ Totals: 11 passed, 0 failed, 0 skipped, 0 blacklisted, 1ms
 Test time =   0.01 sec
 ----------------------------------------------------------
 Test Passed.
-"ReadingMath" end time: Oct 10 18:29 BST
+"ReadingMath" end time: Oct 10 18:38 BST
 "ReadingMath" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -154,7 +154,7 @@ Test Passed.
 6/13 Test: BookQuery
 Command: "/home/rich/BoH-Catalogue-Assistant/qt/build/test_BookQuery"
 Directory: /home/rich/BoH-Catalogue-Assistant/qt/build
-"BookQuery" start time: Oct 10 18:29 BST
+"BookQuery" start time: Oct 10 18:38 BST
 Output:
 ----------------------------------------------------------
 ********* Start testing of BookQueryTests *********
@@ -182,7 +182,7 @@ Totals: 17 passed, 0 failed, 0 skipped, 0 blacklisted, 2ms
 Test time =   0.01 sec
 ----------------------------------------------------------
 Test Passed.
-"BookQuery" end time: Oct 10 18:29 BST
+"BookQuery" end time: Oct 10 18:38 BST
 "BookQuery" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -190,7 +190,7 @@ Test Passed.
 7/13 Test: MemoryQuery
 Command: "/home/rich/BoH-Catalogue-Assistant/qt/build/test_MemoryQuery"
 Directory: /home/rich/BoH-Catalogue-Assistant/qt/build
-"MemoryQuery" start time: Oct 10 18:29 BST
+"MemoryQuery" start time: Oct 10 18:38 BST
 Output:
 ----------------------------------------------------------
 ********* Start testing of MemoryQueryTests *********
@@ -213,7 +213,7 @@ Totals: 12 passed, 0 failed, 0 skipped, 0 blacklisted, 2ms
 Test time =   0.01 sec
 ----------------------------------------------------------
 Test Passed.
-"MemoryQuery" end time: Oct 10 18:29 BST
+"MemoryQuery" end time: Oct 10 18:38 BST
 "MemoryQuery" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -221,7 +221,7 @@ Test Passed.
 8/13 Test: SkillQuery
 Command: "/home/rich/BoH-Catalogue-Assistant/qt/build/test_SkillQuery"
 Directory: /home/rich/BoH-Catalogue-Assistant/qt/build
-"SkillQuery" start time: Oct 10 18:29 BST
+"SkillQuery" start time: Oct 10 18:38 BST
 Output:
 ----------------------------------------------------------
 ********* Start testing of SkillQueryTests *********
@@ -241,7 +241,7 @@ Totals: 9 passed, 0 failed, 0 skipped, 0 blacklisted, 2ms
 Test time =   0.01 sec
 ----------------------------------------------------------
 Test Passed.
-"SkillQuery" end time: Oct 10 18:29 BST
+"SkillQuery" end time: Oct 10 18:38 BST
 "SkillQuery" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -249,7 +249,7 @@ Test Passed.
 9/13 Test: Repositories
 Command: "/home/rich/BoH-Catalogue-Assistant/qt/build/test_Repositories"
 Directory: /home/rich/BoH-Catalogue-Assistant/qt/build
-"Repositories" start time: Oct 10 18:29 BST
+"Repositories" start time: Oct 10 18:38 BST
 Output:
 ----------------------------------------------------------
 ********* Start testing of RepositoryTests *********
@@ -278,13 +278,13 @@ PASS   : RepositoryTests::skillLifecycleAndContributions()
 PASS   : RepositoryTests::languagesDoNotCountAsSkillContributions()
 PASS   : RepositoryTests::journalLifecycle()
 PASS   : RepositoryTests::cleanupTestCase()
-Totals: 24 passed, 0 failed, 0 skipped, 0 blacklisted, 177ms
+Totals: 24 passed, 0 failed, 0 skipped, 0 blacklisted, 181ms
 ********* Finished testing of RepositoryTests *********
 <end of output>
 Test time =   0.19 sec
 ----------------------------------------------------------
 Test Passed.
-"Repositories" end time: Oct 10 18:29 BST
+"Repositories" end time: Oct 10 18:38 BST
 "Repositories" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -292,7 +292,7 @@ Test Passed.
 10/13 Test: PlaythroughRepository
 Command: "/home/rich/BoH-Catalogue-Assistant/qt/build/test_PlaythroughRepository"
 Directory: /home/rich/BoH-Catalogue-Assistant/qt/build
-"PlaythroughRepository" start time: Oct 10 18:29 BST
+"PlaythroughRepository" start time: Oct 10 18:38 BST
 Output:
 ----------------------------------------------------------
 ********* Start testing of PlaythroughRepositoryTests *********
@@ -303,13 +303,13 @@ PASS   : PlaythroughRepositoryTests::insertSetAndGetRoundTrip()
 PASS   : PlaythroughRepositoryTests::scopingIsolatesPlaythroughs()
 PASS   : PlaythroughRepositoryTests::deletingPlaythroughCascadesFindings()
 PASS   : PlaythroughRepositoryTests::cleanupTestCase()
-Totals: 6 passed, 0 failed, 0 skipped, 0 blacklisted, 36ms
+Totals: 6 passed, 0 failed, 0 skipped, 0 blacklisted, 28ms
 ********* Finished testing of PlaythroughRepositoryTests *********
 <end of output>
-Test time =   0.05 sec
+Test time =   0.04 sec
 ----------------------------------------------------------
 Test Passed.
-"PlaythroughRepository" end time: Oct 10 18:29 BST
+"PlaythroughRepository" end time: Oct 10 18:38 BST
 "PlaythroughRepository" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -317,7 +317,7 @@ Test Passed.
 11/13 Test: SaveImport
 Command: "/home/rich/BoH-Catalogue-Assistant/qt/build/test_SaveImport"
 Directory: /home/rich/BoH-Catalogue-Assistant/qt/build
-"SaveImport" start time: Oct 10 18:29 BST
+"SaveImport" start time: Oct 10 18:38 BST
 Output:
 ----------------------------------------------------------
 ********* Start testing of SaveImportTests *********
@@ -342,13 +342,13 @@ PASS   : SaveImportTests::discoveryFindsTheRealInstallWhenPresent()
 PASS   : SaveImportTests::importFromRealInstalledGameAndSave()
 PASS   : SaveImportTests::saveScannerFindsOnlyValidSaves()
 PASS   : SaveImportTests::cleanupTestCase()
-Totals: 20 passed, 0 failed, 0 skipped, 0 blacklisted, 574ms
+Totals: 20 passed, 0 failed, 0 skipped, 0 blacklisted, 538ms
 ********* Finished testing of SaveImportTests *********
 <end of output>
-Test time =   0.59 sec
+Test time =   0.55 sec
 ----------------------------------------------------------
 Test Passed.
-"SaveImport" end time: Oct 10 18:29 BST
+"SaveImport" end time: Oct 10 18:38 BST
 "SaveImport" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -356,7 +356,7 @@ Test Passed.
 12/13 Test: DatabaseLocation
 Command: "/home/rich/BoH-Catalogue-Assistant/qt/build/test_DatabaseLocation"
 Directory: /home/rich/BoH-Catalogue-Assistant/qt/build
-"DatabaseLocation" start time: Oct 10 18:29 BST
+"DatabaseLocation" start time: Oct 10 18:38 BST
 Output:
 ----------------------------------------------------------
 ********* Start testing of DatabaseLocationTests *********
@@ -367,13 +367,13 @@ PASS   : DatabaseLocationTests::currentDirectoryDbWinsOverXdg()
 PASS   : DatabaseLocationTests::xdgDataHomeIsHonoredAndCreatedWithTightPerms()
 PASS   : DatabaseLocationTests::xdgFallsBackToLocalShare()
 PASS   : DatabaseLocationTests::cleanupTestCase()
-Totals: 6 passed, 0 failed, 0 skipped, 0 blacklisted, 2ms
+Totals: 6 passed, 0 failed, 0 skipped, 0 blacklisted, 3ms
 ********* Finished testing of DatabaseLocationTests *********
 <end of output>
 Test time =   0.01 sec
 ----------------------------------------------------------
 Test Passed.
-"DatabaseLocation" end time: Oct 10 18:29 BST
+"DatabaseLocation" end time: Oct 10 18:38 BST
 "DatabaseLocation" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -381,7 +381,7 @@ Test Passed.
 13/13 Test: AppController
 Command: "/home/rich/BoH-Catalogue-Assistant/qt/build/test_AppController"
 Directory: /home/rich/BoH-Catalogue-Assistant/qt/build
-"AppController" start time: Oct 10 18:29 BST
+"AppController" start time: Oct 10 18:38 BST
 Output:
 ----------------------------------------------------------
 ********* Start testing of AppControllerTests *********
@@ -392,14 +392,14 @@ PASS   : AppControllerTests::bootstrapFailsLoudWhenEnvPathDirIsMissing()
 PASS   : AppControllerTests::bootstrapFailsLoudOnABrokenSetup()
 PASS   : AppControllerTests::switchPlaythroughRemountsAndCountsFollow()
 PASS   : AppControllerTests::cleanupTestCase()
-Totals: 6 passed, 0 failed, 0 skipped, 0 blacklisted, 32ms
+Totals: 6 passed, 0 failed, 0 skipped, 0 blacklisted, 31ms
 ********* Finished testing of AppControllerTests *********
 <end of output>
 Test time =   0.07 sec
 ----------------------------------------------------------
 Test Passed.
-"AppController" end time: Oct 10 18:29 BST
+"AppController" end time: Oct 10 18:38 BST
 "AppController" time elapsed: 00:00:00
 ----------------------------------------------------------
 
-End testing: Oct 10 18:29 BST
+End testing: Oct 10 18:38 BST

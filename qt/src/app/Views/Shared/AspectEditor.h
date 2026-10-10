@@ -22,6 +22,8 @@ public:
     explicit AspectEditor(const std::vector<Principle>& principles, QWidget* parent = nullptr);
 
     std::vector<AspectDraft> aspects() const;
+    /// Replace all rows (edit-form pre-fill).
+    void setAspects(const std::vector<AspectDraft>& aspects);
 
 private:
     void addRow();

@@ -35,6 +35,7 @@ private:
 
     AppController& m_controller;
     class BooksScreen* m_booksScreen = nullptr;
+    class MemoriesScreen* m_memoriesScreen = nullptr;
     Sidebar* m_sidebar = nullptr;
     QStackedWidget* m_sections = nullptr;
     QLabel* m_footerLeft = nullptr;

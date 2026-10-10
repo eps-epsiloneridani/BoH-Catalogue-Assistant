@@ -18,6 +18,7 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/home/rich/BoH-Catalogue-Assistant/qt/src/app/Views/Books/BooksScreen.cpp" "CMakeFiles/bohapp.dir/src/app/Views/Books/BooksScreen.cpp.o" "gcc" "CMakeFiles/bohapp.dir/src/app/Views/Books/BooksScreen.cpp.o.d"
   "/home/rich/BoH-Catalogue-Assistant/qt/src/app/Views/Books/RecordReadDialog.cpp" "CMakeFiles/bohapp.dir/src/app/Views/Books/RecordReadDialog.cpp.o" "gcc" "CMakeFiles/bohapp.dir/src/app/Views/Books/RecordReadDialog.cpp.o.d"
   "/home/rich/BoH-Catalogue-Assistant/qt/src/app/Views/MainWindow.cpp" "CMakeFiles/bohapp.dir/src/app/Views/MainWindow.cpp.o" "gcc" "CMakeFiles/bohapp.dir/src/app/Views/MainWindow.cpp.o.d"
+  "/home/rich/BoH-Catalogue-Assistant/qt/src/app/Views/Memories/MemoriesScreen.cpp" "CMakeFiles/bohapp.dir/src/app/Views/Memories/MemoriesScreen.cpp.o" "gcc" "CMakeFiles/bohapp.dir/src/app/Views/Memories/MemoriesScreen.cpp.o.d"
   "/home/rich/BoH-Catalogue-Assistant/qt/src/app/Views/Shared/AspectEditor.cpp" "CMakeFiles/bohapp.dir/src/app/Views/Shared/AspectEditor.cpp.o" "gcc" "CMakeFiles/bohapp.dir/src/app/Views/Shared/AspectEditor.cpp.o.d"
   "/home/rich/BoH-Catalogue-Assistant/qt/src/app/Views/Shared/Badges.cpp" "CMakeFiles/bohapp.dir/src/app/Views/Shared/Badges.cpp.o" "gcc" "CMakeFiles/bohapp.dir/src/app/Views/Shared/Badges.cpp.o.d"
   "/home/rich/BoH-Catalogue-Assistant/qt/src/app/Views/Shared/BookRowDelegate.cpp" "CMakeFiles/bohapp.dir/src/app/Views/Shared/BookRowDelegate.cpp.o" "gcc" "CMakeFiles/bohapp.dir/src/app/Views/Shared/BookRowDelegate.cpp.o.d"

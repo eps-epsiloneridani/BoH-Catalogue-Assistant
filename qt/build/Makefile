@@ -1112,6 +1112,30 @@ src/app/Views/MainWindow.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/bohapp.dir/build.make CMakeFiles/bohapp.dir/src/app/Views/MainWindow.cpp.s
 .PHONY : src/app/Views/MainWindow.cpp.s
 
+src/app/Views/Memories/MemoriesScreen.o: src/app/Views/Memories/MemoriesScreen.cpp.o
+.PHONY : src/app/Views/Memories/MemoriesScreen.o
+
+# target to build an object file
+src/app/Views/Memories/MemoriesScreen.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bohapp.dir/build.make CMakeFiles/bohapp.dir/src/app/Views/Memories/MemoriesScreen.cpp.o
+.PHONY : src/app/Views/Memories/MemoriesScreen.cpp.o
+
+src/app/Views/Memories/MemoriesScreen.i: src/app/Views/Memories/MemoriesScreen.cpp.i
+.PHONY : src/app/Views/Memories/MemoriesScreen.i
+
+# target to preprocess a source file
+src/app/Views/Memories/MemoriesScreen.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bohapp.dir/build.make CMakeFiles/bohapp.dir/src/app/Views/Memories/MemoriesScreen.cpp.i
+.PHONY : src/app/Views/Memories/MemoriesScreen.cpp.i
+
+src/app/Views/Memories/MemoriesScreen.s: src/app/Views/Memories/MemoriesScreen.cpp.s
+.PHONY : src/app/Views/Memories/MemoriesScreen.s
+
+# target to generate assembly for a file
+src/app/Views/Memories/MemoriesScreen.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bohapp.dir/build.make CMakeFiles/bohapp.dir/src/app/Views/Memories/MemoriesScreen.cpp.s
+.PHONY : src/app/Views/Memories/MemoriesScreen.cpp.s
+
 src/app/Views/Shared/AspectEditor.o: src/app/Views/Shared/AspectEditor.cpp.o
 .PHONY : src/app/Views/Shared/AspectEditor.o
 
@@ -2365,6 +2389,9 @@ help:
 	@echo "... src/app/Views/MainWindow.o"
 	@echo "... src/app/Views/MainWindow.i"
 	@echo "... src/app/Views/MainWindow.s"
+	@echo "... src/app/Views/Memories/MemoriesScreen.o"
+	@echo "... src/app/Views/Memories/MemoriesScreen.i"
+	@echo "... src/app/Views/Memories/MemoriesScreen.s"
 	@echo "... src/app/Views/Shared/AspectEditor.o"
 	@echo "... src/app/Views/Shared/AspectEditor.i"
 	@echo "... src/app/Views/Shared/AspectEditor.s"

@@ -22,6 +22,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/bohapp.dir/src/app/Views/Books/RecordReadDialog.cpp.o.d"
   "CMakeFiles/bohapp.dir/src/app/Views/MainWindow.cpp.o"
   "CMakeFiles/bohapp.dir/src/app/Views/MainWindow.cpp.o.d"
+  "CMakeFiles/bohapp.dir/src/app/Views/Memories/MemoriesScreen.cpp.o"
+  "CMakeFiles/bohapp.dir/src/app/Views/Memories/MemoriesScreen.cpp.o.d"
   "CMakeFiles/bohapp.dir/src/app/Views/Shared/AspectEditor.cpp.o"
   "CMakeFiles/bohapp.dir/src/app/Views/Shared/AspectEditor.cpp.o.d"
   "CMakeFiles/bohapp.dir/src/app/Views/Shared/Badges.cpp.o"
