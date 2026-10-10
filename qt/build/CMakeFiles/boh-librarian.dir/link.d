@@ -39,7 +39,6 @@ boh-librarian: \
   /usr/lib/gcc/x86_64-linux-gnu/14/libgcc.a \
   /usr/lib/gcc/x86_64-linux-gnu/14/crtendS.o \
   /usr/lib/gcc/x86_64-linux-gnu/14/../../../x86_64-linux-gnu/crtn.o \
-  /lib/x86_64-linux-gnu/libm.so.6 \
   /lib/i386-linux-gnu/libEGL.so.1 \
   /usr/lib/i386-linux-gnu/libEGL.so.1 \
   /lib/x86_64-linux-gnu/libEGL.so.1 \
@@ -206,8 +205,6 @@ libbohcore.a:
 /usr/lib/gcc/x86_64-linux-gnu/14/crtendS.o:
 
 /usr/lib/gcc/x86_64-linux-gnu/14/../../../x86_64-linux-gnu/crtn.o:
-
-/lib/x86_64-linux-gnu/libm.so.6:
 
 /lib/i386-linux-gnu/libEGL.so.1:
 

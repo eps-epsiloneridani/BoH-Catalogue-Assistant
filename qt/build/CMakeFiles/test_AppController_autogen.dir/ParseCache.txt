@@ -4,13 +4,24 @@
  mid:test_AppController.moc
  mdp:/home/rich/BoH-Catalogue-Assistant/qt/build/test_AppController_autogen/moc_predefs.h
  mdp:/home/rich/BoH-Catalogue-Assistant/qt/src/app/AppController.h
+ mdp:/home/rich/BoH-Catalogue-Assistant/qt/src/app/Stores/BooksStore.h
+ mdp:/home/rich/BoH-Catalogue-Assistant/qt/src/app/Stores/JournalStore.h
+ mdp:/home/rich/BoH-Catalogue-Assistant/qt/src/app/Stores/MemoriesStore.h
+ mdp:/home/rich/BoH-Catalogue-Assistant/qt/src/app/Stores/ReadingHelperStore.h
+ mdp:/home/rich/BoH-Catalogue-Assistant/qt/src/app/Stores/SkillsStore.h
+ mdp:/home/rich/BoH-Catalogue-Assistant/qt/src/core/BookQuery.h
+ mdp:/home/rich/BoH-Catalogue-Assistant/qt/src/core/MemoryQuery.h
  mdp:/home/rich/BoH-Catalogue-Assistant/qt/src/core/Migrator.h
  mdp:/home/rich/BoH-Catalogue-Assistant/qt/src/core/Models.h
  mdp:/home/rich/BoH-Catalogue-Assistant/qt/src/core/Repositories/BookRepository.h
+ mdp:/home/rich/BoH-Catalogue-Assistant/qt/src/core/Repositories/JournalRepository.h
  mdp:/home/rich/BoH-Catalogue-Assistant/qt/src/core/Repositories/LookupRepositories.h
+ mdp:/home/rich/BoH-Catalogue-Assistant/qt/src/core/Repositories/MemoryRepository.h
  mdp:/home/rich/BoH-Catalogue-Assistant/qt/src/core/Repositories/PlaythroughRepository.h
+ mdp:/home/rich/BoH-Catalogue-Assistant/qt/src/core/Repositories/SkillRepository.h
  mdp:/home/rich/BoH-Catalogue-Assistant/qt/src/core/SQLiteDatabase.h
  mdp:/home/rich/BoH-Catalogue-Assistant/qt/src/core/SQLiteValue.h
+ mdp:/home/rich/BoH-Catalogue-Assistant/qt/src/core/SkillQuery.h
  mdp:/home/rich/BoH-Catalogue-Assistant/qt/tests/test_AppController.cpp
  mdp:/usr/include/alloca.h
  mdp:/usr/include/asm-generic/bitsperlong.h
@@ -361,6 +372,7 @@
  mdp:/usr/include/x86_64-linux-gnu/qt6/QtCore/QMutex
  mdp:/usr/include/x86_64-linux-gnu/qt6/QtCore/QObject
  mdp:/usr/include/x86_64-linux-gnu/qt6/QtCore/QRect
+ mdp:/usr/include/x86_64-linux-gnu/qt6/QtCore/QSet
  mdp:/usr/include/x86_64-linux-gnu/qt6/QtCore/QSize
  mdp:/usr/include/x86_64-linux-gnu/qt6/QtCore/QSizeF
  mdp:/usr/include/x86_64-linux-gnu/qt6/QtCore/QString

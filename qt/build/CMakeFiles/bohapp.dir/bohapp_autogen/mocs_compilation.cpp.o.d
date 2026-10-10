@@ -420,10 +420,10 @@ CMakeFiles/bohapp.dir/bohapp_autogen/mocs_compilation.cpp.o: \
  /home/rich/BoH-Catalogue-Assistant/qt/build/bohapp_autogen/QLRDJBIM37/moc_MemoriesStore.cpp \
  /home/rich/BoH-Catalogue-Assistant/qt/build/bohapp_autogen/QLRDJBIM37/moc_ReadingHelperStore.cpp \
  /home/rich/BoH-Catalogue-Assistant/qt/build/bohapp_autogen/QLRDJBIM37/moc_SkillsStore.cpp \
- /home/rich/BoH-Catalogue-Assistant/qt/build/bohapp_autogen/KZ2CQRJLRB/moc_MainWindow.cpp \
- /home/rich/BoH-Catalogue-Assistant/qt/build/bohapp_autogen/KZ2CQRJLRB/../../../src/app/Views/MainWindow.h \
- /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QMainWindow \
- /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qmainwindow.h \
+ /home/rich/BoH-Catalogue-Assistant/qt/build/bohapp_autogen/NFBRDKPPNV/moc_BooksScreen.cpp \
+ /home/rich/BoH-Catalogue-Assistant/qt/build/bohapp_autogen/NFBRDKPPNV/../../../src/app/Views/Books/BooksScreen.h \
+ /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QDialog \
+ /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qdialog.h \
  /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qtwidgetsglobal.h \
  /usr/include/x86_64-linux-gnu/qt6/QtGui/qtguiglobal.h \
  /usr/include/x86_64-linux-gnu/qt6/QtGui/qtgui-config.h \
@@ -475,19 +475,26 @@ CMakeFiles/bohapp.dir/bohapp_autogen/mocs_compilation.cpp.o: \
  /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qsizepolicy.h \
  /usr/include/x86_64-linux-gnu/qt6/QtGui/qcursor.h \
  /usr/include/x86_64-linux-gnu/qt6/QtGui/qbitmap.h \
+ /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QVBoxLayout \
+ /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qboxlayout.h \
+ /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qlayout.h \
+ /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qlayoutitem.h \
+ /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qboxlayout.h \
+ /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qgridlayout.h \
+ /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QWidget \
+ /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qwidget.h \
+ /home/rich/BoH-Catalogue-Assistant/qt/build/bohapp_autogen/KZ2CQRJLRB/moc_MainWindow.cpp \
+ /home/rich/BoH-Catalogue-Assistant/qt/build/bohapp_autogen/KZ2CQRJLRB/../../../src/app/Views/MainWindow.h \
+ /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QMainWindow \
+ /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qmainwindow.h \
  /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qtabwidget.h \
  /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QStackedWidget \
  /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qstackedwidget.h \
  /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qframe.h \
- /home/rich/BoH-Catalogue-Assistant/qt/build/bohapp_autogen/KZ2CQRJLRB/moc_Sidebar.cpp \
- /home/rich/BoH-Catalogue-Assistant/qt/build/bohapp_autogen/KZ2CQRJLRB/../../../src/app/Views/Sidebar.h \
- /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QListWidget \
- /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qlistwidget.h \
- /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qlistview.h \
- /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qabstractitemview.h \
- /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qabstractscrollarea.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qabstractitemmodel.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qitemselectionmodel.h \
+ /home/rich/BoH-Catalogue-Assistant/qt/build/bohapp_autogen/P2LIO7MJ6I/moc_BookRowDelegate.cpp \
+ /home/rich/BoH-Catalogue-Assistant/qt/build/bohapp_autogen/P2LIO7MJ6I/../../../src/app/Views/Shared/BookRowDelegate.h \
+ /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QStyledItemDelegate \
+ /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qstyleditemdelegate.h \
  /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qabstractitemdelegate.h \
  /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qstyleoption.h \
  /usr/include/x86_64-linux-gnu/qt6/QtCore/qlocale.h \
@@ -499,5 +506,12 @@ CMakeFiles/bohapp.dir/bohapp_autogen/mocs_compilation.cpp.o: \
  /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qstyle.h \
  /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qtabbar.h \
  /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qrubberband.h \
- /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QWidget \
- /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qwidget.h
+ /usr/include/x86_64-linux-gnu/qt6/QtCore/qabstractitemmodel.h \
+ /home/rich/BoH-Catalogue-Assistant/qt/build/bohapp_autogen/KZ2CQRJLRB/moc_Sidebar.cpp \
+ /home/rich/BoH-Catalogue-Assistant/qt/build/bohapp_autogen/KZ2CQRJLRB/../../../src/app/Views/Sidebar.h \
+ /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QListWidget \
+ /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qlistwidget.h \
+ /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qlistview.h \
+ /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qabstractitemview.h \
+ /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qabstractscrollarea.h \
+ /usr/include/x86_64-linux-gnu/qt6/QtCore/qitemselectionmodel.h

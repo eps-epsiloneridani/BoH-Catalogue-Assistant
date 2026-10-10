@@ -33,8 +33,10 @@ public:
     /// Runs one mutation, reloads on success, records the error otherwise.
     bool perform(const QString& label, const std::function<void()>& operation);
     QString lastError() const { return m_lastError; }
+    void clearError() { m_lastError.clear(); }
 
     // MARK: Derived
+    const std::vector<Book>& books() const { return m_books; }
     std::vector<Book> displayed() const;
     std::optional<Book> selectedBook() const;
 

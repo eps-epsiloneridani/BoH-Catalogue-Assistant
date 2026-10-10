@@ -15,7 +15,10 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/home/rich/BoH-Catalogue-Assistant/qt/src/app/Stores/MemoriesStore.cpp" "CMakeFiles/bohapp.dir/src/app/Stores/MemoriesStore.cpp.o" "gcc" "CMakeFiles/bohapp.dir/src/app/Stores/MemoriesStore.cpp.o.d"
   "/home/rich/BoH-Catalogue-Assistant/qt/src/app/Stores/ReadingHelperStore.cpp" "CMakeFiles/bohapp.dir/src/app/Stores/ReadingHelperStore.cpp.o" "gcc" "CMakeFiles/bohapp.dir/src/app/Stores/ReadingHelperStore.cpp.o.d"
   "/home/rich/BoH-Catalogue-Assistant/qt/src/app/Stores/SkillsStore.cpp" "CMakeFiles/bohapp.dir/src/app/Stores/SkillsStore.cpp.o" "gcc" "CMakeFiles/bohapp.dir/src/app/Stores/SkillsStore.cpp.o.d"
+  "/home/rich/BoH-Catalogue-Assistant/qt/src/app/Views/Books/BooksScreen.cpp" "CMakeFiles/bohapp.dir/src/app/Views/Books/BooksScreen.cpp.o" "gcc" "CMakeFiles/bohapp.dir/src/app/Views/Books/BooksScreen.cpp.o.d"
   "/home/rich/BoH-Catalogue-Assistant/qt/src/app/Views/MainWindow.cpp" "CMakeFiles/bohapp.dir/src/app/Views/MainWindow.cpp.o" "gcc" "CMakeFiles/bohapp.dir/src/app/Views/MainWindow.cpp.o.d"
+  "/home/rich/BoH-Catalogue-Assistant/qt/src/app/Views/Shared/Badges.cpp" "CMakeFiles/bohapp.dir/src/app/Views/Shared/Badges.cpp.o" "gcc" "CMakeFiles/bohapp.dir/src/app/Views/Shared/Badges.cpp.o.d"
+  "/home/rich/BoH-Catalogue-Assistant/qt/src/app/Views/Shared/BookRowDelegate.cpp" "CMakeFiles/bohapp.dir/src/app/Views/Shared/BookRowDelegate.cpp.o" "gcc" "CMakeFiles/bohapp.dir/src/app/Views/Shared/BookRowDelegate.cpp.o.d"
   "/home/rich/BoH-Catalogue-Assistant/qt/src/app/Views/Sidebar.cpp" "CMakeFiles/bohapp.dir/src/app/Views/Sidebar.cpp.o" "gcc" "CMakeFiles/bohapp.dir/src/app/Views/Sidebar.cpp.o.d"
   )
 

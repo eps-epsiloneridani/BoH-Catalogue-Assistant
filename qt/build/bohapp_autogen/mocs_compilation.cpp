@@ -5,5 +5,7 @@
 #include "QLRDJBIM37/moc_MemoriesStore.cpp"
 #include "QLRDJBIM37/moc_ReadingHelperStore.cpp"
 #include "QLRDJBIM37/moc_SkillsStore.cpp"
+#include "NFBRDKPPNV/moc_BooksScreen.cpp"
 #include "KZ2CQRJLRB/moc_MainWindow.cpp"
+#include "P2LIO7MJ6I/moc_BookRowDelegate.cpp"
 #include "KZ2CQRJLRB/moc_Sidebar.cpp"

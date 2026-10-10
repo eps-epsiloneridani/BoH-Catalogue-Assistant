@@ -260,6 +260,7 @@
 	"MOC_INCLUDES" : 
 	[
 		"/home/rich/BoH-Catalogue-Assistant/qt/src/app",
+		"/home/rich/BoH-Catalogue-Assistant/qt/src/app/Views",
 		"/home/rich/BoH-Catalogue-Assistant/qt/src/core",
 		"/home/rich/BoH-Catalogue-Assistant/qt/src/core/Repositories",
 		"/usr/include/x86_64-linux-gnu/qt6/QtCore",

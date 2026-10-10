@@ -71,8 +71,12 @@ add_library(bohapp STATIC
   src/app/Stores/SkillsStore.h src/app/Stores/SkillsStore.cpp
   src/app/Views/MainWindow.h src/app/Views/MainWindow.cpp
   src/app/Views/Sidebar.h src/app/Views/Sidebar.cpp
+  src/app/Views/Books/BooksScreen.h src/app/Views/Books/BooksScreen.cpp
+  src/app/Views/Shared/Badges.h src/app/Views/Shared/Badges.cpp
+  src/app/Views/Shared/BookRowDelegate.h src/app/Views/Shared/BookRowDelegate.cpp
 )
-target_include_directories(bohapp PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/src/app)
+target_include_directories(bohapp PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/src/app
+                                         ${CMAKE_CURRENT_SOURCE_DIR}/src/app/Views)
 target_link_libraries(bohapp PUBLIC bohcore Qt6::Core Qt6::Gui Qt6::Widgets)
 
 add_executable(boh-librarian

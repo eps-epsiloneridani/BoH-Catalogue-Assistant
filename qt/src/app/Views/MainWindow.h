@@ -34,6 +34,7 @@ private:
     void selectSection(int index);
 
     AppController& m_controller;
+    class BooksScreen* m_booksScreen = nullptr;
     Sidebar* m_sidebar = nullptr;
     QStackedWidget* m_sections = nullptr;
     QLabel* m_footerLeft = nullptr;
