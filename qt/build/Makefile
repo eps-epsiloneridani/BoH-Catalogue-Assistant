@@ -1088,6 +1088,30 @@ src/app/Views/Books/RecordReadDialog.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/bohapp.dir/build.make CMakeFiles/bohapp.dir/src/app/Views/Books/RecordReadDialog.cpp.s
 .PHONY : src/app/Views/Books/RecordReadDialog.cpp.s
 
+src/app/Views/Journal/JournalScreen.o: src/app/Views/Journal/JournalScreen.cpp.o
+.PHONY : src/app/Views/Journal/JournalScreen.o
+
+# target to build an object file
+src/app/Views/Journal/JournalScreen.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bohapp.dir/build.make CMakeFiles/bohapp.dir/src/app/Views/Journal/JournalScreen.cpp.o
+.PHONY : src/app/Views/Journal/JournalScreen.cpp.o
+
+src/app/Views/Journal/JournalScreen.i: src/app/Views/Journal/JournalScreen.cpp.i
+.PHONY : src/app/Views/Journal/JournalScreen.i
+
+# target to preprocess a source file
+src/app/Views/Journal/JournalScreen.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bohapp.dir/build.make CMakeFiles/bohapp.dir/src/app/Views/Journal/JournalScreen.cpp.i
+.PHONY : src/app/Views/Journal/JournalScreen.cpp.i
+
+src/app/Views/Journal/JournalScreen.s: src/app/Views/Journal/JournalScreen.cpp.s
+.PHONY : src/app/Views/Journal/JournalScreen.s
+
+# target to generate assembly for a file
+src/app/Views/Journal/JournalScreen.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bohapp.dir/build.make CMakeFiles/bohapp.dir/src/app/Views/Journal/JournalScreen.cpp.s
+.PHONY : src/app/Views/Journal/JournalScreen.cpp.s
+
 src/app/Views/MainWindow.o: src/app/Views/MainWindow.cpp.o
 .PHONY : src/app/Views/MainWindow.o
 
@@ -1255,6 +1279,30 @@ src/app/Views/Sidebar.s: src/app/Views/Sidebar.cpp.s
 src/app/Views/Sidebar.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/bohapp.dir/build.make CMakeFiles/bohapp.dir/src/app/Views/Sidebar.cpp.s
 .PHONY : src/app/Views/Sidebar.cpp.s
+
+src/app/Views/Skills/SkillsScreen.o: src/app/Views/Skills/SkillsScreen.cpp.o
+.PHONY : src/app/Views/Skills/SkillsScreen.o
+
+# target to build an object file
+src/app/Views/Skills/SkillsScreen.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bohapp.dir/build.make CMakeFiles/bohapp.dir/src/app/Views/Skills/SkillsScreen.cpp.o
+.PHONY : src/app/Views/Skills/SkillsScreen.cpp.o
+
+src/app/Views/Skills/SkillsScreen.i: src/app/Views/Skills/SkillsScreen.cpp.i
+.PHONY : src/app/Views/Skills/SkillsScreen.i
+
+# target to preprocess a source file
+src/app/Views/Skills/SkillsScreen.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bohapp.dir/build.make CMakeFiles/bohapp.dir/src/app/Views/Skills/SkillsScreen.cpp.i
+.PHONY : src/app/Views/Skills/SkillsScreen.cpp.i
+
+src/app/Views/Skills/SkillsScreen.s: src/app/Views/Skills/SkillsScreen.cpp.s
+.PHONY : src/app/Views/Skills/SkillsScreen.s
+
+# target to generate assembly for a file
+src/app/Views/Skills/SkillsScreen.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bohapp.dir/build.make CMakeFiles/bohapp.dir/src/app/Views/Skills/SkillsScreen.cpp.s
+.PHONY : src/app/Views/Skills/SkillsScreen.cpp.s
 
 src/app/main.o: src/app/main.cpp.o
 .PHONY : src/app/main.o
@@ -2410,6 +2458,9 @@ help:
 	@echo "... src/app/Views/Books/RecordReadDialog.o"
 	@echo "... src/app/Views/Books/RecordReadDialog.i"
 	@echo "... src/app/Views/Books/RecordReadDialog.s"
+	@echo "... src/app/Views/Journal/JournalScreen.o"
+	@echo "... src/app/Views/Journal/JournalScreen.i"
+	@echo "... src/app/Views/Journal/JournalScreen.s"
 	@echo "... src/app/Views/MainWindow.o"
 	@echo "... src/app/Views/MainWindow.i"
 	@echo "... src/app/Views/MainWindow.s"
@@ -2431,6 +2482,9 @@ help:
 	@echo "... src/app/Views/Sidebar.o"
 	@echo "... src/app/Views/Sidebar.i"
 	@echo "... src/app/Views/Sidebar.s"
+	@echo "... src/app/Views/Skills/SkillsScreen.o"
+	@echo "... src/app/Views/Skills/SkillsScreen.i"
+	@echo "... src/app/Views/Skills/SkillsScreen.s"
 	@echo "... src/app/main.o"
 	@echo "... src/app/main.i"
 	@echo "... src/app/main.s"
