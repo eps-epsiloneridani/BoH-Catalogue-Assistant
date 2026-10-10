@@ -260,6 +260,13 @@ QStringList BoHPaths::steamLibraryPaths(const QStringList& steamRoots)
     return libraries;
 }
 
+QStringList BoHPaths::nativeSaveDirectoryCandidates()
+{
+    // The native Linux build (bh.x86_64, verified on a real install): Unity's
+    // persistentDataPath on Linux is ~/.config/unity3d/<company>/<product>.
+    return {QDir::homePath() + QStringLiteral("/.config/unity3d/Weather Factory/Book of Hours")};
+}
+
 QStringList BoHPaths::saveDirectoryCandidates(const QStringList& libraryPaths)
 {
     QStringList candidates;
@@ -275,7 +282,11 @@ QStringList BoHPaths::gameElementsDirectoryCandidates(const QStringList& library
 {
     QStringList candidates;
     for (const QString& library : libraryPaths) {
-        // Proton runs the Windows build: <Game>_Data, not Contents/Resources.
+        // Native Linux build first (bh_Data — verified on a real install), then
+        // the Proton/Windows layout (<Game>_Data).
+        candidates << library
+                          + QStringLiteral("/steamapps/common/Book of Hours/bh_Data/"
+                                           "StreamingAssets/bhcontent/core/elements");
         candidates << library
                           + QStringLiteral("/steamapps/common/Book of Hours/Book of Hours_Data/"
                                            "StreamingAssets/bhcontent/core/elements");
@@ -297,7 +308,10 @@ std::optional<QString> BoHPaths::saveDirectory()
     const QString override = qEnvironmentVariable("BOH_SAVE_DIR");
     if (!override.isEmpty())
         return override;
-    return firstExisting(saveDirectoryCandidates(steamLibraryPaths(steamRoots())));
+    // Native-build saves first, then Proton prefixes.
+    QStringList candidates = nativeSaveDirectoryCandidates();
+    candidates << saveDirectoryCandidates(steamLibraryPaths(steamRoots()));
+    return firstExisting(candidates);
 }
 
 std::optional<QString> BoHPaths::gameElementsDirectory()
@@ -540,13 +554,20 @@ ImportReport SaveImporter::run(const QString& savePath, SQLiteDatabase& db, qint
             draft.isLanguage = isLanguage;
             const auto primary = principleKey(2, def);
             const auto secondary = principleKey(1, def);
+            // Missing from the seeds → nil (Swift dictionary semantics), never 0:
+            // binding 0 would violate the FK.
+            const auto primaryIt = primary.isEmpty() ? principleIDByName.cend()
+                                                     : principleIDByName.constFind(primary.toLower());
+            const auto secondaryIt = secondary.isEmpty()
+                                         ? principleIDByName.cend()
+                                         : principleIDByName.constFind(secondary.toLower());
             draft.primaryPrincipleID =
-                primary.isEmpty() ? std::nullopt
-                                  : std::optional<qint64>(principleIDByName.value(primary.toLower()));
+                primaryIt == principleIDByName.cend() ? std::nullopt
+                                                      : std::optional<qint64>(primaryIt.value());
             draft.secondaryPrincipleID =
-                secondary.isEmpty()
+                secondaryIt == principleIDByName.cend()
                     ? std::nullopt
-                    : std::optional<qint64>(principleIDByName.value(secondary.toLower()));
+                    : std::optional<qint64>(secondaryIt.value());
             draft.level = level;
             if (!wisdom.isEmpty())
                 draft.wisdom = wisdom;
@@ -585,7 +606,10 @@ ImportReport SaveImporter::run(const QString& savePath, SQLiteDatabase& db, qint
         std::optional<int> difficulty;
         for (auto keyIt = aspects.constBegin(); keyIt != aspects.constEnd(); ++keyIt) {
             if (keyIt.key().startsWith(QStringLiteral("mystery."))) {
-                principleID = principleIDByName.value(keyIt.key().mid(QStringLiteral("mystery.").length()).toLower());
+                const auto found =
+                    principleIDByName.constFind(keyIt.key().mid(QStringLiteral("mystery.").length()).toLower());
+                if (found != principleIDByName.cend())
+                    principleID = found.value();
                 difficulty = LenientJSON::intValue(keyIt.value());
                 break;
             }

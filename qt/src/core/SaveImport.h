@@ -66,9 +66,15 @@ public:
     /// Parse each root's libraryfolders.vdf for library paths; a root without a
     /// vdf contributes itself (the default install IS a library).
     static QStringList steamLibraryPaths(const QStringList& steamRoots);
-    /// Per library: the Proton-prefix save directory for app id 1028310.
+    /// The NATIVE Linux build's save directory (Unity writes to
+    /// ~/.config/unity3d/<company>/<product>; verified on a real install —
+    /// Book of Hours ships a native Linux version, Proton not required).
+    static QStringList nativeSaveDirectoryCandidates();
+    /// Per library: the Proton-prefix save directory for app id 1028310
+    /// (used when the player runs the Windows build via Proton).
     static QStringList saveDirectoryCandidates(const QStringList& libraryPaths);
-    /// Per library: the Windows-layout StreamingAssets elements directory.
+    /// Per library: BOTH StreamingAssets layouts — native Linux (`bh_Data`)
+    /// first, then the Proton/Windows layout (`Book of Hours_Data`).
     static QStringList gameElementsDirectoryCandidates(const QStringList& libraryPaths);
     static std::optional<QString> firstExisting(const QStringList& candidates);
 };

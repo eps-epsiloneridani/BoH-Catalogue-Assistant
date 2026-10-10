@@ -24,6 +24,23 @@ formats and the design rules the implementation follows.
 | Game definitions | `…/Steam/steamapps/common/Book of Hours/OSX.app/Contents/Resources/Data/StreamingAssets/bhcontent/core/elements/*.json` | 2,035 element definitions across ~60 files |
 | Modding reference | `StreamingAssets/MODDING_README.txt` | official: mods are the same JSON — the format is meant to be read |
 
+### Linux (verified on a real install, 2026-10-10)
+
+The game ships a **native Linux build** (`bh.x86_64`, `bh_Data` — no Proton
+needed), so the Qt port probes both layouts, native first:
+
+| What | Linux path | Notes |
+|---|---|---|
+| Saves | `~/.config/unity3d/Weather Factory/Book of Hours/*.json` | Unity's Linux persistentDataPath; `AUTOSAVE.json` ~8.2 MB, plain UTF-8 (no BOM) |
+| Saves (Proton) | `<library>/steamapps/compatdata/1028310/pfx/drive_c/users/steamuser/AppData/LocalLow/Weather Factory/Book of Hours` | only if run through Proton |
+| Game definitions | `<library>/steamapps/common/Book of Hours/bh_Data/StreamingAssets/bhcontent/core/elements/*.json` | native; Proton layout is `Book of Hours_Data` (both probed, native first) |
+| Steam libraries | `<steam root>/steamapps/libraryfolders.vdf` (`"path"` entries) | roots probed: `~/.steam/steam`, `~/.local/share/Steam`, `~/.steam/debian-installation`, Flatpak `~/.var/app/com.valvesoftware.Steam/data/Steam` |
+
+Real-save import acceptance (Qt port, first run): 67 books, 30 skills, 20
+memories created; Henavek added; 3 uncatalogued + 3 unacquired auction lots
+skipped; 23 warnings for lessons referencing skills the player hasn't learned
+(expected — no skill row can receive the junction).
+
 ## Save structure (Secret Histories engine)
 
 `RootPopulationCommand.Spheres` → `Tokens` → `Payload`, recursive (rooms contain
