@@ -38,6 +38,18 @@ if [ -z "$PLUGIN_DIR" ]; then
 fi
 mkdir -p "$APPDIR/usr/plugins/platforms" "$APPDIR/usr/plugins/styles" "$APPDIR/usr/plugins/imageformats"
 cp "$PLUGIN_DIR/platforms/libqxcb.so" "$APPDIR/usr/plugins/platforms/"
+# libqxcb's companion libQt6XcbQpa is NOT picked up by linuxdeploy's scan
+# (found by the real-install failure: the plugin then resolved the SYSTEM
+# XcbQpa — 6.8 — against our bundled 6.2 core → symbol-version crash).
+# Ship it explicitly; linuxdeploy bundles its deps (already-present Qt libs).
+XCBPA="$(dirname "$PLUGIN_DIR")/../libQt6XcbQpa.so.6"
+XCBPA="$(readlink -f "$XCBPA")"
+if [ -f "$XCBPA" ]; then
+  mkdir -p "$APPDIR/usr/lib"
+  cp "$XCBPA" "$APPDIR/usr/lib/"
+else
+  echo "warning: libQt6XcbQpa.so.6 not found next to $PLUGIN_DIR" >&2
+fi
 cp "$PLUGIN_DIR/styles/"libqgtk3.so "$APPDIR/usr/plugins/styles/" 2>/dev/null || true
 cp "$PLUGIN_DIR/styles/"libqfusionstyle.so "$APPDIR/usr/plugins/styles/" 2>/dev/null || true
 cp "$PLUGIN_DIR/imageformats/"libqjpeg.so "$APPDIR/usr/plugins/imageformats/" 2>/dev/null || true
