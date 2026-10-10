@@ -15,6 +15,32 @@ find_package(SQLite3 REQUIRED)
 add_library(bohcore STATIC
   src/core/SQLiteValue.cpp
   src/core/SQLiteDatabase.cpp
+  src/core/Migrator.cpp
+)
+# db/migrations embedded verbatim — single schema source, no sync copy (plan
+# Task 3). qt_add_resources (not a checked-in .qrc): rcc's relative-path rules
+# don't reach outside the target tree, CMake resolves these paths itself.
+# Files outside the target dir need an explicit QT_RESOURCE_ALIAS (their name
+# under :/migrations/).
+set(MIGRATION_FILES
+  ../db/migrations/001_initial_schema.sql
+  ../db/migrations/002_seed_principles.sql
+  ../db/migrations/003_seed_languages.sql
+  ../db/migrations/004_rename_difficulty.sql
+  ../db/migrations/005_playthroughs.sql
+  ../db/migrations/006_per_playthrough_unique_names.sql
+  ../db/migrations/007_fix_imported_book_kinds.sql
+  ../db/migrations/008_humanize_transit_locations.sql
+  ../db/migrations/009_remove_unacquired_auction_books.sql
+)
+foreach(migration_file IN ITEMS ${MIGRATION_FILES})
+  get_filename_component(alias "${migration_file}" NAME)
+  set_source_files_properties("${CMAKE_CURRENT_SOURCE_DIR}/${migration_file}"
+    PROPERTIES QT_RESOURCE_ALIAS "${alias}")
+endforeach()
+qt_add_resources(bohcore "migrations"
+  PREFIX "/migrations"
+  FILES ${MIGRATION_FILES}
 )
 target_include_directories(bohcore PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/src/core)
 target_link_libraries(bohcore PUBLIC Qt6::Core SQLite::SQLite3)
@@ -33,3 +59,7 @@ add_test(NAME smoke COMMAND test_smoke)
 add_executable(test_SQLiteDatabase tests/test_SQLiteDatabase.cpp)
 target_link_libraries(test_SQLiteDatabase PRIVATE bohcore Qt6::Core Qt6::Test)
 add_test(NAME SQLiteDatabase COMMAND test_SQLiteDatabase)
+
+add_executable(test_Migrator tests/test_Migrator.cpp)
+target_link_libraries(test_Migrator PRIVATE bohcore Qt6::Core Qt6::Test)
+add_test(NAME Migrator COMMAND test_Migrator)
