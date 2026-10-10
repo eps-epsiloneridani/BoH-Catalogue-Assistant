@@ -55,6 +55,11 @@ public:
     std::optional<Playthrough> activePlaythrough() const { return m_activePlaythrough; }
     Counts counts() const { return m_counts; }
 
+    /// Free text for "which in-game day is it" — pre-fills journal entries and
+    /// the record-read dialog; kept for the whole session.
+    QString currentGameDay() const { return m_currentGameDay; }
+    void setCurrentGameDay(const QString& day) { m_currentGameDay = day; }
+
     // Screen stores (rebuilt when the active playthrough changes).
     BooksStore* booksStore() const { return m_booksStore.get(); }
     MemoriesStore* memoriesStore() const { return m_memoriesStore.get(); }
@@ -86,6 +91,7 @@ private:
     std::vector<Playthrough> m_playthroughs;
     std::optional<Playthrough> m_activePlaythrough;
     Counts m_counts;
+    QString m_currentGameDay;
     std::unique_ptr<BooksStore> m_booksStore;
     std::unique_ptr<MemoriesStore> m_memoriesStore;
     std::unique_ptr<ReadingHelperStore> m_helperStore;

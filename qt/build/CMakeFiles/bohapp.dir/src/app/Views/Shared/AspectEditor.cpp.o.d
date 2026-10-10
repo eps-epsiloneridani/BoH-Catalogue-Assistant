@@ -1,7 +1,7 @@
-CMakeFiles/bohapp.dir/src/app/Views/Books/BooksScreen.cpp.o: \
- /home/rich/BoH-Catalogue-Assistant/qt/src/app/Views/Books/BooksScreen.cpp \
+CMakeFiles/bohapp.dir/src/app/Views/Shared/AspectEditor.cpp.o: \
+ /home/rich/BoH-Catalogue-Assistant/qt/src/app/Views/Shared/AspectEditor.cpp \
  /usr/include/stdc-predef.h \
- /home/rich/BoH-Catalogue-Assistant/qt/src/app/Views/Books/BooksScreen.h \
+ /home/rich/BoH-Catalogue-Assistant/qt/src/app/Views/Shared/AspectEditor.h \
  /home/rich/BoH-Catalogue-Assistant/qt/src/core/Models.h \
  /usr/include/x86_64-linux-gnu/qt6/QtCore/QString \
  /usr/include/x86_64-linux-gnu/qt6/QtCore/qstring.h \
@@ -337,35 +337,28 @@ CMakeFiles/bohapp.dir/src/app/Views/Books/BooksScreen.cpp.o: \
  /usr/include/x86_64-linux-gnu/qt6/QtCore/qstringconverter_base.h \
  /usr/include/x86_64-linux-gnu/qt6/QtCore/QtGlobal \
  /usr/include/x86_64-linux-gnu/qt6/QtCore/qglobal.h \
- /home/rich/BoH-Catalogue-Assistant/qt/src/app/Stores/BooksStore.h \
- /home/rich/BoH-Catalogue-Assistant/qt/src/core/BookQuery.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/QHash \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qhash.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qalgorithms.h \
+ /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QWidget \
+ /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qwidget.h \
+ /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qtwidgetsglobal.h \
+ /usr/include/x86_64-linux-gnu/qt6/QtGui/qtguiglobal.h \
+ /usr/include/x86_64-linux-gnu/qt6/QtGui/qtgui-config.h \
+ /usr/include/x86_64-linux-gnu/qt6/QtGui/qtguiexports.h \
+ /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qtwidgets-config.h \
+ /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qtwidgetsexports.h \
+ /usr/include/x86_64-linux-gnu/qt6/QtGui/qwindowdefs.h \
+ /usr/include/x86_64-linux-gnu/qt6/QtCore/qobjectdefs.h \
+ /usr/include/x86_64-linux-gnu/qt6/QtCore/qobjectdefs_impl.h \
+ /usr/include/x86_64-linux-gnu/qt6/QtCore/qfunctionaltools_impl.h \
+ /usr/include/x86_64-linux-gnu/qt6/QtCore/qobject.h \
+ /usr/include/x86_64-linux-gnu/qt6/QtCore/qlist.h \
  /usr/include/x86_64-linux-gnu/qt6/QtCore/qhashfunctions.h \
  /usr/include/c++/14/numeric /usr/include/c++/14/bits/stl_numeric.h \
  /usr/include/c++/14/pstl/glue_numeric_defs.h \
  /usr/include/x86_64-linux-gnu/qt6/QtCore/qiterator.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qlist.h \
  /usr/include/x86_64-linux-gnu/qt6/QtCore/qbytearraylist.h \
  /usr/include/x86_64-linux-gnu/qt6/QtCore/qstringlist.h \
+ /usr/include/x86_64-linux-gnu/qt6/QtCore/qalgorithms.h \
  /usr/include/x86_64-linux-gnu/qt6/QtCore/qstringmatcher.h \
- /home/rich/BoH-Catalogue-Assistant/qt/src/core/Repositories/BookRepository.h \
- /home/rich/BoH-Catalogue-Assistant/qt/src/core/SQLiteDatabase.h \
- /home/rich/BoH-Catalogue-Assistant/qt/src/core/SQLiteValue.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/QByteArray \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qbytearray.h \
- /usr/include/sqlite3.h /usr/include/x86_64-linux-gnu/qt6/QtCore/QList \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qlist.h \
- /home/rich/BoH-Catalogue-Assistant/qt/src/core/Repositories/JournalRepository.h \
- /home/rich/BoH-Catalogue-Assistant/qt/src/core/Repositories/LookupRepositories.h \
- /home/rich/BoH-Catalogue-Assistant/qt/src/core/Repositories/MemoryRepository.h \
- /home/rich/BoH-Catalogue-Assistant/qt/src/core/Repositories/SkillRepository.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/QObject \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qobject.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qobjectdefs.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qobjectdefs_impl.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qfunctionaltools_impl.h \
  /usr/include/x86_64-linux-gnu/qt6/QtCore/qscopedpointer.h \
  /usr/include/x86_64-linux-gnu/qt6/QtCore/qmetatype.h \
  /usr/include/x86_64-linux-gnu/qt6/QtCore/qdatastream.h \
@@ -400,22 +393,6 @@ CMakeFiles/bohapp.dir/src/app/Views/Books/BooksScreen.cpp.o: \
  /usr/include/c++/14/charconv /usr/include/c++/14/span \
  /usr/include/c++/14/bits/unicode.h \
  /usr/include/c++/14/bits/unicode-data.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/QSet \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qset.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qhash.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/QStringList \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qstringlist.h \
- /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QDialog \
- /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qdialog.h \
- /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qtwidgetsglobal.h \
- /usr/include/x86_64-linux-gnu/qt6/QtGui/qtguiglobal.h \
- /usr/include/x86_64-linux-gnu/qt6/QtGui/qtgui-config.h \
- /usr/include/x86_64-linux-gnu/qt6/QtGui/qtguiexports.h \
- /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qtwidgets-config.h \
- /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qtwidgetsexports.h \
- /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qwidget.h \
- /usr/include/x86_64-linux-gnu/qt6/QtGui/qwindowdefs.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qobject.h \
  /usr/include/x86_64-linux-gnu/qt6/QtCore/qmargins.h \
  /usr/include/x86_64-linux-gnu/qt6/QtCore/q23utility.h \
  /usr/include/x86_64-linux-gnu/qt6/QtGui/qaction.h \
@@ -448,6 +425,7 @@ CMakeFiles/bohapp.dir/src/app/Views/Books/BooksScreen.cpp.o: \
  /usr/include/x86_64-linux-gnu/qt6/QtCore/qmap.h \
  /usr/include/x86_64-linux-gnu/qt6/QtCore/qshareddata_impl.h \
  /usr/include/x86_64-linux-gnu/qt6/QtCore/qset.h \
+ /usr/include/x86_64-linux-gnu/qt6/QtCore/qhash.h \
  /usr/include/x86_64-linux-gnu/qt6/QtCore/qvarlengtharray.h \
  /usr/include/x86_64-linux-gnu/qt6/QtGui/qpalette.h \
  /usr/include/x86_64-linux-gnu/qt6/QtGui/qbrush.h \
@@ -458,31 +436,9 @@ CMakeFiles/bohapp.dir/src/app/Views/Books/BooksScreen.cpp.o: \
  /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qsizepolicy.h \
  /usr/include/x86_64-linux-gnu/qt6/QtGui/qcursor.h \
  /usr/include/x86_64-linux-gnu/qt6/QtGui/qbitmap.h \
- /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QVBoxLayout \
- /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qboxlayout.h \
- /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qlayout.h \
- /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qlayoutitem.h \
- /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qboxlayout.h \
- /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qgridlayout.h \
- /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QWidget \
+ /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QComboBox \
+ /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qcombobox.h \
  /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qwidget.h \
- /home/rich/BoH-Catalogue-Assistant/qt/src/app/AppController.h \
- /home/rich/BoH-Catalogue-Assistant/qt/src/core/Repositories/PlaythroughRepository.h \
- /home/rich/BoH-Catalogue-Assistant/qt/src/app/Stores/JournalStore.h \
- /home/rich/BoH-Catalogue-Assistant/qt/src/app/Stores/MemoriesStore.h \
- /home/rich/BoH-Catalogue-Assistant/qt/src/core/MemoryQuery.h \
- /home/rich/BoH-Catalogue-Assistant/qt/src/app/Stores/ReadingHelperStore.h \
- /home/rich/BoH-Catalogue-Assistant/qt/src/app/Stores/SkillsStore.h \
- /home/rich/BoH-Catalogue-Assistant/qt/src/core/SkillQuery.h \
- /home/rich/BoH-Catalogue-Assistant/qt/src/app/Views/Books/RecordReadDialog.h \
- /home/rich/BoH-Catalogue-Assistant/qt/src/app/Views/Shared/Badges.h \
- /usr/include/x86_64-linux-gnu/qt6/QtGui/QPainter \
- /usr/include/x86_64-linux-gnu/qt6/QtGui/qpainter.h \
- /usr/include/x86_64-linux-gnu/qt6/QtGui/qtextoption.h \
- /usr/include/x86_64-linux-gnu/qt6/QtGui/qpen.h \
- /home/rich/BoH-Catalogue-Assistant/qt/src/app/Views/Shared/BookRowDelegate.h \
- /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QStyledItemDelegate \
- /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qstyleditemdelegate.h \
  /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qabstractitemdelegate.h \
  /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qstyleoption.h \
  /usr/include/x86_64-linux-gnu/qt6/QtCore/qlocale.h \
@@ -497,76 +453,21 @@ CMakeFiles/bohapp.dir/src/app/Views/Books/BooksScreen.cpp.o: \
  /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qrubberband.h \
  /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qframe.h \
  /usr/include/x86_64-linux-gnu/qt6/QtCore/qabstractitemmodel.h \
- /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QComboBox \
- /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qcombobox.h \
- /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QFormLayout \
- /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qformlayout.h \
- /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QLayout \
- /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qlayout.h \
  /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QHBoxLayout \
+ /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qboxlayout.h \
+ /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qlayout.h \
+ /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qlayoutitem.h \
+ /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qboxlayout.h \
+ /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qgridlayout.h \
  /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QLabel \
  /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qlabel.h \
  /usr/include/x86_64-linux-gnu/qt6/QtGui/qpicture.h \
  /usr/include/x86_64-linux-gnu/qt6/QtCore/qiodevice.h \
  /usr/include/x86_64-linux-gnu/qt6/QtGui/qtextdocument.h \
  /usr/include/x86_64-linux-gnu/qt6/QtCore/qurl.h \
- /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QLineEdit \
- /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qlineedit.h \
- /usr/include/x86_64-linux-gnu/qt6/QtGui/qtextcursor.h \
- /usr/include/x86_64-linux-gnu/qt6/QtGui/qtextformat.h \
- /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QListWidget \
- /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qlistwidget.h \
- /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qlistview.h \
- /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qabstractitemview.h \
- /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qabstractscrollarea.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qitemselectionmodel.h \
- /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QMenu \
- /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qmenu.h \
- /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QMessageBox \
- /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qmessagebox.h \
- /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qdialog.h \
- /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qdialogbuttonbox.h \
- /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QPlainTextEdit \
- /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qplaintextedit.h \
- /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qtextedit.h \
- /usr/include/x86_64-linux-gnu/qt6/QtGui/qabstracttextdocumentlayout.h \
- /usr/include/x86_64-linux-gnu/qt6/QtGui/qtextlayout.h \
- /usr/include/x86_64-linux-gnu/qt6/QtGui/qevent.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qcoreevent.h \
- /usr/include/x86_64-linux-gnu/qt6/QtGui/qeventpoint.h \
- /usr/include/x86_64-linux-gnu/qt6/QtGui/qvector2d.h \
- /usr/include/x86_64-linux-gnu/qt6/QtGui/qvectornd.h \
- /usr/include/x86_64-linux-gnu/qt6/QtGui/qpointingdevice.h \
- /usr/include/x86_64-linux-gnu/qt6/QtGui/qinputdevice.h \
- /usr/include/x86_64-linux-gnu/qt6/QtGui/qscreen.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/QList \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/QObject \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/QRect \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qrect.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/QSize \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qsize.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/QSizeF \
- /usr/include/x86_64-linux-gnu/qt6/QtGui/QTransform \
- /usr/include/x86_64-linux-gnu/qt6/QtGui/qtransform.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qnativeinterface.h \
- /usr/include/x86_64-linux-gnu/qt6/QtGui/qscreen_platform.h \
- /usr/include/x86_64-linux-gnu/qt6/QtGui/qguiapplication.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qcoreapplication.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qdeadlinetimer.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qelapsedtimer.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qeventloop.h \
- /usr/include/x86_64-linux-gnu/qt6/QtCore/qcoreapplication_platform.h \
- /usr/include/x86_64-linux-gnu/qt6/QtGui/qinputmethod.h \
- /usr/include/x86_64-linux-gnu/qt6/QtGui/qguiapplication_platform.h \
- /usr/include/x86_64-linux-gnu/qt6/QtGui/qglyphrun.h \
- /usr/include/x86_64-linux-gnu/qt6/QtGui/qrawfont.h \
- /usr/include/x86_64-linux-gnu/qt6/QtGui/qfontdatabase.h \
  /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QPushButton \
  /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qpushbutton.h \
  /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qabstractbutton.h \
  /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QSpinBox \
  /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qspinbox.h \
- /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QSplitter \
- /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qsplitter.h \
- /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QToolButton \
- /usr/include/x86_64-linux-gnu/qt6/QtWidgets/qtoolbutton.h
+ /usr/include/x86_64-linux-gnu/qt6/QtWidgets/QVBoxLayout

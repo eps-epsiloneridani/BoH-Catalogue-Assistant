@@ -290,9 +290,21 @@
 			null
 		],
 		[
+			"/home/rich/BoH-Catalogue-Assistant/qt/src/app/Views/Books/RecordReadDialog.h",
+			"Mu",
+			"NFBRDKPPNV/moc_RecordReadDialog.cpp",
+			null
+		],
+		[
 			"/home/rich/BoH-Catalogue-Assistant/qt/src/app/Views/MainWindow.h",
 			"Mu",
 			"KZ2CQRJLRB/moc_MainWindow.cpp",
+			null
+		],
+		[
+			"/home/rich/BoH-Catalogue-Assistant/qt/src/app/Views/Shared/AspectEditor.h",
+			"Mu",
+			"P2LIO7MJ6I/moc_AspectEditor.cpp",
 			null
 		],
 		[
@@ -418,7 +430,17 @@
 			null
 		],
 		[
+			"/home/rich/BoH-Catalogue-Assistant/qt/src/app/Views/Books/RecordReadDialog.cpp",
+			"Mu",
+			null
+		],
+		[
 			"/home/rich/BoH-Catalogue-Assistant/qt/src/app/Views/MainWindow.cpp",
+			"Mu",
+			null
+		],
+		[
+			"/home/rich/BoH-Catalogue-Assistant/qt/src/app/Views/Shared/AspectEditor.cpp",
 			"Mu",
 			null
 		],

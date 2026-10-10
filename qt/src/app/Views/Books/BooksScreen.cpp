@@ -1,5 +1,7 @@
 #include "BooksScreen.h"
 
+#include "AppController.h"
+#include "RecordReadDialog.h"
 #include "Shared/Badges.h"
 #include "Shared/BookRowDelegate.h"
 
@@ -151,9 +153,11 @@ BooksScreen::BooksScreen(BooksStore* store, const std::vector<Principle>& princi
         if (!m_store->lastError().isEmpty())
             showError();
     });
-    connect(m_detail, &BookDetailView::markReadRequested, this, [this](const Book&) {
-        QMessageBox::information(this, QStringLiteral("Record read"),
-                                 QStringLiteral("The record-read flow arrives with Task 12."));
+    connect(m_detail, &BookDetailView::markReadRequested, this, [this](const Book& book) {
+        RecordReadDialog dialog(book, m_store, m_controller, this);
+        dialog.exec();
+        if (!m_store->lastError().isEmpty())
+            showError();
     });
     connect(m_store, &BooksStore::changed, this, [this] {
         rebuildList();
@@ -163,6 +167,11 @@ BooksScreen::BooksScreen(BooksStore* store, const std::vector<Principle>& princi
     refreshFilterMenu();
     rebuildList();
     refreshDetail();
+}
+
+void BooksScreen::setController(AppController* controller)
+{
+    m_controller = controller;
 }
 
 void BooksScreen::setStore(BooksStore* store)

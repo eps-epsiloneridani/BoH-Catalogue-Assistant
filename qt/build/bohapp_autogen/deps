@@ -17,8 +17,12 @@ bohapp_autogen/timestamp: \
 	/home/rich/BoH-Catalogue-Assistant/qt/src/app/Stores/SkillsStore.h \
 	/home/rich/BoH-Catalogue-Assistant/qt/src/app/Views/Books/BooksScreen.cpp \
 	/home/rich/BoH-Catalogue-Assistant/qt/src/app/Views/Books/BooksScreen.h \
+	/home/rich/BoH-Catalogue-Assistant/qt/src/app/Views/Books/RecordReadDialog.cpp \
+	/home/rich/BoH-Catalogue-Assistant/qt/src/app/Views/Books/RecordReadDialog.h \
 	/home/rich/BoH-Catalogue-Assistant/qt/src/app/Views/MainWindow.cpp \
 	/home/rich/BoH-Catalogue-Assistant/qt/src/app/Views/MainWindow.h \
+	/home/rich/BoH-Catalogue-Assistant/qt/src/app/Views/Shared/AspectEditor.cpp \
+	/home/rich/BoH-Catalogue-Assistant/qt/src/app/Views/Shared/AspectEditor.h \
 	/home/rich/BoH-Catalogue-Assistant/qt/src/app/Views/Shared/Badges.cpp \
 	/home/rich/BoH-Catalogue-Assistant/qt/src/app/Views/Shared/Badges.h \
 	/home/rich/BoH-Catalogue-Assistant/qt/src/app/Views/Shared/BookRowDelegate.cpp \

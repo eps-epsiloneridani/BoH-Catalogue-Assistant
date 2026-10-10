@@ -74,6 +74,7 @@ void MainWindow::buildBody()
     // The Books screen (Task 11) replaces its placeholder.
     m_booksScreen = new BooksScreen(m_controller.booksStore(), m_controller.principles(),
                                     m_controller.languages(), central);
+    m_booksScreen->setController(&m_controller);
     connect(m_booksScreen, &BooksScreen::showMemoryRequested, this, [this](qint64 memoryID) {
         // The Memories screen lands in Task 13; remember the target then.
         statusBar()->showMessage(QStringLiteral("Opening memory #%1 (Memories screen arrives "
