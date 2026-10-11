@@ -44,7 +44,11 @@ Two goals, in priority order:
   finished image and fails the build if any Qt6 lib resolves outside the bundle.
   Verified by extracting the shipped image (leak reproduced), renaming, repacking
   with appimagetool and running it on the same machine (clean launch, db at the
-  XDG path).
+  XDG path). **Released as v0.2.2** (macOS zip + AppImage, both attached by CI);
+  the first CI run of the tag died on the self-check's own path bug (linuxdeploy
+  names the image `BoH_Librarian-*`, underscore — the check looked for the
+  space-spelled name), fixed and re-tagged; the shipped image was then re-verified
+  on this Qt 6.8 host: every Qt6 lib resolves inside the bundle and the app runs.
 - **2026-10-10 — Linux port COMPLETE (19/19 plan tasks + review fix); macOS app untouched.**
   The Qt port lives in `qt/` (C++20 + Qt 6 Widgets): Core ported 1:1 with the
   111-test suite carried over (13 Qt Test exes green), all five screens +
