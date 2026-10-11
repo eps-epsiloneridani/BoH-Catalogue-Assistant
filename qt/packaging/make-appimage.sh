@@ -91,7 +91,13 @@ chmod +x "$APPDIR/AppRun"
 mkdir -p dist
 mv "BoH Librarian-${ARCH}.AppImage" dist/ 2>/dev/null || \
   mv ./*.AppImage dist/ 2>/dev/null || true
-OUT="dist/BoH Librarian-${ARCH}.AppImage"
+# linuxdeploy names the image after the .desktop Name (underscores), so match
+# whatever it actually produced rather than guessing the spelling.
+OUT="$(ls dist/*-${ARCH}.AppImage 2>/dev/null | head -1)"
+if [ -z "$OUT" ]; then
+  echo "ERROR: linuxdeploy produced no AppImage in dist/" >&2
+  exit 1
+fi
 OUT="$(realpath "$OUT")"
 
 # Self-check for the failure class that shipped twice: a Qt lib resolving to
@@ -100,6 +106,11 @@ OUT="$(realpath "$OUT")"
 # the bundle's LD_LIBRARY_PATH; every Qt6 lib must come from inside the image.
 VERIFY="$(mktemp -d)"
 ( cd "$VERIFY" && "$OUT" --appimage-extract >/dev/null 2>&1 )
+if [ ! -f "$VERIFY/squashfs-root/usr/bin/boh-librarian" ]; then
+  echo "ERROR: self-check could not extract $OUT" >&2
+  rm -rf "$VERIFY"
+  exit 1
+fi
 LEAK="$(LD_LIBRARY_PATH="$VERIFY/squashfs-root/usr/lib" \
   ldd "$VERIFY/squashfs-root/usr/bin/boh-librarian" \
       "$VERIFY/squashfs-root/usr/plugins/platforms/libqxcb.so" 2>/dev/null \
