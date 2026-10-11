@@ -33,6 +33,18 @@ Two goals, in priority order:
 
 ## Status snapshot (update every session)
 
+- **2026-10-11 — AppImage launch bug fixed (third packaging fix).** The released
+  image died on the user's Debian 13 box with `qt.qpa.plugin: Could not load the
+  Qt platform plugin "xcb" in "" even though it was found`. Root cause: the
+  hand-copied companion lib landed in `usr/lib` as `libQt6XcbQpa.so.6.2.4` (the
+  `readlink -f` target); the loader matches `DT_NEEDED` against the FILE NAME,
+  so `libqxcb.so` skipped it and dlopened the HOST's Qt 6.8 XcbQpa against the
+  bundled Qt 6.2 core → symbol-version crash. Fix: copy it under its SONAME
+  (`libQt6XcbQpa.so.6`), and add a post-package self-check that extracts the
+  finished image and fails the build if any Qt6 lib resolves outside the bundle.
+  Verified by extracting the shipped image (leak reproduced), renaming, repacking
+  with appimagetool and running it on the same machine (clean launch, db at the
+  XDG path).
 - **2026-10-10 — Linux port COMPLETE (19/19 plan tasks + review fix); macOS app untouched.**
   The Qt port lives in `qt/` (C++20 + Qt 6 Widgets): Core ported 1:1 with the
   111-test suite carried over (13 Qt Test exes green), all five screens +
@@ -545,6 +557,18 @@ Two goals, in priority order:
   pending item closed; smoke launch verified (the user's open instance quit with
   it - relaunch from the fresh dist). Note: the review’s bundle name was wrong
   (BoHLibrarianCore_* vs the actual BoHLibrarian_*); corrected before applying.
+- 2026-10-11 (AppImage crash, user report): the tagged release image failed to
+  start on the user's Debian 13 desktop — "Could not load the Qt platform plugin
+  xcb ... even though it was found". Reproduced by extracting the downloaded
+  image and ldd-ing the xcb plugin: `libQt6XcbQpa.so.6` resolved to
+  `/lib/x86_64-linux-gnu/` (Qt 6.8) while the bundle ships Qt 6.2. Cause: the
+  packaging script copied the `readlink -f` target, so the file in `usr/lib` was
+  named `libQt6XcbQpa.so.6.2.4` — the loader matches DT_NEEDED by file name and
+  never saw it. Fixed in `qt/packaging/make-appimage.sh` (copy under the SONAME
+  name) and hardened with a post-build self-check that extracts the finished
+  AppImage and fails if any Qt6 lib resolves outside the bundle (the check
+  catches the shipped image). Verified end-to-end on this machine: repacked the
+  extracted AppDir with the renamed lib, it launches cleanly.
 - 2026-10-10 (Linux port EXECUTED, 19/19 tasks + review): plan executed inline
   (SDD ledger at .superpowers/sdd/2026-10-09-linux-qt-port/progress.md holds
   every ruling + the per-task test evidence). Core 1:1 (wrapper/migrator/models/

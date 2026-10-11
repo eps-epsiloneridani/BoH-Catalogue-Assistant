@@ -41,12 +41,16 @@ cp "$PLUGIN_DIR/platforms/libqxcb.so" "$APPDIR/usr/plugins/platforms/"
 # libqxcb's companion libQt6XcbQpa is NOT picked up by linuxdeploy's scan
 # (found by the real-install failure: the plugin then resolved the SYSTEM
 # XcbQpa — 6.8 — against our bundled 6.2 core → symbol-version crash).
-# Ship it explicitly; linuxdeploy bundles its deps (already-present Qt libs).
+# Ship it explicitly, UNDER ITS SONAME. Debian ships the real file as
+# libQt6XcbQpa.so.6.2.4 with a libQt6XcbQpa.so.6 symlink; the dynamic loader
+# matches DT_NEEDED against the FILE NAME, so a file named ...so.6.2.4 is
+# invisible to a plugin needing "libQt6XcbQpa.so.6" — cp'ing the readlink -f
+# target (the second bug) left the plugin reaching for the host's Qt again.
+# cp the symlink path, not its target: the copy lands as libQt6XcbQpa.so.6.
 XCBPA="$(dirname "$PLUGIN_DIR")/../libQt6XcbQpa.so.6"
-XCBPA="$(readlink -f "$XCBPA")"
 if [ -f "$XCBPA" ]; then
   mkdir -p "$APPDIR/usr/lib"
-  cp "$XCBPA" "$APPDIR/usr/lib/"
+  cp "$XCBPA" "$APPDIR/usr/lib/libQt6XcbQpa.so.6"
 else
   echo "warning: libQt6XcbQpa.so.6 not found next to $PLUGIN_DIR" >&2
 fi
@@ -87,4 +91,23 @@ chmod +x "$APPDIR/AppRun"
 mkdir -p dist
 mv "BoH Librarian-${ARCH}.AppImage" dist/ 2>/dev/null || \
   mv ./*.AppImage dist/ 2>/dev/null || true
-echo "AppImage at dist/"
+OUT="dist/BoH Librarian-${ARCH}.AppImage"
+OUT="$(realpath "$OUT")"
+
+# Self-check for the failure class that shipped twice: a Qt lib resolving to
+# the HOST instead of the bundle (host Qt 6.8 + bundled Qt 6.2 = plugin load
+# dies). Extract the finished image and ldd the binary and the xcb plugin with
+# the bundle's LD_LIBRARY_PATH; every Qt6 lib must come from inside the image.
+VERIFY="$(mktemp -d)"
+( cd "$VERIFY" && "$OUT" --appimage-extract >/dev/null 2>&1 )
+LEAK="$(LD_LIBRARY_PATH="$VERIFY/squashfs-root/usr/lib" \
+  ldd "$VERIFY/squashfs-root/usr/bin/boh-librarian" \
+      "$VERIFY/squashfs-root/usr/plugins/platforms/libqxcb.so" 2>/dev/null \
+  | grep 'Qt6' | grep -v "squashfs-root/usr/lib" || true)"
+rm -rf "$VERIFY"
+if [ -n "$LEAK" ]; then
+  echo "ERROR: the packaged AppImage resolves Qt libraries to the host:" >&2
+  echo "$LEAK" >&2
+  exit 1
+fi
+echo "AppImage at dist/ (Qt libs self-contained: verified)"
