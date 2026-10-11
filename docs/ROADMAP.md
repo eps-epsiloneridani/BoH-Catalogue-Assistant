@@ -242,12 +242,12 @@ immediate. ⌘⇧J jumps to the journal and focuses quick-add.
   packaging + CI release job. Outstanding: MANUAL_TEST §Linux hands-on + Task 19
   data migration. Plan:
   `docs/superpowers/plans/2026-10-09-linux-qt-port.md`.
-- **CI workflow hardening (blocked on token scope).** Two tweaks ready but not
-  pushed: make the release step re-runnable (`gh release upload --clobber` when
-  the tag's release already exists) and give `linux-release` a `needs: release`
-  so the AppImage can never race the release's creation. GitHub refuses any push
-  that touches `.github/workflows/` unless the gh token has the `workflow` scope
-  (`gh auth refresh -h github.com -s workflow`).
+- **CI workflow hardening.** ✅ (2026-10-11) The release step is re-runnable
+  (`gh release upload --clobber` when the tag's release already exists — a
+  re-tagged release no longer fails the job), and `linux-release` now has
+  `needs: release` so the AppImage upload can never race the release's creation.
+  Needed the gh token's `workflow` scope, which GitHub requires for any push that
+  touches `.github/workflows/`.
 - **File picker for save import.** The importer reads the standard save path only;
   choosing an arbitrary save file (e.g. from another machine or a Steam Cloud
   restore) needs an NSOpenPanel step in `ImportFromSaveSheet` (acknowledged and

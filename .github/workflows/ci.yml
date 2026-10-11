@@ -57,10 +57,12 @@ jobs:
           gh release create "$TAG" "BoH-Librarian-${TAG}.zip" \
             --title "BoH Librarian $TAG" \
             --generate-notes \
-            --notes "macOS 14+. Ad-hoc signed personal build: on first launch, right-click the app and choose Open (or clear quarantine with \`xattr -cr \"BoH Librarian.app\"\`)."
+            --notes "macOS 14+. Ad-hoc signed personal build: on first launch, right-click the app and choose Open (or clear quarantine with \`xattr -cr \"BoH Librarian.app\"\`)." || \
+            gh release upload "$TAG" "BoH-Librarian-${TAG}.zip" --clobber
 
   # Linux AppImage on tag pushes: build, test, package, attach to the release.
   linux-release:
+    needs: release   # the release must exist before artifacts are attached
     if: startsWith(github.ref, 'refs/tags/v')
     runs-on: ubuntu-22.04
     permissions:
