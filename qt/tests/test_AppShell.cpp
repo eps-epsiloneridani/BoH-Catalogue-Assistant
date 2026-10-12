@@ -5,11 +5,15 @@
 #include <QtTest/QtTest>
 
 #include "AppController.h"
+#include "Repositories/BookRepository.h"
+#include "Books/BooksScreen.h"
 #include "Views/MainWindow.h"
 
 #include <QLabel>
 
 #include <cstring>
+#include <QListWidget>
+#include <QSplitter>
 #include <QStackedWidget>
 
 using namespace boh;
@@ -36,6 +40,13 @@ private:
     const char* m_key;
     QString m_old;
 };
+BooksScreen* booksScreenOf(MainWindow& window)
+{
+    auto* stack = window.findChild<QStackedWidget*>();
+    if (!stack || stack->count() < 1)
+        return nullptr;
+    return qobject_cast<BooksScreen*>(stack->widget(0));
+}
 } // namespace
 
 class AppShellTests final : public QObject {
@@ -87,6 +98,68 @@ private slots:
             QVERIFY2(!qobject_cast<const QLabel*>(stack->widget(i)),
                      qPrintable(QStringLiteral("section %d is still a placeholder").arg(i)));
         }
+    }
+
+    void selectionDoesNotLeakDetailWidgets()
+    {
+        // R5: switching rows must not grow the detail pane's widget tree.
+        QTemporaryDir work;
+        QVERIFY(work.isValid());
+        const ScopedEnv env("BOH_DB_PATH", work.path() + QStringLiteral("/Boh.db"));
+        const ScopedEnv mig("BOH_MIGRATIONS",
+                            QCoreApplication::applicationDirPath()
+                                + QStringLiteral("/../../db/migrations"));
+
+        AppController controller;
+        controller.bootstrap();
+        // Seed two books — the list needs rows to select.
+        {
+            BookRepository books(*controller.db(), controller.activePlaythrough()->id);
+            BookDraft first;
+            first.title = QStringLiteral("One");
+            books.insert(first);
+            BookDraft second;
+            second.title = QStringLiteral("Two");
+            second.difficulty = 4;
+            second.readStatus = ReadStatus::Catalogued;
+            books.insert(second);
+        }
+        controller.reloadAll();
+
+        MainWindow window(controller);
+        window.show();
+
+        auto* books = booksScreenOf(window);
+        QVERIFY(books);
+        auto* list = books ? books->findChild<QListWidget*>() : nullptr;
+        QVERIFY(list);
+        QVERIFY(list->count() >= 2);
+
+        const auto settle = [&] {
+            for (int i = 0; i < 10; ++i)
+                QCoreApplication::processEvents();
+        };
+        list->setCurrentRow(0);
+        settle();
+                QWidget* bookDetail = nullptr;
+        for (QWidget* child = list ? list->parentWidget() : nullptr; child;
+             child = child->parentWidget()) {
+            if (auto* splitter = qobject_cast<QSplitter*>(child)) {
+                if (splitter->widget(1) && !qobject_cast<QListWidget*>(splitter->widget(1))) {
+                    bookDetail = splitter->widget(1);
+                    break;
+                }
+            }
+        }
+        QVERIFY(bookDetail);
+        const int afterFirst = bookDetail ? bookDetail->findChildren<QWidget*>().count() : 0;
+        list->setCurrentRow(1);
+        settle();
+        list->setCurrentRow(2 % list->count());
+        settle();
+        const int afterThird = bookDetail ? bookDetail->findChildren<QWidget*>().count() : 0;
+        QCOMPARE(afterThird, afterFirst); // no accumulation, no overlay
+
     }
 };
 

@@ -81,6 +81,7 @@ add_library(bohapp STATIC
   src/app/Views/Shared/AspectEditor.h src/app/Views/Shared/AspectEditor.cpp
   src/app/Views/Shared/Badges.h src/app/Views/Shared/Badges.cpp
   src/app/Views/Shared/ThemedText.h src/app/Views/Shared/ThemedText.cpp
+  src/app/Views/Shared/WidgetCleanup.h src/app/Views/Shared/WidgetCleanup.cpp
   src/app/Views/Shared/FormA11y.h src/app/Views/Shared/FormA11y.cpp
   src/app/Views/Shared/BookRowDelegate.h src/app/Views/Shared/BookRowDelegate.cpp
 )
@@ -142,9 +143,16 @@ add_test(NAME ThemedText COMMAND test_ThemedText)
 add_executable(test_AppShell tests/test_AppShell.cpp)
 target_link_libraries(test_AppShell PRIVATE bohapp bohcore Qt6::Core Qt6::Test)
 add_test(NAME AppShell COMMAND test_AppShell)
+
+add_executable(test_WidgetCleanup tests/test_WidgetCleanup.cpp)
+target_link_libraries(test_WidgetCleanup PRIVATE bohapp bohcore Qt6::Core Qt6::Test)
+add_test(NAME WidgetCleanup COMMAND test_WidgetCleanup)
+set_tests_properties(WidgetCleanup PROPERTIES ENVIRONMENT "QT_QPA_PLATFORM=offscreen")
 set_tests_properties(AppShell PROPERTIES ENVIRONMENT "QT_QPA_PLATFORM=offscreen")
+set_tests_properties(WidgetCleanup PROPERTIES ENVIRONMENT "QT_QPA_PLATFORM=offscreen")
 set_tests_properties(ThemedText PROPERTIES ENVIRONMENT "QT_QPA_PLATFORM=offscreen")
 set_tests_properties(AppShell PROPERTIES ENVIRONMENT "QT_QPA_PLATFORM=offscreen")
+set_tests_properties(WidgetCleanup PROPERTIES ENVIRONMENT "QT_QPA_PLATFORM=offscreen")
 
 add_executable(test_SaveImport tests/test_SaveImport.cpp)
 target_link_libraries(test_SaveImport PRIVATE bohcore Qt6::Core Qt6::Test)

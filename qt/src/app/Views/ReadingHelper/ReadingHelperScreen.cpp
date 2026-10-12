@@ -5,6 +5,7 @@
 #include "Books/RecordReadDialog.h"
 #include "Shared/Badges.h"
 #include "Shared/ThemedText.h"
+#include "Shared/WidgetCleanup.h"
 
 #include <QFontMetrics>
 #include <QHBoxLayout>
@@ -246,12 +247,7 @@ void ReadingHelperScreen::rebuildPicker()
 
 void ReadingHelperScreen::refreshPanel()
 {
-    QLayoutItem* child;
-    while ((child = m_panelLayout->takeAt(0)) != nullptr) {
-        if (auto* widget = child->widget())
-            widget->deleteLater();
-        delete child;
-    }
+    clearLayoutWidgets(m_panelLayout);
     const auto book = m_store->selectedBook();
     if (!book) {
         m_panelLayout->addWidget(new QLabel(QStringLiteral("Pick a book to plan its read."), this));

@@ -2,7 +2,9 @@
 
 #include <QComboBox>
 #include "Shared/FormA11y.h"
+#include "Shared/WidgetCleanup.h"
 #include "Shared/ThemedText.h"
+#include "Shared/WidgetCleanup.h"
 #include <QFormLayout>
 #include <QHBoxLayout>
 #include <QLabel>
@@ -141,12 +143,7 @@ void JournalScreen::submitQuickAdd()
 
 void JournalScreen::rebuildRows()
 {
-    QLayoutItem* child;
-    while ((child = m_rowsLayout->takeAt(0)) != nullptr) {
-        if (auto* widget = child->widget())
-            widget->deleteLater();
-        delete child;
-    }
+    clearLayoutWidgets(m_rowsLayout);
 
     for (const auto& row : m_store->rows()) {
         if (row.header) {

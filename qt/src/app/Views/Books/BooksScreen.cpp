@@ -4,7 +4,9 @@
 #include "RecordReadDialog.h"
 #include "Shared/Badges.h"
 #include "Shared/FormA11y.h"
+#include "Shared/WidgetCleanup.h"
 #include "Shared/ThemedText.h"
+#include "Shared/WidgetCleanup.h"
 #include "Shared/BookRowDelegate.h"
 
 #include <QComboBox>
@@ -324,12 +326,7 @@ BookDetailView::BookDetailView(BooksStore* store, QWidget* parent)
 
 void BookDetailView::clearBook()
 {
-    QLayoutItem* child;
-    while ((child = m_layout->takeAt(0)) != nullptr) {
-        if (auto* widget = child->widget())
-            widget->deleteLater();
-        delete child;
-    }
+    clearLayoutWidgets(m_layout);
     m_book.reset();
     auto* empty = new QLabel(QStringLiteral("Select a book from the list to see and edit "
                                              "everything recorded about it."),
@@ -344,12 +341,7 @@ void BookDetailView::showBook(const Book& book)
     const bool notesPristine = !m_notesDirty;
     m_book = book;
 
-    QLayoutItem* child;
-    while ((child = m_layout->takeAt(0)) != nullptr) {
-        if (auto* widget = child->widget())
-            widget->deleteLater();
-        delete child;
-    }
+    clearLayoutWidgets(m_layout);
 
     // Header + actions.
     auto* headerRow = new QHBoxLayout();

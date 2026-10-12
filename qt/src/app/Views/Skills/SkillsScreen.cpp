@@ -3,7 +3,9 @@
 #include "ColorMath.h"
 #include "Shared/Badges.h"
 #include "Shared/FormA11y.h"
+#include "Shared/WidgetCleanup.h"
 #include "Shared/ThemedText.h"
+#include "Shared/WidgetCleanup.h"
 
 #include <QCheckBox>
 #include <QComboBox>
@@ -214,12 +216,7 @@ void SkillsScreen::rebuildList()
 
 void SkillsScreen::refreshDetail()
 {
-    QLayoutItem* child;
-    while ((child = m_detailLayout->takeAt(0)) != nullptr) {
-        if (auto* widget = child->widget())
-            widget->deleteLater();
-        delete child;
-    }
+    clearLayoutWidgets(m_detailLayout);
     if (const auto skill = m_store->selectedSkill()) {
         auto* detail = new SkillDetailView(m_store, m_detailHost);
         connect(detail, &SkillDetailView::editRequested, this, [this](const Skill& skill) {
@@ -278,12 +275,7 @@ SkillDetailView::SkillDetailView(SkillsStore* store, QWidget* parent)
 
 void SkillDetailView::clearSkill()
 {
-    QLayoutItem* child;
-    while ((child = m_layout->takeAt(0)) != nullptr) {
-        if (auto* widget = child->widget())
-            widget->deleteLater();
-        delete child;
-    }
+    clearLayoutWidgets(m_layout);
     m_skill.reset();
     m_layout->addWidget(new QLabel(QStringLiteral("Select a skill."), this));
 }
@@ -294,12 +286,7 @@ void SkillDetailView::rebuild(const Skill& skill)
     const bool notesPristine = !m_notesDirty;
     m_skill = skill;
 
-    QLayoutItem* child;
-    while ((child = m_layout->takeAt(0)) != nullptr) {
-        if (auto* widget = child->widget())
-            widget->deleteLater();
-        delete child;
-    }
+    clearLayoutWidgets(m_layout);
 
     auto* headerRow = new QHBoxLayout();
     auto* title = new QLabel(skill.name, this);

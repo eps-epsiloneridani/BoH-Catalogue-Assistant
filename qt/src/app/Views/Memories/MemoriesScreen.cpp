@@ -3,9 +3,11 @@
 #include "AppController.h"
 #include "ColorMath.h"
 #include "Shared/ThemedText.h"
+#include "Shared/WidgetCleanup.h"
 #include "Shared/AspectEditor.h"
 #include "Shared/Badges.h"
 #include "Shared/ThemedText.h"
+#include "Shared/WidgetCleanup.h"
 #include "Shared/BookRowDelegate.h"
 
 #include <QCheckBox>
@@ -376,12 +378,7 @@ void MemoriesScreen::rebuildList()
 
 void MemoriesScreen::refreshDetail()
 {
-    QLayoutItem* child;
-    while ((child = m_detailLayout->takeAt(0)) != nullptr) {
-        if (auto* widget = child->widget())
-            widget->deleteLater();
-        delete child;
-    }
+    clearLayoutWidgets(m_detailLayout);
     if (const auto memory = m_store->selectedMemory()) {
         auto* detail = new MemoryDetailView(m_store, m_detailHost);
         connect(detail, &MemoryDetailView::editRequested, this, [this](const Memory& memory) {
@@ -454,12 +451,7 @@ MemoryDetailView::MemoryDetailView(MemoriesStore* store, QWidget* parent)
 
 void MemoryDetailView::clearMemory()
 {
-    QLayoutItem* child;
-    while ((child = m_layout->takeAt(0)) != nullptr) {
-        if (auto* widget = child->widget())
-            widget->deleteLater();
-        delete child;
-    }
+    clearLayoutWidgets(m_layout);
     m_memory.reset();
     m_layout->addWidget(new QLabel(QStringLiteral("Select a memory to see everything recorded "
                                                    "about it."),
@@ -472,12 +464,7 @@ void MemoryDetailView::rebuild(const Memory& memory)
     const bool notesPristine = !m_notesDirty;
     m_memory = memory;
 
-    QLayoutItem* child;
-    while ((child = m_layout->takeAt(0)) != nullptr) {
-        if (auto* widget = child->widget())
-            widget->deleteLater();
-        delete child;
-    }
+    clearLayoutWidgets(m_layout);
 
     auto* headerRow = new QHBoxLayout();
     auto* title = new QLabel(memory.name, this);
