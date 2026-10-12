@@ -4,6 +4,7 @@
 #include "RecordReadDialog.h"
 #include "Shared/Badges.h"
 #include "Shared/FormA11y.h"
+#include "Shared/ThemedText.h"
 #include "Shared/BookRowDelegate.h"
 
 #include <QComboBox>
@@ -394,7 +395,7 @@ void BookDetailView::showBook(const Book& book)
     m_layout->addLayout(form);
 
     auto* readingTitle = new QLabel(QStringLiteral("Reading"), this);
-    readingTitle->setStyleSheet(QStringLiteral("color: palette(mid); font-weight: bold;"));
+    readingTitle->setStyleSheet(QStringLiteral("color: %1; font-weight: bold;").arg(ThemedText::secondaryColorHex(this)));
     m_layout->addWidget(readingTitle);
     auto* readingForm = new QFormLayout();
     readingForm->setLabelAlignment(Qt::AlignRight);
@@ -428,7 +429,7 @@ void BookDetailView::showBook(const Book& book)
 
     // Yields (spoiler posture: the yield name is only revealed by mastery).
     auto* yieldsTitle = new QLabel(QStringLiteral("Yields"), this);
-    yieldsTitle->setStyleSheet(QStringLiteral("color: palette(mid); font-weight: bold;"));
+    yieldsTitle->setStyleSheet(QStringLiteral("color: %1; font-weight: bold;").arg(ThemedText::secondaryColorHex(this)));
     m_layout->addWidget(yieldsTitle);
     if (book.yieldedMemoryID) {
         if (book.readStatus == ReadStatus::Mastered) {
@@ -462,7 +463,7 @@ void BookDetailView::showBook(const Book& book)
 
     // Journal (live cache, newest first).
     auto* journalTitle = new QLabel(QStringLiteral("Journal"), this);
-    journalTitle->setStyleSheet(QStringLiteral("color: palette(mid); font-weight: bold;"));
+    journalTitle->setStyleSheet(QStringLiteral("color: %1; font-weight: bold;").arg(ThemedText::secondaryColorHex(this)));
     m_layout->addWidget(journalTitle);
     const auto entries = m_store->journalEntries(book.id);
     if (entries.empty()) {
@@ -477,7 +478,7 @@ void BookDetailView::showBook(const Book& book)
             if (entry.gameDay)
                 caption += QStringLiteral(" · %1").arg(*entry.gameDay);
             auto* captionLabel = new QLabel(caption, this);
-            captionLabel->setStyleSheet(QStringLiteral("color: palette(mid); font-size: 11px;"));
+            captionLabel->setStyleSheet(QStringLiteral("color: %1; font-size: 11px;").arg(ThemedText::secondaryColorHex(this)));
             m_layout->addWidget(captionLabel);
         }
     }
@@ -485,7 +486,7 @@ void BookDetailView::showBook(const Book& book)
     // Notes: pane-local editor + explicit Save/Revert, with guarded re-seed
     // (an Edit…-sheet save + a later "Save note" must not clobber fresh notes).
     auto* notesTitle = new QLabel(QStringLiteral("Notes"), this);
-    notesTitle->setStyleSheet(QStringLiteral("color: palette(mid); font-weight: bold;"));
+    notesTitle->setStyleSheet(QStringLiteral("color: %1; font-weight: bold;").arg(ThemedText::secondaryColorHex(this)));
     m_layout->addWidget(notesTitle);
     m_notesEditor = new QPlainTextEdit(this);
     m_notesEditor->setAccessibleName(QStringLiteral("Book notes"));

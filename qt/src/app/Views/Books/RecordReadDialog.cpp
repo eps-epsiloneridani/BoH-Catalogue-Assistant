@@ -3,6 +3,7 @@
 #include "AppController.h"
 #include "Shared/AspectEditor.h"
 #include "Shared/FormA11y.h"
+#include "Shared/ThemedText.h"
 
 #include <QCheckBox>
 #include <QComboBox>
@@ -102,7 +103,7 @@ RecordReadDialog::RecordReadDialog(const Book& book, BooksStore* store, AppContr
                        "always give the book's memory, regardless of mystery."),
         this);
     lessonsNote->setWordWrap(true);
-    lessonsNote->setStyleSheet(QStringLiteral("color: palette(mid); font-size: 11px;"));
+    lessonsNote->setStyleSheet(QStringLiteral("color: %1; font-size: 11px;").arg(ThemedText::secondaryColorHex(this)));
     layout->addWidget(lessonsNote);
 
     m_gameDay = new QLineEdit(this);

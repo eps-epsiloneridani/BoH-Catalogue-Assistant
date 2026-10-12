@@ -3,6 +3,7 @@
 #include "ColorMath.h"
 #include "Shared/Badges.h"
 #include "Shared/FormA11y.h"
+#include "Shared/ThemedText.h"
 
 #include <QCheckBox>
 #include <QComboBox>
@@ -380,7 +381,7 @@ void SkillDetailView::rebuild(const Skill& skill)
     // Tree of Wisdoms commitment: dirty-flag tracked via live widget edits —
     // Save/Revert are REACHABLE (the macOS remediation-1 fix ported structurally).
     auto* commitmentTitle = new QLabel(QStringLiteral("Tree of Wisdoms commitment"), this);
-    commitmentTitle->setStyleSheet(QStringLiteral("color: palette(mid); font-weight: bold;"));
+    commitmentTitle->setStyleSheet(QStringLiteral("color: %1; font-weight: bold;").arg(ThemedText::secondaryColorHex(this)));
     m_layout->addWidget(commitmentTitle);
     auto* wisdom = new QLineEdit(skill.wisdom.value_or(QString()), this);
     wisdom->setPlaceholderText(QStringLiteral("Wisdom (once committed to the Tree)"));
@@ -425,7 +426,7 @@ void SkillDetailView::rebuild(const Skill& skill)
 
     // Notes: explicit save flow, guarded re-seed.
     auto* notesTitle = new QLabel(QStringLiteral("Notes"), this);
-    notesTitle->setStyleSheet(QStringLiteral("color: palette(mid); font-weight: bold;"));
+    notesTitle->setStyleSheet(QStringLiteral("color: %1; font-weight: bold;").arg(ThemedText::secondaryColorHex(this)));
     m_layout->addWidget(notesTitle);
     m_notesEditor = new QPlainTextEdit(this);
     m_notesEditor->setAccessibleName(QStringLiteral("Skill notes"));

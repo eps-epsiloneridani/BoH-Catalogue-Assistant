@@ -4,6 +4,7 @@
 #include "ReadingMath.h"
 #include "Books/RecordReadDialog.h"
 #include "Shared/Badges.h"
+#include "Shared/ThemedText.h"
 
 #include <QFontMetrics>
 #include <QHBoxLayout>
@@ -315,7 +316,7 @@ void ReadingHelperScreen::refreshPanel()
 
     // The requirement + recorded reach.
     auto* requirementTitle = new QLabel(QStringLiteral("THE REQUIREMENT"), this);
-    requirementTitle->setStyleSheet(QStringLiteral("color: palette(mid); font-weight: bold;"));
+    requirementTitle->setStyleSheet(QStringLiteral("color: %1; font-weight: bold;").arg(ThemedText::secondaryColorHex(this)));
     m_panelLayout->addWidget(requirementTitle);
     m_panelLayout->addWidget(new QLabel(
         ReadingMath::requirementLine(
@@ -368,7 +369,7 @@ void ReadingHelperScreen::refreshPanel()
             ? QStringLiteral("CLOSEST RECORDED")
             : QStringLiteral("USE ONE OF THESE"),
         this);
-    candidatesTitle->setStyleSheet(QStringLiteral("color: palette(mid); font-weight: bold;"));
+    candidatesTitle->setStyleSheet(QStringLiteral("color: %1; font-weight: bold;").arg(ThemedText::secondaryColorHex(this)));
     m_panelLayout->addWidget(candidatesTitle);
     if (book->mysteryPrincipleID && book->difficulty) {
         if (candidates.satisfying.empty() && candidates.nearMisses.empty()) {
@@ -401,7 +402,7 @@ void ReadingHelperScreen::refreshPanel()
 
     // Skills that help.
     auto* skillsTitle = new QLabel(QStringLiteral("SKILLS THAT HELP"), this);
-    skillsTitle->setStyleSheet(QStringLiteral("color: palette(mid); font-weight: bold;"));
+    skillsTitle->setStyleSheet(QStringLiteral("color: %1; font-weight: bold;").arg(ThemedText::secondaryColorHex(this)));
     m_panelLayout->addWidget(skillsTitle);
     const auto contributions = m_store->skillContributions(*book);
     if (contributions.empty()) {

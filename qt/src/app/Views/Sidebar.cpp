@@ -2,6 +2,7 @@
 
 #include <QComboBox>
 #include <QLabel>
+#include "Shared/ThemedText.h"
 #include <QVBoxLayout>
 
 namespace boh {
@@ -22,7 +23,7 @@ Sidebar::Sidebar(QWidget* parent)
     layout->setSpacing(8);
 
     auto* libraryTitle = new QLabel(QStringLiteral("Library"), this);
-    libraryTitle->setStyleSheet(QStringLiteral("color: palette(mid); font-size: 11px;"));
+    libraryTitle->setStyleSheet(QStringLiteral("color: %1; font-size: 11px;").arg(ThemedText::secondaryColorHex(this)));
     layout->addWidget(libraryTitle);
 
     m_playthroughs = new QComboBox(this);

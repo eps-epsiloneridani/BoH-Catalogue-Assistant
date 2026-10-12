@@ -2,6 +2,7 @@
 
 #include <QComboBox>
 #include "Shared/FormA11y.h"
+#include "Shared/ThemedText.h"
 #include <QFormLayout>
 #include <QHBoxLayout>
 #include <QLabel>
@@ -150,7 +151,7 @@ void JournalScreen::rebuildRows()
     for (const auto& row : m_store->rows()) {
         if (row.header) {
             auto* header = new QLabel((*row.header).toUpper(), m_rowsHost);
-            header->setStyleSheet(QStringLiteral("color: palette(mid); font-weight: bold;"));
+            header->setStyleSheet(QStringLiteral("color: %1; font-weight: bold;").arg(ThemedText::secondaryColorHex(this)));
             m_rowsLayout->addWidget(header);
         }
         auto* card = new QWidget(m_rowsHost);
@@ -162,7 +163,7 @@ void JournalScreen::rebuildRows()
         cardLayout->addWidget(text);
         if (row.entry.gameDay) {
             auto* day = new QLabel(*row.entry.gameDay, card);
-            day->setStyleSheet(QStringLiteral("color: palette(mid); font-size: 11px;"));
+            day->setStyleSheet(QStringLiteral("color: %1; font-size: 11px;").arg(ThemedText::secondaryColorHex(this)));
             cardLayout->addWidget(day);
         }
 

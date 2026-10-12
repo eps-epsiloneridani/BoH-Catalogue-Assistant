@@ -4,6 +4,7 @@
 #include "ColorMath.h"
 #include "Shared/AspectEditor.h"
 #include "Shared/Badges.h"
+#include "Shared/ThemedText.h"
 #include "Shared/BookRowDelegate.h"
 
 #include <QCheckBox>
@@ -482,7 +483,7 @@ void MemoryDetailView::rebuild(const Memory& memory)
     // Aspects as read-only badges.
     if (!memory.aspects.empty()) {
         auto* aspectsTitle = new QLabel(QStringLiteral("Aspects"), this);
-        aspectsTitle->setStyleSheet(QStringLiteral("color: palette(mid); font-weight: bold;"));
+        aspectsTitle->setStyleSheet(QStringLiteral("color: %1; font-weight: bold;").arg(ThemedText::secondaryColorHex(this)));
         m_layout->addWidget(aspectsTitle);
         auto* badgeRow = new QHBoxLayout();
         const bool dark = Badges::isDarkMode(this);
@@ -513,7 +514,7 @@ void MemoryDetailView::rebuild(const Memory& memory)
 
     // Sources (display-only; editing lives in the Edit… form).
     auto* sourcesTitle = new QLabel(QStringLiteral("How to obtain"), this);
-    sourcesTitle->setStyleSheet(QStringLiteral("color: palette(mid); font-weight: bold;"));
+    sourcesTitle->setStyleSheet(QStringLiteral("color: %1; font-weight: bold;").arg(ThemedText::secondaryColorHex(this)));
     m_layout->addWidget(sourcesTitle);
     const auto sources = m_store->sources(memory.id);
     if (sources.empty()) {
@@ -530,7 +531,7 @@ void MemoryDetailView::rebuild(const Memory& memory)
 
     // Mastered-only yielding backlinks (live cache).
     auto* yieldsTitle = new QLabel(QStringLiteral("Books that yield this"), this);
-    yieldsTitle->setStyleSheet(QStringLiteral("color: palette(mid); font-weight: bold;"));
+    yieldsTitle->setStyleSheet(QStringLiteral("color: %1; font-weight: bold;").arg(ThemedText::secondaryColorHex(this)));
     m_layout->addWidget(yieldsTitle);
     const auto yielding = m_store->yielding(memory.id);
     if (yielding.empty()) {
@@ -556,7 +557,7 @@ void MemoryDetailView::rebuild(const Memory& memory)
 
     // Notes: explicit save flow, guarded re-seed.
     auto* notesTitle = new QLabel(QStringLiteral("Notes"), this);
-    notesTitle->setStyleSheet(QStringLiteral("color: palette(mid); font-weight: bold;"));
+    notesTitle->setStyleSheet(QStringLiteral("color: %1; font-weight: bold;").arg(ThemedText::secondaryColorHex(this)));
     m_layout->addWidget(notesTitle);
     m_notesEditor = new QPlainTextEdit(this);
     m_notesEditor->setAccessibleName(QStringLiteral("Memory notes"));
