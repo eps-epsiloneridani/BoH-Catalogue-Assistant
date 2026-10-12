@@ -18,6 +18,7 @@
 #include <QMenu>
 #include <QMessageBox>
 #include <QPlainTextEdit>
+#include <QScrollArea>
 #include <QPushButton>
 #include <QSpinBox>
 #include <QSplitter>
@@ -103,12 +104,17 @@ BooksScreen::BooksScreen(BooksStore* store, const std::vector<Principle>& princi
     m_list = new QListWidget(splitter);
     m_list->setItemDelegate(new BookRowDelegate(m_list));
     m_list->setUniformItemSizes(false);
+    m_list->setMinimumWidth(220);
     splitter->addWidget(m_list);
 
     m_detail = new BookDetailView(m_store, splitter);
-    splitter->addWidget(m_detail);
-    splitter->setStretchFactor(0, 1);
-    splitter->setStretchFactor(1, 2);
+    auto* detailScroll = new QScrollArea(splitter);
+    detailScroll->setWidgetResizable(true);
+    detailScroll->setWidget(m_detail);
+    splitter->addWidget(detailScroll);
+    splitter->setSizes({300, 700});
+    splitter->setStretchFactor(0, 0);
+    splitter->setStretchFactor(1, 1);
     contentLayout->addWidget(splitter, 1);
 
     // Empty state (the whole-book list empty branch).

@@ -81,6 +81,7 @@ add_library(bohapp STATIC
   src/app/Views/Shared/AspectEditor.h src/app/Views/Shared/AspectEditor.cpp
   src/app/Views/Shared/Badges.h src/app/Views/Shared/Badges.cpp
   src/app/Views/Shared/ThemedText.h src/app/Views/Shared/ThemedText.cpp
+  src/app/Views/Shared/RowListDelegate.h src/app/Views/Shared/RowListDelegate.cpp
   src/app/Views/Shared/WidgetCleanup.h src/app/Views/Shared/WidgetCleanup.cpp
   src/app/Views/Shared/FormA11y.h src/app/Views/Shared/FormA11y.cpp
   src/app/Views/Shared/BookRowDelegate.h src/app/Views/Shared/BookRowDelegate.cpp

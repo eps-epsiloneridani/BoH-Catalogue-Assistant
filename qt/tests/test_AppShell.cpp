@@ -7,6 +7,9 @@
 #include "AppController.h"
 #include "Repositories/BookRepository.h"
 #include "Books/BooksScreen.h"
+#include "Repositories/SkillRepository.h"
+#include "Shared/RowListDelegate.h"
+#include "Skills/SkillsScreen.h"
 #include "Views/MainWindow.h"
 
 #include <QLabel>
@@ -160,6 +163,55 @@ private slots:
         const int afterThird = bookDetail ? bookDetail->findChildren<QWidget*>().count() : 0;
         QCOMPARE(afterThird, afterFirst); // no accumulation, no overlay
 
+    }
+
+    void skillRowsCarryAspectBadges()
+    {
+        // R6 (user bug 7): the skills list must show the skill's associated
+        // aspects (primary/secondary principles) as badges on its rows.
+        QTemporaryDir work;
+        QVERIFY(work.isValid());
+        const ScopedEnv env("BOH_DB_PATH", work.path() + QStringLiteral("/Boh.db"));
+        const ScopedEnv mig("BOH_MIGRATIONS",
+                            QCoreApplication::applicationDirPath()
+                                + QStringLiteral("/../../db/migrations"));
+
+        AppController controller;
+        controller.bootstrap();
+        {
+            SkillRepository skills(*controller.db(), controller.activePlaythrough()->id);
+            SkillDraft draft;
+            draft.name = QStringLiteral("Sky Stories");
+            qint64 skyID = 0;
+            for (const Principle& p : controller.principles()) {
+                if (p.name == QStringLiteral("Sky"))
+                    skyID = p.id;
+            }
+            QVERIFY(skyID != 0);
+            draft.primaryPrincipleID = skyID;
+            draft.level = 3;
+            skills.insert(draft);
+        }
+        controller.reloadAll();
+
+        MainWindow window(controller);
+        window.show();
+        auto* stack = window.findChild<QStackedWidget*>();
+        QVERIFY(stack);
+        auto* skillsScreen = qobject_cast<SkillsScreen*>(stack->widget(2));
+        QVERIFY(skillsScreen);
+        auto* list = skillsScreen->findChild<QListWidget*>();
+        QVERIFY(list);
+        QCOMPARE(list->count(), 1);
+        const auto* row = list->item(0);
+        QVERIFY(row);
+        QVERIFY2(!row->data(RowListDelegate::kBadgesRole).toString().isEmpty(),
+                 "the skill row carries its aspect badge");
+        QVERIFY2(!row->data(RowListDelegate::kTintsRole).toString().isEmpty(),
+                 "the aspect badge carries its tint");
+        QVERIFY2(row->data(RowListDelegate::kBadgesRole).toString().contains(
+                     QStringLiteral("Sky")),
+                 "the badge is the skill's primary principle");
     }
 };
 

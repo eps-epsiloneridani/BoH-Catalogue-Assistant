@@ -19,6 +19,8 @@
 #include <QPlainTextEdit>
 #include <QPushButton>
 #include <QSpinBox>
+#include "Shared/RowListDelegate.h"
+#include <QScrollArea>
 #include <QSplitter>
 #include <QToolButton>
 #include <QVBoxLayout>
@@ -64,13 +66,21 @@ SkillsScreen::SkillsScreen(SkillsStore* store, const std::vector<Principle>& pri
 
     auto* splitter = new QSplitter(m_content);
     m_list = new QListWidget(splitter);
+    m_list->setItemDelegate(new RowListDelegate(m_list));
+    m_list->setMinimumWidth(220);
     splitter->addWidget(m_list);
     m_detailHost = new QWidget(splitter);
     m_detailLayout = new QVBoxLayout(m_detailHost);
     m_detailLayout->setContentsMargins(0, 0, 0, 0);
-    splitter->addWidget(m_detailHost);
-    splitter->setStretchFactor(0, 1);
-    splitter->setStretchFactor(1, 2);
+    // The wide detail form scrolls instead of forcing its minimum width onto
+    // the splitter (the encroachment bug): the pane resizes, content scrolls.
+    auto* detailScroll = new QScrollArea(splitter);
+    detailScroll->setWidgetResizable(true);
+    detailScroll->setWidget(m_detailHost);
+    splitter->addWidget(detailScroll);
+    splitter->setSizes({280, 640});
+    splitter->setStretchFactor(0, 0);
+    splitter->setStretchFactor(1, 1);
     contentLayout->addWidget(splitter, 1);
 
     m_emptyState = new QWidget(this);
@@ -195,18 +205,41 @@ void SkillsScreen::rebuildList()
     m_list->clear();
     for (const Skill& skill : m_store->displayed()) {
         auto* item = new QListWidgetItem(m_list);
-        QStringList parts;
-        parts << skill.name << (skill.isLanguage ? QStringLiteral("language") : QStringLiteral("skill"));
+        QString line = skill.name;
         if (skill.level)
-            parts << QStringLiteral("level %1").arg(*skill.level);
-        item->setText(parts.join(QStringLiteral(" · ")));
+            line += QStringLiteral(" — level %1").arg(*skill.level);
+        item->setText(line); // DisplayRole = the title; details go to the subtitle role
+        QStringList subtitleParts;
+        subtitleParts << (skill.isLanguage ? QStringLiteral("language")
+                                            : QStringLiteral("skill"));
+        if (skill.level)
+            subtitleParts << QStringLiteral("level %1").arg(*skill.level);
+        item->setData(RowListDelegate::kSubtitleRole,
+                      subtitleParts.join(QStringLiteral(" · ")));
+        // Associated aspects: primary + secondary principles as AA badges.
+        QStringList badges;
+        QStringList tintList;
+        for (const auto& id :
+             {skill.primaryPrincipleID, skill.secondaryPrincipleID}) {
+            const QString name = m_store->principleName(id);
+            if (name.isEmpty())
+                continue;
+            badges << name;
+            tintList << m_store->principleColor(id);
+        }
+        item->setData(RowListDelegate::kBadgesRole, badges.join(QLatin1Char('|')));
+        item->setData(RowListDelegate::kTintsRole, tintList.join(QLatin1Char('|')));
         item->setData(Qt::UserRole, skill.id);
         item->setData(Qt::AccessibleTextRole,
-                      QStringLiteral("%1, %2%3.")
-                          .arg(skill.name, skill.isLanguage ? QStringLiteral("language")
-                                                            : QStringLiteral("skill"),
+                      QStringLiteral("%1, %2%3%4.")
+                          .arg(skill.name,
+                               skill.isLanguage ? QStringLiteral("language")
+                                                 : QStringLiteral("skill"),
                                skill.level ? QStringLiteral(", level %1").arg(*skill.level)
-                                           : QString()));
+                                             : QString(),
+                               badges.isEmpty()
+                                   ? QString()
+                                   : QStringLiteral(", aspects %1").arg(badges.join(QStringLiteral(" + ")))));
         if (skill.id == previous)
             m_list->setCurrentItem(item);
     }

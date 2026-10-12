@@ -2,11 +2,15 @@
 
 #include "AppController.h"
 #include "ColorMath.h"
+#include "Shared/RowListDelegate.h"
 #include "Shared/ThemedText.h"
+#include "Shared/WidgetCleanup.h"
 #include "Shared/WidgetCleanup.h"
 #include "Shared/AspectEditor.h"
 #include "Shared/Badges.h"
+#include "Shared/RowListDelegate.h"
 #include "Shared/ThemedText.h"
+#include "Shared/WidgetCleanup.h"
 #include "Shared/WidgetCleanup.h"
 #include "Shared/BookRowDelegate.h"
 
@@ -24,6 +28,7 @@
 #include <algorithm>
 #include <vector>
 #include <QPlainTextEdit>
+#include <QScrollArea>
 #include <QPushButton>
 #include <QSplitter>
 #include <QToolButton>
@@ -51,85 +56,6 @@ QString encodeBadges(const Memory& memory)
     return badges.join(QLatin1Char('|'));
 }
 } // namespace
-
-// MARK: - MemoryRowDelegate (Shared)
-
-class MemoryRowDelegate final : public QStyledItemDelegate {
-public:
-    using QStyledItemDelegate::QStyledItemDelegate;
-
-    void paint(QPainter* painter, const QStyleOptionViewItem& option,
-               const QModelIndex& index) const override
-    {
-        painter->save();
-        if (option.state & QStyle::State_Selected) {
-            painter->fillRect(option.rect, option.palette.color(QPalette::Highlight));
-            painter->setPen(option.palette.color(QPalette::HighlightedText));
-        } else {
-            painter->setPen(option.palette.color(QPalette::WindowText));
-        }
-        const QRect row = option.rect.adjusted(8, 4, -8, -4);
-        const bool dark = Badges::isDarkMode(option.widget);
-
-        // Layout FIRST (badges reserve their width), then paint — titles never
-        // under the badges, rows never blank (BookRowDelegate's bug class).
-        const QStringList badges =
-            index.data(kBadgesRole).toString().split(QLatin1Char('|'), Qt::SkipEmptyParts);
-        const QStringList tints = index.data(kTintsRole).toString().split(QLatin1Char('|'));
-        int badgeX = row.right();
-        int badgesWidth = 0;
-        std::vector<QRect> badgeRects;
-        for (int i = badges.size() - 1; i >= 0; --i) {
-            const QSize size = Badges::badgeSize(badges[i], option.fontMetrics);
-            badgeX -= size.width() + 4;
-            if (badgeX < row.left())
-                break;
-            badgesWidth += size.width() + 4;
-            badgeRects.push_back(QRect(badgeX + 4, row.top() + (row.height() - size.height()) / 2,
-                                       size.width(), size.height()));
-        }
-        const int textWidth = row.width() - badgesWidth;
-        const QRect textArea(row.left(), row.top(), std::max(0, textWidth), row.height());
-
-        QFont titleFont = option.font;
-        titleFont.setBold(true);
-        painter->setFont(titleFont);
-        painter->drawText(QRect(textArea.left(), textArea.top() + 2, textArea.width(),
-                                option.fontMetrics.height()),
-                          Qt::AlignLeft | Qt::AlignTop,
-                          option.fontMetrics.elidedText(index.data(Qt::DisplayRole).toString(),
-                                                         Qt::ElideRight, textWidth));
-
-        const QString subtitle = index.data(kSubtitleRole).toString();
-        QFont subFont = option.font;
-        subFont.setPointSizeF(subFont.pointSizeF() * 0.9);
-        const QFontMetrics subMetrics(subFont);
-        painter->setFont(subFont);
-        painter->setPen(option.state & QStyle::State_Selected
-                            ? option.palette.color(QPalette::HighlightedText)
-                            : ThemedText::secondaryTextColor(option.palette));
-        painter->drawText(QRect(textArea.left(), textArea.top() + option.fontMetrics.height() + 6,
-                                textArea.width(), subMetrics.height()),
-                          Qt::AlignLeft | Qt::AlignTop,
-                          subMetrics.elidedText(subtitle, Qt::ElideRight, textWidth));
-
-        std::reverse(badgeRects.begin(), badgeRects.end()); // left-to-right painting order
-        for (int i = 0; i < badgeRects.size() && i < badges.size(); ++i) {
-            Badges::paint(painter, badgeRects[i], badges[i],
-                          i < tints.size() ? tints[i] : QString(), dark);
-        }
-        painter->restore();
-    }
-
-    QSize sizeHint(const QStyleOptionViewItem& option, const QModelIndex&) const override
-    {
-        return {240, option.fontMetrics.height() * 2 + 14};
-    }
-
-    static constexpr int kSubtitleRole = Qt::UserRole + 1;
-    static constexpr int kBadgesRole = Qt::UserRole + 2;
-    static constexpr int kTintsRole = Qt::UserRole + 3;
-};
 
 // MARK: - MemoriesScreen
 
@@ -178,15 +104,20 @@ MemoriesScreen::MemoriesScreen(MemoriesStore* store, const std::vector<Principle
 
     auto* splitter = new QSplitter(m_content);
     m_list = new QListWidget(splitter);
-    m_list->setItemDelegate(new MemoryRowDelegate(m_list));
+    m_list->setItemDelegate(new RowListDelegate(m_list));
+    m_list->setMinimumWidth(220);
     splitter->addWidget(m_list);
 
     m_detailHost = new QWidget(splitter);
     m_detailLayout = new QVBoxLayout(m_detailHost);
     m_detailLayout->setContentsMargins(0, 0, 0, 0);
-    splitter->addWidget(m_detailHost);
-    splitter->setStretchFactor(0, 1);
-    splitter->setStretchFactor(1, 2);
+    auto* detailScroll = new QScrollArea(splitter);
+    detailScroll->setWidgetResizable(true);
+    detailScroll->setWidget(m_detailHost);
+    splitter->addWidget(detailScroll);
+    splitter->setSizes({300, 700});
+    splitter->setStretchFactor(0, 0);
+    splitter->setStretchFactor(1, 1);
     contentLayout->addWidget(splitter, 1);
 
     m_emptyState = new QWidget(this);
@@ -355,7 +286,7 @@ void MemoriesScreen::rebuildList()
         subtitleParts << kindLabel(memory.kind);
         if (memory.persistent)
             subtitleParts << QStringLiteral("persistent");
-        item->setData(MemoryRowDelegate::kSubtitleRole,
+        item->setData(RowListDelegate::kSubtitleRole,
                       subtitleParts.join(QStringLiteral(" · ")));
         QStringList badges;
         QStringList tintList;
@@ -363,8 +294,8 @@ void MemoriesScreen::rebuildList()
             badges << QStringLiteral("%1 %2").arg(aspect.principleName).arg(aspect.level);
             tintList << tints.value(aspect.principleName);
         }
-        item->setData(MemoryRowDelegate::kBadgesRole, badges.join(QLatin1Char('|')));
-        item->setData(MemoryRowDelegate::kTintsRole, tintList.join(QLatin1Char('|')));
+        item->setData(RowListDelegate::kBadgesRole, badges.join(QLatin1Char('|')));
+        item->setData(RowListDelegate::kTintsRole, tintList.join(QLatin1Char('|')));
         item->setData(Qt::AccessibleTextRole,
                       QStringLiteral("%1, %2%3.")
                           .arg(memory.name, kindLabel(memory.kind),

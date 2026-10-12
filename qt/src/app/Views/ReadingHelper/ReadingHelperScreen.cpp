@@ -13,6 +13,7 @@
 #include <QLineEdit>
 #include <QListWidget>
 #include <QMenu>
+#include <QScrollArea>
 #include <QPushButton>
 #include <QSplitter>
 #include <QToolButton>
@@ -76,9 +77,13 @@ ReadingHelperScreen::ReadingHelperScreen(ReadingHelperStore* store, AppControlle
     m_panelHost = new QWidget(splitter);
     m_panelLayout = new QVBoxLayout(m_panelHost);
     m_panelLayout->setContentsMargins(0, 0, 0, 0);
-    splitter->addWidget(m_panelHost);
-    splitter->setStretchFactor(0, 1);
-    splitter->setStretchFactor(1, 2);
+    auto* panelScroll = new QScrollArea(splitter);
+    panelScroll->setWidgetResizable(true);
+    panelScroll->setWidget(m_panelHost);
+    splitter->addWidget(panelScroll);
+    splitter->setSizes({300, 700});
+    splitter->setStretchFactor(0, 0);
+    splitter->setStretchFactor(1, 1);
     contentLayout->addWidget(splitter, 1);
 
     m_emptyState = new QWidget(this);
