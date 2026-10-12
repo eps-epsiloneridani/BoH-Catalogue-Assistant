@@ -138,7 +138,13 @@ add_test(NAME PlaythroughRepository COMMAND test_PlaythroughRepository)
 add_executable(test_ThemedText tests/test_ThemedText.cpp)
 target_link_libraries(test_ThemedText PRIVATE bohapp bohcore Qt6::Core Qt6::Test)
 add_test(NAME ThemedText COMMAND test_ThemedText)
+
+add_executable(test_AppShell tests/test_AppShell.cpp)
+target_link_libraries(test_AppShell PRIVATE bohapp bohcore Qt6::Core Qt6::Test)
+add_test(NAME AppShell COMMAND test_AppShell)
+set_tests_properties(AppShell PROPERTIES ENVIRONMENT "QT_QPA_PLATFORM=offscreen")
 set_tests_properties(ThemedText PROPERTIES ENVIRONMENT "QT_QPA_PLATFORM=offscreen")
+set_tests_properties(AppShell PROPERTIES ENVIRONMENT "QT_QPA_PLATFORM=offscreen")
 
 add_executable(test_SaveImport tests/test_SaveImport.cpp)
 target_link_libraries(test_SaveImport PRIVATE bohcore Qt6::Core Qt6::Test)

@@ -7,6 +7,7 @@
 #include "Migrator.h"
 #include "Repositories/BookRepository.h"
 
+#include <QCoreApplication>
 #include <QFile>
 #include <QTemporaryDir>
 
@@ -55,7 +56,9 @@ private slots:
         const QString dbPath = work.path() + QStringLiteral("/Boh.db");
         const ScopedEnv env("BOH_DB_PATH", dbPath);
         // Migrations must resolve from the repo (cwd-independent test):
-        const ScopedEnv mig("BOH_MIGRATIONS", QStringLiteral("../../db/migrations"));
+        const ScopedEnv mig("BOH_MIGRATIONS",
+                            QCoreApplication::applicationDirPath()
+                                + QStringLiteral("/../../db/migrations"));
 
         AppController controller;
         controller.bootstrap();
@@ -80,7 +83,9 @@ private slots:
         QVERIFY(work.isValid());
         const QString dbPath = work.path() + QStringLiteral("/nested/deeper/Boh.db");
         const ScopedEnv env("BOH_DB_PATH", dbPath);
-        const ScopedEnv mig("BOH_MIGRATIONS", QStringLiteral("../../db/migrations"));
+        const ScopedEnv mig("BOH_MIGRATIONS",
+                            QCoreApplication::applicationDirPath()
+                                + QStringLiteral("/../../db/migrations"));
 
         AppController controller;
         controller.bootstrap();
@@ -100,7 +105,9 @@ private slots:
             db.executeScript(QStringLiteral("PRAGMA user_version = 99;"));
         }
         const ScopedEnv env("BOH_DB_PATH", dbPath);
-        const ScopedEnv mig("BOH_MIGRATIONS", QStringLiteral("../../db/migrations"));
+        const ScopedEnv mig("BOH_MIGRATIONS",
+                            QCoreApplication::applicationDirPath()
+                                + QStringLiteral("/../../db/migrations"));
 
         AppController controller;
         controller.bootstrap();
@@ -113,7 +120,9 @@ private slots:
         QTemporaryDir work;
         QVERIFY(work.isValid());
         const ScopedEnv env("BOH_DB_PATH", work.path() + QStringLiteral("/Boh.db"));
-        const ScopedEnv mig("BOH_MIGRATIONS", QStringLiteral("../../db/migrations"));
+        const ScopedEnv mig("BOH_MIGRATIONS",
+                            QCoreApplication::applicationDirPath()
+                                + QStringLiteral("/../../db/migrations"));
 
         AppController controller;
         controller.bootstrap();
