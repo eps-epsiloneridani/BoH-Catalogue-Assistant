@@ -2,6 +2,7 @@
 
 #include "AppController.h"
 #include "ColorMath.h"
+#include "Shared/ThemedText.h"
 #include "Shared/AspectEditor.h"
 #include "Shared/Badges.h"
 #include "Shared/ThemedText.h"
@@ -17,6 +18,9 @@
 #include <QMenu>
 #include <QMessageBox>
 #include <QPainter>
+
+#include <algorithm>
+#include <vector>
 #include <QPlainTextEdit>
 #include <QPushButton>
 #include <QSplitter>
@@ -65,37 +69,52 @@ public:
         const QRect row = option.rect.adjusted(8, 4, -8, -4);
         const bool dark = Badges::isDarkMode(option.widget);
 
+        // Layout FIRST (badges reserve their width), then paint — titles never
+        // under the badges, rows never blank (BookRowDelegate's bug class).
+        const QStringList badges =
+            index.data(kBadgesRole).toString().split(QLatin1Char('|'), Qt::SkipEmptyParts);
+        const QStringList tints = index.data(kTintsRole).toString().split(QLatin1Char('|'));
+        int badgeX = row.right();
+        int badgesWidth = 0;
+        std::vector<QRect> badgeRects;
+        for (int i = badges.size() - 1; i >= 0; --i) {
+            const QSize size = Badges::badgeSize(badges[i], option.fontMetrics);
+            badgeX -= size.width() + 4;
+            if (badgeX < row.left())
+                break;
+            badgesWidth += size.width() + 4;
+            badgeRects.push_back(QRect(badgeX + 4, row.top() + (row.height() - size.height()) / 2,
+                                       size.width(), size.height()));
+        }
+        const int textWidth = row.width() - badgesWidth;
+        const QRect textArea(row.left(), row.top(), std::max(0, textWidth), row.height());
+
         QFont titleFont = option.font;
         titleFont.setBold(true);
         painter->setFont(titleFont);
-        painter->drawText(row.adjusted(0, 2, 0, 0), Qt::AlignLeft | Qt::AlignTop,
+        painter->drawText(QRect(textArea.left(), textArea.top() + 2, textArea.width(),
+                                option.fontMetrics.height()),
+                          Qt::AlignLeft | Qt::AlignTop,
                           option.fontMetrics.elidedText(index.data(Qt::DisplayRole).toString(),
-                                                         Qt::ElideRight, row.width()));
+                                                         Qt::ElideRight, textWidth));
 
         const QString subtitle = index.data(kSubtitleRole).toString();
         QFont subFont = option.font;
         subFont.setPointSizeF(subFont.pointSizeF() * 0.9);
+        const QFontMetrics subMetrics(subFont);
         painter->setFont(subFont);
         painter->setPen(option.state & QStyle::State_Selected
                             ? option.palette.color(QPalette::HighlightedText)
-                            : option.palette.color(QPalette::Mid));
-        painter->drawText(row.adjusted(0, option.fontMetrics.height() + 6, 0, 0),
+                            : ThemedText::secondaryTextColor(option.palette));
+        painter->drawText(QRect(textArea.left(), textArea.top() + option.fontMetrics.height() + 6,
+                                textArea.width(), subMetrics.height()),
                           Qt::AlignLeft | Qt::AlignTop,
-                          option.fontMetrics.elidedText(subtitle, Qt::ElideRight, row.width()));
+                          subMetrics.elidedText(subtitle, Qt::ElideRight, textWidth));
 
-        // Aspect badges on the right, tint resolved by the view per badge name.
-        QStringList badges = index.data(kBadgesRole).toString().split(QLatin1Char('|'),
-                                                                      Qt::SkipEmptyParts);
-        const QStringList tints = index.data(kTintsRole).toString().split(QLatin1Char('|'));
-        int x = row.right();
-        for (int i = badges.size() - 1; i >= 0; --i) {
-            const QSize size = Badges::badgeSize(badges[i], option.fontMetrics);
-            x -= size.width() + 4;
-            if (x < row.left())
-                break;
-            Badges::paint(painter, QRect(x, row.top() + (row.height() - size.height()) / 2,
-                                         size.width(), size.height()),
-                          badges[i], i < tints.size() ? tints[i] : QString(), dark);
+        std::reverse(badgeRects.begin(), badgeRects.end()); // left-to-right painting order
+        for (int i = 0; i < badgeRects.size() && i < badges.size(); ++i) {
+            Badges::paint(painter, badgeRects[i], badges[i],
+                          i < tints.size() ? tints[i] : QString(), dark);
         }
         painter->restore();
     }

@@ -1,8 +1,11 @@
 #include "BookRowDelegate.h"
 
 #include "Badges.h"
+#include "ThemedText.h"
 
 #include <QPainter>
+
+#include <algorithm>
 
 namespace boh {
 
@@ -39,20 +42,29 @@ void BookRowDelegate::paint(QPainter* painter, const QStyleOptionViewItem& optio
                           size.width(), size.height());
     }
 
+    // Text area: the row minus the badge block, as an explicit rect — never a
+    // doubly-shifted adjusted() (that once produced right < left, and the list
+    // painted blank rows: user bug report 3).
     const int textWidth = row.width() - (badgeRect.isValid() ? badgeRect.width() + 8 : 0);
+    const QRect textArea(row.left(), row.top(), std::max(0, textWidth), row.height());
+
     painter->setFont(titleFont);
-    painter->drawText(row.adjusted(0, 2, -textWidth - row.width(), 0), Qt::AlignLeft | Qt::AlignTop,
+    painter->drawText(QRect(textArea.left(), textArea.top() + 2, textArea.width(),
+                            option.fontMetrics.height()),
+                      Qt::AlignLeft | Qt::AlignTop,
                       option.fontMetrics.elidedText(title, Qt::ElideRight, textWidth));
 
     QFont subFont = option.font;
     subFont.setPointSizeF(subFont.pointSizeF() * 0.9);
+    const QFontMetrics subMetrics(subFont);
     painter->setFont(subFont);
     painter->setPen(option.state & QStyle::State_Selected
                         ? option.palette.color(QPalette::HighlightedText)
-                        : option.palette.color(QPalette::Mid));
-    painter->drawText(row.adjusted(0, option.fontMetrics.height() + 6, -textWidth - row.width(), 0),
+                        : ThemedText::secondaryTextColor(option.palette));
+    painter->drawText(QRect(textArea.left(), textArea.top() + option.fontMetrics.height() + 6,
+                            textArea.width(), subMetrics.height()),
                       Qt::AlignLeft | Qt::AlignTop,
-                      option.fontMetrics.elidedText(subtitle, Qt::ElideRight, textWidth));
+                      subMetrics.elidedText(subtitle, Qt::ElideRight, textWidth));
 
     if (badgeRect.isValid())
         Badges::paint(painter, badgeRect, badgeText, badgeTint, Badges::isDarkMode(option.widget));

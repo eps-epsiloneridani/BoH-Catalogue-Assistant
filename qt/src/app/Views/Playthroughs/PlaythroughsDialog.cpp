@@ -259,12 +259,15 @@ ImportFromSaveDialog::ImportFromSaveDialog(AppController* controller, QWidget* p
     });
     buttons->addWidget(chooseFolder);
     buttons->addStretch(1);
-    auto* done = new QPushButton(QStringLiteral("Done"), this);
-    connect(done, &QPushButton::clicked, this, &QDialog::reject);
+    // Cancel beside Import: close without acting (R2 — the old "Done" rendered
+    // detached at top-left on some themes and obscured the list text).
+    auto* cancel = new QPushButton(QStringLiteral("Cancel"), this);
+    connect(cancel, &QPushButton::clicked, this, &QDialog::reject);
     m_importButton = new QPushButton(QStringLiteral("Import"), this);
     m_importButton->setEnabled(false);
     m_importButton->setDefault(true);
     connect(m_importButton, &QPushButton::clicked, this, [this] { runImport(); });
+    buttons->addWidget(cancel);
     buttons->addWidget(m_importButton);
     layout->addLayout(buttons);
 
