@@ -365,14 +365,30 @@ void ReadingHelperScreen::refreshPanel()
 
     if (book->languageID) {
         const auto known = m_store->isLanguageKnown(book->languageID);
-        m_panelLayout->addWidget(new QLabel(
-            QStringLiteral("Language: %1%2")
-                .arg(m_store->languageName(book->languageID),
-                     known.has_value()
-                         ? QStringLiteral(" — %1").arg(*known ? QStringLiteral("known")
-                                                              : QStringLiteral("NOT known"))
-                         : QString()),
-            this));
+        auto* languageRow = new QHBoxLayout();
+        languageRow->addWidget(new QLabel(QStringLiteral("Language"), this));
+        auto* languageLabel = new QLabel(
+            known.has_value()
+                ? QStringLiteral("%1 — %2")
+                      .arg(m_store->languageName(book->languageID).toHtmlEscaped(),
+                           *known ? QStringLiteral("known") : QStringLiteral("NOT known"))
+                : m_store->languageName(book->languageID).toHtmlEscaped(),
+            this);
+        // Mirror the macOS indicator: orange warning when the language skill is
+        // missing, with the tooltip explaining how it is learned in-game.
+        if (known.has_value() && !*known) {
+            languageLabel->setStyleSheet(
+                QStringLiteral("color: %1; font-weight: bold;")
+                    .arg(QStringLiteral("#e08000")));
+            languageLabel->setToolTip(
+                QStringLiteral("Not learned yet — a visitor can teach it, for an Iron Spintria"));
+            languageLabel->setAccessibleName(
+                QStringLiteral("Language not learned yet — a visitor can teach it, "
+                               "for an Iron Spintria"));
+        }
+        languageRow->addWidget(languageLabel);
+        languageRow->addStretch(1);
+        m_panelLayout->addLayout(languageRow);
     }
 
     // Memory candidates: earned-only, satisfying first, then near-misses.

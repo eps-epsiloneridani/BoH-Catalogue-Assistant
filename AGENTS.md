@@ -561,6 +561,10 @@ Two goals, in priority order:
   pending item closed; smoke launch verified (the user's open instance quit with
   it - relaunch from the fresh dist). Note: the review’s bundle name was wrong
   (BoHLibrarianCore_* vs the actual BoHLibrarian_*); corrected before applying.
+- 2026-10-11 (language-known indicator, Linux): the Qt Reading Helper's language row
+  showed only a plain gray "— known / NOT known" suffix; the macOS orange-warning
+  semantics are now matched — "NOT known" renders bold orange with the tooltip
+  "a visitor can teach it, for an Iron Spintria" (+ accessible name). Full build green.
 - 2026-10-11 (AppImage crash, user report): the tagged release image failed to
   start on the user's Debian 13 desktop — "Could not load the Qt platform plugin
   xcb ... even though it was found". Reproduced by extracting the downloaded
