@@ -46,11 +46,13 @@ MainWindow::MainWindow(AppController& controller, QWidget* parent)
     connect(&m_controller, &AppController::playthroughsChanged, this, [this] {
         refreshPlaythroughs();
         refreshFooter();
-    });
-    // Playthrough switches rebuild the stores — the Books screen must point at
-    // the NEW store instance.
-    connect(&m_controller, &AppController::playthroughsChanged, this, [this] {
+        // Playthrough switches rebuild the stores — every screen must point at
+        // the NEW store instances.
         m_booksScreen->setStore(m_controller.booksStore());
+        m_memoriesScreen->setStore(m_controller.memoriesStore());
+        m_skillsScreen->setStore(m_controller.skillsStore());
+        m_journalScreen->setStore(m_controller.journalStore());
+        m_helperScreen->setStore(m_controller.helperStore());
     });
     selectSection(0);
 }
@@ -76,13 +78,31 @@ void MainWindow::buildBody()
         placeholder->setAccessibleName(sectionTitle(i));
         m_sections->addWidget(placeholder);
     }
-    // The Books screen (Task 11) replaces its placeholder.
+    // Build every screen, then swap each in at its FIXED sidebar index, lowest
+    // index first — one deterministic pass. (The per-task incremental insertion
+    // missed Memories and Helper entirely: both sections stayed on placeholder
+    // text — user bug report 4.)
+    auto swapIn = [this](int index, QWidget* screen) {
+        QWidget* old = m_sections->widget(index);
+        m_sections->insertWidget(index, screen);
+        if (old) {
+            m_sections->removeWidget(old);
+            old->deleteLater();
+        }
+    };
+
     m_booksScreen = new BooksScreen(m_controller.booksStore(), m_controller.principles(),
-                                    m_controller.languages(), central);
+                                    m_controller.languages(), m_sections);
     m_booksScreen->setController(&m_controller);
-    // The Memories screen (Task 13) replaces its placeholder.
     m_memoriesScreen = new MemoriesScreen(m_controller.memoriesStore(), m_controller.principles(),
-                                          &m_controller, central);
+                                          &m_controller, m_sections);
+    m_skillsScreen = new SkillsScreen(m_controller.skillsStore(), m_controller.principles(),
+                                      m_sections);
+    m_journalScreen = new JournalScreen(m_controller.journalStore(), m_sections);
+    m_helperScreen = new ReadingHelperScreen(m_controller.helperStore(), &m_controller,
+                                             m_controller.principles(), m_sections);
+
+    // Cross-navigation: backlinks between sections.
     connect(m_booksScreen, &BooksScreen::showMemoryRequested, this, [this](qint64 memoryID) {
         selectSection(1);
         m_memoriesScreen->selectMemory(memoryID);
@@ -91,9 +111,6 @@ void MainWindow::buildBody()
         selectSection(0);
         m_booksScreen->selectBook(bookID);
     });
-    // The Reading Helper (Task 14) replaces its placeholder.
-    m_helperScreen = new ReadingHelperScreen(m_controller.helperStore(), &m_controller,
-                                             m_controller.principles(), central);
     connect(m_helperScreen, &ReadingHelperScreen::showMemoryRequested, this, [this](qint64 memoryID) {
         selectSection(1);
         m_memoriesScreen->selectMemory(memoryID);
@@ -102,9 +119,6 @@ void MainWindow::buildBody()
         selectSection(0);
         m_booksScreen->selectBook(bookID);
     });
-    // Skills (Task 15) + Journal (Task 15) replace their placeholders.
-    m_skillsScreen = new SkillsScreen(m_controller.skillsStore(), m_controller.principles(), central);
-    m_journalScreen = new JournalScreen(m_controller.journalStore(), central);
     connect(m_journalScreen, &JournalScreen::showBookRequested, this, [this](qint64 bookID) {
         selectSection(0);
         m_booksScreen->selectBook(bookID);
@@ -117,34 +131,12 @@ void MainWindow::buildBody()
         selectSection(2);
         m_skillsScreen->selectSkill(skillID);
     });
-    m_sections->insertWidget(2, m_skillsScreen);
-    if (QWidget* oldSkills = m_sections->widget(3)) {
-        m_sections->removeWidget(oldSkills);
-        oldSkills->deleteLater();
-    }
-    m_sections->insertWidget(3, m_journalScreen);
-    if (QWidget* oldJournal = m_sections->widget(4)) {
-        m_sections->removeWidget(oldJournal);
-        oldJournal->deleteLater();
-    }
-    connect(&m_controller, &AppController::playthroughsChanged, this, [this] {
-        m_memoriesScreen->setStore(m_controller.memoriesStore());
-        m_helperScreen->setStore(m_controller.helperStore());
-        m_skillsScreen->setStore(m_controller.skillsStore());
-        m_journalScreen->setStore(m_controller.journalStore());
-    });
-    connect(m_booksScreen, &BooksScreen::showMemoryRequested, this, [this](qint64 memoryID) {
-        // The Memories screen lands in Task 13; remember the target then.
-        statusBar()->showMessage(QStringLiteral("Opening memory #%1 (Memories screen arrives "
-                                                "with Task 13).")
-                                     .arg(memoryID),
-                                 4000);
-    });
-    m_sections->insertWidget(0, m_booksScreen);
-    if (QWidget* oldPlaceholder = m_sections->widget(1)) {
-        m_sections->removeWidget(oldPlaceholder);
-        oldPlaceholder->deleteLater();
-    }
+
+    swapIn(0, m_booksScreen);    // Task 11
+    swapIn(1, m_memoriesScreen); // Task 13
+    swapIn(2, m_skillsScreen);   // Task 15
+    swapIn(3, m_journalScreen);  // Task 15
+    swapIn(4, m_helperScreen);   // Task 14
     layout->addWidget(m_sections, 1);
     setCentralWidget(central);
 
