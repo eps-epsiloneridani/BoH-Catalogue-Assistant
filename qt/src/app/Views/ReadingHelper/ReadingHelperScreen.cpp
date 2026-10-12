@@ -13,6 +13,7 @@
 #include <QLineEdit>
 #include <QListWidget>
 #include <QMenu>
+#include "Shared/RowListDelegate.h"
 #include <QScrollArea>
 #include <QPushButton>
 #include <QSplitter>
@@ -73,6 +74,7 @@ ReadingHelperScreen::ReadingHelperScreen(ReadingHelperStore* store, AppControlle
     auto* splitter = new QSplitter(m_content);
     m_picker = new QListWidget(splitter);
     m_picker->setAccessibleName(QStringLiteral("Books to read"));
+    m_picker->setItemDelegate(new RowListDelegate(m_picker));
     splitter->addWidget(m_picker);
     m_panelHost = new QWidget(splitter);
     m_panelLayout = new QVBoxLayout(m_panelHost);
@@ -230,19 +232,29 @@ void ReadingHelperScreen::rebuildPicker()
     m_picker->clear();
     for (const Book& book : m_store->displayed()) {
         auto* item = new QListWidgetItem(m_picker);
-        QString line = book.title;
-        if (const auto difficulty = book.difficulty)
-            line += QStringLiteral(" — %1").arg(*difficulty);
-        item->setText(line);
+        item->setText(book.title);
         item->setData(Qt::UserRole, book.id);
         QStringList subtitleParts;
         subtitleParts << readStatusLabel(book.readStatus);
+        if (const auto difficulty = book.difficulty)
+            subtitleParts << QStringLiteral("difficulty %1").arg(*difficulty);
         if (const QString language = m_store->languageName(book.languageID); !language.isEmpty())
             subtitleParts << language;
+        item->setData(RowListDelegate::kSubtitleRole,
+                      subtitleParts.join(QStringLiteral(" · ")));
+        // The aspect badge: the book's mystery principle, AA-tinted.
+        if (book.mysteryPrincipleID) {
+            const QString name = m_store->principleName(book.mysteryPrincipleID);
+            if (!name.isEmpty()) {
+                item->setData(RowListDelegate::kBadgesRole, name);
+                item->setData(RowListDelegate::kTintsRole,
+                              m_store->principleColor(book.mysteryPrincipleID));
+            }
+        }
         // Composite-row a11y (D12).
         item->setData(Qt::AccessibleTextRole,
                       QStringLiteral("%1. %2.").arg(book.title,
-                                                    subtitleParts.join(QStringLiteral(" · "))));
+                                                    item->data(RowListDelegate::kSubtitleRole).toString()));
         if (book.id == previous)
             m_picker->setCurrentItem(item);
     }
